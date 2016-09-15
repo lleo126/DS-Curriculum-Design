@@ -83,11 +83,21 @@ Describe enemies or monsters in the world or whomever the player is trying to de
 
 ###Overview
 
-Provide some sort of an overview to your interface and same as all the previous sections, break down the components of the UI below.
+主体使用简约风格。
 
-###User Interface Detail #1
+###主界面
 
-###User Interface Detail #2
+###关卡选择界面
+
+###成绩界面
+
+###开发人员界面
+
+###游戏界面
+
+###游戏界面热键
+
+![热键](imgs/hotkeys.png)
 
 
 ##Items
