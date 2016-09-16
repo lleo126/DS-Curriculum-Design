@@ -86,7 +86,7 @@ Describe enemies or monsters in the world or whomever the player is trying to de
 主体使用简约风格。
 
 ###主界面
-![主界面](UI主菜单.fw.png)
+![主界面](raws/UI主菜单.fw.png)
 ###关卡选择界面
 
 ###成绩界面
