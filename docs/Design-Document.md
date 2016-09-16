@@ -1,5 +1,7 @@
 #《校园雪仗》游戏策划书
+
 在农大校园里打雪仗吧！
+
 
 ##Game Overview
 
@@ -52,9 +54,9 @@
 
 - 平衡二叉搜索树：障碍物组成（范围树）
 - 矩阵：雪量
-- 图（最短路径）：怪物寻路
-- 线性表：不规则的障碍物碰撞，顶点
-- 散列表：目测随手就加进去了
+- 图：界面跳转、怪物寻路（最短路径）
+- 线性表：不规则的障碍物碰撞体积的顶点
+- 散列表：单位状态、事件侦听器
 
 
 ##The World Layout
@@ -74,10 +76,29 @@
 
 学生。
 
+###Student
+
+学生有 8 种朝向，移动方向只能是这八种，转向是瞬间（后可改渐进）。学生有以下属性：
+
+- 血量
+- 雪量
+- 状态
+- 朝向
+- 移动速度
+- 坐标
+
 ###Enemies and Monsters
 
-Describe enemies or monsters in the world or whomever the player is trying to defeat. Naturally this depends heavily on your game idea but generally games are about trying to kill something.
+怪物有 8 种朝向，但是移动方向可以是任意，朝向用最适合的角度。怪物有以下属性：
 
+- 血量
+- 恢复力
+- 状态
+- 朝向
+- 移动速度
+- 坐标
+
+怪物的强度大体由血量、恢复力、移动速度和 AI 来决定。AI 可设多种，比如有的 AI 不会寻路，只会绕墙，有的 AI 会发呆，有的 AI 会躲，有的 AI 会跑。
 
 ##User Interface
 
@@ -87,17 +108,35 @@ Describe enemies or monsters in the world or whomever the player is trying to de
 
 ###主界面
 
+游戏名称显示框、挑战模式、对战模式、设置、退出游戏、开发人员、过场动画与开发人员信息显示框。
+
+![主界面](imgs/UI_Main.png)
+
 ###关卡选择界面
 
-###成绩界面
+单/双人选择框、关卡、返回按钮。
 
-###开发人员界面
+###设置界面
+
+音量调节滑块、自定义按键、返回按钮。
 
 ###游戏界面
+
+状态栏：血量、雪量、状态（眩晕/无法行动）
+
+分数、时间
+
+小地图（挑战模式）
+
+暂停面板：继续、返回（主界面）
 
 ###游戏界面热键
 
 ![热键](imgs/hotkeys.png)
+
+###成绩界面
+
+单人居中，双人分左右两框。分数、时间、继续（挑战下一关/继续对战）按钮、返回（主界面）按钮。
 
 
 ##Items
@@ -106,9 +145,9 @@ Describe enemies or monsters in the world or whomever the player is trying to de
 
 道具会随机自动出现在地图上，过一定时间后会消失。
 
-###Weapons Details #1
+###Items Details #1
 
-###Weapons Details #2
+###Items Details #2
 
 
 ##Musical Scores and Sound Effects
@@ -123,13 +162,18 @@ Describe enemies or monsters in the world or whomever the player is trying to de
 - 玩家移动：在雪上的脚步声。
 - 扔雪球：投掷声。
 - 雪球爆炸：松脆的声音。
+- 被雪球波及到：比海浪急促的声音。
+- 被雪球正中：沉重的声音。
+- 晕眩：小鸟叫的声音。
+- 障碍物被炸到：喀啦声。
+- 怪物被炸到：哎哟、好痛、疼疼。
 
 
-##Single-Player Game
+##Challenge Mode
 
 ###Overview
 
-在校园里用雪球打怪。
+在校园里用雪球打怪，可以单人也可以双人，地图扩大，镜头可移动。
 
 ###Single Player Game Detail #1
 
@@ -148,11 +192,11 @@ Describe your story idea here and then refer them to an appendix or separate doc
 怪物全打掉。
 
 
-##Multiplayer Game
+##Battle Mode
 
 ###Overview
 
-扔雪球使对手变为无法行动的状态。
+扔雪球使对手变为无法行动的状态，双人（后可改多人）。
 
 ###Max Players
 
@@ -194,6 +238,8 @@ Drop anything you are working on and don’t have a good home for here.
 
 ###Junk I am working on…
 
-Crazy idea #1
+#Crazy idea #1
 
-Crazy idea #2
+
+
+#Crazy idea #2
