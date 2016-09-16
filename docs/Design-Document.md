@@ -84,7 +84,8 @@ Describe enemies or monsters in the world or whomever the player is trying to de
 ###Overview
 
 主体使用简约风格。
-- 主界面包含:游戏名称、挑战模式、对战模式、设置、退出游戏、开发人员、过场动画与开发人员信息显示框。
+
+1. 主界面包含:游戏名称、挑战模式、对战模式、设置、退出游戏、开发人员、过场动画与开发人员信息显示框。
 ###主界面
 ![主界面](imgs/UI_Main.fw.png)
 ###关卡选择界面
