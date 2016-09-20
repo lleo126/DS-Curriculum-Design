@@ -8,8 +8,37 @@ package ui
 	 */
 	public class MainView extends View 
 	{
-		[Embed(source="../../assets/55181724_p0.jpg")]
-		public const CHALLENGE_IMG:Class;
+		
+		[Embed(source="../../assets/Button_Challenge_Up.png")]
+		public const BUTTON_Challenge_IMG:Class;
+		
+		[Embed(source="../../assets/Button_Battle_Up.png")]
+		public const BUTTON_Battle_IMG:Class;
+		
+		[Embed(source="../../assets/Button_Setting_Up.png")]
+		public const BUTTON_Setting_IMG:Class;
+		
+		[Embed(source="../../assets/Button_Exit_Up.png")]
+		public const BUTTON_Exit_IMG:Class;
+		
+		[Embed(source="../../assets/Button_About_Up.png")]
+		public const BUTTON_About_IMG:Class;
+		
+		[Embed(source="../../assets/Button_Challenge_Down.png")]
+		public const BUTTON_Challenge_Down_IMG:Class;
+		
+		[Embed(source="../../assets/Button_Battle_Down.png")]
+		public const BUTTON_Battle_Down_IMG:Class;
+		
+		[Embed(source="../../assets/Button_Setting_Down.png")]
+		public const BUTTON_Setting_Down_IMG:Class;
+		
+		[Embed(source="../../assets/Button_Exit_Down.png")]
+		public const BUTTON_Exit_Down_IMG:Class;
+		
+		[Embed(source="../../assets/Button_About_Down.png")]
+		public const BUTTON_About_Down_IMG:Class;
+		
 		
 		public function MainView() 
 		{
@@ -18,9 +47,33 @@ package ui
 		
 		override public function placeElements():void 
 		{
-            var button:CustomSimpleButton = new CustomSimpleButton();
-			button.downState = new CHALLENGE_IMG();
-            addChild(button);
+			var Button_Battle:CustomSimpleButton = new CustomSimpleButton(100, 180);
+			var Button_Challenge:CustomSimpleButton = new CustomSimpleButton(100, 260);
+			var Button_Setting:CustomSimpleButton = new CustomSimpleButton(100, 340);
+			var Button_Exit:CustomSimpleButton = new CustomSimpleButton(100, 420);
+			var Button_About:CustomSimpleButton = new CustomSimpleButton(700, 580);
+			//button.downState = new CHALLENGE_IMG();
+			Button_Challenge.upState = new BUTTON_Challenge_IMG();
+			Button_Battle.upState = new BUTTON_Battle_IMG();
+			Button_Setting.upState = new BUTTON_Setting_IMG();
+			Button_Exit.upState = new BUTTON_Exit_IMG();
+			Button_About.upState = new BUTTON_About_IMG();
+			
+			Button_Challenge.overState = new BUTTON_Challenge_Down_IMG();
+			Button_Battle.overState = new BUTTON_Battle_Down_IMG();
+			Button_Setting.overState = new BUTTON_Setting_Down_IMG();
+			Button_Exit.overState = new BUTTON_Exit_Down_IMG();
+			Button_About.overState = new BUTTON_About_Down_IMG();
+			
+			Button_About.width = 144;
+			Button_About.height = 36;
+
+            addChild(Button_Challenge);
+			addChild(Button_Battle);
+			addChild(Button_Setting);
+			addChild(Button_Exit);
+			addChild(Button_About);
+			
 			//var shape:Shape = new Shape();
 			//shape.graphics.beginFill(0xF28405);
 			//shape.graphics.drawCircle(20, 20, 30);
@@ -28,42 +81,4 @@ package ui
 			//addChild(shape);
 		}
 	}
-}
-
-import flash.display.DisplayObject;
-import flash.display.Shape;
-import flash.display.SimpleButton;
-
-class CustomSimpleButton extends SimpleButton {
-    private var upColor:uint   = 0xFFCC00;
-    private var overColor:uint = 0xCCFF00;
-    private var downColor:uint = 0x00CCFF;
-    private var size:uint      = 80;
-
-    public function CustomSimpleButton() {
-        downState      = new ButtonDisplayState(downColor, size);
-        overState      = new ButtonDisplayState(overColor, size);
-        upState        = new ButtonDisplayState(upColor, size);
-        hitTestState   = new ButtonDisplayState(upColor, size);
-        //hitTestState.x = -(size / 4);
-        //hitTestState.y = hitTestState.x;
-        useHandCursor  = true;
-    }
-}
-
-class ButtonDisplayState extends Shape {
-    private var bgColor:uint;
-    private var size:uint;
-
-    public function ButtonDisplayState(bgColor:uint, size:uint) {
-        this.bgColor = bgColor;
-        this.size    = size;
-        draw();
-    }
-
-    private function draw():void {
-        graphics.beginFill(bgColor);
-        graphics.drawRect(0, 0, size, size);
-        graphics.endFill();
-    }
 }
