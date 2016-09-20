@@ -39,6 +39,18 @@ package ui
 		[Embed(source="../../assets/Button_About_Down.png")]
 		public const BUTTON_About_Down_IMG:Class;
 		
+		static private const BATTLE_Y:int = 180;
+		static private const BATTLE_X:int = 100;		
+		static private const CHALLENGE_X:int = 100;
+		static private const CHALLENGE_Y:int = 260;
+		static private const SETTING_X:int = 100;
+		static private const SETTING_Y:int = 340;
+		static private const EXIT_X:int = 100;
+		static private const EXIT_Y:int = 420;
+		static private const ABOUT_X:int = 700;
+		static private const ABOUT_Y:int = 580;
+		static private const ABOUT_HEIGHT:int = 36;
+		static private const ABOUT_WIDTH:int = 144;
 		
 		public function MainView() 
 		{
@@ -47,32 +59,28 @@ package ui
 		
 		override public function placeElements():void 
 		{
-			var Button_Battle:CustomSimpleButton = new CustomSimpleButton(100, 180);
-			var Button_Challenge:CustomSimpleButton = new CustomSimpleButton(100, 260);
-			var Button_Setting:CustomSimpleButton = new CustomSimpleButton(100, 340);
-			var Button_Exit:CustomSimpleButton = new CustomSimpleButton(100, 420);
-			var Button_About:CustomSimpleButton = new CustomSimpleButton(700, 580);
-			//button.downState = new CHALLENGE_IMG();
-			Button_Challenge.upState = new BUTTON_Challenge_IMG();
-			Button_Battle.upState = new BUTTON_Battle_IMG();
-			Button_Setting.upState = new BUTTON_Setting_IMG();
-			Button_Exit.upState = new BUTTON_Exit_IMG();
-			Button_About.upState = new BUTTON_About_IMG();
+		
+			var buttonBattle:SimpleButton = new SimpleButton(new BUTTON_Battle_IMG());
+			buttonBattle.x = BATTLE_X; buttonBattle.y = BATTLE_Y
 			
-			Button_Challenge.overState = new BUTTON_Challenge_Down_IMG();
-			Button_Battle.overState = new BUTTON_Battle_Down_IMG();
-			Button_Setting.overState = new BUTTON_Setting_Down_IMG();
-			Button_Exit.overState = new BUTTON_Exit_Down_IMG();
-			Button_About.overState = new BUTTON_About_Down_IMG();
+			var buttonChallenge:SimpleButton = new SimpleButton(new BUTTON_Challenge_IMG());
+			buttonChallenge.x = CHALLENGE_X; buttonChallenge.y = CHALLENGE_Y;
 			
-			Button_About.width = 144;
-			Button_About.height = 36;
+			var buttonSetting:SimpleButton = new SimpleButton(new BUTTON_Setting_IMG());
+			buttonSetting.x = SETTING_X; buttonSetting.y = SETTING_Y;
+			
+			var buttonExit:SimpleButton = new SimpleButton(new BUTTON_Exit_IMG());
+			buttonExit.x = EXIT_X; buttonExit.y = EXIT_Y;
+			
+			var buttonAbout:SimpleButton = new SimpleButton(new BUTTON_About_IMG());
+			buttonAbout.x = ABOUT_X; buttonAbout.y = ABOUT_Y;
+			buttonAbout.width = ABOUT_WIDTH; buttonAbout.height = ABOUT_HEIGHT;
 
-            addChild(Button_Challenge);
-			addChild(Button_Battle);
-			addChild(Button_Setting);
-			addChild(Button_Exit);
-			addChild(Button_About);
+            addChild(buttonChallenge);
+			addChild(buttonBattle);
+			addChild(buttonSetting);
+			addChild(buttonExit);
+			addChild(buttonAbout);
 			
 			//var shape:Shape = new Shape();
 			//shape.graphics.beginFill(0xF28405);
