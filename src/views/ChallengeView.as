@@ -1,18 +1,18 @@
-package ui 
+package views 
 {
-	import flash.display.Shape;
+	import flash.events.Event;
 	/**
 	 * ...
 	 * @author 彩月葵☆彡
 	 */
-	public class PlayView extends View 
+	public class ChallengeView extends View 
 	{
-		public function PlayView() 
+		public function ChallengeView() 
 		{
-			super(ViewType.PLAY_VIEW);
+
 		}
 		
-		override public function placeElements():void 
+		override protected function placeElements():void 
 		{
 			//var shape:Shape = new Shape();
 			//shape.graphics.beginFill(0xF28405);
@@ -21,7 +21,7 @@ package ui
 			//addChild(shape);
 		}
 		
-		override public function restore():void 
+		override protected function inactivate(ev:Event):void 
 		{
 			
 		}

@@ -1,4 +1,4 @@
-package ui 
+package views 
 {
 	import flash.display.Shape;
 	/**
@@ -9,10 +9,10 @@ package ui
 	{
 		public function SettingView() 
 		{
-			super(ViewType.SETTING_VIEW);
+			
 		}
 		
-		override public function placeElements():void 
+		override protected function placeElements():void 
 		{
 			//var shape:Shape = new Shape();
 			//shape.graphics.beginFill(0x84E819);
