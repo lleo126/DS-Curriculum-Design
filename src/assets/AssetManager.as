@@ -34,6 +34,12 @@ package assets
 		[Embed(source="../../assets/Setting/Sound.png")]
 		public static const SOUND_IMG:Class;
 		
+		[Embed(source="../../assets/Setting/Slider_Bar.png")]
+		public static const SLIDER_BAR_IMG:Class;
+		
+		[Embed(source="../../assets/Setting/Slider_Tick.png")]
+		public static const SLIDER_TICK_IMG:Class;
+		
 		[Embed(source="../../assets/Setting/Music.png")]
 		public static const MUISC_IMG:Class;
 		
@@ -63,6 +69,12 @@ package assets
 		
 		[Embed(source="../../assets/Setting/BigBall.png")]
 		public static const BIGBALL_IMG:Class;
+		
+		[Embed(source="../../assets/Setting/Button_Back.png")]
+		public static const BUTTON_BACK_IMG:Class;
+		
+		[Embed(source="../../assets/Setting/Key_Want.png")]
+		public static const KEY_WANT_IMG:Class;
 		//==========================/
 	}
 }
