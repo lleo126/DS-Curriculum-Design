@@ -25,7 +25,8 @@ package assets
 		[Embed(source="../../assets/Main/Button_About_Up.png")]
 		public static const BUTTON_ABOUT_IMG:Class;
 		//==========================/
-		
+
+		public static const HERO_IMG:Class;
 		
 		/********设置界面图片*******/
 		[Embed(source="../../assets/Setting/Setting.png")]

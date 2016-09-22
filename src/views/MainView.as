@@ -2,13 +2,17 @@ package views
 {
 	import assets.AssetManager;
 	import flash.display.Bitmap;
+	import flash.display.Shape;
 	import flash.display.SimpleButton;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.events.TimerEvent;
 	import flash.utils.Dictionary;
+	import flash.utils.Timer;
+	import units.SpriteEx;
 	/**
-	 * ...
+	 * 主界面
 	 * @author 彩月葵☆彡
 	 */
 	public class MainView extends View 

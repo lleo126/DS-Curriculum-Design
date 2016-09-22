@@ -4,7 +4,7 @@ package views
 	import flash.events.Event;
 	
 	/**
-	 * ...
+	 * 基本视图的基类
 	 * @author 彩月葵☆彡
 	 */
 	public class View extends Sprite 
