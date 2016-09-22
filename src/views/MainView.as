@@ -1,27 +1,25 @@
 package views 
 {
 	import assets.AssetManager;
+	import controls.ConceptFrame;
 	import flash.display.Bitmap;
-	import flash.display.Shape;
 	import flash.display.SimpleButton;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import flash.events.TimerEvent;
+	import flash.system.fscommand;
 	import flash.utils.Dictionary;
-	import flash.utils.Timer;
-	import units.SpriteEx;
 	/**
-	 * 主界面
+	 * ...
 	 * @author 彩月葵☆彡
 	 */
 	public class MainView extends View 
 	{
 		static private const GROUP_X:Number			= 100;
-		static private const GROUP_Y:Number			= 180;
+		static private const GROUP_Y:Number			= 200;
 		static private const PADDING:Number			= 80;
-		static private const ABOUT_X:Number			= 700;
-		static private const ABOUT_Y:Number			= 580;
+		static private const ABOUT_X:Number			= 735;
+		static private const ABOUT_Y:Number			= 620;
 		static private const ABOUT_HEIGHT:Number	= 36;
 		static private const ABOUT_WIDTH:Number		= 144;
 		
@@ -32,6 +30,7 @@ package views
 		private var buttonSetting:SimpleButton;
 		private var buttonExit:SimpleButton;
 		private var buttonAbout:SimpleButton;
+		private var conceptFrame:ConceptFrame;
 		
 		public function MainView() 
 		{
@@ -58,6 +57,13 @@ package views
 			bmp = new AssetManager.BUTTON_ABOUT_IMG();
 			buttonAbout = new SimpleButton(bmp, bmp, bmp, bmp);
 			
+			conceptFrame = new ConceptFrame();
+			buttonAbout.addEventListener(MouseEvent.MOUSE_OVER, conceptFrame.displayAbout);
+			buttonAbout.addEventListener(MouseEvent.MOUSE_OUT, conceptFrame.outButton);
+			buttonBattle.addEventListener(MouseEvent.MOUSE_OVER, conceptFrame.displayBattle);
+			buttonBattle.addEventListener(MouseEvent.MOUSE_OUT, conceptFrame.outVideo);
+			buttonChallenge.addEventListener(MouseEvent.MOUSE_OVER, conceptFrame.displayChallenge);
+			buttonChallenge.addEventListener(MouseEvent.MOUSE_OUT, conceptFrame.outVideo);
 			super.init();
 		}
 		
@@ -71,7 +77,7 @@ package views
 			buttonSetting.y = buttonBattle.y + PADDING;
 			
 			buttonExit.y = buttonSetting.y + PADDING;
-
+			
 			addChild(buttonGroup);
             buttonGroup.addChild(buttonChallenge);
 			buttonGroup.addChild(buttonBattle);
@@ -80,10 +86,15 @@ package views
 			
 			//==========
 			
+			conceptFrame.x = 450; conceptFrame.y = 120;
+			addChild(conceptFrame);
+			conceptFrame.width = 480; conceptFrame.height = 590;
+			
 			buttonAbout.x = ABOUT_X; buttonAbout.y = ABOUT_Y;
 			buttonAbout.width = ABOUT_WIDTH; buttonAbout.height = ABOUT_HEIGHT;
-			
 			addChild(buttonAbout);
+			
+			
 		}
 		
 		private function onClick(e:MouseEvent):void 
@@ -99,8 +110,12 @@ package views
 				case buttonBattle:
 					Main.current.view = View.PLAY_VIEW;
 					break;
+				case buttonExit:
+					fscommand("quit");
+					break;
 				default:
 			}
 		}
+		
 	}
 }

@@ -3,7 +3,7 @@ package views
 	import flash.events.Event;
 	/**
 	 * 关卡选择界面
-	 * @author 彩月葵☆彡
+	 * @author 彩月葵☆
 	 */
 	public class ChallengeView extends View 
 	{
