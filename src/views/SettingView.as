@@ -1,6 +1,7 @@
 package views 
 {
 	import assets.AssetManager;
+	import controls.Slider;
 	import flash.display.Bitmap;
 	import flash.display.Loader;
 	import flash.display.Shape;
@@ -22,6 +23,10 @@ package views
 	{
 		static private const GROUP_SOUND_X:Number			= 100;
 		static private const GROUP_SOUND_Y:Number			= 200;
+		static private const SLIDER1_X:Number				= 240;
+		static private const SLIDER1_Y:Number				= 220;
+		static private const SLIDER2_X:Number				= 640;
+		static private const SLIDER2_Y:Number				= 220;
 		static private const SOUND_PADDING:Number			= 400;
 		static private const GROUP_KEYPRESS_X:Number		= 240;
 		static private const GROUP_KEYPRESS_Y:Number		= 360;
@@ -45,6 +50,7 @@ package views
 		static private const FORMAT_SIZE:Number				= 26;
 		static private const KEYWANT_X:Number				= 400;
 		static private const KEYWANT_Y:Number				= 600;
+		
 		
 		private static var setYet:Boolean					= false;
 		private static var keyInfo:String;
@@ -82,6 +88,8 @@ package views
 		private var lableTwoMiddleBall:TextField;
 		private var lableTwoBigBall:TextField;
 		private var tempLable:TextField;
+		private var slider1:Slider;
+		private var slider2:Slider;
 		
 		public function SettingView() 
 		{
@@ -108,8 +116,10 @@ package views
 			sound		= new AssetManager.SOUND_IMG();
 			music 		= new AssetManager.MUISC_IMG();
 			soundEffect = new AssetManager.SOUNDEFFECT_IMG();
-			sliderBar 	= new AssetManager.SLIDER_BAR_IMG();
-			sliderTick 	= new AssetManager.SLIDER_TICK_IMG();
+			slider1		= new Slider(Setting.current.soundValue);
+			slider1.addEventListener(Event.CHANGE, setSoundValue);
+			slider2		= new Slider(Setting.current.soundEffectValue);
+			slider2.addEventListener(Event.CHANGE, setSoundEffectValue);
 			
 			keyPress 	= new AssetManager.KEY_PRESS_IMG();
 			roleOne 	= new AssetManager.ROLE_ONE_IMG();
@@ -138,6 +148,16 @@ package views
 			
 			super.init();
 		}
+				
+		private function setSoundValue(e:Event):void 
+		{
+			Setting.current.soundValue = slider1.value;
+		}
+		
+		private function setSoundEffectValue(e:Event):void 
+		{
+			Setting.current.soundEffectValue = slider2.value;
+		}
 		
 		override protected function placeElements():void 
 		{
@@ -160,6 +180,12 @@ package views
             buttonGroupSound.addChild(music);
 			buttonGroupSound.addChild(soundEffect);
 			
+			slider1.x = SLIDER1_X;
+			slider1.y = SLIDER1_Y;
+			addChild(slider1);
+			slider2.x = SLIDER2_X;
+			slider2.y = SLIDER2_Y;
+			addChild(slider2);
 			//=========显示按键组图片
 			keyPress.x = KEYPRESS_X;
 			keyPress.y = KEYPRESS_Y;

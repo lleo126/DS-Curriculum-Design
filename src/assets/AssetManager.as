@@ -6,9 +6,6 @@ package assets
 	 */
 	public class AssetManager 
 	{
-		public static const SLIDER_BAR:Class;
-		public static const SLIDER_TICK:Class;
-		
 		/********主界面图片********/
 		[Embed(source="../../assets/Main/Button_Challenge_Up.png")]
 		public static const BUTTON_CHALLENGE_IMG:Class;

@@ -3,8 +3,11 @@ package controls
 	import assets.AssetManager;
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
+	
+	[Event(Event.CHANGE)]
 	
 	/**
 	 * ...
@@ -12,14 +15,21 @@ package controls
 	 */
 	public class Slider extends Sprite 
 	{
-		public function Slider(value:Number) 
+		public function Slider(value:Number = 100.0) 
 		{
 			this.value = value;
 			addEventListener(MouseEvent.MOUSE_DOWN, onMouseUpDown);
-			addEventListener(MouseEvent.MOUSE_UP, onMouseUp); // TODO: 给 stage 加
-			addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
+			addEventListener(Event.ADDED_TO_STAGE, init);
 			addChild(bar);
 			addChild(tick);
+		}
+		
+		private function init(e:Event):void 
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, init);
+			
+			stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUpDown); // TODO: 给 stage 加
+			stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 		}
 		
 		//==========
@@ -34,12 +44,12 @@ package controls
 		/**
 		 * 那个横杠
 		 */
-		private var bar:Bitmap = new AssetManager.SLIDER_BAR();
+		private var bar:Bitmap = new AssetManager.SLIDER_BAR_IMG();
 		
 		/**
 		 * 那个圆圈
 		 */
-		private var tick:Bitmap = new AssetManager.SLIDER_TICK();
+		private var tick:Bitmap = new AssetManager.SLIDER_TICK_IMG();
 		
 		//==========
 		// 属性
@@ -48,7 +58,7 @@ package controls
 		/**
 		 * 值，从 0 ~ 100
 		 */
-		public var _value:Number;
+		private var _value:Number;
 		public function get value():Number
 		{
 			return _value;
@@ -57,6 +67,7 @@ package controls
 		{
 			_value = val;
 			update();
+			dispatchEvent(new Event(Event.CHANGE));
 		}
 		
 		//==========
@@ -78,12 +89,15 @@ package controls
 			else if (e.type == MouseEvent.MOUSE_UP)	down = false;
 		}
 		
-		private function onMouseOver(e:MouseEvent):void 
+		private function onMouseMove(e:MouseEvent):void 
 		{
 			if (!down) return;
 			
-			// TODO: 判定滑到外面去
-			value = mouseX - localToGlobal(new Point(x, y)).x;
+			var newValue:Number = mouseX / width * 100;
+			if (newValue < 0.0) newValue = 0.0;
+			else if (100.0 < newValue) newValue = 100.0;
+			
+			value = newValue;
 		}
 	}
 }
