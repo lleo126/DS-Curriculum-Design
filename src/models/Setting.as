@@ -7,7 +7,7 @@ package models
 	 */
 	public class Setting 
 	{
-		public static var current:Setting = new Setting();
+		public static const current:Setting = new Setting();
 		
 		public function Setting() 
 		{
