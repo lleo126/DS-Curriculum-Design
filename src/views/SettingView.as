@@ -2,7 +2,7 @@ package views
 {
 	import flash.display.Shape;
 	/**
-	 * ...
+	 * 设置界面
 	 * @author 彩月葵☆彡
 	 */
 	public class SettingView extends View 

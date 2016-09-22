@@ -3,7 +3,7 @@ package views
 	import flash.display.Shape;
 	import flash.events.Event;
 	/**
-	 * ...
+	 * 成绩界面
 	 * @author 彩月葵☆彡
 	 */
 	public class ScoreView extends View 

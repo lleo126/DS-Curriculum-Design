@@ -2,8 +2,9 @@ package views
 {
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import models.Player;
 	/**
-	 * ...
+	 * 游戏界面
 	 * @author 彩月葵☆彡
 	 */
 	public class PlayView extends View 
@@ -12,6 +13,19 @@ package views
 		{
 			
 		}
+		
+		//==========
+		// 变量
+		//==========
+		
+		/**
+		 * 玩家，根据长度可以判断是单人还是双人
+		 */
+		public var players:Vector.<Player>;
+		
+		//==========
+		// 方法
+		//==========
 		
 		override protected function placeElements():void 
 		{

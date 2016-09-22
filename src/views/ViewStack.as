@@ -6,7 +6,7 @@ package views
 	import views.View;
 	
 	/**
-	 * ...
+	 * 堆叠视图，一个可以容纳并可以方便切换视图的容器
 	 * @author 彩月葵☆彡
 	 */
 	public class ViewStack extends Sprite

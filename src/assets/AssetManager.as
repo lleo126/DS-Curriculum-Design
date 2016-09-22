@@ -23,5 +23,7 @@ package assets
 		
 		[Embed(source="../../assets/Button_About_Up.png")]
 		public static const BUTTON_ABOUT_IMG:Class;
+		
+		public static const HERO_IMG:Class;
 	}
 }
