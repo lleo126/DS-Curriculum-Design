@@ -1,5 +1,6 @@
 package views
 {
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import views.View;
@@ -10,7 +11,7 @@ package views
 	 */
 	public class ViewStack extends Sprite
 	{
-		public function ViewStack(defaultView:View) 
+		public function ViewStack(defaultView:DisplayObject) 
 		{
 			this.defaultView = defaultView;
 			if (stage) init();
@@ -21,7 +22,10 @@ package views
 		// 变量
 		//==========
 		
-		protected var defaultView:View;
+		/**
+		 * 默认显示的视图
+		 */
+		protected var defaultView:DisplayObject;
 		
 		//==========
 		// 属性
@@ -32,14 +36,14 @@ package views
 		 * @see View
 		 * @example 切换视图至设置视图：view = View.SETTING_VIEW;
 		 */
-		public var _view:View;
+		public var _view:DisplayObject;
 		
-		public function get view():View
+		public function get view():DisplayObject
 		{
 			return _view;
 		}
 		
-		public function set view(value:View):void 
+		public function set view(value:DisplayObject):void 
 		{
 			removeChild(_view);
 			_view = value;

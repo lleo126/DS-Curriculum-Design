@@ -16,7 +16,7 @@ package controls
 		{
 			this.value = value;
 			addEventListener(MouseEvent.MOUSE_DOWN, onMouseUpDown);
-			addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
+			addEventListener(MouseEvent.MOUSE_UP, onMouseUp); // TODO: 给 stage 加
 			addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
 			addChild(bar);
 			addChild(tick);
@@ -26,14 +26,28 @@ package controls
 		// 变量
 		//==========
 		
+		/**
+		 * 表示鼠标处于按下的状态
+		 */
 		private var down:Boolean = false;
+		
+		/**
+		 * 那个横杠
+		 */
 		private var bar:Bitmap = new AssetManager.SLIDER_BAR();
+		
+		/**
+		 * 那个圆圈
+		 */
 		private var tick:Bitmap = new AssetManager.SLIDER_TICK();
 		
 		//==========
 		// 属性
 		//==========
 		
+		/**
+		 * 值，从 0 ~ 100
+		 */
 		public var _value:Number;
 		public function get value():Number
 		{
@@ -49,6 +63,9 @@ package controls
 		// 方法
 		//==========
 		
+		/**
+		 * 更新滑块的位置
+		 */
 		private function update():void 
 		{
 			tick.x = bar.width * value / 100.0 - tick.width * 0.5;
@@ -65,6 +82,7 @@ package controls
 		{
 			if (!down) return;
 			
+			// TODO: 判定滑到外面去
 			value = mouseX - localToGlobal(new Point(x, y)).x;
 		}
 	}
