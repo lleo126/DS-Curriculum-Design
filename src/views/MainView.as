@@ -93,6 +93,12 @@ package views
 				case buttonChallenge:
 					Main.current.view = View.CHALLENGE_VIEW;
 					break;
+				case buttonSetting:
+					Main.current.view = View.SETTING_VIEW;
+					break;
+				case buttonBattle:
+					Main.current.view = View.PLAY_VIEW;
+					break;
 				default:
 			}
 		}
