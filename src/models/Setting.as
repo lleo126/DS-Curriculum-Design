@@ -1,6 +1,7 @@
 package models 
 {
 	import flash.ui.Keyboard;
+	import flash.utils.Dictionary;
 	/**
 	 * 设置，单例
 	 * @author 彩月葵☆彡

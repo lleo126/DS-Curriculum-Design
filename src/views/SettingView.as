@@ -3,15 +3,12 @@ package views
 	import assets.AssetManager;
 	import controls.Slider;
 	import flash.display.Bitmap;
-	import flash.display.Loader;
-	import flash.display.Shape;
 	import flash.display.SimpleButton;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
-	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	import flash.ui.Keyboard;
 	import models.Setting;
@@ -21,24 +18,16 @@ package views
 	 */
 	public class SettingView extends View 
 	{
-		static private const GROUP_SOUND_X:Number			= 100;
+		static private const GROUP_SOUND_X:Number			= 120;
 		static private const GROUP_SOUND_Y:Number			= 200;
-		static private const SLIDER1_X:Number				= 240;
-		static private const SLIDER1_Y:Number				= 220;
-		static private const SLIDER2_X:Number				= 640;
-		static private const SLIDER2_Y:Number				= 220;
 		static private const SOUND_PADDING:Number			= 400;
 		static private const GROUP_KEYPRESS_X:Number		= 240;
 		static private const GROUP_KEYPRESS_Y:Number		= 360;
-		static private const KEYPRESS_PADDING:Number		= 150;
-		static private const GROUP_ROLE_X:Number			= 100;
+		static private const KEYPRESS_PADDING:Number		= 140;
+		static private const GROUP_ROLE_X:Number			= 120;
 		static private const GROUP_ROLE_Y:Number			= 440;
 		static private const ROLE_PADDING:Number			= 100;
 		static private const SETTING_X:Number				= 400;
-		static private const SOUND_X:Number					= 100;
-		static private const SOUND_Y:Number					= 160;
-		static private const KEYPRESS_X:Number				= 100;
-		static private const KEYPRESS_Y:Number				= 300;
 		static private const BUTTON_BACK_X:Number			= 60;
 		static private const BUTTON_BACK_Y:Number			= 660;
 		static private const GROUP_LABLE_ONE_X:Number		= 240;
@@ -51,9 +40,8 @@ package views
 		static private const KEYWANT_X:Number				= 400;
 		static private const KEYWANT_Y:Number				= 600;
 		
-		
-		private static var setYet:Boolean					= false;
-		private static var keyInfo:String;
+		private var setYet:Boolean = false;
+		private var keyInfo:String;
 		
 		private var buttonGroupSound:Sprite;
 		private var buttonGroupKeyPress:Sprite;
@@ -62,10 +50,10 @@ package views
 		private var buttonGroupLableTwo:Sprite;
 		
 		private var setting:Bitmap;
-		private var sound:Bitmap;
+		private var soundPanel:Bitmap;
 		private var music:Bitmap;
 		private var soundEffect:Bitmap;
-		private var keyPress:Bitmap;
+		private var hotKeyPanel:Bitmap;
 		private var roleOne:Bitmap;
 		private var roleTwo:Bitmap;
 		private var raise:Bitmap;
@@ -77,16 +65,16 @@ package views
 		
 		private var buttonBack:SimpleButton;
 		
-		private var lableOneRaise:TextField;
-		private var lableOneThrow:TextField;
-		private var lableOneSmallBall:TextField;
-		private var lableOneMiddleBall:TextField;
-		private var lableOneBigBall:TextField;
-		private var lableTwoRaise:TextField;
-		private var lableTwoThrow:TextField;
-		private var lableTwoSmallBall:TextField;
-		private var lableTwoMiddleBall:TextField;
-		private var lableTwoBigBall:TextField;
+		private var labelRaise1:TextField;
+		private var labelThrow1:TextField;
+		private var labelSmallBall1:TextField;
+		private var labelMiddleBall1:TextField;
+		private var labelBigBall1:TextField;
+		private var labelRaise2:TextField;
+		private var labelThrow2:TextField;
+		private var labelSmallBall2:TextField;
+		private var labelMiddleBall2:TextField;
+		private var labelBigBall2:TextField;
 		private var tempLable:TextField;
 		private var slider1:Slider;
 		private var slider2:Slider;
@@ -99,21 +87,19 @@ package views
 		override protected function init(ev:Event = null):void 
 		{
 			buttonGroupSound 	= new Sprite();
-			buttonGroupSound.addEventListener(MouseEvent.CLICK, soundOnClick);
-			
 			buttonGroupKeyPress = new Sprite();
 			buttonGroupRole 	= new Sprite();
 			
 			buttonGroupLableOne = new Sprite();
-			buttonGroupLableOne.addEventListener(MouseEvent.CLICK, lableOneOnClick);
-			buttonGroupLableOne.addEventListener(KeyboardEvent.KEY_DOWN, oneKeyDown);
+			buttonGroupLableOne.addEventListener(MouseEvent.CLICK, labelOnClick);
+			buttonGroupLableOne.addEventListener(KeyboardEvent.KEY_DOWN, function (ev:KeyboardEvent):void { keyDown(ev, 0); });
 			buttonGroupLableTwo = new Sprite();
-			buttonGroupLableTwo.addEventListener(MouseEvent.CLICK, lableTwoOnClick);
-			buttonGroupLableTwo.addEventListener(KeyboardEvent.KEY_DOWN, twoKeyDown);
-			
+			buttonGroupLableTwo.addEventListener(MouseEvent.CLICK, labelOnClick);
+			buttonGroupLableTwo.addEventListener(KeyboardEvent.KEY_DOWN, function (ev:KeyboardEvent):void { keyDown(ev, 1); });
+
 			setting 	= new AssetManager.SETTING_IMG();
 			
-			sound		= new AssetManager.SOUND_IMG();
+			soundPanel	= new AssetManager.SOUND_PANEL_IMG();
 			music 		= new AssetManager.MUISC_IMG();
 			soundEffect = new AssetManager.SOUNDEFFECT_IMG();
 			slider1		= new Slider(Setting.current.soundValue);
@@ -121,7 +107,7 @@ package views
 			slider2		= new Slider(Setting.current.soundEffectValue);
 			slider2.addEventListener(Event.CHANGE, setSoundEffectValue);
 			
-			keyPress 	= new AssetManager.KEY_PRESS_IMG();
+			hotKeyPanel	= new AssetManager.HOT_KEY_PANEL_IMG();
 			roleOne 	= new AssetManager.ROLE_ONE_IMG();
 			roleTwo 	= new AssetManager.ROLE_TWO_IMG();
 			raise 		= new AssetManager.RAISE_IMG();
@@ -135,16 +121,16 @@ package views
 			buttonBack 		= new SimpleButton(bmp, bmp, bmp, bmp);
 			buttonBack.addEventListener(MouseEvent.CLICK, buttonBackOnClick);
 			
-			lableOneRaise 		= new TextField();
-			lableOneThrow 		= new TextField();
-			lableOneSmallBall 	= new TextField();
-			lableOneMiddleBall 	= new TextField();
-			lableOneBigBall 	= new TextField();
-			lableTwoRaise 		= new TextField();
-			lableTwoThrow 		= new TextField();
-			lableTwoSmallBall	= new TextField();
-			lableTwoMiddleBall 	= new TextField();
-			lableTwoBigBall 	= new TextField();
+			labelRaise1 		= new TextField();
+			labelThrow1 		= new TextField();
+			labelSmallBall1 	= new TextField();
+			labelMiddleBall1 	= new TextField();
+			labelBigBall1		= new TextField();
+			labelRaise2 		= new TextField();
+			labelThrow2 		= new TextField();
+			labelSmallBall2		= new TextField();
+			labelMiddleBall2 	= new TextField();
+			labelBigBall2		= new TextField();
 			
 			super.init();
 		}
@@ -166,34 +152,32 @@ package views
 			addChild(setting);
 			
 			//=========显示声音组图片
-			sound.x = SOUND_X;
-			sound.y = SOUND_Y;
-			
-			addChild(sound);
-			
 			buttonGroupSound.x = GROUP_SOUND_X;
 			buttonGroupSound.y = GROUP_SOUND_Y;
 			
-			soundEffect.x = music.x + SOUND_PADDING; 
+			soundEffect.x	= music.x + SOUND_PADDING; 
+			
+			soundPanel.x = music.x - 20;
+			soundPanel.y = music.y - 50;
+			
+			slider1.x = music.x + 140;
+			slider1.y = music.y + 20;
+			
+			slider2.x = slider1.x + SOUND_PADDING;
+			slider2.y = slider1.y;
 			
 			addChild(buttonGroupSound);
+			buttonGroupSound.addChild(soundPanel);
             buttonGroupSound.addChild(music);
+			buttonGroupSound.addChild(slider1);
 			buttonGroupSound.addChild(soundEffect);
-			
-			slider1.x = SLIDER1_X;
-			slider1.y = SLIDER1_Y;
-			addChild(slider1);
-			slider2.x = SLIDER2_X;
-			slider2.y = SLIDER2_Y;
-			addChild(slider2);
+			buttonGroupSound.addChild(slider2);
 			//=========显示按键组图片
-			keyPress.x = KEYPRESS_X;
-			keyPress.y = KEYPRESS_Y;
-			
-			addChild(keyPress);
-			
 			buttonGroupKeyPress.x = GROUP_KEYPRESS_X;
 			buttonGroupKeyPress.y = GROUP_KEYPRESS_Y;
+			
+			hotKeyPanel.x= raise.x		- 140;
+			hotKeyPanel.y = raise.y		- 60;
 			
 			_throw.x     = raise.x      + KEYPRESS_PADDING;
 			smallBall.x  = _throw.x     + KEYPRESS_PADDING;
@@ -202,6 +186,7 @@ package views
 			
 			
 			addChild(buttonGroupKeyPress);
+			buttonGroupKeyPress.addChild(hotKeyPanel);
             buttonGroupKeyPress.addChild(raise);
 			buttonGroupKeyPress.addChild(_throw);
 			buttonGroupKeyPress.addChild(smallBall);
@@ -222,57 +207,57 @@ package views
 			var format:TextFormat = new TextFormat();
 			format.size 				= FORMAT_SIZE;
 			
-			lableOneRaise.defaultTextFormat		= format;
-			lableOneThrow.defaultTextFormat 	= format;
-			lableOneSmallBall.defaultTextFormat = format;
-			lableOneMiddleBall.defaultTextFormat= format;
-			lableOneBigBall.defaultTextFormat	= format;
-			lableOneRaise.text	 	= "J";			
-			lableOneThrow.text	 	= "K";
-			lableOneSmallBall.text	= "U";
-			lableOneMiddleBall.text	= "I";
-			lableOneBigBall.text 	= "O";
+			labelRaise1.defaultTextFormat		= format;
+			labelThrow1.defaultTextFormat 		= format;
+			labelSmallBall1.defaultTextFormat	= format;
+			labelMiddleBall1.defaultTextFormat	= format;
+			labelBigBall1.defaultTextFormat		= format;
+			labelRaise1.text	 	= "J";			
+			labelThrow1.text	 	= "K";
+			labelSmallBall1.text	= "U";
+			labelMiddleBall1.text	= "I";
+			labelBigBall1.text 		= "O";
 
 			buttonGroupLableOne.x = GROUP_LABLE_ONE_X;
 			buttonGroupLableOne.y = GROUP_LABLE_ONE_Y;
 			
-			lableOneThrow.x 	= lableOneRaise.x 		+ KEYPRESS_PADDING;
-			lableOneSmallBall.x = lableOneThrow.x		+ KEYPRESS_PADDING;
-			lableOneMiddleBall.x= lableOneSmallBall.x	+ KEYPRESS_PADDING;
-			lableOneBigBall.x 	= lableOneMiddleBall.x 	+ KEYPRESS_PADDING;
+			labelThrow1.x 		= labelRaise1.x 	+ KEYPRESS_PADDING;
+			labelSmallBall1.x 	= labelThrow1.x		+ KEYPRESS_PADDING;
+			labelMiddleBall1.x	= labelSmallBall1.x	+ KEYPRESS_PADDING;
+			labelBigBall1.x		= labelMiddleBall1.x+ KEYPRESS_PADDING;
 			
 			addChild(buttonGroupLableOne);
-			buttonGroupLableOne.addChild(lableOneRaise);
-			buttonGroupLableOne.addChild(lableOneThrow);
-			buttonGroupLableOne.addChild(lableOneSmallBall);
-			buttonGroupLableOne.addChild(lableOneMiddleBall);
-			buttonGroupLableOne.addChild(lableOneBigBall);
+			buttonGroupLableOne.addChild(labelRaise1);
+			buttonGroupLableOne.addChild(labelThrow1);
+			buttonGroupLableOne.addChild(labelSmallBall1);
+			buttonGroupLableOne.addChild(labelMiddleBall1);
+			buttonGroupLableOne.addChild(labelBigBall1);
 			
-			lableTwoRaise.defaultTextFormat 	= format;
-			lableTwoThrow.defaultTextFormat 	= format;
-			lableTwoSmallBall.defaultTextFormat = format;
-			lableTwoMiddleBall.defaultTextFormat= format;
-			lableTwoBigBall.defaultTextFormat 	= format;
-			lableTwoRaise.text	 	= "小键盘1";
-			lableTwoThrow.text	 	= "小键盘2";
-			lableTwoSmallBall.text	= "小键盘4";
-			lableTwoMiddleBall.text	= "小键盘5";
-			lableTwoBigBall.text 	= "小键盘6";
+			labelRaise2.defaultTextFormat		= format;
+			labelThrow2.defaultTextFormat		= format;
+			labelSmallBall2.defaultTextFormat	= format;
+			labelMiddleBall2.defaultTextFormat	= format;
+			labelBigBall2.defaultTextFormat 	= format;
+			labelRaise2.text	 	= "小键盘1";
+			labelThrow2.text	 	= "小键盘2";
+			labelSmallBall2.text	= "小键盘4";
+			labelMiddleBall2.text	= "小键盘5";
+			labelBigBall2.text 		= "小键盘6";
 
 			buttonGroupLableTwo.x = GROUP_LABLE_TWO_X;
 			buttonGroupLableTwo.y = GROUP_LABLE_TWO_Y;
 			
-			lableTwoThrow.x 	= lableTwoRaise.x 		+ KEYPRESS_PADDING;
-			lableTwoSmallBall.x = lableTwoThrow.x 		+ KEYPRESS_PADDING;
-			lableTwoMiddleBall.x= lableTwoSmallBall.x 	+ KEYPRESS_PADDING;
-			lableTwoBigBall.x 	= lableTwoMiddleBall.x 	+ KEYPRESS_PADDING;
+			labelThrow2.x 		= labelRaise2.x 		+ KEYPRESS_PADDING;
+			labelSmallBall2.x 	= labelThrow2.x 		+ KEYPRESS_PADDING;
+			labelMiddleBall2.x	= labelSmallBall2.x 	+ KEYPRESS_PADDING;
+			labelBigBall2.x 	= labelMiddleBall2.x	+ KEYPRESS_PADDING;
 			
 			addChild(buttonGroupLableTwo);
-			buttonGroupLableTwo.addChild(lableTwoRaise);
-			buttonGroupLableTwo.addChild(lableTwoThrow);
-			buttonGroupLableTwo.addChild(lableTwoSmallBall);
-			buttonGroupLableTwo.addChild(lableTwoMiddleBall);
-			buttonGroupLableTwo.addChild(lableTwoBigBall);
+			buttonGroupLableTwo.addChild(labelRaise2);
+			buttonGroupLableTwo.addChild(labelThrow2);
+			buttonGroupLableTwo.addChild(labelSmallBall2);
+			buttonGroupLableTwo.addChild(labelMiddleBall2);
+			buttonGroupLableTwo.addChild(labelBigBall2);
 			
 			//=========显示返回图片
 			buttonBack.x = BUTTON_BACK_X;
@@ -284,16 +269,12 @@ package views
 			keyWant.y = KEYWANT_Y;
 		}
 		
-		private function soundOnClick(e:MouseEvent):void 
-		{
-
-		}
 		/**
 		 * 监听设置界面，显示请按下所选键图片
 		 * 监听当前所选角色的快捷键
 		 * @param
 		 */
-		private function lableOneOnClick(e:MouseEvent):void 
+		private function labelOnClick(e:MouseEvent):void 
 		{
 			if (setYet == false)
 			{
@@ -301,130 +282,85 @@ package views
 				setYet = true;
 			}
 			switch(e.target)
-			{
-				case lableOneRaise:
+			{	//玩家1
+				case labelRaise1:
 					keyInfo = 'Lift';
-					tempLable = lableOneRaise;
+					tempLable = labelRaise1;
 					break;
-				case lableOneThrow:
+				case labelThrow1:
 					keyInfo = 'Throw';
-					tempLable = lableOneThrow;
+					tempLable = labelThrow1;
 					break;
-				case lableOneSmallBall:
-					keyInfo = 'SwitchSnowballSmall';
-					tempLable = lableOneSmallBall;
+				case labelSmallBall1:
+					keyInfo = 'SwitchSmall';
+					tempLable = labelSmallBall1;
 					break;
-				case lableOneMiddleBall:
-					keyInfo = 'SwitchSnowballMedium';
-					tempLable = lableOneMiddleBall;
+				case labelMiddleBall1:
+					keyInfo = 'SwitchMedium';
+					tempLable = labelMiddleBall1;
 					break;
-				case lableOneBigBall:
-					keyInfo = 'SwitchSnowballLarge';
-					tempLable = lableOneBigBall;
+				case labelBigBall1:
+					keyInfo = 'SwitchLarge';
+					tempLable = labelBigBall1;
+					break;
+				//玩家2	
+				case labelRaise2:
+					keyInfo = 'Lift';
+					tempLable = labelRaise2;
+					break;
+				case labelThrow2:
+					keyInfo = 'Throw';
+					tempLable = labelThrow2;
+					break;
+				case labelSmallBall2:
+					keyInfo = 'SwitchSmall';
+					tempLable = labelSmallBall2;
+					break;
+				case labelMiddleBall2:
+					keyInfo = 'SwitchMedium';
+					tempLable = labelMiddleBall2;
+					break;
+				case labelBigBall2:
+					keyInfo = 'SwitchLarge';
+					tempLable = labelBigBall2;
 					break;
 				default:
 			}
 		}
 		
-		private function lableTwoOnClick(e:MouseEvent):void 
-		{
-			if (setYet == false)
-			{
-				addChild(keyWant);
-				setYet = true;
-			}
-			
-			switch(e.target)
-			{
-				case lableTwoRaise:
-					keyInfo = 'Lift';
-					tempLable = lableTwoRaise;
-					break;
-				case lableTwoThrow:
-					keyInfo = 'Throw';
-					tempLable = lableTwoThrow;
-					break;
-				case lableTwoSmallBall:
-					keyInfo = 'SwitchSnowballSmall';
-					tempLable = lableTwoSmallBall;
-					break;
-				case lableTwoMiddleBall:
-					keyInfo = 'SwitchSnowballMedium';
-					tempLable = lableTwoMiddleBall;
-					break;
-				case lableTwoBigBall:
-					keyInfo = 'SwitchSnowballLarge';
-					tempLable = lableTwoBigBall;
-					break;
-				default:
-			}
-		}
 		/**
 		 * 监听键盘事件，确定所选的快捷键
 		 * @param
 		 */
-		private function oneKeyDown(e:KeyboardEvent):void
+		private function keyDown(e:KeyboardEvent, ID:int):void 
 		{
 			if (setYet == true)
 			{
 				removeChild(keyWant);
 				setYet = false;
 				
-				for ( var tmp:String in Setting.current.hotkeys[0])
-				{
-					if (tmp == keyInfo)
-						delete Setting.current.hotkeys[0][tmp];
-				}
-				
-				if ((Keyboard.NUMBER_0 <= e.keyCode && e.keyCode <= Keyboard.NUMBER_9)
-					|| (Keyboard.A <= e.keyCode && e.keyCode <= Keyboard.Z) 
-					|| (Keyboard.NUMPAD_0 <= e.keyCode && e.keyCode <= Keyboard.NUMPAD_9))
+				if (!(e.keyCode in Setting.current.hotkeys[0]) && !(e.keyCode in Setting.current.hotkeys[1])
+				&& ((Keyboard.NUMBER_0 <= e.keyCode && e.keyCode <= Keyboard.NUMBER_9)
+				|| (Keyboard.A <= e.keyCode && e.keyCode <= Keyboard.Z) 
+				|| (Keyboard.NUMPAD_0 <= e.keyCode && e.keyCode <= Keyboard.NUMPAD_9)))
 				{	
-					Setting.current.hotkeys[0][e.keyCode] = keyInfo;
-					
-					var ch:String = String.fromCharCode(e.keyCode);
-					if (Keyboard.NUMPAD_0 <= e.keyCode && e.keyCode <= Keyboard.NUMPAD_9)
-					{	
-						e.keyCode = e.keyCode - 48;
-						ch = String.fromCharCode(e.keyCode);
-						ch = '小键盘' + ch;
-					}
-					tempLable.text = ch;
-				}
-				else
-				{
-					// TODO: 播放警告音效
-				}
-			}
-		}
-		
-		private function twoKeyDown(e:KeyboardEvent):void
-		{
-			if (setYet == true)
-			{
-				removeChild(keyWant);
-				setYet = false;
-
-				for ( var tmp:String in Setting.current.hotkeys[1])
-				{
-					if (tmp == keyInfo)
-						delete Setting.current.hotkeys[1][tmp];
-				}
-				
-				if ((Keyboard.NUMBER_0 <= e.keyCode && e.keyCode <= Keyboard.NUMBER_9)
-					|| (Keyboard.A <= e.keyCode && e.keyCode <= Keyboard.Z) 
-					|| (Keyboard.NUMPAD_0 <= e.keyCode && e.keyCode <= Keyboard.NUMPAD_9))
-				{	
-					Setting.current.hotkeys[0][e.keyCode] = keyInfo;
-					
-					var ch:String = String.fromCharCode(e.keyCode);
-					if (Keyboard.NUMPAD_0 <= e.keyCode && e.keyCode <= Keyboard.NUMPAD_9)
-					{	
-						e.keyCode = e.keyCode - 48;
-						ch = String.fromCharCode(e.keyCode);
-						ch = '小键盘' + ch;
-					}
-					tempLable.text = ch;
+						for (var tmp:* in Setting.current.hotkeys[ID])
+						{
+							if (Setting.current.hotkeys[ID][tmp] == keyInfo)
+								delete Setting.current.hotkeys[ID][tmp];
+						}
+						
+						Setting.current.hotkeys[ID][e.keyCode] = keyInfo;
+						
+						var ch:String = String.fromCharCode(e.keyCode);
+						if (Keyboard.NUMPAD_0 <= e.keyCode && e.keyCode <= Keyboard.NUMPAD_9)
+						{	
+							e.keyCode = e.keyCode - 48;
+							ch = String.fromCharCode(e.keyCode);
+							ch = '小键盘' + ch;
+						}
+						
+						tempLable.text = ch;
 				}
 				else
 				{

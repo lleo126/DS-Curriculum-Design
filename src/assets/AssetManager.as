@@ -29,9 +29,6 @@ package assets
 		[Embed(source="../../assets/Setting/Setting.png")]
 		public static const SETTING_IMG:Class;
 		
-		[Embed(source="../../assets/Setting/Sound.png")]
-		public static const SOUND_IMG:Class;
-		
 		[Embed(source="../../assets/Setting/Slider_Bar.png")]
 		public static const SLIDER_BAR_IMG:Class;
 		
@@ -43,9 +40,6 @@ package assets
 		
 		[Embed(source="../../assets/Setting/SoundEffect.png")]
 		public static const SOUNDEFFECT_IMG:Class;
-		
-		[Embed(source="../../assets/Setting/Key_Press.png")]
-		public static const KEY_PRESS_IMG:Class;
 
 		[Embed(source="../../assets/Setting/Role_One.png")]
 		public static const ROLE_ONE_IMG:Class;
@@ -73,6 +67,12 @@ package assets
 		
 		[Embed(source="../../assets/Setting/Key_Want.png")]
 		public static const KEY_WANT_IMG:Class;
+		
+		[Embed(source = "../../assets/Setting/Hot_Key_Panel.png")]
+		public static const HOT_KEY_PANEL_IMG:Class;
+		
+		[Embed(source = "../../assets/Setting/Sound_Panel.png")]
+		public static const SOUND_PANEL_IMG:Class;
 		//==========================/
 	}
 }
