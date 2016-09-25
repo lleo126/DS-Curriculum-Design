@@ -21,6 +21,12 @@ package assets
 		
 		[Embed(source="../../assets/Main/Button_About_Up.png")]
 		public static const BUTTON_ABOUT_IMG:Class;
+		
+		[Embed(source = "../../assets/Main/Concept_Frame.png")]
+		public static const Concept_Frame_IMG:Class;
+		
+		[Embed(source = "../../assets/Main/Concept_Frame_About.png")]
+		public static const Concept_Frame_About_IMG:Class;
 		//==========================/
 
 		public static const HERO_IMG:Class;
