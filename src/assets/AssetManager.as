@@ -6,6 +6,11 @@ package assets
 	 */
 	public class AssetManager 
 	{
+		/********共有图片**********/
+		[Embed(source="../../assets/Setting/Button_Back.png")]
+		public static const BUTTON_BACK_IMG:Class;
+		//==========================/
+		
 		/********主界面图片********/
 		[Embed(source="../../assets/Main/Button_Challenge_Up.png")]
 		public static const BUTTON_CHALLENGE_IMG:Class;
@@ -68,9 +73,6 @@ package assets
 		[Embed(source="../../assets/Setting/BigBall.png")]
 		public static const BIGBALL_IMG:Class;
 		
-		[Embed(source="../../assets/Setting/Button_Back.png")]
-		public static const BUTTON_BACK_IMG:Class;
-		
 		[Embed(source="../../assets/Setting/Key_Want.png")]
 		public static const KEY_WANT_IMG:Class;
 		
@@ -79,6 +81,14 @@ package assets
 		
 		[Embed(source = "../../assets/Setting/Sound_Panel.png")]
 		public static const SOUND_PANEL_IMG:Class;
+		//==========================/
+	
+		/********份数界面图片*******/
+		[Embed(source = "../../assets/Score/Return_Game.png")]
+		public static const RETURN_GAME_IMG:Class;
+		
+		[Embed(source = "../../assets/Score/Blackboard.png")]
+		public static const BLACKBOARD_IMG:Class;
 		//==========================/
 	}
 }
