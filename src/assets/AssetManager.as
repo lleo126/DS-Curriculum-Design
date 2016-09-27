@@ -106,5 +106,9 @@ package assets
 		[Embed(source = "../../assets/play/Menu.png")]
 		public static const MENU_IMG:Class;
 		//==========================/
+		
+		//===========成绩界面=======/
+		[Embed(source = "../../assets/Score/Blackboard.png")]
+		public static const BLACKBOARD_IMG:Class;
 	}
 }

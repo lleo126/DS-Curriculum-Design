@@ -54,7 +54,7 @@ package controls
 		public var conceptImage:Bitmap;
 		
 		/**
-		 * 播放的视频，两种过场动画用同一个实例应该可以吧，不可以的话自己改下
+		 * 播放的视频,一个实例两用
 		 */
 		public var video:Video;
 		public var videoWrapper:Sprite;
@@ -104,7 +104,7 @@ package controls
 			view = conceptImage;
 			ns.seek(0);
 		}
-		function onMetaData(data:Object):void
+		private function onMetaData(data:Object):void
 		{
 		}
 	}

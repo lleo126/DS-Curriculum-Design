@@ -236,6 +236,7 @@ package views
 			}
 			else if (e.target == buttonBack)
 			{
+				pressESCYet = false;
 				ui.removeChild(_stop);
 				Main.current.view = View.MAIN_VIEW;
 			}
