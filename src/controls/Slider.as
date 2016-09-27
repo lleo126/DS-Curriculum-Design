@@ -3,23 +3,34 @@ package controls
 	import assets.AssetManager;
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
+	
+	[Event(Event.CHANGE)]
 	
 	/**
 	 * ...
 	 * @author 彩月葵☆彡
 	 */
-	public class Slider extends Sprite 
+	public class Slider extends Range 
 	{
-		public function Slider(value:Number) 
+		public function Slider(value:Number, maxValue:Number) 
 		{
-			this.value = value;
 			addEventListener(MouseEvent.MOUSE_DOWN, onMouseUpDown);
-			addEventListener(MouseEvent.MOUSE_UP, onMouseUp); // TODO: 给 stage 加
-			addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
-			addChild(bar);
+			addEventListener(Event.ADDED_TO_STAGE, init);
+			
+			bar = new AssetManager.SLIDER_BAR_IMG();
+			super(value, maxValue);
 			addChild(tick);
+		}
+		
+		private function init(e:Event):void 
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, init);
+			
+			stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUpDown);
+			stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 		}
 		
 		//==========
@@ -32,31 +43,18 @@ package controls
 		private var down:Boolean = false;
 		
 		/**
-		 * 那个横杠
-		 */
-		private var bar:Bitmap = new AssetManager.SLIDER_BAR();
-		
-		/**
 		 * 那个圆圈
 		 */
-		private var tick:Bitmap = new AssetManager.SLIDER_TICK();
+		private var tick:Bitmap = new AssetManager.SLIDER_TICK_IMG();
 		
 		//==========
 		// 属性
 		//==========
 		
-		/**
-		 * 值，从 0 ~ 100
-		 */
-		public var _value:Number;
-		public function get value():Number
+		override public function set value(val:Number):void 
 		{
-			return _value;
-		}
-		public function set value(val:Number):void 
-		{
-			_value = val;
-			update();
+			super.value = val;
+			dispatchEvent(new Event(Event.CHANGE));
 		}
 		
 		//==========
@@ -66,9 +64,9 @@ package controls
 		/**
 		 * 更新滑块的位置
 		 */
-		private function update():void 
+		override protected function update():void 
 		{
-			tick.x = bar.width * value / 100.0 - tick.width * 0.5;
+			tick.x = valueX - tick.width * 0.5;
 			tick.y = (bar.height - tick.height) * 0.5;
 		}
 		
@@ -78,12 +76,15 @@ package controls
 			else if (e.type == MouseEvent.MOUSE_UP)	down = false;
 		}
 		
-		private function onMouseOver(e:MouseEvent):void 
+		private function onMouseMove(e:MouseEvent):void 
 		{
 			if (!down) return;
 			
-			// TODO: 判定滑到外面去
-			value = mouseX - localToGlobal(new Point(x, y)).x;
+			var newValue:Number = mouseX / width * maxValue;
+			if (newValue < 0.0) newValue = 0.0;
+			else if (maxValue < newValue) newValue = maxValue;
+			
+			value = newValue;
 		}
 	}
 }
