@@ -61,7 +61,7 @@ package views
 		
 		public function PlayView() 
 		{
-			_world = new World();
+			
 		}
 		
 		//==========
@@ -82,7 +82,7 @@ package views
 		// 属性
 		//==========
 		
-		private var _world:World;
+		private var _world:World = new World();
 		public function get world():World 
 		{
 			return _world;
@@ -208,6 +208,10 @@ package views
 			groupScore.addChild(role1_score);
 			groupScore.addChild(colon);
 			groupScore.addChild(role2_score);
+			
+			//=============================
+			
+			addChild(_world);
 		}
 		
 		private function keyDown(e:KeyboardEvent):void
@@ -226,12 +230,6 @@ package views
 				ui.removeChild(_stop);
 			}
 		}
-		
-		//{
-			//super.init();
-//
-			//trace( "PlayView.init > ev : " + ev );
-		//}
 
 		private function onClick(e:MouseEvent):void 
 		{
