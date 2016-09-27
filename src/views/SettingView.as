@@ -102,9 +102,9 @@ package views
 			soundPanel	= new AssetManager.SOUND_PANEL_IMG();
 			music 		= new AssetManager.MUISC_IMG();
 			soundEffect = new AssetManager.SOUNDEFFECT_IMG();
-			slider1		= new Slider(Setting.current.soundValue);
+			slider1		= new Slider(Setting.current.soundValue, 100.0);
 			slider1.addEventListener(Event.CHANGE, setSoundValue);
-			slider2		= new Slider(Setting.current.soundEffectValue);
+			slider2		= new Slider(Setting.current.soundEffectValue, 100.0);
 			slider2.addEventListener(Event.CHANGE, setSoundEffectValue);
 			
 			hotKeyPanel	= new AssetManager.HOT_KEY_PANEL_IMG();
@@ -183,8 +183,7 @@ package views
 			smallBall.x  = _throw.x     + KEYPRESS_PADDING;
 			middleBall.x = smallBall.x  + KEYPRESS_PADDING;
 			bigBall.x    = middleBall.x + KEYPRESS_PADDING;
-			
-			
+
 			addChild(buttonGroupKeyPress);
 			buttonGroupKeyPress.addChild(hotKeyPanel);
             buttonGroupKeyPress.addChild(raise);
@@ -268,7 +267,7 @@ package views
 			keyWant.x = KEYWANT_X;
 			keyWant.y = KEYWANT_Y;
 		}
-		
+
 		/**
 		 * 监听设置界面，显示请按下所选键图片
 		 * 监听当前所选角色的快捷键

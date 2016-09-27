@@ -9,9 +9,8 @@ package views
 	import flash.events.MouseEvent;
 	import flash.system.fscommand;
 	import flash.utils.Dictionary;
-	/**
-	 * ...
-	 * @author 彩月葵☆彡
+	/**                  
+	 * @author Weng_X
 	 */
 	public class MainView extends View 
 	{
@@ -40,7 +39,6 @@ package views
 		override protected function init(ev:Event = null):void 
 		{
 			buttonGroup = new Sprite();
-			buttonGroup.addEventListener(MouseEvent.CLICK, onClick);
 			
 			var bmp:Bitmap = new AssetManager.BUTTON_CHALLENGE_IMG();
 			buttonChallenge = new SimpleButton(bmp, bmp, bmp, bmp);
@@ -58,12 +56,15 @@ package views
 			buttonAbout = new SimpleButton(bmp, bmp, bmp, bmp);
 			
 			conceptFrame = new ConceptFrame();
+			
+			buttonGroup.addEventListener(MouseEvent.CLICK, onClick);
 			buttonAbout.addEventListener(MouseEvent.MOUSE_OVER, conceptFrame.displayAbout);
 			buttonAbout.addEventListener(MouseEvent.MOUSE_OUT, conceptFrame.outButton);
 			buttonBattle.addEventListener(MouseEvent.MOUSE_OVER, conceptFrame.displayBattle);
 			buttonBattle.addEventListener(MouseEvent.MOUSE_OUT, conceptFrame.outVideo);
 			buttonChallenge.addEventListener(MouseEvent.MOUSE_OVER, conceptFrame.displayChallenge);
 			buttonChallenge.addEventListener(MouseEvent.MOUSE_OUT, conceptFrame.outVideo);
+			
 			super.init();
 		}
 		
@@ -93,8 +94,7 @@ package views
 			buttonAbout.x = ABOUT_X; buttonAbout.y = ABOUT_Y;
 			buttonAbout.width = ABOUT_WIDTH; buttonAbout.height = ABOUT_HEIGHT;
 			addChild(buttonAbout);
-			
-			
+
 		}
 		
 		private function onClick(e:MouseEvent):void 
@@ -116,6 +116,5 @@ package views
 				default:
 			}
 		}
-		
 	}
 }

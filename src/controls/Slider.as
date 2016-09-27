@@ -13,14 +13,15 @@ package controls
 	 * ...
 	 * @author 彩月葵☆彡
 	 */
-	public class Slider extends Sprite 
+	public class Slider extends Range 
 	{
-		public function Slider(value:Number = 100.0) 
+		public function Slider(value:Number, maxValue:Number) 
 		{
-			this.value = value;
 			addEventListener(MouseEvent.MOUSE_DOWN, onMouseUpDown);
 			addEventListener(Event.ADDED_TO_STAGE, init);
-			addChild(bar);
+			
+			bar = new AssetManager.SLIDER_BAR_IMG();
+			super(value, maxValue);
 			addChild(tick);
 		}
 		
@@ -28,7 +29,7 @@ package controls
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
-			stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUpDown); // TODO: 给 stage 加
+			stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUpDown);
 			stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 		}
 		
@@ -42,11 +43,6 @@ package controls
 		private var down:Boolean = false;
 		
 		/**
-		 * 那个横杠
-		 */
-		private var bar:Bitmap = new AssetManager.SLIDER_BAR_IMG();
-		
-		/**
 		 * 那个圆圈
 		 */
 		private var tick:Bitmap = new AssetManager.SLIDER_TICK_IMG();
@@ -55,18 +51,9 @@ package controls
 		// 属性
 		//==========
 		
-		/**
-		 * 值，从 0 ~ 100
-		 */
-		private var _value:Number;
-		public function get value():Number
+		override public function set value(val:Number):void 
 		{
-			return _value;
-		}
-		public function set value(val:Number):void 
-		{
-			_value = val;
-			update();
+			super.value = val;
 			dispatchEvent(new Event(Event.CHANGE));
 		}
 		
@@ -77,9 +64,9 @@ package controls
 		/**
 		 * 更新滑块的位置
 		 */
-		private function update():void 
+		override protected function update():void 
 		{
-			tick.x = bar.width * value / 100.0 - tick.width * 0.5;
+			tick.x = valueX - tick.width * 0.5;
 			tick.y = (bar.height - tick.height) * 0.5;
 		}
 		
@@ -93,9 +80,9 @@ package controls
 		{
 			if (!down) return;
 			
-			var newValue:Number = mouseX / width * 100;
+			var newValue:Number = mouseX / width * maxValue;
 			if (newValue < 0.0) newValue = 0.0;
-			else if (100.0 < newValue) newValue = 100.0;
+			else if (maxValue < newValue) newValue = maxValue;
 			
 			value = newValue;
 		}

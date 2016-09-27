@@ -1,6 +1,8 @@
 package
 {
+	import flash.display.DisplayObject;
 	import flash.events.Event;
+	import flash.utils.setInterval;
 	import views.View;
 	import views.ViewStack;
 	
@@ -23,8 +25,14 @@ package
 		}
 		
 		//==========
-		// 变量
+		// 属性
 		//==========
+		
+		override public function set view(value:DisplayObject):void 
+		{
+			super.view = value;
+			stage.focus = null;
+		}
 		
 		//==========
 		// 方法
