@@ -25,8 +25,6 @@ package assets
 		[Embed(source="../../assets/Main/Button_About_Up.png")]
 		public static const BUTTON_ABOUT_IMG:Class;
 		//==========================/
-
-		public static const HERO_IMG:Class;
 		
 		/********设置界面图片*******/
 		[Embed(source="../../assets/Setting/Setting.png")]
@@ -64,6 +62,16 @@ package assets
 		
 		[Embed(source="../../assets/Setting/BigBall.png")]
 		public static const BIGBALL_IMG:Class;
+		
 		//==========================/
+		
+		[Embed(source="../../assets/Play/Hero.png")]
+		public static const HERO_IMG:Class;
+		
+		[Embed(source="../../assets/Play/Snowball.png")]
+		public static const SNOWBALL_IMG:Class;
+		
+		[Embed(source="../../assets/Play/Drop_Shadow.png")]
+		public static const DROP_SHADOW_IMG:Class;
 	}
 }

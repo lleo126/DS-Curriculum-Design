@@ -11,7 +11,8 @@ package units
 	{
 		public function Unit(img:Bitmap) 
 		{
-			super(_img = img);
+			super(this.img = img);
+			unitTransform = new UnitTransform();
 			addEventListener(Event.ADDED_TO_STAGE, init);
 		}
 		
@@ -20,23 +21,52 @@ package units
 		//==========
 		
 		/**
-		 * 移动速度
-		 */
-		private var speed:Number;
-		
-		/**
 		 * 攻击距离
 		 */
-		private var attackRange:Number;
+		protected var attackRange:Number;
+		
+		/**
+		 * 阴影
+		 */
+		protected var dropShadow:DropShadow;
+		
+		/**
+		 * 该单位的图片
+		 */
+		protected var img:Bitmap;
 		
 		//==========
 		// 属性
 		//==========
 		
 		/**
+		 * 包含单位的 z 坐标，速度，碰撞大小等信息，与单位绑定
+		 */
+		protected var _unitTransform:UnitTransform;
+		public function get unitTransform():UnitTransform 
+		{
+			return _unitTransform;
+		}
+		public function set unitTransform(value:UnitTransform):void 
+		{
+			_unitTransform = value;
+			_unitTransform.unit = this;
+			_unitTransform.update();
+		}
+		
+		/**
+		 * 最大速度
+		 */
+		protected var _maxSpeed:Number;
+		public function get maxSpeed():Number 
+		{
+			return _maxSpeed;
+		}
+		
+		/**
 		 * 血量
 		 */
-		private var _hp:Number;
+		protected var _hp:Number;
 		public function get hp():Number 
 		{
 			return _hp;
@@ -49,7 +79,7 @@ package units
 		/**
 		 * 状态
 		 */
-		private var _status:String;
+		protected var _status:String;
 		public function get status():String 
 		{
 			return _status;
@@ -57,41 +87,6 @@ package units
 		public function set status(value:String):void 
 		{
 			_status = value;
-		}
-		
-		/**
-		 * 底部坐标
-		 */
-		private var _bottom:Number;
-		public function get bottom():Number 
-		{
-			return _bottom;
-		}
-		public function set bottom(value:Number):void 
-		{
-			_bottom = value;
-		}
-		
-		/**
-		 * z 轴高度，从 z 轴底部坐标（bottom）到 z 轴顶部坐标（top）的高度
-		 */
-		private var _altitude:Number;
-		public function get altitude():Number 
-		{
-			return _altitude;
-		}
-		
-		public function set altitude(value:Number):void 
-		{
-			_altitude = value;
-		}
-		
-		/**
-		 * z 轴顶部坐标
-		 */
-		public function get top():Number 
-		{
-			return bottom + altitude;
 		}
 		
 		/**
@@ -103,40 +98,19 @@ package units
 			return _bonus;
 		}
 		
-		/**
-		 * 碰撞半径
-		 */
-		protected var _radius:Number;
-		public function get radius():Number 
-		{
-			return _radius;
-		}
-		
-		/**
-		 * 该单位的图片
-		 */
-		protected var _img:Bitmap;
-		public function get img():Bitmap 
-		{
-			return _img;
-		}
-		
-		/**
-		 * 朝向，单位的图片根据朝向设定
-		 */
-		protected var _orientation:int;
-		public function get orientation():int 
-		{
-			return _orientation;
-		}
-		public function set orientation(value:int):void 
-		{
-			_orientation = value;
-		}
-		
 		//==========
 		// 方法
 		//==========
+		
+		public function update():void 
+		{
+			dropShadow.update();
+		}
+		
+		public function dispose():void 
+		{
+			
+		}
 		
 		/**
 		 * 当它被添加入舞台时调用
@@ -146,6 +120,10 @@ package units
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
+			//addChild(dropShadow);
+			addChild(img);
+			// TODO: 释放图片什么的？
 		}
 	}
 }
+

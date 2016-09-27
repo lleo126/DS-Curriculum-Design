@@ -1,6 +1,5 @@
 package views 
 {
-	import controllers.PlayerController;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import models.Player;
@@ -50,21 +49,20 @@ package views
 		
 		override protected function placeElements():void 
 		{
-			//var shape:Shape = new Shape();
-			//shape.graphics.beginFill(0xF28405);
-			//shape.graphics.drawCircle(20, 20, 30);
-			//shape.graphics.endFill();
-			//addChild(shape);
+			addChild(_world);
 		}
 		
 		override protected function inactivate(ev:Event):void 
 		{
+			super.inactivate(ev);
 			world.dispose();
 		}
 		
 		override protected function init(ev:Event = null):void 
 		{
+			trace( "PlayView.init > ev : " + ev );
 			super.init();
+			
 		}
 	}
 }

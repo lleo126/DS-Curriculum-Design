@@ -1,21 +1,44 @@
 package units 
 {
 	import assets.AssetManager;
+	
 	/**
 	 * 玩家要控制的角色
 	 * @author 彩月葵☆彡
 	 */
 	public class Hero extends Unit 
 	{
-		private static const DEFAULT_HP:Number = 100.0;
-		private static const DEFAULT_SP:Number = 20.0;
+		public static const SNOWBALLS:Vector.<Snowball> = new <Snowball>
+		[
+			new Snowball(20, 5),
+			new Snowball(50, 10),
+			new Snowball(100, 20)
+		];
+		private static const HP:Number = 100.0;
+		private static const SP:Number = 20.0;
+		private static const ATTCK_RANGE:Number = 200.0;
+		private static const EXPLOSION_DISTANCE:Number = 100.0;
+		private static const MAX_SPEED:Number = 5.0;
+		private static const WIDTH:Number = 40.0;
+		private static const HEIGHT:Number = 40.0;
 		
 		public function Hero() 
 		{
 			super(new AssetManager.HERO_IMG());
-			hp = DEFAULT_HP;
-			sp = DEFAULT_SP;
+			width = WIDTH;
+			height = HEIGHT;
+			hp = HP;
+			sp = SP;
+			attackRange = ATTCK_RANGE;
+			_maxSpeed = MAX_SPEED;
 		}
+		
+		//==========
+		// 变量
+		//==========
+		
+		public var snowball:Snowball = SNOWBALLS[1];
+		public var accumulation:Number = 0.0;
 		
 		//==========
 		// 属性
@@ -31,6 +54,26 @@ package units
 			_sp = value;
 		}
 		
+		//==========
+		// 方法
+		//==========
+		
+		/**
+		 * 举雪球
+		 */
+		public function lift():void 
+		{
+			
+		}
+		
+		/**
+		 * 扔雪球
+		 */
+		public function throw2():void 
+		{
+			
+			accumulation = 0.0;
+		}
 	}
 
 }

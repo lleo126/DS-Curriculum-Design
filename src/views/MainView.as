@@ -10,6 +10,7 @@ package views
 	import flash.events.TimerEvent;
 	import flash.utils.Dictionary;
 	import flash.utils.Timer;
+	import models.Player;
 	import units.SpriteEx;
 	/**
 	 * 主界面
@@ -93,11 +94,12 @@ package views
 				case buttonChallenge:
 					Main.current.view = View.CHALLENGE_VIEW;
 					break;
+				case buttonBattle:
+					View.PLAY_VIEW.world.start(PlayView.BATTLE, new <Player>[new Player(), new Player()]);
+					Main.current.view = View.PLAY_VIEW;
+					break;
 				case buttonSetting:
 					Main.current.view = View.SETTING_VIEW;
-					break;
-				case buttonBattle:
-					Main.current.view = View.PLAY_VIEW;
 					break;
 				default:
 			}

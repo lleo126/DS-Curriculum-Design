@@ -1,9 +1,12 @@
 package units 
 {
-	import controllers.PlayerController;
+	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.utils.getTimer;
+	import flash.utils.setInterval;
+	import managers.CollisionManager;
 	import models.Player;
 	import models.Setting;
 	import views.View;
@@ -14,10 +17,18 @@ package units
 	 */
 	public class World extends Sprite 
 	{
+		public static const GRAVITY:Number = 2.0;
+		public static const CHALLENGE_SCALE:Number = 3.0;
+		
 		public function World() 
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
 			addEventListener(Event.ENTER_FRAME, update);
+			
+			heroGenerator = new UnitGenerator(this);
+			monsterGenerator = new UnitGenerator(this);
+			obstacleGenerator = new UnitGenerator(this);
+			itemGenerator = new UnitGenerator(this);
 		}
 		
 		//==========
@@ -25,38 +36,106 @@ package units
 		//==========
 		
 		/**
-		 * 玩家，根据长度可以判断是单人还是双人
-		 */
-		private var players:Vector.<Player>;
-		
-		/**
 		 * 游戏模式，可以是 CHALLENGE 或 BATTLE
 		 */
 		private var type:String;
 		
 		/**
-		 * 玩家交互控制器
+		 * 上一帧的时间，以毫秒为单位
 		 */
-		private var playerController:PlayerController;
+		private var lastTime:Number;
 		
 		/**
-		 * 怪物
+		 * 雪量
 		 */
-		private var monsters:Vector.<Monster>
+		private var snowfall:Bitmap;
 		
 		/**
-		 * 障碍物
+		 * 玩家生成器
 		 */
-		private var obstacles:Vector.<Obstacle>;
+		private var heroGenerator:UnitGenerator;
 		
 		/**
-		 * 道具
+		 * 怪物生成器
 		 */
-		private var items:Vector.<Item>;
+		private var monsterGenerator:UnitGenerator;
+		
+		/**
+		 * 障碍物生成器
+		 */
+		private var obstacleGenerator:UnitGenerator;
+		
+		/**
+		 * 道具生成器
+		 */
+		private var itemGenerator:UnitGenerator;
 		
 		//==========
 		// 属性
 		//==========
+		
+		/**
+		 * 碰撞管理器
+		 */
+		private var _collisionManager:CollisionManager;
+		public function get collisionManager():CollisionManager 
+		{
+			return _collisionManager;
+		}
+		
+		/**
+		 * 玩家，根据长度可以判断是单人还是双人
+		 */
+		private var _players:Vector.<Player>;
+		public function get players():Vector.<Player> 
+		{
+			return _players;
+		}
+		
+		/**
+		 * 雪球
+		 */
+		private var _snowballs:Vector.<Snowball> = new <Snowball>[];
+		public function get snowballs():Vector.<Snowball> 
+		{
+			return _snowballs;
+		}
+		
+		/**
+		 * 怪物
+		 */
+		private var _monsters:Vector.<Monster> = new <Monster>[];
+		public function get monsters():Vector.<Monster> 
+		{
+			return _monsters;
+		}
+		
+		/**
+		 * 障碍物
+		 */
+		private var _obstacles:Vector.<Obstacle> = new <Obstacle>[];
+		public function get obstacles():Vector.<Obstacle> 
+		{
+			return _obstacles;
+		}
+		
+		/**
+		 * 道具
+		 */
+		private var _items:Vector.<Item> = new <Item>[];
+		public function get items():Vector.<Item> 
+		{
+			return _items;
+		}
+		
+		/**
+		 * 自上一帧以来的经过时间，以毫秒为单位
+		 */
+		private var _deltaTime:Number;
+		public function get deltaTime():Number 
+		{
+			return _deltaTime;
+		}
 		
 		//==========
 		// 方法
@@ -65,8 +144,13 @@ package units
 		public function start(type:String, players:Vector.<Player>):void 
 		{
 			this.type = type;
-			this.players = players;
-			playerController = new PlayerController(players);
+			_players = players;
+			lastTime = getTimer();
+			_collisionManager = new CollisionManager(_players, _snowballs, _monsters, _obstacles, _items);
+			
+			
+			_players[0].hero.center();
+			heroGenerator.dropUnit(_players[0].hero)
 		}
 		
 		/**
@@ -80,14 +164,65 @@ package units
 		
 		public function dispose():void 
 		{
-			
+			var i:int = 0;
+			for (i = 0; i < _players.length; i++) 
+			{
+				_players[i].hero.dispose();
+			}
+			for (i = 0; i < _snowballs.length; i++) 
+			{
+				_snowballs[i].dispose();
+			}
+			for (i = 0; i < _monsters.length; i++) 
+			{
+				_monsters[i].dispose();
+			}
+			for (i = 0; i < _obstacles.length; i++)
+			{
+				_obstacles[i].dispose();
+			}
+			for (i = 0; i < _items.length; i++)
+			{
+				_items[i].dispose();
+			}
+		}
+		
+		public function addUnit(unit:Unit):void 
+		{
+			if (unit is Snowball) 
+			{
+				_snowballs.push(unit);
+			}
+			else if (unit is Item) 
+			{
+				_items.push(unit);
+			}
+			else if (unit is Obstacle) 
+			{
+				_obstacles.push(unit);
+			}
+			else if (unit is Monster) 
+			{
+				_monsters.push(unit)
+			}
+			addChild(unit);
 		}
 		
 		private function init(ev:Event):void 
 		{
-			// TODO
-			View.PLAY_VIEW.addEventListener(KeyboardEvent.KEY_DOWN,	onKeyUpDown);
-			View.PLAY_VIEW.addEventListener(KeyboardEvent.KEY_UP,	onKeyUpDown);
+			removeEventListener(Event.ADDED_TO_STAGE, init);
+			
+			// TODO: 设大小貌似会缩放里面的内容
+			//width	= stage.stageWidth;
+			//height	= stage.stageHeight;
+			//if (CHALLENGE_SCALE)
+			//{
+				//width	*= CHALLENGE_SCALE;
+				//height	*= CHALLENGE_SCALE;
+			//}
+			
+			stage.addEventListener(KeyboardEvent.KEY_DOWN,	onKeyUpDown);
+			stage.addEventListener(KeyboardEvent.KEY_UP,	onKeyUpDown);
 		}
 		
 		/**
@@ -96,7 +231,13 @@ package units
 		 */
 		private function update(e:Event = null):void 
 		{
+			if (Main.current.view != View.PLAY_VIEW) return;
 			
+			updateTime();
+			applyGravity();
+			collisionManager.detectAll(_deltaTime);
+			collisionManager.update(_deltaTime);
+			zSort();
 		}
 		
 		/**
@@ -105,14 +246,38 @@ package units
 		 */
 		private function onKeyUpDown(e:KeyboardEvent):void 
 		{
-			//if (!View.PLAY_VIEW.active) return;
+			//trace( "World.onKeyUpDown > e : " + e );
+			if (Main.current.view != View.PLAY_VIEW) return;
 			
 			for (var i:int = 0; i < 2; ++i)
 			{
 				if (!(e.keyCode in Setting.current.hotkeys[i])) continue;
 				
-				playerController['on' + Setting.current.hotkeys[i]](i, e.keyCode, e.type == KeyboardEvent.KEY_DOWN);
+				players[i]['on' + Setting.current.hotkeys[i][e.keyCode]](e.keyCode, e.type == KeyboardEvent.KEY_DOWN);
 			}
+		}
+		
+		private function updateTime():void 
+		{
+			var newTime:int = getTimer();
+			_deltaTime = newTime - lastTime;
+			lastTime = newTime;
+		}
+		
+		private function applyGravity():void 
+		{
+			for (var i:int = 0; i < _snowballs.length; i++) 
+			{
+				_snowballs[i].unitTransform.vz += GRAVITY;
+			}
+		}
+		
+		/**
+		 * 深度排序
+		 */
+		private function zSort():void 
+		{
+			
 		}
 	}
 }
