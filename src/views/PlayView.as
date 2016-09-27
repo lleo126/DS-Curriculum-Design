@@ -212,7 +212,7 @@ package views
 		
 		private function keyDown(e:KeyboardEvent):void
 		{
-			super.inactivate(ev);
+			//super.inactivate(ev);
 			if (!active) return;
 			
 			if (!pressESCYet && e.keyCode == Keyboard.ESCAPE)
@@ -227,11 +227,11 @@ package views
 			}
 		}
 		
-		{
-			super.init();
-
-			trace( "PlayView.init > ev : " + ev );
-		}
+		//{
+			//super.init();
+//
+			//trace( "PlayView.init > ev : " + ev );
+		//}
 
 		private function onClick(e:MouseEvent):void 
 		{

@@ -66,7 +66,7 @@ package assets
 		[Embed(source="../../assets/setting/BigBall.png")]
 		public static const BIGBALL_IMG:Class;
 		
-		[Embed(source="../../assets/setting/Button_Back.png")]
+		[Embed(source="../../assets/Button_Back.png")]
 		public static const BUTTON_BACK_IMG:Class;
 		
 		[Embed(source="../../assets/setting/Key_Want.png")]
@@ -103,13 +103,6 @@ package assets
 		
 		[Embed(source = "../../assets/play/Menu.png")]
 		public static const MENU_IMG:Class;
-		//==========================/
-		
-		//===========成绩界面=======/
-		[Embed(source = "../../assets/Score/Blackboard.png")]
-		public static const BLACKBOARD_IMG:Class;
-
-
 		
 		[Embed(source="../../assets/Play/Hero.png")]
 		public static const HERO_IMG:Class;
@@ -119,5 +112,13 @@ package assets
 		
 		[Embed(source="../../assets/Play/Drop_Shadow.png")]
 		public static const DROP_SHADOW_IMG:Class;
+		
+		//==========================/
+		
+		//===========成绩界面=======/
+		[Embed(source = "../../assets/Score/Blackboard.png")]
+		public static const BLACKBOARD_IMG:Class;
+
+
 	}
 }

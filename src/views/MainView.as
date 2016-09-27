@@ -8,7 +8,8 @@ package views
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.system.fscommand;
-	import flash.utils.Dictionary;
+	import models.Player;
+	/**
 	 * @author Weng_X
 	 */
 	public class MainView extends View 
