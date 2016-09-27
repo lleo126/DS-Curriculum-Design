@@ -112,13 +112,13 @@ package assets
 		
 		[Embed(source="../../assets/Play/Drop_Shadow.png")]
 		public static const DROP_SHADOW_IMG:Class;
-		
+
 		//==========================/
 		
 		//===========成绩界面=======/
 		[Embed(source = "../../assets/Score/Blackboard.png")]
 		public static const BLACKBOARD_IMG:Class;
-
+		//==========================/
 
 	}
 }
