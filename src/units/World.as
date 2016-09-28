@@ -27,9 +27,9 @@ package units
 			addEventListener(Event.ENTER_FRAME, update);
 			
 			heroGenerator = new UnitGenerator(this);
-			monsterGenerator = new UnitGenerator(this, XML(new AssetManager.MONSTER_XML()));
-			obstacleGenerator = new UnitGenerator(this, XML(new AssetManager.OBSTACLE_XML()));
-			itemGenerator = new UnitGenerator(this, XML(new AssetManager.ITEM_XML()));
+			//monsterGenerator = new UnitGenerator(this, XML(new AssetManager.MONSTER_XML()));
+			//obstacleGenerator = new UnitGenerator(this, XML(new AssetManager.OBSTACLE_XML()));
+			//itemGenerator = new UnitGenerator(this, XML(new AssetManager.ITEM_XML()));
 		}
 		
 		private function init(ev:Event):void 

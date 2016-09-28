@@ -9,12 +9,9 @@ package units
 	 */
 	public class Item extends Unit 
 	{
-		public static function fromXML(xml:XML):Item
-		{
-			return null;
-		}
+		private static const radius:Number;
 		
-		public function Item(img:Bitmap) 
+		public function Item(img:Bitmap)
 		{
 			super(img);
 		}
@@ -22,7 +19,6 @@ package units
 		//==========
 		// 属性
 		//==========
-		
 		private var _skill:Skill;
 		public function get skill():Skill 
 		{

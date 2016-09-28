@@ -1,1 +1,9 @@
-<obstacles></obstacles>
+<obstacles>
+	<obstacle>
+		<name>tree</name>
+		<radius>20</radius>
+	</obstacle>
+	<obstacle>
+		<name>car</name>
+	</obstacle>
+</obstacles>

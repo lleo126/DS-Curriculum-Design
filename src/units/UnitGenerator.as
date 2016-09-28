@@ -106,9 +106,12 @@ package units
 		 */
 		public function randomUnit():Unit 
 		{
-			//var klass:Class = getDefinitionByName();
-			//unit.setByXML();
-			return null;
+			var UnitClass:Class = getDefinitionByName(xml.items.@klass.toString()) as Class;
+			var unitXML:XML = xml.items.item[Math.floor(Math.random() * xml..item.length())];
+			var ImageClass:Class = getDefinitionByName(unitXML.img.text().toString()) as Class;
+			var unit:Unit = new UnitClass(new ImageClass());
+			unit.setByXML(xml);
+			return unit;
 		}
 		
 		/**
