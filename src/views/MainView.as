@@ -21,8 +21,11 @@ package views
 		static private const ABOUT_Y:Number			= 620;
 		static private const ABOUT_HEIGHT:Number	= 36;
 		static private const ABOUT_WIDTH:Number		= 144;
+		static public const BUTTON_WIDTH:Number     = 250;
+		static public const BUTTON_HEIGHT:Number    = 60;
 		
 		private var buttonGroup:Sprite;
+		private var background:Bitmap;
 		
 		private var buttonBattle:SimpleButton;
 		private var buttonChallenge:SimpleButton;
@@ -40,6 +43,9 @@ package views
 		{
 			buttonGroup = new Sprite();
 			
+			background = new AssetManager.MAIN_BACKGROUND_IMG();
+			
+			
 			var bmp:Bitmap = new AssetManager.BUTTON_CHALLENGE_IMG();
 			buttonChallenge = new SimpleButton(bmp, bmp, bmp, bmp);
 			
@@ -53,6 +59,7 @@ package views
 			buttonExit = new SimpleButton(bmp, bmp, bmp, bmp);
 			
 			bmp = new AssetManager.BUTTON_ABOUT_IMG();
+			bmp.smoothing = true;
 			buttonAbout = new SimpleButton(bmp, bmp, bmp, bmp);
 			
 			conceptFrame = new ConceptFrame();
@@ -70,14 +77,27 @@ package views
 		
 		override protected function placeElements():void 
 		{
+			background.x = (stage.stageWidth - background.width) * 0.5;
+			addChild(background);
+			
 			buttonGroup.x = GROUP_X;
 			buttonGroup.y = GROUP_Y;
 			
+			
+			buttonChallenge.width = BUTTON_WIDTH;
+			buttonChallenge.height = BUTTON_HEIGHT;
+			
 			buttonBattle.y = buttonChallenge.y + PADDING;
+			buttonBattle.width = BUTTON_WIDTH;
+			buttonBattle.height = BUTTON_HEIGHT;
 			
 			buttonSetting.y = buttonBattle.y + PADDING;
+			buttonSetting.width = BUTTON_WIDTH - 120;
+			buttonSetting.height = BUTTON_HEIGHT - 5;
 			
 			buttonExit.y = buttonSetting.y + PADDING;
+			buttonExit.width = BUTTON_WIDTH;
+			buttonExit.height = BUTTON_HEIGHT;
 			
 			addChild(buttonGroup);
             buttonGroup.addChild(buttonChallenge);
