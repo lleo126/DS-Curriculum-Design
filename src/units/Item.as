@@ -9,7 +9,7 @@ package units
 	 */
 	public class Item extends Unit 
 	{
-		private static const radius:Number;
+		//private static const radius:Number;
 		
 		public function Item(img:Bitmap)
 		{
@@ -31,7 +31,9 @@ package units
 		
 		override public function setByXML(xml:XML):void
 		{
-			
+			_radius = parseInt(xml.item.radius.text());
+			_bonus = parseInt(xml.item.bonus.text());
+			//_skill = 
 		}	
 	}
 }

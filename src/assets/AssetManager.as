@@ -129,5 +129,19 @@ package assets
 		[Embed(source = "../../assets/xml/Item.xml", mimetype="application/octet-stream")]
 		public static const ITEM_XML:Class;
 
+		//========游戏基本单位图片==/
+		[Embed(source = "../../assets/photos/carambola.png")]
+		public static const CARAMBOLA_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/litchi.png")]
+		public static const LITCHI_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/mango.png")]
+		public static const MANGO_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/sourFruit.png")]
+		public static const SOURFRUIT:Class;
+		
+		//==========================/
 	}
 }

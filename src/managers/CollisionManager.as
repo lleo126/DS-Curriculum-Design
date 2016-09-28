@@ -136,6 +136,8 @@ package managers
 			players[1].hero.unitTransform.advance(deltaTime);
 			players[1].hero.update();
 			
+			items[0].update();
+			
 			for each (var key:* in next)
 			{
 				var unit:Unit = key as Unit;
