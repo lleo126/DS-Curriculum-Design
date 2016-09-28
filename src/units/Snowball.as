@@ -22,9 +22,12 @@ package units
 		}
 		
 		//==========
-		// 变量
+		// 方法
 		//==========
 		
-		// TODO
+		public function clone():Snowball
+		{
+			return new Snowball(attackRange, bonus);
+		}
 	}
 }

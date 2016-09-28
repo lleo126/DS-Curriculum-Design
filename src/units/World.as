@@ -31,6 +31,23 @@ package units
 			itemGenerator = new UnitGenerator(this);
 		}
 		
+		private function init(ev:Event):void 
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, init);
+			
+			// TODO: 设大小貌似会缩放里面的内容
+			//width	= stage.stageWidth;
+			//height	= stage.stageHeight;
+			//if (CHALLENGE_SCALE)
+			//{
+				//width	*= CHALLENGE_SCALE;
+				//height	*= CHALLENGE_SCALE;
+			//}
+			
+			stage.addEventListener(KeyboardEvent.KEY_DOWN,	onKeyUpDown);
+			stage.addEventListener(KeyboardEvent.KEY_UP,	onKeyUpDown);
+		}
+		
 		//==========
 		// 变量
 		//==========
@@ -141,6 +158,11 @@ package units
 		// 方法
 		//==========
 		
+		/**
+		 * 开始游戏
+		 * @param	type	游戏模式
+		 * @param	players	玩家数组
+		 */
 		public function start(type:String, players:Vector.<Player>):void 
 		{
 			this.type = type;
@@ -162,6 +184,9 @@ package units
 			
 		}
 		
+		/**
+		 * 清除数据
+		 */
 		public function dispose():void 
 		{
 			var i:int = 0;
@@ -187,6 +212,10 @@ package units
 			}
 		}
 		
+		/**
+		 * 向游戏世界里添加单位
+		 * @param	unit
+		 */
 		public function addUnit(unit:Unit):void 
 		{
 			if (unit is Snowball) 
@@ -206,23 +235,6 @@ package units
 				_monsters.push(unit)
 			}
 			addChild(unit);
-		}
-		
-		private function init(ev:Event):void 
-		{
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			
-			// TODO: 设大小貌似会缩放里面的内容
-			//width	= stage.stageWidth;
-			//height	= stage.stageHeight;
-			//if (CHALLENGE_SCALE)
-			//{
-				//width	*= CHALLENGE_SCALE;
-				//height	*= CHALLENGE_SCALE;
-			//}
-			
-			stage.addEventListener(KeyboardEvent.KEY_DOWN,	onKeyUpDown);
-			stage.addEventListener(KeyboardEvent.KEY_UP,	onKeyUpDown);
 		}
 		
 		/**

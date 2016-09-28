@@ -55,8 +55,7 @@ package models
 		
 		private function update():void 
 		{
-			// TODO: 两个相对的按键按下后还会动
-			_hero.unitTransform.speed = _hero.maxSpeed * int(!(upHeld == downHeld && leftHeld == downHeld && downHeld == rightHeld && rightHeld == upHeld));
+			_hero.unitTransform.speed = _hero.maxSpeed * int(!(upHeld == downHeld && leftHeld == rightHeld));
 			if (0.0 < _hero.unitTransform.speed)
 			{
 				_hero.unitTransform.orientation = Math.atan2(int(downHeld) - int(upHeld), int(rightHeld) - int(leftHeld)) / Math.PI * 180.0;

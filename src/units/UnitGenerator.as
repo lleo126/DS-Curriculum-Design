@@ -16,34 +16,29 @@ package units
 		public static const CONSTRAIN_HERO_HERO:Number = 300.0;
 		public static const CONSTRAIN_HERO_MONSTER:Number = 100.0;
 		
-		public function UnitGenerator(world:World) 
+		public function UnitGenerator(world:World, xml:XML = null) 
 		{
 			this.world = world;
+			this.xml = xml;
 		}
 		
 		//==========
 		// 变量
 		//==========
 		
+		/**
+		 * 游戏世界的引用
+		 */
 		private var world:World;
 		
 		/**
-		 * 单位池
+		 * 单位的数据 xml
 		 */
-		private var pool:Vector.<Unit> = new <Unit>[];
+		private var xml:XML;
 		
 		//==========
 		// 方法
 		//==========
-		
-		/**
-		 * 向单位池里添加预设单位
-		 * @param	unit
-		 */
-		public function addUnit(unit:Unit):void 
-		{
-			pool.push(unit);
-		}
 		
 		/**
 		 * 向世界投掷单位，确保满足限制条件
@@ -103,8 +98,6 @@ package units
 			
 			return true;
 		}
-		
-		
 		
 		/**
 		 * 随机选取一个单位

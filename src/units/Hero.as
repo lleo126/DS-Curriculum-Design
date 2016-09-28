@@ -18,7 +18,7 @@ package units
 		private static const SP:Number = 20.0;
 		private static const ATTCK_RANGE:Number = 200.0;
 		private static const EXPLOSION_DISTANCE:Number = 100.0;
-		private static const MAX_SPEED:Number = 20.0;
+		private static const MAX_SPEED:Number = 0.5;
 		private static const MAX_ACCUMULATION:Number = 100.0;
 		private static const WIDTH:Number = 40.0;
 		private static const HEIGHT:Number = 40.0;
@@ -91,6 +91,8 @@ package units
 		 */
 		public function throw2():void 
 		{
+			var s:Snowball = snowball.clone();
+			s.unitTransform.setByUnitTransform(_unitTransform);
 			
 			accumulation = 0.0;
 		}

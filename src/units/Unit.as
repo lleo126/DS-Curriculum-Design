@@ -32,10 +32,6 @@ package units
 			addChild(dropShadow);
 			addChild(_displayObject);
 			center();
-			//_displayObject.x
-			//trace( "width : " + width );
-			//trace( "_displayObject.width : " + _displayObject.width );
-			//
 			setInterval(function ():void 
 			{
 				// 测试，让 Z 坐标上下起伏
@@ -67,15 +63,6 @@ package units
 		//==========
 		
 		/**
-		 * 名字
-		 */
-		//protected var _name:String;
-		//public function get name():String 
-		//{
-			//return _name;
-		//}
-		
-		/**
 		 * 包含单位的 z 坐标，速度，碰撞大小等信息，与单位绑定
 		 */
 		protected var _unitTransform:UnitTransform;
@@ -93,7 +80,7 @@ package units
 		/**
 		 * 最大速度
 		 */
-		protected var _maxSpeed:Number;
+		protected var _maxSpeed:Number = 0.0;
 		public function get maxSpeed():Number 
 		{
 			return _maxSpeed;
@@ -132,6 +119,15 @@ package units
 		public function get bonus():int 
 		{
 			return _bonus;
+		}
+		
+		/**
+		 * 碰撞半径
+		 */
+		protected var _radius:Number = 0.0;
+		public function get radius():Number 
+		{
+			return _radius;
 		}
 		
 		//==========

@@ -43,11 +43,6 @@ package units
 		 */
 		public var orientation:Number = 90.0;
 		
-		/**
-		 * 碰撞半径
-		 */
-		public var radius:Number = 0.0;
-		
 		//==========
 		// 属性
 		//==========
@@ -138,9 +133,9 @@ package units
 		 */
 		public function advance(deltaTime:Number):void 
 		{
-			_x += vx;
-			_y += vy;
-			z += vz;
+			_x += vx * deltaTime;
+			_y += vy * deltaTime;
+			z += vz * deltaTime;
 			update();
 		}
 		
@@ -150,8 +145,22 @@ package units
 		 */
 		public function setByPoint(point:Point):void 
 		{
-			x = point.x;
-			y = point.y;
+			_x = point.x;
+			_y = point.y;
+			update();
+		}
+		
+		/**
+		 * 根据 UnitTransform 设置位置信息，不设置速度信息
+		 * @param	unitTransform
+		 */
+		public function setByUnitTransform(unitTransform:UnitTransform):void 
+		{
+			_x = unitTransform._x;
+			_y = unitTransform._y;
+			z = unitTransform.z;
+			orientation = unitTransform.orientation;
+			update();
 		}
 	}
 }
