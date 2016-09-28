@@ -30,6 +30,8 @@ package views
 		static private const SETTING_X:Number				= 400;
 		static private const BUTTON_BACK_X:Number			= 60;
 		static private const BUTTON_BACK_Y:Number			= 660;
+		static public const BUTTON_WIDTH:Number    			= 150;
+		static public const BUTTON_HEIGHT:Number    		= 60;
 		static private const GROUP_LABLE_ONE_X:Number		= 240;
 		static private const GROUP_LABLE_ONE_Y:Number		= 440;
 		static private const GROUP_LABLE_TWO_X:Number		= 240;
@@ -79,6 +81,8 @@ package views
 		private var slider1:Slider;
 		private var slider2:Slider;
 		
+		private var background:Bitmap;
+		
 		public function SettingView() 
 		{
 			 
@@ -86,6 +90,8 @@ package views
 			
 		override protected function init(ev:Event = null):void 
 		{
+			background = new AssetManager.SETTING_BACKGROUND();
+			
 			buttonGroupSound 	= new Sprite();
 			buttonGroupKeyPress = new Sprite();
 			buttonGroupRole 	= new Sprite();
@@ -147,6 +153,9 @@ package views
 		
 		override protected function placeElements():void 
 		{
+			background.x = (stage.stageWidth - background.width) * 0.5;
+			addChild(background);
+			
 			setting.x = SETTING_X;
 			
 			addChild(setting);
@@ -154,6 +163,7 @@ package views
 			//=========显示声音组图片
 			buttonGroupSound.x = GROUP_SOUND_X;
 			buttonGroupSound.y = GROUP_SOUND_Y;
+			
 			
 			soundEffect.x	= music.x + SOUND_PADDING; 
 			
@@ -165,6 +175,10 @@ package views
 			
 			slider2.x = slider1.x + SOUND_PADDING;
 			slider2.y = slider1.y;
+			
+			//muisc图片微调
+			music.x = music.x + 10;
+			music.y = music.y + 3;
 			
 			addChild(buttonGroupSound);
 			buttonGroupSound.addChild(soundPanel);
@@ -261,6 +275,8 @@ package views
 			//=========显示返回图片
 			buttonBack.x = BUTTON_BACK_X;
 			buttonBack.y = BUTTON_BACK_Y;
+			buttonBack.width = BUTTON_WIDTH;
+			buttonBack.height = BUTTON_HEIGHT;
 			addChild(buttonBack);
 			
 			//=========显示请按下所选键图片

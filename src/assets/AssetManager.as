@@ -23,10 +23,13 @@ package assets
 		public static const BUTTON_ABOUT_IMG:Class;
 		
 		[Embed(source = "../../assets/main/Concept_Frame.png")]
-		public static const Concept_Frame_IMG:Class;
+		public static const CONCEPT_FRAME_IMG:Class;
 		
 		[Embed(source = "../../assets/main/Concept_Frame_About.png")]
-		public static const Concept_Frame_About_IMG:Class;
+		public static const CONCEPT_FRAME_ABOUT_IMG:Class;
+		
+		[Embed(source="../../assets/Main/Background.png")]
+		public static const MAIN_BACKGROUND_IMG:Class;
 		//==========================/
 		
 		/********设置界面图片*******/
@@ -77,6 +80,9 @@ package assets
 		
 		[Embed(source = "../../assets/setting/Sound_Panel.png")]
 		public static const SOUND_PANEL_IMG:Class;
+		
+		[Embed(source = "../../assets/Setting/Background.jpg")]
+		public static const SETTING_BACKGROUND:Class;
 		//==========================/
 		
 		/********对战界面图片*******/
