@@ -28,5 +28,14 @@ package units
 		{
 			return _skill;
 		}
+		
+		//==========
+		// 方法
+		//==========
+		
+		override public function setByXML(xml:XML):void
+		{
+			
+		}	
 	}
 }

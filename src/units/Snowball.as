@@ -9,6 +9,9 @@ package units
 	 */
 	public class Snowball extends Unit 
 	{
+		/** 质量，控制蓄力后雪球的投掷距离 */
+		public static const MASS:Number = 2.5;
+		
 		/**
 		 * 
 		 * @param	attackRange	爆炸范围

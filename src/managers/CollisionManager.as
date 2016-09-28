@@ -9,7 +9,7 @@ package managers
 	import units.Snowball;
 	import units.Unit;
 	import units.UnitTransform;
-	import units.World;
+	
 	/**
 	 * 碰撞管理器
 	 * 碰撞检测分为两个阶段：
@@ -104,6 +104,12 @@ package managers
 				{
 					
 				}
+				
+				// 临时：如果雪球撞到地面，就消失
+				if (snowballs[i].unitTransform.z < 0.0) 
+				{
+					
+				}
 			}
 			
 			// 如果寻路正确，怪物将不会撞到障碍物上，不需要检测怪物与障碍物的碰撞
@@ -126,6 +132,9 @@ package managers
 		public function update(deltaTime:Number):void 
 		{
 			players[0].hero.unitTransform.advance(deltaTime);
+			players[0].hero.update();
+			players[1].hero.unitTransform.advance(deltaTime);
+			players[1].hero.update();
 			
 			for each (var key:* in next)
 			{

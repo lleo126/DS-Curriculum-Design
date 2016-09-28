@@ -143,6 +143,14 @@ package units
 		{
 			
 		}
+		
+		/**
+		 * 根据 XML 设置属性
+		 */
+		public function setByXML(xml:XML):void
+		{
+			
+		}	
 	}
 }
 

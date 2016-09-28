@@ -1,6 +1,7 @@
 package units 
 {
 	import assets.AssetManager;
+	import views.View;
 	
 	/**
 	 * 玩家要控制的角色
@@ -93,8 +94,9 @@ package units
 		{
 			var s:Snowball = snowball.clone();
 			s.unitTransform.setByUnitTransform(_unitTransform);
-			
-			accumulation = 0.0;
+			s.unitTransform.vz = _accumulation / Snowball.MASS;
+			View.PLAY_VIEW.world.addUnit(s);
+			_accumulation = 0.0;
 		}
 	}
 
