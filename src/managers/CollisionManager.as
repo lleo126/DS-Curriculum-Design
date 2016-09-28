@@ -97,7 +97,7 @@ package managers
 			{
 				for (j = 0; j < players.length; ++j)
 				{
-					
+					snowballs[0].unitTransform.vx
 				}
 				
 				for (j = 0; j < snowballs.length; ++j)
@@ -106,9 +106,9 @@ package managers
 				}
 				
 				// 临时：如果雪球撞到地面，就消失
-				if (snowballs[i].unitTransform.z < 0.0) 
+				if (snowballs[i].unitTransform.bottom < 0.0) 
 				{
-					
+					snowballs[i].removeFromWorld();
 				}
 			}
 			
@@ -135,6 +135,12 @@ package managers
 			players[0].hero.update();
 			players[1].hero.unitTransform.advance(deltaTime);
 			players[1].hero.update();
+			
+			var i:int;
+			for (i = 0; i < snowballs.length; ++i)
+			{
+				snowballs[i].unitTransform.advance(deltaTime);
+			}
 			
 			for each (var key:* in next)
 			{

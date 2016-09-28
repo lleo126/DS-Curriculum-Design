@@ -29,11 +29,6 @@ package units
 		public var vz:Number = 0.0;
 		
 		/**
-		 * 底部坐标
-		 */
-		public var bottom:Number = 0.0;
-		
-		/**
 		 * z 轴高度，从 z 轴底部坐标（bottom）到 z 轴顶部坐标（top）的高度
 		 */
 		public var altitude:Number = 0.0;
@@ -74,7 +69,7 @@ package units
 		/**
 		 * X 轴中心坐标
 		 */
-		private var _x:Number;
+		private var _x:Number = 0.0;
 		public function get x():Number 
 		{
 			return _x;
@@ -88,7 +83,7 @@ package units
 		/**
 		 * Y 轴中心坐标
 		 */
-		private var _y:Number;
+		private var _y:Number = 0.0;
 		public function get y():Number 
 		{
 			return _y;
@@ -109,6 +104,20 @@ package units
 		public function set z(value:Number):void 
 		{
 			bottom = value - altitude * 0.5;
+			update();
+		}
+		
+		/**
+		 * 底部坐标
+		 */
+		private var _bottom:Number = 0.0;
+		public function get bottom():Number 
+		{
+			return _bottom;
+		}
+		public function set bottom(value:Number):void 
+		{
+			_bottom = value;
 			update();
 		}
 		

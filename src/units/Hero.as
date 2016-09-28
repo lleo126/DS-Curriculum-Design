@@ -24,6 +24,7 @@ package units
 		private static const WIDTH:Number = 40.0;
 		private static const HEIGHT:Number = 40.0;
 		private static const RADIUS:Number = 20.0;
+		private static const ALTITUDE:Number = RADIUS;
 		
 		public function Hero() 
 		{
@@ -36,6 +37,7 @@ package units
 			attackRange = ATTCK_RANGE;
 			_maxSpeed = MAX_SPEED;
 			_radius = RADIUS;
+			_unitTransform.altitude = ALTITUDE;
 		}
 		
 		//==========
@@ -46,6 +48,11 @@ package units
 		 * 雪球大小，有三种预设
 		 */
 		public var snowball:Snowball = SNOWBALLS[1];
+		
+		/**
+		 * 举起状态
+		 */
+		public var lifted:Boolean = false;
 		
 		//==========
 		// 属性
@@ -68,6 +75,7 @@ package units
 		 * 蓄力值，不会超过 MAX_ACCUMUMATION
 		 */
 		private var _accumulation:Number = 0.0;
+		private var liftSnowball:Snowball;
 		public function get accumulation():Number 
 		{
 			return _accumulation;
@@ -86,7 +94,12 @@ package units
 		 */
 		public function lift():void 
 		{
-			
+			liftSnowball = snowball.clone();
+			liftSnowball.unitTransform.bottom = unitTransform.top;
+			addChild(liftSnowball);
+			liftSnowball.scaleX = 1.0 / liftSnowball.parent.scaleX;
+			liftSnowball.scaleY = 1.0 / liftSnowball.parent.scaleY;
+			lifted = true;
 		}
 		
 		/**
@@ -94,12 +107,21 @@ package units
 		 */
 		public function throw2():void 
 		{
-			var s:Snowball = snowball.clone();
-			s.unitTransform.setByUnitTransform(_unitTransform);
-			s.unitTransform.vz = _accumulation / Snowball.MASS;
-			View.PLAY_VIEW.world.addUnit(s);
+			trace( "Hero.throw2" );
+			if (!lifted) return;
+			// TODO: 玩家移动的话速度更快
+			removeChild(liftSnowball);
+			
+			liftSnowball.unitTransform.setByUnitTransform(_unitTransform);
+			liftSnowball.unitTransform.bottom = unitTransform.top;
+			liftSnowball.unitTransform.speed = liftSnowball.maxSpeed;
+			liftSnowball.unitTransform.vz = _accumulation / Snowball.MASS;
+			View.PLAY_VIEW.world.addUnit(liftSnowball);
+			liftSnowball.scaleX = 1.0 / liftSnowball.parent.scaleX;
+			liftSnowball.scaleY = 1.0 / liftSnowball.parent.scaleY;
+			
 			_accumulation = 0.0;
+			lifted = false;
 		}
 	}
-
 }

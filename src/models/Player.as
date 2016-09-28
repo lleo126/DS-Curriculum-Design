@@ -88,20 +88,20 @@ package models
 		
 		public function onLift(keyCode:int, down:Boolean):void 
 		{
-			if (!down) return;
+			if (!down || _hero.lifted) return;
 			
-			hero.lift();
+			_hero.lift();
 		}
 		
 		public function onThrow(keyCode:int, down:Boolean):void 
 		{
 			if (down) // 蓄力
 			{
-				hero.accumulation += View.PLAY_VIEW.world.deltaTime;
+				_hero.accumulation += View.PLAY_VIEW.world.deltaTime;
 			}
 			else // 投掷
 			{
-				hero.throw2();
+				_hero.throw2();
 			}
 		}
 		
@@ -109,7 +109,7 @@ package models
 		{
 			if (!down) return;
 			
-			hero.snowball = Hero.SNOWBALLS[0];
+			_hero.snowball = Hero.SNOWBALLS[0];
 		}
 		
 		public function onSwitchMedium(keyCode:int, down:Boolean):void 

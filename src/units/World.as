@@ -18,7 +18,7 @@ package units
 	 */
 	public class World extends Sprite 
 	{
-		public static const GRAVITY:Number = 2.0;
+		public static const GRAVITY:Number = 1.0;
 		public static const CHALLENGE_SCALE:Number = 3.0;
 		
 		public function World() 
@@ -245,24 +245,23 @@ package units
 		 */
 		public function removeUnit(unit:Unit):void 
 		{
-			// TODO
 			if (unit is Snowball) 
 			{
-				//_snowballs.push(unit);
+				_snowballs.splice(_snowballs.indexOf(unit), 1);
 			}
 			else if (unit is Item) 
 			{
-				//_items.push(unit);
+				_items.splice(_items.indexOf(unit), 1);
 			}
 			else if (unit is Obstacle) 
 			{
-				//_obstacles.push(unit);
+				_obstacles.splice(_obstacles.indexOf(unit), 1);
 			}
 			else if (unit is Monster) 
 			{
-				//_monsters.push(unit)
+				_monsters.splice(_monsters.indexOf(unit), 1);
 			}
-			//addChild(unit);
+			removeChild(unit);
 		}
 		
 		/**
@@ -308,7 +307,7 @@ package units
 		{
 			for (var i:int = 0; i < _snowballs.length; i++) 
 			{
-				_snowballs[i].unitTransform.vz += GRAVITY;
+				_snowballs[i].unitTransform.vz -= GRAVITY;
 			}
 		}
 		

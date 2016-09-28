@@ -10,18 +10,28 @@ package units
 	public class Snowball extends Unit 
 	{
 		/** 质量，控制蓄力后雪球的投掷距离 */
-		public static const MASS:Number = 2.5;
+		public static const MASS:Number = 10.0;
+		private static const RADIUS:Number = 100.0;
+		private static const ALTITUDE:Number = 2 * RADIUS;
+		private static const MAX_SPEED:Number = 1.0;
+		private static const ATTACK_RANGE_RATIO:Number = 2.0;
 		
 		/**
 		 * 
 		 * @param	attackRange	爆炸范围
 		 * @param	bonus		消耗的雪量
 		 */
-		public function Snowball(attackRange:Number, bonus:int) 
+		public function Snowball(radius:Number, bonus:int) 
 		{
 			super(new AssetManager.SNOWBALL_IMG());
-			this.attackRange = attackRange;
+			
+			_displayObject.width = _displayObject.height = _radius = radius;
+			_unitTransform.altitude = ALTITUDE;
+			attackRange = radius * ATTACK_RANGE_RATIO;
 			_bonus = bonus;
+			_maxSpeed = MAX_SPEED;
+			
+			center();
 		}
 		
 		//==========
