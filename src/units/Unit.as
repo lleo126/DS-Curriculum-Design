@@ -35,7 +35,7 @@ package units
 			setInterval(function ():void 
 			{
 				// 测试，让 Z 坐标上下起伏
-				_unitTransform.z = (Math.sin(getTimer() / 180.0 * Math.PI) + 1.0) * 200.0;
+				_unitTransform.z = (Math.sin(getTimer() / 180.0 * Math.PI /4) + 1.0) * 200.0;
 			}, 30);
 		}
 		

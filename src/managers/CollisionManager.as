@@ -79,7 +79,7 @@ package managers
 			{
 				for (j = 0; j < monsters.length; ++j) 
 				{
-					
+			 
 				}
 				
 				for (j = 0; j < obstacles.length; ++j)
@@ -91,6 +91,7 @@ package managers
 				{
 					
 				}
+				
 			}
 			
 			for (i = 0; i < snowballs.length; ++i)
@@ -126,6 +127,7 @@ package managers
 		public function update(deltaTime:Number):void 
 		{
 			players[0].hero.unitTransform.advance(deltaTime);
+			players[0].hero.update();
 			
 			for each (var key:* in next)
 			{
