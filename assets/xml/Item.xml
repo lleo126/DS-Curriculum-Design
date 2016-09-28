@@ -1,4 +1,25 @@
-<items>
+<items class="units.Item">
+	<item>
+		<img>assets.AssetManager.ZERO_IMG</img>
+		<name>zero</name>
+		<bonus>10</bonus>
+		<radius>20</radius>
+		<unitTransform></unitTransform>
+		<skill class="units.skills.ZeroSkill">
+			<param1>123</param1>
+			<param2>321</param2>
+		</skill>
+	</item>
+	<item>
+		<name>zero</name>
+		<bonus>10</bonus>
+		<radius>20</radius>
+		<unitTransform></unitTransform>
+		<skill class="units.skills.ZeroSkill">
+			<param1>123</param1>
+			<param2>321</param2>
+		</skill>
+	</item>
 	<item>
 		<name>zero</name>
 		<bonus>10</bonus>

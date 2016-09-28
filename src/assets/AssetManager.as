@@ -119,6 +119,15 @@ package assets
 		[Embed(source = "../../assets/Score/Blackboard.png")]
 		public static const BLACKBOARD_IMG:Class;
 		//==========================/
+		
+		[Embed(source = "../../assets/xml/Monster.xml", mimetype="application/octet-stream")]
+		public static const MONSTER_XML:Class;
+		
+		[Embed(source = "../../assets/xml/Obstacle.xml", mimetype="application/octet-stream")]
+		public static const OBSTACLE_XML:Class;
+		
+		[Embed(source = "../../assets/xml/Item.xml", mimetype="application/octet-stream")]
+		public static const ITEM_XML:Class;
 
 	}
 }

@@ -21,6 +21,14 @@ package units
 		
 		private var senseRange:Number;
 		
+		//==========
+		// 方法
+		//==========
+		
+		override public function setByXML(xml:XML):void
+		{
+			
+		}	
 	}
 
 }

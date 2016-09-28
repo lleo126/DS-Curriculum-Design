@@ -8,13 +8,15 @@ package units
 	 */
 	public class Obstacle extends Unit 
 	{
-		
 		public function Obstacle(img:Bitmap) 
 		{
 			super(img);
 			
 		}
 		
+		override public function setByXML(xml:XML):void
+		{
+			
+		}	
 	}
-
 }

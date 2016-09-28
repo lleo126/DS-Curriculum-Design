@@ -1,5 +1,6 @@
 package units 
 {
+	import assets.AssetManager;
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -26,9 +27,9 @@ package units
 			addEventListener(Event.ENTER_FRAME, update);
 			
 			heroGenerator = new UnitGenerator(this);
-			monsterGenerator = new UnitGenerator(this);
-			obstacleGenerator = new UnitGenerator(this);
-			itemGenerator = new UnitGenerator(this);
+			monsterGenerator = new UnitGenerator(this, XML(new AssetManager.MONSTER_XML()));
+			obstacleGenerator = new UnitGenerator(this, XML(new AssetManager.OBSTACLE_XML()));
+			itemGenerator = new UnitGenerator(this, XML(new AssetManager.ITEM_XML()));
 		}
 		
 		private function init(ev:Event):void 
@@ -173,6 +174,7 @@ package units
 			
 			//_players[0].hero.center();
 			heroGenerator.dropUnit(_players[0].hero);
+			heroGenerator.dropUnit(_players[1].hero);
 		}
 		
 		/**
@@ -235,6 +237,32 @@ package units
 				_monsters.push(unit)
 			}
 			addChild(unit);
+		}
+		
+		/**
+		 * 向游戏世界里删除单位
+		 * @param	unit
+		 */
+		public function removeUnit(unit:Unit):void 
+		{
+			// TODO
+			if (unit is Snowball) 
+			{
+				//_snowballs.push(unit);
+			}
+			else if (unit is Item) 
+			{
+				//_items.push(unit);
+			}
+			else if (unit is Obstacle) 
+			{
+				//_obstacles.push(unit);
+			}
+			else if (unit is Monster) 
+			{
+				//_monsters.push(unit)
+			}
+			//addChild(unit);
 		}
 		
 		/**

@@ -4,6 +4,7 @@ package units
 	import flash.events.IEventDispatcher;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
+	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
 	import models.Player;
 	
@@ -105,6 +106,8 @@ package units
 		 */
 		public function randomUnit():Unit 
 		{
+			//var klass:Class = getDefinitionByName();
+			//unit.setByXML();
 			return null;
 		}
 		
