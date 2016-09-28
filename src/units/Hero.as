@@ -23,6 +23,7 @@ package units
 		private static const MAX_ACCUMULATION:Number = 100.0;
 		private static const WIDTH:Number = 40.0;
 		private static const HEIGHT:Number = 40.0;
+		private static const RADIUS:Number = 20.0;
 		
 		public function Hero() 
 		{
@@ -34,6 +35,7 @@ package units
 			sp = SP;
 			attackRange = ATTCK_RANGE;
 			_maxSpeed = MAX_SPEED;
+			_radius = RADIUS;
 		}
 		
 		//==========
@@ -63,7 +65,7 @@ package units
 		}
 		
 		/**
-		 * 蓄力值
+		 * 蓄力值，不会超过 MAX_ACCUMUMATION
 		 */
 		private var _accumulation:Number = 0.0;
 		public function get accumulation():Number 

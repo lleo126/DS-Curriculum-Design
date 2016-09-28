@@ -47,7 +47,8 @@ package units
 		
 		public function update():void 
 		{
-			unit.unitTransform.bottom
+			displayObject.width = unit.unitTransform.z;
+			center();
 			alpha
 		}
 	}
