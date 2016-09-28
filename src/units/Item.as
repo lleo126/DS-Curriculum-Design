@@ -1,6 +1,7 @@
 package units 
 {
 	import flash.display.Bitmap;
+	import units.skills.Skill;
 	
 	/**
 	 * 道具
@@ -8,6 +9,11 @@ package units
 	 */
 	public class Item extends Unit 
 	{
+		public static function fromXML(xml:XML):Item
+		{
+			return null;
+		}
+		
 		public function Item(img:Bitmap) 
 		{
 			super(img);

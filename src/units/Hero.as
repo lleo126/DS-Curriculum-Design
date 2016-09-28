@@ -19,12 +19,14 @@ package units
 		private static const ATTCK_RANGE:Number = 200.0;
 		private static const EXPLOSION_DISTANCE:Number = 100.0;
 		private static const MAX_SPEED:Number = 20.0;
+		private static const MAX_ACCUMULATION:Number = 100.0;
 		private static const WIDTH:Number = 40.0;
 		private static const HEIGHT:Number = 40.0;
 		
 		public function Hero() 
 		{
 			super(new AssetManager.HERO_IMG());
+			
 			width = WIDTH;
 			height = HEIGHT;
 			hp = HP;
@@ -37,13 +39,18 @@ package units
 		// 变量
 		//==========
 		
+		/**
+		 * 雪球大小，有三种预设
+		 */
 		public var snowball:Snowball = SNOWBALLS[1];
-		public var accumulation:Number = 0.0;
 		
 		//==========
 		// 属性
 		//==========
 		
+		/**
+		 * 收集的雪量
+		 */
 		private var _sp:Number;
 		public function get sp():Number 
 		{
@@ -52,6 +59,19 @@ package units
 		public function set sp(value:Number):void 
 		{
 			_sp = value;
+		}
+		
+		/**
+		 * 蓄力值
+		 */
+		private var _accumulation:Number = 0.0;
+		public function get accumulation():Number 
+		{
+			return _accumulation;
+		}
+		public function set accumulation(value:Number):void 
+		{
+			_accumulation = value < MAX_ACCUMULATION ? value : MAX_ACCUMULATION;
 		}
 		
 		//==========

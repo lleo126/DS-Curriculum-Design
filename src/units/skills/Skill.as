@@ -1,4 +1,4 @@
-package units 
+package units.skills 
 {
 	/**
 	 * 道具的效果

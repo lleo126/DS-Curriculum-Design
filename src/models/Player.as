@@ -10,7 +10,7 @@ package models
 	{
 		public function Player() 
 		{
-			
+			_hero.owner = this;
 		}
 		
 		//==========
@@ -55,7 +55,8 @@ package models
 		
 		private function update():void 
 		{
-			_hero.unitTransform.speed = _hero.maxSpeed * int(!(upHeld == leftHeld && leftHeld == downHeld && downHeld == rightHeld && rightHeld == upHeld));
+			// TODO: 两个相对的按键按下后还会动
+			_hero.unitTransform.speed = _hero.maxSpeed * int(!(upHeld == downHeld && leftHeld == downHeld && downHeld == rightHeld && rightHeld == upHeld));
 			if (0.0 < _hero.unitTransform.speed)
 			{
 				_hero.unitTransform.orientation = Math.atan2(int(downHeld) - int(upHeld), int(rightHeld) - int(leftHeld)) / Math.PI * 180.0;

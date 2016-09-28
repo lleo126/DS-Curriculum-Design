@@ -229,16 +229,19 @@ package views
 						Main.current.view = View.PLAY_VIEW;
 					}
 			}
-			inactivate;
 		}
 		
 		override protected function inactivate(ev:Event):void
 		{
+			super.inactivate(ev);
+			
 			SCORE_VIEW.removeChild(scoreGroup);
 		}
 		
 		override protected function activate(ev:Event):void
 		{
+			super.activate(ev);
+			
 			placeElements();
 		}
 	}

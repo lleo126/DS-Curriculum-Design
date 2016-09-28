@@ -129,7 +129,8 @@ package units
 			if (!unit) return;
 			
 			unit.x = _x;
-			unit.y = _y + bottom;
+			unit.y = _y;
+			unit.displayObject.y = -unit.displayObject.height * 0.5 -bottom;
 		}
 		
 		/**

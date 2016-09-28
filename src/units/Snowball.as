@@ -21,6 +21,10 @@ package units
 			_bonus = bonus;
 		}
 		
+		//==========
+		// 变量
+		//==========
+		
 		// TODO
 	}
 }

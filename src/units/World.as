@@ -149,8 +149,8 @@ package units
 			_collisionManager = new CollisionManager(_players, _snowballs, _monsters, _obstacles, _items);
 			
 			
-			_players[0].hero.center();
-			heroGenerator.dropUnit(_players[0].hero)
+			//_players[0].hero.center();
+			heroGenerator.dropUnit(_players[0].hero);
 		}
 		
 		/**

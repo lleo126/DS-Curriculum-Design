@@ -2,6 +2,9 @@ package units
 {
 	import flash.display.Bitmap;
 	import flash.events.Event;
+	import flash.utils.getTimer;
+	import flash.utils.setInterval;
+	import models.Player;
 	
 	/**
 	 * 游戏世界中最基本的单位，抽象类
@@ -11,14 +14,43 @@ package units
 	{
 		public function Unit(img:Bitmap) 
 		{
-			super(this.img = img);
+			super(img);
+			
 			unitTransform = new UnitTransform();
+			dropShadow = new DropShadow(this);
 			addEventListener(Event.ADDED_TO_STAGE, init);
+		}
+		
+		/**
+		 * 当它被第一次添加入舞台时调用
+		 * @param	e
+		 */
+		private function init(e:Event):void 
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, init);
+			
+			addChild(dropShadow);
+			addChild(_displayObject);
+			center();
+			//_displayObject.x
+			//trace( "width : " + width );
+			//trace( "_displayObject.width : " + _displayObject.width );
+			//
+			setInterval(function ():void 
+			{
+				// 测试，让 Z 坐标上下起伏
+				_unitTransform.z = (Math.sin(getTimer() / 180.0 * Math.PI) + 1.0) * 200.0;
+			}, 30);
 		}
 		
 		//==========
 		// 变量
 		//==========
+		
+		/**
+		 * 所属者
+		 */
+		public var owner:Player;
 		
 		/**
 		 * 攻击距离
@@ -30,14 +62,18 @@ package units
 		 */
 		protected var dropShadow:DropShadow;
 		
-		/**
-		 * 该单位的图片
-		 */
-		protected var img:Bitmap;
-		
 		//==========
 		// 属性
 		//==========
+		
+		/**
+		 * 名字
+		 */
+		//protected var _name:String;
+		//public function get name():String 
+		//{
+			//return _name;
+		//}
 		
 		/**
 		 * 包含单位的 z 坐标，速度，碰撞大小等信息，与单位绑定
@@ -110,19 +146,6 @@ package units
 		public function dispose():void 
 		{
 			
-		}
-		
-		/**
-		 * 当它被添加入舞台时调用
-		 * @param	e
-		 */
-		private function init(e:Event):void 
-		{
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			
-			//addChild(dropShadow);
-			addChild(img);
-			// TODO: 释放图片什么的？
 		}
 	}
 }
