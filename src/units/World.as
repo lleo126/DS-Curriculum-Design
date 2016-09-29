@@ -95,7 +95,6 @@ package units
 		 * 碰撞管理器
 		 */
 		private var _collisionManager:CollisionManager;
-		public function get collisionManager():CollisionManager 
 		public function get collisionManager():CollisionManager
 		{
 			return _collisionManager;
@@ -105,7 +104,6 @@ package units
 		 * 玩家，根据长度可以判断是单人还是双人
 		 */
 		private var _players:Vector.<Player>;
-		public function get players():Vector.<Player> 
 		public function get players():Vector.<Player>
 		{
 			return _players;
@@ -115,7 +113,6 @@ package units
 		 * 雪球
 		 */
 		private var _snowballs:Vector.<Snowball> = new <Snowball>[];
-		public function get snowballs():Vector.<Snowball> 
 		public function get snowballs():Vector.<Snowball>
 		{
 			return _snowballs;
@@ -125,7 +122,6 @@ package units
 		 * 怪物
 		 */
 		private var _monsters:Vector.<Monster> = new <Monster>[];
-		public function get monsters():Vector.<Monster> 
 		public function get monsters():Vector.<Monster>
 		{
 			return _monsters;
@@ -135,7 +131,6 @@ package units
 		 * 障碍物
 		 */
 		private var _obstacles:Vector.<Obstacle> = new <Obstacle>[];
-		public function get obstacles():Vector.<Obstacle> 
 		public function get obstacles():Vector.<Obstacle>
 		{
 			return _obstacles;
@@ -145,7 +140,6 @@ package units
 		 * 道具
 		 */
 		private var _items:Vector.<Item> = new <Item>[];
-		public function get items():Vector.<Item> 
 		public function get items():Vector.<Item>
 		{
 			return _items;
@@ -155,7 +149,6 @@ package units
 		 * 自上一帧以来的经过时间，以毫秒为单位
 		 */
 		private var _deltaTime:Number;
-		public function get deltaTime():Number 
 		public function get deltaTime():Number
 		{
 			return _deltaTime;
