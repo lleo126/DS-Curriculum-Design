@@ -12,7 +12,7 @@ package units.skills
 			//super();
 			//
 		}
-		public var addSnow:int;
+		public var addSnow:Number;
 	}
 
 }

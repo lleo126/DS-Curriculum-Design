@@ -92,7 +92,7 @@
 		<name>glue</name>
 		<radius>20</radius>
 		<skill klass="units.skills.Stop">
-			<stop>1</stop>
+			<time>1</time>
 		</skill>
 	</item>
 	<item>
@@ -100,15 +100,15 @@
 		<name>dog</name>
 		<radius>20</radius>
 		<skill klass="units.skills.Dizzy">
-			<dizzy>1</dizzy>
+			<time>1</time>
 		</skill>
 	</item>
 	<item>
 		<img>POISON_IMG</img>
 		<name>poison</name>
 		<radius>20</radius>
-		<skill klass="untis.skills.MoveBackward">
-			<moveBackward>1</moveBackward>
+		<skill klass="units.skills.MoveBackward">
+			<time>1</time>
 		</skill>
 	</item>
 

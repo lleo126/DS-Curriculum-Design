@@ -12,7 +12,7 @@ package units.skills
 			//super();
 			
 		}
-		public var speedUp:int;
+		public var speedUp:Number;
 	}
 
 }

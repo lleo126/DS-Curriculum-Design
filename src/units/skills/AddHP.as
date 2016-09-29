@@ -1,5 +1,6 @@
 package units.skills 
 {
+	import units.Unit;
 	/**
 	 * ...
 	 * @author leo126
@@ -12,7 +13,12 @@ package units.skills
 			//super();
 			//
 		}
-		public var addHP:int;
+		
+		public var addHP:Number;
+		
+		override public function apply(unit:Unit):void 
+		{
+			unit.hp += addHP;
+		}
 	}
-
 }

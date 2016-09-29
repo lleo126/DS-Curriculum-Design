@@ -12,7 +12,7 @@ package units.skills
 			//super();
 			
 		}
-		public var stop:Boolean;
+		public var time:Number;
 	}
 
 }

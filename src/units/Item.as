@@ -1,15 +1,23 @@
-package units 
+package units
 {
 	import flash.display.Bitmap;
+	import flash.utils.getDefinitionByName;
+	import units.skills.AddHP;
+	import units.skills.AddSnow;
+	import units.skills.Dizzy;
+	import units.skills.MoveBackward;
 	import units.skills.Skill;
+	import units.skills.SpeedUp;
+	import units.skills.Stop;
 	
 	/**
 	 * 道具
 	 * @author 彩月葵☆彡
 	 */
-	public class Item extends Unit 
+	public class Item extends Unit
 	{
 		//private static const radius:Number;
+		public static var a:AddHP, b:AddSnow, c:Dizzy, d:MoveBackward, e:SpeedUp, f:Stop;
 		
 		public function Item(img:Bitmap)
 		{
@@ -20,7 +28,7 @@ package units
 		// 属性
 		//==========
 		private var _skill:Skill;
-		public function get skill():Skill 
+		public function get skill():Skill
 		{
 			return _skill;
 		}
@@ -31,39 +39,17 @@ package units
 		
 		override public function setByXML(xml:XML):void
 		{
-			_radius = parseInt(xml.radius.text());
-
-			if (xml.skill.hasOwnProperty("addHP"))
-			{
-				_hp	+= parseInt(xml.skill.addHP);	
-				trace("HP: " + parseInt(xml.skill.addHP));
-			}
+			name = xml.name.text().toString();
+			_radius = parseInt(xml.radius.text().toString());
 			
-			if (xml.skill.hasOwnProperty("speedUP"))
+			var skillXML:XML = xml.skill[0];
+			var SkillClass:Class = getDefinitionByName(skillXML.@klass.toString()) as Class;
+			_skill = new SkillClass();
+			for each (var param:XML in skillXML.children())
 			{
-				_maxSpeed += parseInt(xml.skill.speedUP);
-				trace("Speed: " + parseInt(xml.skill.speedUP));
+				_skill[param.localName().toString()] = parseFloat(param.text().toString());
+				//trace("_skill[", param.localName().toString(), "] = ", param.text().toString());
 			}
-			
-			if (xml.skill.hasOwnProperty("addSnow"))
-			{
-				trace ("addSnow: " + parseInt(xml.skill.addSnow));
-			}
-			
-			if (xml.skill.hasOwnProperty("stop"))
-			{
-				trace ("stop: true");
-			}
-			
-			if (xml.skill.hasOwnProperty("dizzy"))
-			{
-				trace ("dizzy: true");
-			}
-			
-			if (xml.skill.hasOwnProperty("moveBackward"))
-			{
-				trace ("moveBackward: true");
-			}
-		}	
+		}
 	}
 }
