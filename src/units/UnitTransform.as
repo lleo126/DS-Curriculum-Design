@@ -134,7 +134,7 @@ package units
 			
 			unit.x = _x;
 			unit.y = _y;
-			unit.displayObject.y = -unit.displayObject.height * 0.5 -bottom;
+			unit.displayObject.y = - unit.displayObject.height * 0.5 - bottom;
 		}
 		
 		/**

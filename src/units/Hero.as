@@ -21,17 +21,17 @@ package units
 		private static const EXPLOSION_DISTANCE:Number = 100.0;
 		private static const MAX_SPEED:Number = 0.5;
 		private static const MAX_ACCUMULATION:Number = 100.0;
-		private static const WIDTH:Number = 40.0;
-		private static const HEIGHT:Number = 40.0;
-		private static const RADIUS:Number = 20.0;
-		private static const ALTITUDE:Number = RADIUS;
+		private static const WIDTH:Number = 50.0;
+		private static const HEIGHT:Number = 50.0;
+		private static const RADIUS:Number = 50.0;
+		private static const ALTITUDE:Number = 2.0 * RADIUS;
 		
 		public function Hero() 
 		{
 			super(new AssetManager.HERO_IMG());
 			
-			width = WIDTH;
-			height = HEIGHT;
+			//width = WIDTH;
+			//height = HEIGHT;
 			hp = HP;
 			sp = SP;
 			attackRange = ATTCK_RANGE;
@@ -95,10 +95,10 @@ package units
 		public function lift():void 
 		{
 			liftSnowball = snowball.clone();
-			liftSnowball.unitTransform.bottom = unitTransform.top;
 			addChild(liftSnowball);
 			liftSnowball.scaleX = 1.0 / liftSnowball.parent.scaleX;
 			liftSnowball.scaleY = 1.0 / liftSnowball.parent.scaleY;
+			liftSnowball.unitTransform.bottom = unitTransform.top;
 			lifted = true;
 		}
 		
