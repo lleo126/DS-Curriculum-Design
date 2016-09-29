@@ -1,4 +1,4 @@
-package units 
+package units
 {
 	import assets.AssetManager;
 	import flash.display.Bitmap;
@@ -16,33 +16,32 @@ package units
 	 * ...
 	 * @author 彩月葵☆彡
 	 */
-	public class World extends Sprite 
+	public class World extends Sprite
 	{
 		public static const GRAVITY:Number = 1.0;
 		public static const CHALLENGE_SCALE:Number = 3.0;
 		
-		public function World() 
+		public function World()
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
 			addEventListener(Event.ENTER_FRAME, update);
 			
 			heroGenerator = new UnitGenerator(this);
-			monsterGenerator = new UnitGenerator(this, XML(new AssetManager.MONSTER_XML()));
-			obstacleGenerator = new UnitGenerator(this, XML(new AssetManager.OBSTACLE_XML()));
-			itemGenerator = new UnitGenerator(this, XML(new AssetManager.ITEM_XML()));
+			//monsterGenerator = new UnitGenerator(this, AssetManager.MONSTER_XML.data);
+			//obstacleGenerator = new UnitGenerator(this, AssetManager.OBSTACLE_XML.data);
+			itemGenerator = new UnitGenerator(this, AssetManager.ITEM_XML.data);
 		}
 		
-		private function init(ev:Event):void 
+		private function init(ev:Event):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			
 			// TODO: 设大小貌似会缩放里面的内容
 			//width	= stage.stageWidth;
 			//height	= stage.stageHeight;
 			//if (CHALLENGE_SCALE)
 			//{
-				//width	*= CHALLENGE_SCALE;
-				//height	*= CHALLENGE_SCALE;
+			//width	*= CHALLENGE_SCALE;
+			//height	*= CHALLENGE_SCALE;
 			//}
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN,	onKeyUpDown);
@@ -97,6 +96,7 @@ package units
 		 */
 		private var _collisionManager:CollisionManager;
 		public function get collisionManager():CollisionManager 
+		public function get collisionManager():CollisionManager
 		{
 			return _collisionManager;
 		}
@@ -106,6 +106,7 @@ package units
 		 */
 		private var _players:Vector.<Player>;
 		public function get players():Vector.<Player> 
+		public function get players():Vector.<Player>
 		{
 			return _players;
 		}
@@ -115,6 +116,7 @@ package units
 		 */
 		private var _snowballs:Vector.<Snowball> = new <Snowball>[];
 		public function get snowballs():Vector.<Snowball> 
+		public function get snowballs():Vector.<Snowball>
 		{
 			return _snowballs;
 		}
@@ -124,6 +126,7 @@ package units
 		 */
 		private var _monsters:Vector.<Monster> = new <Monster>[];
 		public function get monsters():Vector.<Monster> 
+		public function get monsters():Vector.<Monster>
 		{
 			return _monsters;
 		}
@@ -133,6 +136,7 @@ package units
 		 */
 		private var _obstacles:Vector.<Obstacle> = new <Obstacle>[];
 		public function get obstacles():Vector.<Obstacle> 
+		public function get obstacles():Vector.<Obstacle>
 		{
 			return _obstacles;
 		}
@@ -142,6 +146,7 @@ package units
 		 */
 		private var _items:Vector.<Item> = new <Item>[];
 		public function get items():Vector.<Item> 
+		public function get items():Vector.<Item>
 		{
 			return _items;
 		}
@@ -151,6 +156,7 @@ package units
 		 */
 		private var _deltaTime:Number;
 		public function get deltaTime():Number 
+		public function get deltaTime():Number
 		{
 			return _deltaTime;
 		}
@@ -164,43 +170,45 @@ package units
 		 * @param	type	游戏模式
 		 * @param	players	玩家数组
 		 */
-		public function start(type:String, players:Vector.<Player>):void 
+		public function start(type:String, players:Vector.<Player>):void
 		{
 			this.type = type;
 			_players = players;
 			lastTime = getTimer();
 			_collisionManager = new CollisionManager(_players, _snowballs, _monsters, _obstacles, _items);
 			
-			
 			//_players[0].hero.center();
 			heroGenerator.dropUnit(_players[0].hero);
 			heroGenerator.dropUnit(_players[1].hero);
+			
+			var unit:Unit = itemGenerator.randomUnit();
+			itemGenerator.dropUnit(unit);
 		}
 		
 		/**
 		 * 继续或暂停游戏
 		 * @param	b true 表示继续，false 表示暂停
 		 */
-		public function resume(b:Boolean):void 
+		public function resume(b:Boolean):void
 		{
-			
+		
 		}
 		
 		/**
 		 * 清除数据
 		 */
-		public function dispose():void 
+		public function dispose():void
 		{
 			var i:int = 0;
-			for (i = 0; i < _players.length; i++) 
+			for (i = 0; i < _players.length; i++)
 			{
 				_players[i].hero.dispose();
 			}
-			for (i = 0; i < _snowballs.length; i++) 
+			for (i = 0; i < _snowballs.length; i++)
 			{
 				_snowballs[i].dispose();
 			}
-			for (i = 0; i < _monsters.length; i++) 
+			for (i = 0; i < _monsters.length; i++)
 			{
 				_monsters[i].dispose();
 			}
@@ -218,21 +226,21 @@ package units
 		 * 向游戏世界里添加单位
 		 * @param	unit
 		 */
-		public function addUnit(unit:Unit):void 
+		public function addUnit(unit:Unit):void
 		{
-			if (unit is Snowball) 
+			if (unit is Snowball)
 			{
 				_snowballs.push(unit);
 			}
-			else if (unit is Item) 
+			else if (unit is Item)
 			{
 				_items.push(unit);
 			}
-			else if (unit is Obstacle) 
+			else if (unit is Obstacle)
 			{
 				_obstacles.push(unit);
 			}
-			else if (unit is Monster) 
+			else if (unit is Monster)
 			{
 				_monsters.push(unit)
 			}
@@ -243,21 +251,21 @@ package units
 		 * 向游戏世界里删除单位
 		 * @param	unit
 		 */
-		public function removeUnit(unit:Unit):void 
+		public function removeUnit(unit:Unit):void
 		{
-			if (unit is Snowball) 
+			if (unit is Snowball)
 			{
 				_snowballs.splice(_snowballs.indexOf(unit), 1);
 			}
-			else if (unit is Item) 
+			else if (unit is Item)
 			{
 				_items.splice(_items.indexOf(unit), 1);
 			}
-			else if (unit is Obstacle) 
+			else if (unit is Obstacle)
 			{
 				_obstacles.splice(_obstacles.indexOf(unit), 1);
 			}
-			else if (unit is Monster) 
+			else if (unit is Monster)
 			{
 				_monsters.splice(_monsters.indexOf(unit), 1);
 			}
@@ -268,7 +276,7 @@ package units
 		 * （每帧）更新所有单位
 		 * @param	e
 		 */
-		private function update(e:Event = null):void 
+		private function update(e:Event = null):void
 		{
 			if (Main.current.view != View.PLAY_VIEW) return;
 			
@@ -283,7 +291,7 @@ package units
 		 * 按键按下时找 PlayerController 代理处理玩家操作
 		 * @param	e
 		 */
-		private function onKeyUpDown(e:KeyboardEvent):void 
+		private function onKeyUpDown(e:KeyboardEvent):void
 		{
 			//trace( "World.onKeyUpDown > e : " + e );
 			if (Main.current.view != View.PLAY_VIEW) return;
@@ -296,16 +304,16 @@ package units
 			}
 		}
 		
-		private function updateTime():void 
+		private function updateTime():void
 		{
 			var newTime:int = getTimer();
 			_deltaTime = newTime - lastTime;
 			lastTime = newTime;
 		}
 		
-		private function applyGravity():void 
+		private function applyGravity():void
 		{
-			for (var i:int = 0; i < _snowballs.length; i++) 
+			for (var i:int = 0; i < _snowballs.length; i++)
 			{
 				_snowballs[i].unitTransform.vz -= GRAVITY;
 			}
@@ -314,9 +322,9 @@ package units
 		/**
 		 * 深度排序
 		 */
-		private function zSort():void 
+		private function zSort():void
 		{
-			
+		
 		}
 	}
 }

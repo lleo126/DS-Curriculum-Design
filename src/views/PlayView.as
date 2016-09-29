@@ -126,6 +126,7 @@ package views
 		
 		override protected function placeElements():void 
 		{
+			addChild(_world);
 			addChild(ui);
 			//=========暂停界面=======
 			_stop.graphics.beginFill(0x000000, 0.26);
@@ -210,8 +211,6 @@ package views
 			groupScore.addChild(role2_score);
 			
 			//=============================
-			
-			addChild(_world);
 		}
 		
 		private function keyDown(e:KeyboardEvent):void

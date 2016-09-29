@@ -20,7 +20,7 @@ package controls
 	{
 		public function ConceptFrame() 
 		{
-			conceptImage = new AssetManager.Concept_Frame_IMG();
+			conceptImage = new AssetManager.CONCEPT_FRAME_IMG();
 			
 			nc = new NetConnection();
 			nc.connect(null);
@@ -38,12 +38,12 @@ package controls
 			videoWrapper.addChild(video);
 			video.x = VIDEO_X; video.y = VIDEO_Y;
 			video.width = VIDEO_W; video.height = VIDEO_H;
-			videoWrapper.graphics.beginFill(0x9E3A42);
+			videoWrapper.graphics.beginFill(0xdff8f8);
 			videoWrapper.graphics.drawRect( MARGIN_X, MARGIN_Y, video.width + PADDING, video.height + PADDING);
 			videoWrapper.graphics.endFill();
 			
 
-			aboutImage = new AssetManager.Concept_Frame_About_IMG();
+			aboutImage = new AssetManager.CONCEPT_FRAME_ABOUT_IMG();
 			
 			super(conceptImage);
 		}
