@@ -1,9 +1,11 @@
-<obstacles>
+<obstacles klass="units.Obstacles">
 	<obstacle>
+		<img>TREE_IMG</img>
 		<name>tree</name>
 		<radius>20</radius>
 	</obstacle>
 	<obstacle>
+		<img>CAR_IMG</img>
 		<name>car</name>
 		<radius>20</radius>
 	</obstacle>

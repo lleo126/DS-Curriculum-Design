@@ -3,8 +3,7 @@
 	<item>
 		<img>LITCHI_IMG</img>
 		<name>litchi</name>
-		<bonus>5</bonus>
-		<radius>1</radius>
+		<radius>8</radius>
 		<skill klass="units.skills.AddHP">
 			<addHP>5</addHP>
 		</skill>
@@ -12,8 +11,7 @@
 	<item>
 		<img>MANGO_IMG</img>
 		<name>mango</name>
-		<bonus>10</bonus>
-		<radius>2</radius>
+		<radius>10</radius>
 		<skill klass="units.skills.AddHP">
 			<addHP>10</addHP>
 		</skill>
@@ -21,8 +19,7 @@
 	<item>
 		<img>CARAMBOLA_IMG</img>
 		<name>carambola</name>
-		<bonus>15</bonus>
-		<radius>4</radius>
+		<radius>12</radius>
 		<skill klass="units.skills.AddHP">
 			<addHP>15</addHP>
 		</skill>
@@ -31,8 +28,7 @@
 	<item>
 		<img>SOURFRUIT_IMG</img>
 		<name>rotten litchi</name>
-		<bonus>-5</bonus>
-		<radius>20</radius>
+		<radius>8</radius>
 		<skill klass="units.skills.AddHP">
 			<addHP>-5</addHP>
 		</skill>
@@ -40,8 +36,7 @@
 	<item>
 		<img>SOURFRUIT_IMG</img>
 		<name>rotten mango</name>
-		<bonus>-10</bonus>
-		<radius>20</radius>
+		<radius>10</radius>
 		<skill klass="units.skills.AddHP">
 			<addHP>-10</addHP>
 		</skill>
@@ -49,8 +44,7 @@
 	<item>
 		<img>SOURFRUIT_IMG</img>
 		<name>rotten carambola</name>
-		<bonus>-15</bonus>
-		<radius>20</radius>
+		<radius>12</radius>
 		<skill klass="units.skills.AddHP">
 			<addHP>-15</addHP>
 		</skill>

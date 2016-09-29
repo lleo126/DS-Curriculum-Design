@@ -110,10 +110,9 @@ package units
 			var UnitClass:Class = getDefinitionByName(xml.@klass.toString()) as Class;
 			//var unitXML:XML = xml.items.item[Math.floor(Math.random() * xml..item.length())];
 			var unitXML:XML = xml.item[Math.floor(Math.random() * xml.item.length())];
-			trace(unitXML.toXMLString());
 			var ImageClass:Class = AssetManager[unitXML.img.text().toString()];
 			var unit:Unit = new UnitClass(new ImageClass());
-			unit.setByXML(xml);
+			unit.setByXML(unitXML);
 			return unit;
 		}
 		

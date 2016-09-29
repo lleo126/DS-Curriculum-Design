@@ -31,9 +31,39 @@ package units
 		
 		override public function setByXML(xml:XML):void
 		{
-			_radius = parseInt(xml.item.radius.text());
-			//_bonus = parseInt(xml.item.bonus.text());
-			//_skill = 
+			_radius = parseInt(xml.radius.text());
+
+			if (xml.skill.hasOwnProperty("addHP"))
+			{
+				_hp	+= parseInt(xml.skill.addHP);	
+				trace("HP: " + parseInt(xml.skill.addHP));
+			}
+			
+			if (xml.skill.hasOwnProperty("speedUP"))
+			{
+				_maxSpeed += parseInt(xml.skill.speedUP);
+				trace("Speed: " + parseInt(xml.skill.speedUP));
+			}
+			
+			if (xml.skill.hasOwnProperty("addSnow"))
+			{
+				trace ("addSnow: " + parseInt(xml.skill.addSnow));
+			}
+			
+			if (xml.skill.hasOwnProperty("stop"))
+			{
+				trace ("stop: true");
+			}
+			
+			if (xml.skill.hasOwnProperty("dizzy"))
+			{
+				trace ("dizzy: true");
+			}
+			
+			if (xml.skill.hasOwnProperty("moveBackward"))
+			{
+				trace ("moveBackward: true");
+			}
 		}	
 	}
 }
