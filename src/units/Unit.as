@@ -31,12 +31,6 @@ package units
 			
 			addChild(dropShadow);
 			addChild(_displayObject);
-			center();
-			setInterval(function ():void 
-			{
-				// 测试，让 Z 坐标上下起伏
-				_unitTransform.z = (Math.sin(getTimer() / 180.0 * Math.PI / 4) + 1.0) * 200.0;
-			}, 30);
 		}
 		
 		//==========
@@ -141,7 +135,7 @@ package units
 		
 		public function dispose():void 
 		{
-			
+			removeFromWorld();
 		}
 		
 		/**
@@ -151,6 +145,11 @@ package units
 		{
 			
 		}	
+		
+		public function removeFromWorld():void 
+		{
+			(parent as World).removeUnit(this);
+		}
 	}
 }
 

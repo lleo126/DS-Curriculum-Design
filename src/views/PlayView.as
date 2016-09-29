@@ -249,6 +249,7 @@ package views
 
 		override protected function inactivate(ev:Event):void 
 		{
+			super.inactivate(ev);
 			world.dispose();
 		}
 	}

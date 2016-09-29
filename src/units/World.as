@@ -18,7 +18,7 @@ package units
 	 */
 	public class World extends Sprite
 	{
-		public static const GRAVITY:Number = 2.0;
+		public static const GRAVITY:Number = 1.0;
 		public static const CHALLENGE_SCALE:Number = 3.0;
 		
 		public function World()
@@ -27,7 +27,7 @@ package units
 			addEventListener(Event.ENTER_FRAME, update);
 			
 			heroGenerator = new UnitGenerator(this);
-			//monsterGenerator = new UnitGenerator(this, new AssetManager.MONSTER_XML.data);
+			//monsterGenerator = new UnitGenerator(this, AssetManager.MONSTER_XML.data);
 			//obstacleGenerator = new UnitGenerator(this, AssetManager.OBSTACLE_XML.data);
 			itemGenerator = new UnitGenerator(this, AssetManager.ITEM_XML.data);
 		}
@@ -44,8 +44,8 @@ package units
 			//height	*= CHALLENGE_SCALE;
 			//}
 			
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyUpDown);
-			stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUpDown);
+			stage.addEventListener(KeyboardEvent.KEY_DOWN,	onKeyUpDown);
+			stage.addEventListener(KeyboardEvent.KEY_UP,	onKeyUpDown);
 		}
 		
 		//==========
@@ -95,7 +95,6 @@ package units
 		 * 碰撞管理器
 		 */
 		private var _collisionManager:CollisionManager;
-		
 		public function get collisionManager():CollisionManager
 		{
 			return _collisionManager;
@@ -105,7 +104,6 @@ package units
 		 * 玩家，根据长度可以判断是单人还是双人
 		 */
 		private var _players:Vector.<Player>;
-		
 		public function get players():Vector.<Player>
 		{
 			return _players;
@@ -115,7 +113,6 @@ package units
 		 * 雪球
 		 */
 		private var _snowballs:Vector.<Snowball> = new <Snowball>[];
-		
 		public function get snowballs():Vector.<Snowball>
 		{
 			return _snowballs;
@@ -125,7 +122,6 @@ package units
 		 * 怪物
 		 */
 		private var _monsters:Vector.<Monster> = new <Monster>[];
-		
 		public function get monsters():Vector.<Monster>
 		{
 			return _monsters;
@@ -135,7 +131,6 @@ package units
 		 * 障碍物
 		 */
 		private var _obstacles:Vector.<Obstacle> = new <Obstacle>[];
-		
 		public function get obstacles():Vector.<Obstacle>
 		{
 			return _obstacles;
@@ -145,7 +140,6 @@ package units
 		 * 道具
 		 */
 		private var _items:Vector.<Item> = new <Item>[];
-		
 		public function get items():Vector.<Item>
 		{
 			return _items;
@@ -155,7 +149,6 @@ package units
 		 * 自上一帧以来的经过时间，以毫秒为单位
 		 */
 		private var _deltaTime:Number;
-		
 		public function get deltaTime():Number
 		{
 			return _deltaTime;
@@ -253,24 +246,23 @@ package units
 		 */
 		public function removeUnit(unit:Unit):void
 		{
-			// TODO
 			if (unit is Snowball)
 			{
-				//_snowballs.push(unit);
+				_snowballs.splice(_snowballs.indexOf(unit), 1);
 			}
 			else if (unit is Item)
 			{
-				//_items.push(unit);
+				_items.splice(_items.indexOf(unit), 1);
 			}
 			else if (unit is Obstacle)
 			{
-				//_obstacles.push(unit);
+				_obstacles.splice(_obstacles.indexOf(unit), 1);
 			}
 			else if (unit is Monster)
 			{
-				//_monsters.push(unit)
+				_monsters.splice(_monsters.indexOf(unit), 1);
 			}
-			//addChild(unit);
+			removeChild(unit);
 		}
 		
 		/**
@@ -316,7 +308,7 @@ package units
 		{
 			for (var i:int = 0; i < _snowballs.length; i++)
 			{
-				_snowballs[i].unitTransform.vz += GRAVITY;
+				_snowballs[i].unitTransform.vz -= GRAVITY;
 			}
 		}
 		
