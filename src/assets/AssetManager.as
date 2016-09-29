@@ -146,8 +146,31 @@ package assets
 		public static const MANGO_IMG:Class;
 		
 		[Embed(source = "../../assets/photos/sourFruit.png")]
-		public static const SOURFRUIT:Class;
+		public static const SOURFRUIT_IMG:Class;
 		
+		[Embed(source = "../../assets/photos/spicystrips.png")]
+		public static const SPICYSTRIPS_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/sour_spicystrips.png")]
+		public static const SOUR_SPICYSTRIPS_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/car.png")]
+		public static const CAR_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/dog.png")]
+		public static const DOG_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/ice.png")]
+		public static const ICE_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/glue.png")]
+		public static const GLUE_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/poison.png")]
+		public static const POISON_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/salt.png")]
+		public static const SALT_IMG:Class;
 		//==========================/
 	}
 }

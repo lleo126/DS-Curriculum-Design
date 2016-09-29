@@ -1,6 +1,6 @@
 <items klass="units.Item">
-	
-	<item type="fruit">
+	<!--该道具控制HP增加/减少-->
+	<item>
 		<img>LITCHI_IMG</img>
 		<name>litchi</name>
 		<bonus>5</bonus>
@@ -9,7 +9,7 @@
 			<addHP>5</addHP>
 		</skill>
 	</item>
-	<item type="fruit">
+	<item>
 		<img>MANGO_IMG</img>
 		<name>mango</name>
 		<bonus>10</bonus>
@@ -18,7 +18,7 @@
 			<addHP>10</addHP>
 		</skill>
 	</item>
-	<item type="fruit">
+	<item>
 		<img>CARAMBOLA_IMG</img>
 		<name>carambola</name>
 		<bonus>15</bonus>
@@ -28,99 +28,94 @@
 		</skill>
 	</item>
 
-	<!--
-<item type="rotten fruit">
-	<img>assets.AssetManager.SOURFRUIT_IMG</img>
-	<name>rotten litchi</name>
-	<bonus>-5</bonus>
-	<radius>20</radius>
-	<skill klass="units.skills.ReduceHP">
-		<addHP>-5</addHP>
-	</skill>
-</item>
-<item type="rotten fruit">
-	<img>assets.AssetManager.SOURFRUIT_IMG</img>
-	<name>rotten mango</name>
-	<bonus>-10</bonus>
-	<radius>20</radius>
-	<skill klass="units.skills.ReduceHP">
-		<addHP>-10</addHP>
-	</skill>
-</item>
-<item type="rotten fruit">
-	<img>assets.AssetManager.SOURFRUIT_IMG</img>
-	<name>rotten carambola</name>
-	<bonus>-15</bonus>
-	<radius>20</radius>
-	<skill klass="units.skills.ReduceHP">
-		<addHP>-15</addHP>
-	</skill>
-</item>
+	<item>
+		<img>SOURFRUIT_IMG</img>
+		<name>rotten litchi</name>
+		<bonus>-5</bonus>
+		<radius>20</radius>
+		<skill klass="units.skills.AddHP">
+			<addHP>-5</addHP>
+		</skill>
+	</item>
+	<item>
+		<img>SOURFRUIT_IMG</img>
+		<name>rotten mango</name>
+		<bonus>-10</bonus>
+		<radius>20</radius>
+		<skill klass="units.skills.AddHP">
+			<addHP>-10</addHP>
+		</skill>
+	</item>
+	<item>
+		<img>SOURFRUIT_IMG</img>
+		<name>rotten carambola</name>
+		<bonus>-15</bonus>
+		<radius>20</radius>
+		<skill klass="units.skills.AddHP">
+			<addHP>-15</addHP>
+		</skill>
+	</item>
 
-<item>
-	<name>spicy strips</name>
-	<radius>20</radius>
-	<skill klass="units.skills.SpeedUp">
-		<speedUp>0.1</speedUp>
-	</skill>
-</item>
-<item>
-	<name>sour spicy strips</name>
-	<radius>20</radius>
-	<skill klass="units.skills.SpeedUp">
-		<speedUp>-0.2</speedUp>
-	</skill>
-</item>
+	<!--该道具控制速度增加/减少-->
+	<item>
+		<img>SPICYSTRIPS_IMG</img>
+		<name>spicy strips</name>
+		<radius>20</radius>
+		<skill klass="units.skills.SpeedUp">
+			<speedUp>0.1</speedUp>
+		</skill>
+	</item>
+	<item>
+		<img>SOUR_SPICYSTRIPS_IMG</img>
+		<name>sour spicy strips</name>
+		<radius>20</radius>
+		<skill klass="units.skills.SpeedUp">
+			<speedUp>-0.2</speedUp>
+		</skill>
+	</item>
 
--->
-	<!--控制该道具雪量增加/减少属性
-<item>
-	<name>ice</name>
-	<radius>20</radius>
-	<skill klass="units.skills.AddSnow">
-		<addSnow>100</addSnow>
-	</skill> 
-</item>
-<item>
-	<name>salt</name>
-	<radius>20</radius>
-	<skill klass="units.skills.AddSnow">
-		<addSnow>-100</addSnow>
-	</skill> 
-</item>
--->
-	<!--特殊效果道具
-<item>
-	<name>glue</name>
-	<radius>20</radius>
-	<skill klass="units.skills.Stop">
-		<stop>true</stop>
-	</skill>
-</item>
-<item>
-	<name>dog</name>
-	<radius>20</radius>
-	<skill klass="units.skills.Dizzy">
-		<dizzy>true</dizzy>
-	</skill>
-</item>
-<item>
-	<name>poison</name>
-	<radius>20</radius>
-	<skill klass="untis.skills.MoveBackward">
-		<moveBackward>true</moveBackward>
-	</skill>
-</item>
+	<!--该道具控制雪量增加/减少-->
+	<item>
+		<img>ICE_IMG</img>
+		<name>ice</name>
+		<radius>20</radius>
+		<skill klass="units.skills.AddSnow">
+			<addSnow>100</addSnow>
+		</skill> 
+	</item>
+	<item>
+		<img>SALT_IMG</img>
+		<name>salt</name>
+		<radius>20</radius>
+		<skill klass="units.skills.AddSnow">
+			<addSnow>-100</addSnow>
+		</skill> 
+	</item>
 
--->
+	<!--特殊效果道具-->
+	<item>
+		<img>GLUE_IMG</img>
+		<name>glue</name>
+		<radius>20</radius>
+		<skill klass="units.skills.Stop">
+			<stop>1</stop>
+		</skill>
+	</item>
+	<item>
+		<img>DOG_IMG</img>
+		<name>dog</name>
+		<radius>20</radius>
+		<skill klass="units.skills.Dizzy">
+			<dizzy>1</dizzy>
+		</skill>
+	</item>
+	<item>
+		<img>POISON_IMG</img>
+		<name>poison</name>
+		<radius>20</radius>
+		<skill klass="untis.skills.MoveBackward">
+			<moveBackward>1</moveBackward>
+		</skill>
+	</item>
+
 	</items>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	

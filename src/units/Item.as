@@ -32,7 +32,7 @@ package units
 		override public function setByXML(xml:XML):void
 		{
 			_radius = parseInt(xml.item.radius.text());
-			_bonus = parseInt(xml.item.bonus.text());
+			//_bonus = parseInt(xml.item.bonus.text());
 			//_skill = 
 		}	
 	}

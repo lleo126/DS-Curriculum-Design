@@ -30,7 +30,7 @@ package units
 			// 根据
 			//unit.radius ; // /height
 			// 设置
-			displayObject.width = unit.radius * 2;
+			displayObject.width = 120;//unit.radius * 2;
 			displayObject.height = displayObject.width * 0.6;
 			
 			addChild(displayObject);
