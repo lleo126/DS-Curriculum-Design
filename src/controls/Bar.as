@@ -4,22 +4,35 @@ package controls
 	import flash.display.Bitmap;
 	import flash.events.Event;
 	import flash.text.TextField;
+	import flash.text.TextFormat;
 	/**
 	 * ...
 	 * @author leo126
 	 */
 	public class Bar extends Range 
 	{
+		private static const FONT_SIZE:Number = 20.0;
+		
 		public function Bar(value:Number, maxValue:Number, groove:Bitmap) 
 		{
-			bar	= new AssetManager.WHITEBAR_IMG();
+			super(value, maxValue);
 			
+			text.defaultTextFormat = new TextFormat(null, FONT_SIZE);
+			text.selectable = false;
+			bar	= new AssetManager.WHITEBAR_IMG();
 			this.groove = groove;
 			groove.mask = bar;
+		}
+		
+		override protected function init(e:Event):void 
+		{
+			super.init(e);
 			
-			super(value, maxValue);
 			addChild(groove);
+			addChild(bar);
 			addChild(text);
+			
+			update();
 		}
 		
 		//==========
@@ -40,12 +53,6 @@ package controls
 		// 属性
 		//==========
 		
-		override public function set value(val:Number):void 
-		{
-			text.text = _value + ' / ' + maxValue;
-			super.value = val;
-		}
-		
 		//==========
 		// 方法
 		//==========
@@ -53,6 +60,7 @@ package controls
 		override protected function update():void 
 		{
 			groove.width = valueX;
+			text.text = _value.toString() + ' / ' + maxValue.toString();
 			text.x = (width	- text.width) * 0.5;
 			text.y = (height - text.height) * 0.5;
 		}

@@ -3,6 +3,7 @@ package controls
 	import assets.AssetManager;
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	
 	/**
 	 * ...
@@ -15,8 +16,12 @@ package controls
 		{
 			_value		= value;
 			_maxValue	= maxValue;
-			update();
-			addChild(bar);
+			addEventListener(Event.ADDED_TO_STAGE, init);
+		}
+		
+		protected function init(e:Event):void 
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, init);
 		}
 		
 		//==========

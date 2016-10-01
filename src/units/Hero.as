@@ -64,7 +64,7 @@ package units
 		//==========
 		
 		/**
-		 * 收集的雪量
+		 * 收集的雪量（Snow Point）
 		 */
 		private var _sp:Number;
 		public function get sp():Number 

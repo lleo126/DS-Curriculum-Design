@@ -11,7 +11,7 @@ package controls
 	{
 		public function HPBar() 
 		{
-			super(100.0, 100.0, new AssetManager.HP_GROOVE_IMG());
+			super(80.0, 100.0, new AssetManager.HP_GROOVE_IMG());
 		}		
 	}
 }
