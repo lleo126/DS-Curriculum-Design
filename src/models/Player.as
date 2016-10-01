@@ -55,13 +55,13 @@ package models
 		// 方法
 		//==========
 		
-		private function update():void
+		/**
+		 * 在世界暂停时会调用这个方法，停止所有按键并静止住人物
+		 */
+		public function releaseAll():void 
 		{
-			_hero.unitTransform.speed = _hero.maxSpeed * int(!(upHeld == downHeld && leftHeld == rightHeld));
-			if (0.0 < _hero.unitTransform.speed)
-			{
-				_hero.unitTransform.orientation = Math.atan2(int(downHeld) - int(upHeld), int(rightHeld) - int(leftHeld)) / Math.PI * 180.0;
-			}
+			upHeld = leftHeld = downHeld = rightHeld = false;
+			_hero.unitTransform.speed = 0.0;
 		}
 		
 		public function onMoveUp(keyCode:int, down:Boolean):void
@@ -126,6 +126,15 @@ package models
 			if (!down) return;
 			
 			hero.snowball = Hero.SNOWBALLS[2];
+		}
+		
+		private function update():void
+		{
+			_hero.unitTransform.speed = _hero.maxSpeed * int(!(upHeld == downHeld && leftHeld == rightHeld));
+			if (0.0 < _hero.unitTransform.speed)
+			{
+				_hero.unitTransform.orientation = Math.atan2(int(downHeld) - int(upHeld), int(rightHeld) - int(leftHeld)) / Math.PI * 180.0;
+			}
 		}
 	}
 }

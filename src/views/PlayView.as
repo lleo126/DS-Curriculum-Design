@@ -215,18 +215,19 @@ package views
 		
 		private function keyDown(e:KeyboardEvent):void
 		{
-			//super.inactivate(ev);
 			if (!active) return;
 			
 			if (!pressESCYet && e.keyCode == Keyboard.ESCAPE)
 			{
 				pressESCYet = true;
 				ui.addChild(_stop);
+				_world.resume(false);
 			}
 			else if (pressESCYet && e.keyCode == Keyboard.ESCAPE)
 			{
 				pressESCYet = false;
 				ui.removeChild(_stop);
+				_world.resume(true);
 			}
 		}
 
@@ -237,6 +238,7 @@ package views
 				pressESCYet = false;
 				ui.removeChild(_stop);
 				stage.focus = null;
+				_world.resume(true);
 			}
 			else if (e.target == buttonBack)
 			{

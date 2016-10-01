@@ -87,6 +87,11 @@ package units
 		 */
 		private var itemGenerator:UnitGenerator;
 		
+		/**
+		 * 表示是否暂停游戏，true 为不暂停，false 为暂停
+		 */
+		private var resumed:Boolean = true;
+		
 		//==========
 		// 属性
 		//==========
@@ -165,12 +170,21 @@ package units
 		 */
 		public function start(type:String, players:Vector.<Player>):void
 		{
+			resumed = true;
+			
 			this.type = type;
 			_players = players;
 			lastTime = getTimer();
 			_collisionManager = new CollisionManager(_players, _snowballs, _monsters, _obstacles, _items);
 			
-			//_players[0].hero.center();
+			generateUnits();
+		}
+		
+		/**
+		 * 生成世界里的所有单位
+		 */
+		private function generateUnits():void 
+		{
 			heroGenerator.dropUnit(_players[0].hero);
 			heroGenerator.dropUnit(_players[1].hero);
 			
@@ -184,7 +198,15 @@ package units
 		 */
 		public function resume(b:Boolean):void
 		{
-		
+			resumed = b;
+			if (resumed) lastTime = getTimer();
+			else
+			{
+				for (var i:int = 0; i < _players.length; ++i)
+				{
+					_players[i].releaseAll();
+				}
+			}
 		}
 		
 		/**
@@ -271,7 +293,7 @@ package units
 		 */
 		private function update(e:Event = null):void
 		{
-			if (Main.current.view != View.PLAY_VIEW) return;
+			if (Main.current.view != View.PLAY_VIEW || !resumed) return;
 			
 			updateTime();
 			applyGravity();
@@ -281,22 +303,8 @@ package units
 		}
 		
 		/**
-		 * 按键按下时找 PlayerController 代理处理玩家操作
-		 * @param	e
+		 * 更新每帧的 deltaTime
 		 */
-		private function onKeyUpDown(e:KeyboardEvent):void
-		{
-			//trace( "World.onKeyUpDown > e : " + e );
-			if (Main.current.view != View.PLAY_VIEW) return;
-			
-			for (var i:int = 0; i < 2; ++i)
-			{
-				if (!(e.keyCode in Setting.current.hotkeys[i])) continue;
-				
-				players[i]['on' + Setting.current.hotkeys[i][e.keyCode]](e.keyCode, e.type == KeyboardEvent.KEY_DOWN);
-			}
-		}
-		
 		private function updateTime():void
 		{
 			var newTime:int = getTimer();
@@ -304,6 +312,9 @@ package units
 			lastTime = newTime;
 		}
 		
+		/**
+		 * 给雪球们减 vz 速度
+		 */
 		private function applyGravity():void
 		{
 			for (var i:int = 0; i < _snowballs.length; i++)
@@ -313,11 +324,28 @@ package units
 		}
 		
 		/**
-		 * 深度排序
+		 * 深度排序，使用插入排序即可
 		 */
 		private function zSort():void
 		{
 		
+		}
+		
+		/**
+		 * 按键按下时找 PlayerController 代理处理玩家操作
+		 * @param	e
+		 */
+		private function onKeyUpDown(e:KeyboardEvent):void
+		{
+			//trace( "World.onKeyUpDown > e : " + e );
+			if (Main.current.view != View.PLAY_VIEW || !resumed) return;
+			
+			for (var i:int = 0; i < 2; ++i)
+			{
+				if (!(e.keyCode in Setting.current.hotkeys[i])) continue;
+				
+				players[i]['on' + Setting.current.hotkeys[i][e.keyCode]](e.keyCode, e.type == KeyboardEvent.KEY_DOWN);
+			}
 		}
 	}
 }

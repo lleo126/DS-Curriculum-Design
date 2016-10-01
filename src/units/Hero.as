@@ -59,6 +59,11 @@ package units
 		 */
 		public var lifted:Boolean = false;
 		
+		/**
+		 * 正在举起的雪球
+		 */
+		private var liftSnowball:Snowball;
+		
 		//==========
 		// 属性
 		//==========
@@ -80,7 +85,6 @@ package units
 		 * 蓄力值，不会超过 MAX_ACCUMUMATION
 		 */
 		private var _accumulation:Number = 0.0;
-		private var liftSnowball:Snowball;
 		public function get accumulation():Number 
 		{
 			return _accumulation;
@@ -113,7 +117,7 @@ package units
 		public function throw2():void 
 		{
 			if (!lifted) return;
-			// TODO: 玩家移动的话速度更快
+			// TODO: 玩家移动的话速度更快？
 			removeChild(liftSnowball);
 			
 			liftSnowball.unitTransform.setByUnitTransform(_unitTransform);
