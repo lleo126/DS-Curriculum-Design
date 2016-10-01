@@ -1,5 +1,6 @@
 package units
 {
+	import assets.AssetManager;
 	import flash.display.Bitmap;
 	import flash.utils.getDefinitionByName;
 	import units.skills.AddHP;
@@ -42,6 +43,8 @@ package units
 			name = xml.name.text().toString();
 			_radius = parseInt(xml.radius.text().toString());
 			
+			var ImageClass:Class = AssetManager[xml.img[0].text().toString()];
+			_body = new SpriteEx(new ImageClass());
 			var skillXML:XML = xml.skill[0];
 			var SkillClass:Class = getDefinitionByName(skillXML.@klass.toString()) as Class;
 			_skill = new SkillClass();

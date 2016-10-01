@@ -7,9 +7,9 @@ package units
 	 */
 	public class UnitTransform 
 	{
-		public function UnitTransform()
+		public function UnitTransform(unit:Unit)
 		{
-			
+			this.unit = unit;
 		}
 		
 		//==========
@@ -134,7 +134,7 @@ package units
 			
 			unit.x = _x;
 			unit.y = _y;
-			unit.body.y = - unit.radius * 0.5 - bottom;
+			unit.body.y = - bottom;
 		}
 		
 		/**

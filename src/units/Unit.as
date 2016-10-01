@@ -15,7 +15,7 @@ package units
 	{
 		public function Unit() 
 		{
-			unitTransform = new UnitTransform();
+			_unitTransform = new UnitTransform(this);
 			dropShadow = new DropShadow(this);
 			addEventListener(Event.ADDED_TO_STAGE, init);
 		}
@@ -28,12 +28,13 @@ package units
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
-			addChild(body);
-			graphics.lineStyle(4, 0x02EDFA);
-			graphics.drawRect(0, 0, width, height);
 			addChild(dropShadow);
 			graphics.lineStyle(4, 0xACED24);
 			graphics.drawRect(0, 0, width, height);
+			addChild(body);
+			graphics.lineStyle(4, 0x02EDFA);
+			graphics.drawRect(0, 0, width, height);
+			update();
 		}
 		
 		//==========

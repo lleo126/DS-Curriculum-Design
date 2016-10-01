@@ -29,9 +29,9 @@ package units
 			
 			displayObject.width = unit.radius * 2;
 			displayObject.height = displayObject.width * 0.6;
-			
-			addChild(displayObject);
 			center();
+			
+			//addChild(displayObject);
 			//阴影中心点要往下移一点
 			//displayObject.y += OFFSET;
 		}

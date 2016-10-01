@@ -41,15 +41,8 @@ package units
 			_radius = RADIUS;
 			_unitTransform.altitude = ALTITUDE;
 			
-			//center();
 			_body.pivotX = PIVOT_X;
 			_body.pivotY = PIVOT_Y;
-			
-			setInterval(function ():void 
-			{
-				//rotation += 10.0;
-				//_unitTransform.z = (Math.sin(getTimer() / 180.0 * Math.PI / 4) + 1.0) * 100.0;
-			}, 30)
 		}
 		
 		//==========
