@@ -51,7 +51,7 @@ package units
 		
 		public function update():void 
 		{
-			displayObject.alpha = ALPHA - unit.unitTransform.bottom / MAX_TOP ;
+			displayObject.alpha = ALPHA - unit.unitTransform.z / MAX_TOP ;
 		}
 	}
 }

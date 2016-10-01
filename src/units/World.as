@@ -18,7 +18,7 @@ package units
 	 */
 	public class World extends Sprite
 	{
-		public static const GRAVITY:Number = 1.0;
+		public static const GRAVITY:Number = 0.2;
 		public static const CHALLENGE_SCALE:Number = 3.0;
 		
 		public function World()
@@ -174,8 +174,8 @@ package units
 			heroGenerator.dropUnit(_players[0].hero);
 			heroGenerator.dropUnit(_players[1].hero);
 			
-			var unit:Unit = itemGenerator.randomUnit();
-			itemGenerator.dropUnit(unit);
+			var item:Unit = itemGenerator.randomUnit();
+			itemGenerator.dropUnit(item);
 		}
 		
 		/**

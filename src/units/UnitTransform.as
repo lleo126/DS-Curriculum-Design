@@ -63,11 +63,11 @@ package units
 		 */
 		public function get top():Number 
 		{
-			return bottom + altitude;
+			return z + altitude;
 		}
 		
 		/**
-		 * X 轴中心坐标
+		 * X 轴坐标
 		 */
 		private var _x:Number = 0.0;
 		public function get x():Number 
@@ -81,7 +81,7 @@ package units
 		}
 		
 		/**
-		 * Y 轴中心坐标
+		 * Y 轴坐标
 		 */
 		private var _y:Number = 0.0;
 		public function get y():Number 
@@ -95,29 +95,16 @@ package units
 		}
 		
 		/**
-		 * Z 轴中心坐标
+		 * Z 轴坐标
 		 */
-		public function get z():Number
+		private var _z:Number = 0.0;
+		public function get z():Number 
 		{
-			return bottom + altitude * 0.5;
+			return _z;
 		}
 		public function set z(value:Number):void 
 		{
-			bottom = value - altitude * 0.5;
-			update();
-		}
-		
-		/**
-		 * 底部坐标
-		 */
-		private var _bottom:Number = 0.0;
-		public function get bottom():Number 
-		{
-			return _bottom;
-		}
-		public function set bottom(value:Number):void 
-		{
-			_bottom = value;
+			_z = value;
 			update();
 		}
 		
@@ -134,7 +121,7 @@ package units
 			
 			unit.x = _x;
 			unit.y = _y;
-			unit.body.y = - bottom;
+			unit.body.y = - z;
 		}
 		
 		/**
@@ -144,7 +131,7 @@ package units
 		{
 			_x += vx * deltaTime;
 			_y += vy * deltaTime;
-			z += vz * deltaTime;
+			_z += vz * deltaTime;
 			update();
 		}
 		
@@ -167,7 +154,7 @@ package units
 		{
 			_x = unitTransform._x;
 			_y = unitTransform._y;
-			z = unitTransform.z;
+			_z = unitTransform._z;
 			orientation = unitTransform.orientation;
 			update();
 		}

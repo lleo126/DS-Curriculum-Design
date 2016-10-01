@@ -13,16 +13,16 @@ package units
 	{
 		public static const SNOWBALLS:Vector.<Snowball> = new <Snowball>
 		[
-			new Snowball(20, 5),
-			new Snowball(50, 10),
-			new Snowball(100, 20)
+			new Snowball(10, 5),
+			new Snowball(20, 10),
+			new Snowball(40, 20)
 		];
 		private static const HP:Number = 100.0;
 		private static const SP:Number = 20.0;
 		private static const ATTCK_RANGE:Number = 200.0;
 		private static const EXPLOSION_DISTANCE:Number = 100.0;
 		private static const MAX_SPEED:Number = 0.5;
-		private static const MAX_ACCUMULATION:Number = 100.0;
+		private static const MAX_ACCUMULATION:Number = 80.0;
 		private static const RADIUS:Number = 25.0;
 		private static const ALTITUDE:Number = 2.0 * RADIUS;
 		private static const PIVOT_X:Number = RADIUS;
@@ -103,7 +103,7 @@ package units
 			addChild(liftSnowball);
 			liftSnowball.scaleX = 1.0 / liftSnowball.parent.scaleX;
 			liftSnowball.scaleY = 1.0 / liftSnowball.parent.scaleY;
-			liftSnowball.unitTransform.bottom = unitTransform.top;
+			liftSnowball.unitTransform.z = unitTransform.top;
 			lifted = true;
 		}
 		
@@ -112,13 +112,12 @@ package units
 		 */
 		public function throw2():void 
 		{
-			trace( "Hero.throw2" );
 			if (!lifted) return;
 			// TODO: 玩家移动的话速度更快
 			removeChild(liftSnowball);
 			
 			liftSnowball.unitTransform.setByUnitTransform(_unitTransform);
-			liftSnowball.unitTransform.bottom = unitTransform.top;
+			liftSnowball.unitTransform.z = unitTransform.top;
 			liftSnowball.unitTransform.speed = liftSnowball.maxSpeed;
 			liftSnowball.unitTransform.vz = _accumulation / Snowball.MASS;
 			View.PLAY_VIEW.world.addUnit(liftSnowball);

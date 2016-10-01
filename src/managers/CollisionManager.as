@@ -106,8 +106,9 @@ package managers
 				}
 				
 				// 临时：如果雪球撞到地面，就消失
-				if (snowballs[i].unitTransform.bottom < 0.0) 
+				if (snowballs[i].unitTransform.z < 0.0) 
 				{
+					trace("removed");
 					snowballs[i].removeFromWorld();
 				}
 			}
