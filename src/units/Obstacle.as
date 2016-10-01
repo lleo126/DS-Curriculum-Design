@@ -16,7 +16,7 @@ package units
 		
 		override public function setByXML(xml:XML):void
 		{
-			
-		}	
+			_radius = parseInt(xml.radius.text());
+		}
 	}
 }

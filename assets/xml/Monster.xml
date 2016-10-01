@@ -1,3 +1,11 @@
-<monsters>
-	
+<monsters klass="units.Monster">
+	<monster>
+		<img>YouCanCallMeMonster_IMG</img>
+		<name>YouCanCallMeMonster</name>
+		<bonus>20</bonus>
+		<radius>20</radius>
+		<skill klass="units.skills.AddHP">
+			<addHP>-5</addHP>
+		</skill>
+	</monster>
 </monsters>
