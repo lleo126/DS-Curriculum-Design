@@ -8,9 +8,9 @@ package units
 	 */
 	public class Obstacle extends Unit 
 	{
-		public function Obstacle(img:Bitmap) 
+		public function Obstacle() 
 		{
-			super(img);
+			super();
 			
 		}
 		

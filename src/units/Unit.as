@@ -1,6 +1,7 @@
 package units 
 {
 	import flash.display.Bitmap;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.utils.getTimer;
 	import flash.utils.setInterval;
@@ -10,12 +11,10 @@ package units
 	 * 游戏世界中最基本的单位，抽象类
 	 * @author 彩月葵☆彡
 	 */
-	public class Unit extends SpriteEx 
+	public class Unit extends Sprite
 	{
-		public function Unit(img:Bitmap) 
+		public function Unit() 
 		{
-			super(img);
-			
 			unitTransform = new UnitTransform();
 			dropShadow = new DropShadow(this);
 			addEventListener(Event.ADDED_TO_STAGE, init);
@@ -29,8 +28,12 @@ package units
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
+			addChild(body);
+			graphics.lineStyle(4, 0x02EDFA);
+			graphics.drawRect(0, 0, width, height);
 			addChild(dropShadow);
-			addChild(_displayObject);
+			graphics.lineStyle(4, 0xACED24);
+			graphics.drawRect(0, 0, width, height);
 		}
 		
 		//==========
@@ -55,6 +58,15 @@ package units
 		//==========
 		// 属性
 		//==========
+		
+		/**
+		 * 本体
+		 */
+		protected var _body:SpriteEx;
+		public function get body():SpriteEx 
+		{
+			return _body;
+		}
 		
 		/**
 		 * 包含单位的 z 坐标，速度，碰撞大小等信息，与单位绑定

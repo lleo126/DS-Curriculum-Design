@@ -29,7 +29,7 @@ package units
 		public function SpriteEx(displayObject:DisplayObject) 
 		{
 			_displayObject = displayObject;
-			addChild(_displayObject);
+			//addChild(_displayObject);
 		}
 		
 		//==========

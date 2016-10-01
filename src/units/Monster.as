@@ -9,9 +9,9 @@ package units
 	public class Monster extends Unit 
 	{
 		
-		public function Monster(img:Bitmap) 
+		public function Monster() 
 		{
-			super(img);
+			super();
 			
 		}
 		

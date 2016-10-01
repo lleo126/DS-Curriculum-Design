@@ -21,15 +21,15 @@ package units
 		 */
 		public function Snowball(radius:Number, bonus:int) 
 		{
-			super(new AssetManager.SNOWBALL_IMG());
+			_body = new SpriteEx(new AssetManager.SNOWBALL_IMG());
 			
-			_displayObject.width = _displayObject.height = _radius = radius;
+			_body.width = _body.height = _radius = radius;
 			_unitTransform.altitude = 2 * radius;
 			attackRange = radius * ATTACK_RANGE_RATIO;
 			_bonus = bonus;
 			_maxSpeed = MAX_SPEED;
 			
-			center();
+			_body.center();
 		}
 		
 		//==========

@@ -11,9 +11,9 @@ package units
 	{
 		//private static const radius:Number;
 		
-		public function Item(img:Bitmap)
+		public function Item()
 		{
-			super(img);
+			super();
 		}
 		
 		//==========

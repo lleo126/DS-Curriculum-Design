@@ -1,6 +1,8 @@
 package units 
 {
 	import assets.AssetManager;
+	import flash.utils.getTimer;
+	import flash.utils.setInterval;
 	import views.View;
 	
 	/**
@@ -21,23 +23,33 @@ package units
 		private static const EXPLOSION_DISTANCE:Number = 100.0;
 		private static const MAX_SPEED:Number = 0.5;
 		private static const MAX_ACCUMULATION:Number = 100.0;
-		private static const WIDTH:Number = 50.0;
-		private static const HEIGHT:Number = 50.0;
-		private static const RADIUS:Number = 50.0;
+		private static const RADIUS:Number = 25.0;
 		private static const ALTITUDE:Number = 2.0 * RADIUS;
+		private static const PIVOT_X:Number = RADIUS;
+		private static const PIVOT_Y:Number = 2.0 * RADIUS;
 		
 		public function Hero() 
 		{
-			super(new AssetManager.HERO_IMG());
+			_body = new SpriteEx(new AssetManager.HERO_IMG());
 			
-			//width = WIDTH;
-			//height = HEIGHT;
+			_body.width = 2.0 * RADIUS;
+			_body.height = 2.0 * RADIUS;
 			hp = HP;
 			sp = SP;
 			attackRange = ATTCK_RANGE;
 			_maxSpeed = MAX_SPEED;
 			_radius = RADIUS;
 			_unitTransform.altitude = ALTITUDE;
+			
+			//center();
+			_body.pivotX = PIVOT_X;
+			_body.pivotY = PIVOT_Y;
+			
+			setInterval(function ():void 
+			{
+				//rotation += 10.0;
+				//_unitTransform.z = (Math.sin(getTimer() / 180.0 * Math.PI / 4) + 1.0) * 100.0;
+			}, 30)
 		}
 		
 		//==========
