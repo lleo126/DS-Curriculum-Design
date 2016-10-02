@@ -41,10 +41,10 @@ package views
 		private var statusBar1:Sprite;		
 		private var statusBar2:Sprite;
 		
-		private var statusBarHP1:HPBar;
-		private var statusBarSP1:SPBar;
-		private var statusBarHP2:HPBar;
-		private var statusBarSP2:SPBar;
+		public var statusBarHP1:HPBar;
+		public var statusBarSP1:SPBar;
+		public var statusBarHP2:HPBar;
+		public var statusBarSP2:SPBar;
 		
 		private var groupScore:Sprite;
 		private var score:TextField;
@@ -121,6 +121,7 @@ package views
 			statusBar2	= new Sprite();
 			statusBarHP2= new HPBar();
 			statusBarSP2= new SPBar();
+			
 			super.init();
 		}
 		
@@ -246,9 +247,8 @@ package views
 				ui.removeChild(_stop);
 				Main.current.view = View.MAIN_VIEW;
 			}
-			
 		}
-
+		
 		override protected function inactivate(ev:Event):void 
 		{
 			super.inactivate(ev);

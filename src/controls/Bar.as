@@ -60,7 +60,7 @@ package controls
 		override protected function update():void 
 		{
 			groove.width = valueX;
-			text.text = _value.toString() + ' / ' + maxValue.toString();
+			text.text = int(_value).toString() + ' / ' + int(maxValue).toString();
 			text.x = (width	- text.width) * 0.5;
 			text.y = (height - text.height) * 0.5;
 		}

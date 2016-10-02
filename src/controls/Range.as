@@ -47,6 +47,8 @@ package controls
 		}
 		public function set value(val:Number):void 
 		{
+			if (val < 0.0) val = 0.0;
+			else if (maxValue < val) val = maxValue;
 			_value = val;
 			update();
 		}

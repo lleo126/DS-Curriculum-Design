@@ -1,6 +1,8 @@
 package units 
 {
 	import assets.AssetManager;
+	import controls.HPBar;
+	import controls.SPBar;
 	import flash.utils.getTimer;
 	import flash.utils.setInterval;
 	import views.View;
@@ -11,6 +13,8 @@ package units
 	 */
 	public class Hero extends Unit 
 	{
+		public static const COLLECT_SPEED:Number = 0.2;
+		public static const COLLECT_RADIUS:Number = 50.0;
 		public static const SNOWBALLS:Vector.<Snowball> = new <Snowball>
 		[
 			new Snowball(10, 5),
@@ -34,8 +38,8 @@ package units
 			
 			_body.width = 2.0 * RADIUS;
 			_body.height = 2.0 * RADIUS;
-			hp = HP;
-			sp = SP;
+			_hp = HP;
+			_sp = SP;
 			attackRange = ATTCK_RANGE;
 			_maxSpeed = MAX_SPEED;
 			_radius = RADIUS;
@@ -48,6 +52,16 @@ package units
 		//==========
 		// 变量
 		//==========
+		
+		/**
+		 * 该角色的血条
+		 */
+		public var hpBar:HPBar;
+		
+		/**
+		 * 该角色的雪条
+		 */
+		public var spBar:SPBar;
 		
 		/**
 		 * 雪球大小，有三种预设
@@ -68,6 +82,12 @@ package units
 		// 属性
 		//==========
 		
+		override public function set hp(value:Number):void 
+		{
+			super.hp = value;
+			hpBar.value = value;
+		}
+		
 		/**
 		 * 收集的雪量（Snow Point）
 		 */
@@ -79,6 +99,7 @@ package units
 		public function set sp(value:Number):void 
 		{
 			_sp = value;
+			spBar.value = value;
 		}
 		
 		/**
@@ -104,11 +125,22 @@ package units
 		public function lift():void 
 		{
 			liftSnowball = snowball.clone();
+			if (liftSnowball.bonus <= sp)
+			{
+				sp -= liftSnowball.bonus;
+			}
+			else // TODO: 举起符合剩余雪量大小的雪球
+			{
+				return;
+			}
+			
+			lifted = true;
+			
 			addChild(liftSnowball);
 			liftSnowball.scaleX = 1.0 / liftSnowball.parent.scaleX;
 			liftSnowball.scaleY = 1.0 / liftSnowball.parent.scaleY;
 			liftSnowball.unitTransform.z = unitTransform.top;
-			lifted = true;
+			
 		}
 		
 		/**
@@ -117,6 +149,8 @@ package units
 		public function throw2():void 
 		{
 			if (!lifted) return;
+			lifted = false;
+			
 			// TODO: 玩家移动的话速度更快？
 			removeChild(liftSnowball);
 			
@@ -129,7 +163,6 @@ package units
 			liftSnowball.scaleY = 1.0 / liftSnowball.parent.scaleY;
 			
 			_accumulation = 0.0;
-			lifted = false;
 		}
 	}
 }

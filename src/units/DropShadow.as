@@ -49,7 +49,7 @@ package units
 		// 方法
 		//==========
 		
-		public function update():void 
+		public function update(deltaTime:Number):void 
 		{
 			displayObject.alpha = ALPHA - unit.unitTransform.z / MAX_TOP ;
 		}

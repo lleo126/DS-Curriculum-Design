@@ -82,11 +82,7 @@ package controls
 		{
 			if (!down) return;
 			
-			var newValue:Number = mouseX / width * maxValue;
-			if (newValue < 0.0) newValue = 0.0;
-			else if (maxValue < newValue) newValue = maxValue;
-			
-			value = newValue;
+			value = mouseX / width * maxValue;
 		}
 	}
 }

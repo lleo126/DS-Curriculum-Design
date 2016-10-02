@@ -34,7 +34,7 @@ package units
 			addChild(body);
 			//graphics.lineStyle(4, 0x02EDFA);
 			//graphics.drawRect(0, 0, width, height);
-			update();
+			update(0.0);
 		}
 		
 		//==========
@@ -45,6 +45,11 @@ package units
 		 * 所属者
 		 */
 		public var owner:Player;
+		
+		/**
+		 * 伤害值
+		 */
+		protected var damage:Number;
 		
 		/**
 		 * 攻击距离
@@ -141,9 +146,9 @@ package units
 		// 方法
 		//==========
 		
-		public function update():void 
+		public function update(deltaTime:Number):void 
 		{
-			dropShadow.update();
+			dropShadow.update(deltaTime);
 		}
 		
 		public function dispose():void 

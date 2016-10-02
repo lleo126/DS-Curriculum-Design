@@ -36,7 +36,6 @@ package models
 		 * 该玩家控制的人物
 		 */
 		private var _hero:Hero = new Hero();
-		
 		public function get hero():Hero
 		{
 			return _hero;

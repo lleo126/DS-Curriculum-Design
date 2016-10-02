@@ -2,9 +2,12 @@ package units
 {
 	import assets.AssetManager;
 	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.geom.Point;
+	import flash.utils.Dictionary;
 	import flash.utils.getTimer;
 	import flash.utils.setInterval;
 	import managers.CollisionManager;
@@ -13,39 +16,38 @@ package units
 	import views.View;
 	
 	/**
-	 * ...
+	 * 游戏世界
 	 * @author 彩月葵☆彡
 	 */
 	public class World extends Sprite
 	{
 		public static const GRAVITY:Number = 0.2;
 		public static const CHALLENGE_SCALE:Number = 3.0;
+		public static const SNOW_COLOR:uint = 0x0055EEFF;
+		public static const ALPHA_SNOW_RATIO:Number = 0.00005;
 		
 		public function World()
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
 			addEventListener(Event.ENTER_FRAME, update);
 			
-			heroGenerator = new UnitGenerator(this);
-			//monsterGenerator = new UnitGenerator(this, AssetManager.MONSTER_XML.data);
-			//obstacleGenerator = new UnitGenerator(this, AssetManager.OBSTACLE_XML.data);
-			itemGenerator = new UnitGenerator(this, AssetManager.ITEM_XML.data);
+			heroGenerator		= new UnitGenerator(this);
+			monsterGenerator	= new UnitGenerator(this, AssetManager.MONSTER_XML.data);
+			obstacleGenerator	= new UnitGenerator(this, AssetManager.OBSTACLE_XML.data);
+			itemGenerator		= new UnitGenerator(this, AssetManager.ITEM_XML.data);
 		}
 		
 		private function init(ev:Event):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			// TODO: 设大小貌似会缩放里面的内容
-			//width	= stage.stageWidth;
-			//height	= stage.stageHeight;
-			//if (CHALLENGE_SCALE)
-			//{
-			//width	*= CHALLENGE_SCALE;
-			//height	*= CHALLENGE_SCALE;
-			//}
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN,	onKeyUpDown);
 			stage.addEventListener(KeyboardEvent.KEY_UP,	onKeyUpDown);
+			
+			snowfallData = new BitmapData(stage.stageWidth, stage.stageHeight, true, SNOW_COLOR);
+			snowfall = new Bitmap(snowfallData);
+			
+			addChild(snowfall);
 		}
 		
 		//==========
@@ -61,6 +63,11 @@ package units
 		 * 上一帧的时间，以毫秒为单位
 		 */
 		private var lastTime:Number;
+		
+		/**
+		 * 雪量数据
+		 */
+		private var snowfallData:BitmapData;
 		
 		/**
 		 * 雪量
@@ -172,9 +179,15 @@ package units
 		{
 			resumed = true;
 			
+			lastTime = getTimer();
+			
 			this.type = type;
 			_players = players;
-			lastTime = getTimer();
+			_players[0].hero.hpBar = View.PLAY_VIEW.statusBarHP1;
+			_players[0].hero.spBar = View.PLAY_VIEW.statusBarSP1;
+			_players[1].hero.hpBar = View.PLAY_VIEW.statusBarHP2;
+			_players[1].hero.spBar = View.PLAY_VIEW.statusBarSP2;
+			
 			_collisionManager = new CollisionManager(_players, _snowballs, _monsters, _obstacles, _items);
 			
 			generateUnits();
@@ -299,7 +312,63 @@ package units
 			applyGravity();
 			collisionManager.detectAll(_deltaTime);
 			collisionManager.update(_deltaTime);
+			
+			var i:int;
+			for (i = 0; i < _players.length; i++) 
+			{
+				var hero:Hero = _players[i].hero;
+				hero.update(_deltaTime);
+				hero.sp += -addSnow(-Hero.COLLECT_SPEED * _deltaTime, _players[i].hero.unitTransform, Hero.COLLECT_RADIUS);
+			}
+			
 			zSort();
+		}
+		
+		/**
+		 * 在给出的位置的圆上增加/减少雪量，效果从中心点往外递减
+		 * @param	unitTransform	位置
+		 * @param	deltaSnow		改变的雪量
+		 * @param	radius			半径范围
+		 * @return	改变的总雪量
+		 */
+		public function addSnow(deltaSnow:Number, unitTransform:UnitTransform, radius:Number):Number 
+		{
+			var snowSum:Number = 0.0, diameter:int = 2.0 * radius,
+				originX:int = unitTransform.x, originY:int = unitTransform.y,
+				startX:int = unitTransform.x - radius, startY:int = unitTransform.y - radius;
+			
+			snowfallData.lock();
+			for (var yi:int = 0; yi < diameter; yi++) 
+			{
+				for (var xi:int = 0; xi < diameter; xi++) 
+				{
+					var nextX:int = startX + xi,
+						nextY:int = startY + yi;
+					var distance:Number = Math.sqrt((originX - nextX) * (originX - nextX) + (originY - nextY) * (originY - nextY));
+					if (nextX < 0 || snowfallData.width		<= nextX
+					||	nextY < 0 || snowfallData.height	<= nextY
+					||	radius < distance) continue;
+					
+					var deltaAlpha:int = deltaSnow * (distance - radius) / radius,
+						alpha:uint = snowfallData.getPixel32(nextX, nextY) >>> 24,
+						nextAlpha:uint = alpha + deltaAlpha;
+					// 判断整数上下溢，计算改变的雪量值
+					if (deltaAlpha < 0) // 下溢
+					{
+						if (alpha < nextAlpha) nextAlpha = 0x00;
+					}
+					else // 上溢
+					{
+						if (0xFF < nextAlpha) nextAlpha = 0xFF;
+					}
+					
+					snowfallData.setPixel32(nextX, nextY, (nextAlpha << 24) | SNOW_COLOR);
+					snowSum += (alpha - nextAlpha) * ALPHA_SNOW_RATIO;
+				}
+			}
+			snowfallData.unlock();
+			
+			return snowSum;
 		}
 		
 		/**
