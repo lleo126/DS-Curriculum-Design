@@ -1,6 +1,7 @@
 package units 
 {
 	import flash.display.Bitmap;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.utils.getTimer;
 	import flash.utils.setInterval;
@@ -10,13 +11,11 @@ package units
 	 * 游戏世界中最基本的单位，抽象类
 	 * @author 彩月葵☆彡
 	 */
-	public class Unit extends SpriteEx 
+	public class Unit extends Sprite
 	{
-		public function Unit(img:Bitmap) 
+		public function Unit() 
 		{
-			super(img);
-			
-			unitTransform = new UnitTransform();
+			_unitTransform = new UnitTransform(this);
 			dropShadow = new DropShadow(this);
 			addEventListener(Event.ADDED_TO_STAGE, init);
 		}
@@ -30,7 +29,12 @@ package units
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
 			addChild(dropShadow);
-			addChild(_displayObject);
+			//graphics.lineStyle(4, 0xACED24);
+			//graphics.drawRect(0, 0, width, height);
+			addChild(body);
+			//graphics.lineStyle(4, 0x02EDFA);
+			//graphics.drawRect(0, 0, width, height);
+			update(0.0);
 		}
 		
 		//==========
@@ -41,6 +45,11 @@ package units
 		 * 所属者
 		 */
 		public var owner:Player;
+		
+		/**
+		 * 伤害值
+		 */
+		protected var damage:Number;
 		
 		/**
 		 * 攻击距离
@@ -55,6 +64,15 @@ package units
 		//==========
 		// 属性
 		//==========
+		
+		/**
+		 * 本体
+		 */
+		protected var _body:SpriteEx;
+		public function get body():SpriteEx 
+		{
+			return _body;
+		}
 		
 		/**
 		 * 包含单位的 z 坐标，速度，碰撞大小等信息，与单位绑定
@@ -128,9 +146,9 @@ package units
 		// 方法
 		//==========
 		
-		public function update():void 
+		public function update(deltaTime:Number):void 
 		{
-			dropShadow.update();
+			dropShadow.update(deltaTime);
 		}
 		
 		public function dispose():void 

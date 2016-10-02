@@ -11,7 +11,7 @@ package units
 	 */
 	public class DropShadow extends SpriteEx
 	{
-		static public const MAX_TOP:Number = 400;
+		static public const MAX_TOP:Number = 200;
 		static public const ALPHA:Number = 1.2;
 		static public const OFFSET:Number = 30;
 		
@@ -27,16 +27,13 @@ package units
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
-			// 根据
-			//unit.radius ; // /height
-			// 设置
 			displayObject.width = unit.radius * 2;
 			displayObject.height = displayObject.width * 0.6;
-			
-			addChild(displayObject);
 			center();
+			
+			//addChild(displayObject);
 			//阴影中心点要往下移一点
-			displayObject.y += OFFSET;
+			//displayObject.y += OFFSET;
 		}
 		
 		//==========
@@ -52,7 +49,7 @@ package units
 		// 方法
 		//==========
 		
-		public function update():void 
+		public function update(deltaTime:Number):void 
 		{
 			displayObject.alpha = ALPHA - unit.unitTransform.z / MAX_TOP ;
 		}

@@ -106,7 +106,7 @@ package managers
 				}
 				
 				// 临时：如果雪球撞到地面，就消失
-				if (snowballs[i].unitTransform.bottom < 0.0) 
+				if (snowballs[i].unitTransform.z < 0.0) 
 				{
 					snowballs[i].removeFromWorld();
 				}
@@ -132,9 +132,7 @@ package managers
 		public function update(deltaTime:Number):void 
 		{
 			players[0].hero.unitTransform.advance(deltaTime);
-			players[0].hero.update();
 			players[1].hero.unitTransform.advance(deltaTime);
-			players[1].hero.update();
 			
 			var i:int;
 			for (i = 0; i < snowballs.length; ++i)

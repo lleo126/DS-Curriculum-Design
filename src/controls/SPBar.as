@@ -10,7 +10,7 @@ package controls
 	{
 		public function SPBar() 
 		{
-			super(100.0, 100.0, new AssetManager.SP_GROOVE_IMG());
+			super(50.0, 100.0, new AssetManager.SP_GROOVE_IMG());
 		}
 	}
 }

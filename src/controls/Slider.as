@@ -17,20 +17,22 @@ package controls
 	{
 		public function Slider(value:Number, maxValue:Number) 
 		{
-			addEventListener(MouseEvent.MOUSE_DOWN, onMouseUpDown);
-			addEventListener(Event.ADDED_TO_STAGE, init);
-			
-			bar = new AssetManager.SLIDER_BAR_IMG();
 			super(value, maxValue);
-			addChild(tick);
+			bar = new AssetManager.SLIDER_BAR_IMG();
 		}
 		
-		private function init(e:Event):void 
+		override protected function init(e:Event):void 
 		{
-			removeEventListener(Event.ADDED_TO_STAGE, init);
+			super.init(e);
 			
+			addEventListener(MouseEvent.MOUSE_DOWN, onMouseUpDown);
 			stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUpDown);
 			stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+			
+			addChild(bar);
+			addChild(tick);
+			
+			update();
 		}
 		
 		//==========
@@ -80,11 +82,7 @@ package controls
 		{
 			if (!down) return;
 			
-			var newValue:Number = mouseX / width * maxValue;
-			if (newValue < 0.0) newValue = 0.0;
-			else if (maxValue < newValue) newValue = maxValue;
-			
-			value = newValue;
+			value = mouseX / width * maxValue;
 		}
 	}
 }

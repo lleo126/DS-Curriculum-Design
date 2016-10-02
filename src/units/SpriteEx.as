@@ -74,6 +74,42 @@ package units
 			displayObject.y = -value;
 		}
 		
+		override public function get width():Number
+		{
+			return _displayObject.width;
+		}
+		override public function set width(value:Number):void
+		{
+			_displayObject.width = value;
+		}
+		
+		override public function get height():Number
+		{
+			return _displayObject.height;
+		}
+		override public function set height(value:Number):void
+		{
+			_displayObject.height = value;
+		}
+		
+		override public function get scaleX():Number
+		{
+			return _displayObject.scaleX;
+		}
+		override public function set scaleX(value:Number):void
+		{
+			_displayObject.scaleX = value;
+		}
+		
+		override public function get scaleY():Number
+		{
+			return _displayObject.scaleY;
+		}
+		override public function set scaleY(value:Number):void
+		{
+			_displayObject.scaleY = value;
+		}
+		
 		//==========
 		// 方法
 		//==========

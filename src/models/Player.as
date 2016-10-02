@@ -1,14 +1,15 @@
-package models 
+package models
 {
 	import units.Hero;
 	import views.View;
+	
 	/**
 	 * 玩家信息
 	 * @author 彩月葵☆彡
 	 */
-	public class Player 
+	public class Player
 	{
-		public function Player() 
+		public function Player()
 		{
 			_hero.owner = this;
 		}
@@ -35,65 +36,65 @@ package models
 		 * 该玩家控制的人物
 		 */
 		private var _hero:Hero = new Hero();
-		public function get hero():Hero 
+		public function get hero():Hero
 		{
 			return _hero;
 		}
 		
 		/** 方向上键按下为 true */
-		private var upHeld:Boolean		= false;
+		private var upHeld:Boolean = false;
 		/** 方向左键按下为 true */
-		private var leftHeld:Boolean	= false;
+		private var leftHeld:Boolean = false;
 		/** 方向下键按下为 true */
-		private var downHeld:Boolean	= false;
+		private var downHeld:Boolean = false;
 		/** 方向右键按下为 true */
-		private var rightHeld:Boolean	= false;
+		private var rightHeld:Boolean = false;
 		
 		//==========
 		// 方法
 		//==========
 		
-		private function update():void 
+		/**
+		 * 在世界暂停时会调用这个方法，停止所有按键并静止住人物
+		 */
+		public function releaseAll():void 
 		{
-			_hero.unitTransform.speed = _hero.maxSpeed * int(!(upHeld == downHeld && leftHeld == rightHeld));
-			if (0.0 < _hero.unitTransform.speed)
-			{
-				_hero.unitTransform.orientation = Math.atan2(int(downHeld) - int(upHeld), int(rightHeld) - int(leftHeld)) / Math.PI * 180.0;
-			}
+			upHeld = leftHeld = downHeld = rightHeld = false;
+			_hero.unitTransform.speed = 0.0;
 		}
 		
-		public function onMoveUp(keyCode:int, down:Boolean):void 
+		public function onMoveUp(keyCode:int, down:Boolean):void
 		{
 			upHeld = down;
 			update();
 		}
 		
-		public function onMoveLeft(keyCode:int, down:Boolean):void 
+		public function onMoveLeft(keyCode:int, down:Boolean):void
 		{
 			leftHeld = down;
 			update();
 		}
 		
-		public function onMoveDown(keyCode:int, down:Boolean):void 
+		public function onMoveDown(keyCode:int, down:Boolean):void
 		{
 			downHeld = down;
 			update();
 		}
 		
-		public function onMoveRight(keyCode:int, down:Boolean):void 
+		public function onMoveRight(keyCode:int, down:Boolean):void
 		{
 			rightHeld = down;
 			update();
 		}
 		
-		public function onLift(keyCode:int, down:Boolean):void 
+		public function onLift(keyCode:int, down:Boolean):void
 		{
 			if (!down || _hero.lifted) return;
 			
 			_hero.lift();
 		}
 		
-		public function onThrow(keyCode:int, down:Boolean):void 
+		public function onThrow(keyCode:int, down:Boolean):void
 		{
 			if (down) // 蓄力
 			{
@@ -105,25 +106,34 @@ package models
 			}
 		}
 		
-		public function onSwitchSmall(keyCode:int, down:Boolean):void 
+		public function onSwitchSmall(keyCode:int, down:Boolean):void
 		{
 			if (!down) return;
 			
 			_hero.snowball = Hero.SNOWBALLS[0];
 		}
 		
-		public function onSwitchMedium(keyCode:int, down:Boolean):void 
+		public function onSwitchMedium(keyCode:int, down:Boolean):void
 		{
 			if (!down) return;
 			
 			hero.snowball = Hero.SNOWBALLS[1];
 		}
 		
-		public function onSwitchLarge(keyCode:int, down:Boolean):void 
+		public function onSwitchLarge(keyCode:int, down:Boolean):void
 		{
 			if (!down) return;
 			
 			hero.snowball = Hero.SNOWBALLS[2];
+		}
+		
+		private function update():void
+		{
+			_hero.unitTransform.speed = _hero.maxSpeed * int(!(upHeld == downHeld && leftHeld == rightHeld));
+			if (0.0 < _hero.unitTransform.speed)
+			{
+				_hero.unitTransform.orientation = Math.atan2(int(downHeld) - int(upHeld), int(rightHeld) - int(leftHeld)) / Math.PI * 180.0;
+			}
 		}
 	}
 }
