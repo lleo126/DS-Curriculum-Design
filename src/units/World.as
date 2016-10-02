@@ -7,6 +7,7 @@ package units
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
 	import flash.utils.getTimer;
 	import flash.utils.setInterval;
@@ -181,6 +182,8 @@ package units
 			
 			lastTime = getTimer();
 			
+			snowfallData.fillRect(new Rectangle(0, 0, snowfallData.width, snowfallData.height), SNOW_COLOR);
+			
 			this.type = type;
 			_players = players;
 			_players[0].hero.hpBar = View.PLAY_VIEW.statusBarHP1;
@@ -334,38 +337,39 @@ package units
 		public function addSnow(deltaSnow:Number, unitTransform:UnitTransform, radius:Number):Number 
 		{
 			var snowSum:Number = 0.0, diameter:int = 2.0 * radius,
-				originX:int = unitTransform.x, originY:int = unitTransform.y,
-				startX:int = unitTransform.x - radius, startY:int = unitTransform.y - radius;
+				originX:int = radius, originY:int = radius,
+				startX:int = unitTransform.x - radius, startY:int = unitTransform.y - radius,
+				area:Rectangle = new Rectangle(startX, startY, diameter, diameter);
 			
 			snowfallData.lock();
-			for (var yi:int = 0; yi < diameter; yi++) 
+			var vector:Vector.<uint> = snowfallData.getVector(area);
+			for (var i:int = 0; i < vector.length; i++) 
 			{
-				for (var xi:int = 0; xi < diameter; xi++) 
+				var nextX:int = i % diameter,
+					nextY:int = i / diameter;
+					
+				var distance:Number = Math.sqrt((originX - nextX) * (originX - nextX) + (originY - nextY) * (originY - nextY));
+				if (nextX < 0 || snowfallData.width		<= nextX
+				||	nextY < 0 || snowfallData.height	<= nextY
+				||	radius < distance) continue;
+					
+				var deltaAlpha:int = deltaSnow * (distance - radius) / radius,
+					alpha:uint = vector[i] >>> 24,
+					nextAlpha:uint = alpha + deltaAlpha;
+				// 判断整数上下溢，计算改变的雪量值
+				if (deltaAlpha < 0) // 下溢
 				{
-					var nextX:int = startX + xi,
-						nextY:int = startY + yi;
-					var distance:Number = Math.sqrt((originX - nextX) * (originX - nextX) + (originY - nextY) * (originY - nextY));
-					if (nextX < 0 || snowfallData.width		<= nextX
-					||	nextY < 0 || snowfallData.height	<= nextY
-					||	radius < distance) continue;
-					
-					var deltaAlpha:int = deltaSnow * (distance - radius) / radius,
-						alpha:uint = snowfallData.getPixel32(nextX, nextY) >>> 24,
-						nextAlpha:uint = alpha + deltaAlpha;
-					// 判断整数上下溢，计算改变的雪量值
-					if (deltaAlpha < 0) // 下溢
-					{
-						if (alpha < nextAlpha) nextAlpha = 0x00;
-					}
-					else // 上溢
-					{
-						if (0xFF < nextAlpha) nextAlpha = 0xFF;
-					}
-					
-					snowfallData.setPixel32(nextX, nextY, (nextAlpha << 24) | SNOW_COLOR);
-					snowSum += (alpha - nextAlpha) * ALPHA_SNOW_RATIO;
+					if (alpha < nextAlpha) nextAlpha = 0x00;
 				}
+				else // 上溢
+				{
+					if (0xFF < nextAlpha) nextAlpha = 0xFF;
+				}
+				
+				vector[i] = (nextAlpha << 24) | SNOW_COLOR;
+				snowSum += (alpha - nextAlpha) * ALPHA_SNOW_RATIO;
 			}
+			snowfallData.setVector(area, vector);
 			snowfallData.unlock();
 			
 			return snowSum;
