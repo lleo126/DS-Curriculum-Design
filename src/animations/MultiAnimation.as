@@ -29,6 +29,22 @@ package animations
 			_unit = value;
 		}
 		
+		public function get speed():int
+		{
+			for each (var animation:* in animations) 
+			{
+				return (animation as Animation).speed;
+			}
+			return -1;
+		}
+		public function set speed(value:int):void 
+		{
+			for each (var animation:* in animations) 
+			{
+				(animation as Animation).speed = value;
+			}
+		}
+		
 		public function update(deltaTime:int):void 
 		{
 			currentAnimation.update();

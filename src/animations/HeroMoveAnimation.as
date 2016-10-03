@@ -6,7 +6,7 @@ package animations
 	 * ...
 	 * @author 彩月葵☆彡
 	 */
-	public class HeroMoveAnimation extends OrientedAnimation 
+	internal class HeroMoveAnimation extends OrientedAnimation 
 	{
 		
 		public function HeroMoveAnimation(unit:Unit) 
