@@ -14,7 +14,7 @@ package animations
 		{
 			super(unit);
 			
-			animations[StatusType.MOVING] = new HeroWalkAnimation(unit);
+			animations[StatusType.MOVING] = new HeroMoveAnimation(unit);
 			// ...
 		}
 		

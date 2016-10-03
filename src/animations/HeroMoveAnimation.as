@@ -6,10 +6,10 @@ package animations
 	 * ...
 	 * @author 彩月葵☆彡
 	 */
-	public class HeroWalkAnimation extends OrientedAnimation 
+	public class HeroMoveAnimation extends OrientedAnimation 
 	{
 		
-		public function HeroWalkAnimation(unit:Unit) 
+		public function HeroMoveAnimation(unit:Unit) 
 		{
 			super(unit);
 			
