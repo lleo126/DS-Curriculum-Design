@@ -1,5 +1,6 @@
 package units
 {
+	import animations.HeroMoveAnimation;
 	import assets.AssetManager;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -206,6 +207,10 @@ package units
 			
 			var item:Unit = itemGenerator.randomUnit();
 			itemGenerator.dropUnit(item);
+			
+			var unit:Unit = new Unit();
+			unit.body = new SpriteEx(new HeroMoveAnimation(unit));
+			addUnit(unit);
 		}
 		
 		/**

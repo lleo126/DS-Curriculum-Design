@@ -8,7 +8,7 @@ package animations
 	 * ...
 	 * @author 彩月葵☆彡
 	 */
-	internal class HeroMoveAnimation extends OrientedAnimation 
+	public class HeroMoveAnimation extends OrientedAnimation 
 	{
 		private var arr:Array = new Array(22.5, 67.5, 112.5, 157.5, 202.5, 247.5, 292.5);
 		
@@ -23,6 +23,7 @@ package animations
 		
 		override public function update(deltaTime:int):void 
 		{
+			var i:int = 0;
 			while (rowNow< _row && arr[rowNow] < super.orientation) i++;
 			rowNow = rowNow == _row?0:rowNow;
 			clipRect.y = rowNow * HEIGHT;

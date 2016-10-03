@@ -33,7 +33,7 @@ package animations
 		
 		override public function init():void
 		{
-			super.update();
+			super.update(0);
 			HEIGHT = _img.height / _row;
 		}
 		

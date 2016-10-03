@@ -3,6 +3,7 @@ package animations
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import units.Unit;
 	
@@ -83,7 +84,7 @@ package animations
 			}
 			imgNow.bitmapData.fillRect(new Rectangle(0, 0, imgNow.bitmapData.width, imgNow.bitmapData.height), 0xFFFFFF);
 			imgNow.bitmapData.copyPixels(_img.bitmapData, clipRect, new Point(), null, null, true);
-			clipRect.x = timerNum * WIDTH;
+			clipRect.x = timeNum * WIDTH;
 		}
 	}
 }

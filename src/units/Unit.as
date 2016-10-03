@@ -73,6 +73,11 @@ package units
 		{
 			return _body;
 		}
+		// for test
+		public function set body(value:SpriteEx):void 
+		{
+			_body = value;
+		}
 		
 		/**
 		 * 包含单位的 z 坐标，速度，碰撞大小等信息，与单位绑定
