@@ -14,7 +14,7 @@ package animations
 	 */
 	internal class Animation extends Sprite implements IUpdate
 	{
-		protected var timeNow:int;
+		protected static var timeNow:int;
 		protected var timeNum:int;
 		protected var timeMax:int;
 		protected var clipRect:Rectangle;
