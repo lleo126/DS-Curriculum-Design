@@ -7,7 +7,7 @@ package animations
 	 * ...
 	 * @author 彩月葵☆彡
 	 */
-	public class HeroAnimation extends StatedAnimation 
+	public class HeroAnimation extends MultiAnimation 
 	{
 		
 		public function HeroAnimation(unit:Unit) 

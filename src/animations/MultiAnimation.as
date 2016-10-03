@@ -8,9 +8,9 @@ package animations
 	 * ...
 	 * @author 彩月葵☆彡
 	 */
-	internal class StatedAnimation extends Sprite 
+	internal class MultiAnimation extends Sprite 
 	{
-		public function StatedAnimation(unit:Unit) 
+		public function MultiAnimation(unit:Unit) 
 		{
 			this.unit = unit;
 			unit.addEventListener(Event.CHANGE, onStateChange);

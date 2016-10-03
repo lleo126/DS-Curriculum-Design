@@ -7,7 +7,7 @@ package animations
 	 * ...
 	 * @author 彩月葵☆彡
 	 */
-	public class Animation extends Sprite 
+	internal class Animation extends Sprite 
 	{
 		public function Animation(unit:Unit) 
 		{

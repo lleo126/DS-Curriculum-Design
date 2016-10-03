@@ -6,7 +6,7 @@ package animations
 	 * ...
 	 * @author 彩月葵☆彡
 	 */
-	public class OrientedAnimation extends Animation 
+	internal class OrientedAnimation extends Animation 
 	{
 		public function OrientedAnimation(unit:Unit) 
 		{
