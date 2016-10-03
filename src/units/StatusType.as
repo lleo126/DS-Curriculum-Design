@@ -6,7 +6,8 @@ package units
 	 */
 	public class StatusType 
 	{
-		public static const ALIVE:String	= 'alive';
+		public static const STANDING:String	= 'standing';
+		public static const MOVING:String	= 'moving';
 		public static const DEAD:String		= 'dead';
 	}
 }
