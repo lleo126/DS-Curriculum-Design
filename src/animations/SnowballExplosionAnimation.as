@@ -14,7 +14,7 @@ package animations
 		{
 			_column = 9;
 			_img = new AssetManager.BALL_EXPLOSION();
-			_speed = 120;
+			_speed = 30;
 			super(unit);
 		}
 		

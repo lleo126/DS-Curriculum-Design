@@ -14,7 +14,7 @@ package animations
 		public function HeroMoveAnimation(unit:Unit) 
 		{
 			rowNow = 0;
-			_speed = 80;
+			_speed = 30;
 			_img = new AssetManager.HERO_MOVE();
 			_row = 8;
 			_column = 13;

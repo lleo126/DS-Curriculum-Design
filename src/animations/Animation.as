@@ -14,7 +14,9 @@ package animations
 	 */
 	internal class Animation extends Sprite implements IUpdate
 	{
-		protected static var timeNow:int;
+		private static const origin:Point = new Point();
+		protected var timeNow:int;
+		protected var selfRect:Rectangle;
 		protected var timeNum:int;
 		protected var timeMax:int;
 		protected var clipRect:Rectangle;
@@ -36,6 +38,7 @@ package animations
 			WIDTH = _img.width / _column;
 			clipRect = new Rectangle(0, 0, WIDTH, _img.height);
 			imgNow = new Bitmap(new BitmapData(WIDTH, _img.height));
+			selfRect = new Rectangle(0, 0, imgNow.bitmapData.width, imgNow.bitmapData.height)
 		}
 		
 		protected var _unit:Unit;
@@ -84,8 +87,8 @@ package animations
 				timeNum = timeNum + 1 == _column? 0:timeNum + 1;
 			}
 			imgNow.bitmapData.lock();
-			imgNow.bitmapData.fillRect(new Rectangle(0, 0, imgNow.bitmapData.width, imgNow.bitmapData.height), 0xFFFFFF);
-			imgNow.bitmapData.copyPixels(_img.bitmapData, clipRect, new Point(), null, null, true);
+			imgNow.bitmapData.fillRect(selfRect, 0xFFFFFF);
+			imgNow.bitmapData.copyPixels(_img.bitmapData, clipRect, origin, null, null, true);
 			clipRect.x = timeNum * WIDTH;
 			imgNow.bitmapData.unlock();
 		}

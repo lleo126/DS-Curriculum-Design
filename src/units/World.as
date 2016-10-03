@@ -338,7 +338,7 @@ package units
 				hero.sp += -addSnow(-Hero.COLLECT_SPEED * _deltaTime, _players[i].hero.unitTransform, Hero.COLLECT_RADIUS);
 			}
 			testUnit.update(_deltaTime);
-			testUnitBall.update(_deltaTime);
+			//testUnitBall.update(_deltaTime);
 			zSort();
 		}
 		

@@ -45,6 +45,7 @@ package animations
 			WIDTH = _img.width / _column;
 			clipRect = new Rectangle(0, 0, WIDTH, _img.height);
 			imgNow = new Bitmap(new BitmapData(WIDTH, HEIGHT));
+			selfRect = new Rectangle(0, 0, imgNow.bitmapData.width, imgNow.bitmapData.height)
 		}
 		
 		override public function update(deltaTime:int):void 
@@ -53,7 +54,6 @@ package animations
 			rowNow = rowNow == _row?0:rowNow;
 			clipRect.y = rowNow * HEIGHT;
 			super.update(deltaTime);
-			
 		}
 	}
 }
