@@ -1,5 +1,7 @@
 package units
 {
+	import animations.HeroMoveAnimation;
+	import animations.SnowballExplosionAnimation;
 	import assets.AssetManager;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -162,6 +164,8 @@ package units
 		 * 自上一帧以来的经过时间，以毫秒为单位
 		 */
 		private var _deltaTime:Number;
+		private var testUnit:Unit;
+		private var testUnitBall:Unit;
 		public function get deltaTime():Number
 		{
 			return _deltaTime;
@@ -209,6 +213,16 @@ package units
 			
 			heroGenerator.dropUnit(_players[0].hero);
 			heroGenerator.dropUnit(_players[1].hero);
+			
+			testUnitBall = new Unit();
+			testUnitBall.body = new SpriteEx(new SnowballExplosionAnimation(testUnitBall));
+			addChild(testUnitBall);
+
+			testUnit = new Unit();
+			testUnit.body = new SpriteEx(new HeroMoveAnimation(testUnit));
+			addUnit(testUnit);
+			testUnit.x = 200;
+			
 		}
 		
 		/**
@@ -326,7 +340,8 @@ package units
 				hero.update(_deltaTime);
 				hero.sp += -addSnow(-Hero.COLLECT_SPEED * _deltaTime, _players[i].hero.unitTransform, Hero.COLLECT_RADIUS);
 			}
-			
+			testUnit.update(_deltaTime);
+			//testUnitBall.update(_deltaTime);
 			zSort();
 		}
 		

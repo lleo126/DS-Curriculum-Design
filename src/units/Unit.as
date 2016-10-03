@@ -5,13 +5,14 @@ package units
 	import flash.events.Event;
 	import flash.utils.getTimer;
 	import flash.utils.setInterval;
+	import interfaces.IUpdate;
 	import models.Player;
 	
 	/**
 	 * 游戏世界中最基本的单位，抽象类
 	 * @author 彩月葵☆彡
 	 */
-	public class Unit extends Sprite
+	public class Unit extends Sprite implements IUpdate
 	{
 		public function Unit() 
 		{
@@ -72,6 +73,11 @@ package units
 		public function get body():SpriteEx 
 		{
 			return _body;
+		}
+		// for test
+		public function set body(value:SpriteEx):void 
+		{
+			_body = value;
 		}
 		
 		/**
@@ -146,8 +152,9 @@ package units
 		// 方法
 		//==========
 		
-		public function update(deltaTime:Number):void 
+		public function update(deltaTime:int):void 
 		{
+			body.update(deltaTime);
 			dropShadow.update(deltaTime);
 		}
 		
