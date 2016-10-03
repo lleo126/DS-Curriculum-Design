@@ -32,7 +32,6 @@ package units
 			
 			_body.pivotX = radius;
 			_body.pivotY = 2.0 * radius;
-			//_body.center();
 		}
 		
 		//==========
