@@ -201,11 +201,14 @@ package units
 		 */
 		private function generateUnits():void 
 		{
-			heroGenerator.dropUnit(_players[0].hero);
-			heroGenerator.dropUnit(_players[1].hero);
-			
 			var item:Unit = itemGenerator.randomUnit();
 			itemGenerator.dropUnit(item);
+			
+			var obstacle:Unit = obstacleGenerator.randomUnit();
+			obstacleGenerator.dropUnit(obstacle);
+			
+			heroGenerator.dropUnit(_players[0].hero);
+			heroGenerator.dropUnit(_players[1].hero);
 		}
 		
 		/**
