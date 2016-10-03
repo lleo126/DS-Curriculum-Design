@@ -1,8 +1,10 @@
 package units 
 {
+	import animations.Animation;
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import interfaces.IUpdate;
 	
 	/**
 	 * 可以设置中心点的 Sprite
@@ -24,7 +26,7 @@ package units
 	 *		})
 	 *		timer.start();
 	 */
-	public class SpriteEx extends Sprite 
+	public class SpriteEx extends Sprite implements IUpdate
 	{
 		public function SpriteEx(displayObject:DisplayObject) 
 		{
@@ -122,6 +124,12 @@ package units
 			pivotX = displayObject.width	* 0.5;
 			pivotY = displayObject.height	* 0.5;
 		}
+		
+		public function update(deltaTime:int):void 
+		{
+			if (!(displayObject is IUpdate)) return;
+			
+			(displayObject as IUpdate).update(deltaTime);
+		}
 	}
-
 }

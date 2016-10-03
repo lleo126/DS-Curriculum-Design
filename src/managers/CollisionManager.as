@@ -129,7 +129,7 @@ package managers
 		/**
 		 * 更新所有单位的位置和速度
 		 */
-		public function update(deltaTime:Number):void 
+		public function update(deltaTime:int):void 
 		{
 			players[0].hero.unitTransform.advance(deltaTime);
 			players[1].hero.unitTransform.advance(deltaTime);

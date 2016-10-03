@@ -163,6 +163,7 @@ package units
 		 * 自上一帧以来的经过时间，以毫秒为单位
 		 */
 		private var _deltaTime:Number;
+		private var testUnit:Unit;
 		public function get deltaTime():Number
 		{
 			return _deltaTime;
@@ -208,9 +209,9 @@ package units
 			var item:Unit = itemGenerator.randomUnit();
 			itemGenerator.dropUnit(item);
 			
-			var unit:Unit = new Unit();
-			unit.body = new SpriteEx(new HeroMoveAnimation(unit));
-			addUnit(unit);
+			testUnit = new Unit();
+			testUnit.body = new SpriteEx(new HeroMoveAnimation(testUnit));
+			addUnit(testUnit);
 		}
 		
 		/**
@@ -328,6 +329,7 @@ package units
 				hero.update(_deltaTime);
 				hero.sp += -addSnow(-Hero.COLLECT_SPEED * _deltaTime, _players[i].hero.unitTransform, Hero.COLLECT_RADIUS);
 			}
+			testUnit.update(_deltaTime);
 			
 			zSort();
 		}

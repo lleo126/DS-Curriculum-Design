@@ -5,13 +5,14 @@ package animations
 	import flash.display.Sprite;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
+	import interfaces.IUpdate;
 	import units.Unit;
 	
 	/**
 	 * ...
 	 * @author 彩月葵☆彡
 	 */
-	internal class Animation extends Sprite 
+	internal class Animation extends Sprite implements IUpdate
 	{
 		protected var timeNow:int;
 		protected var timeNum:int;
