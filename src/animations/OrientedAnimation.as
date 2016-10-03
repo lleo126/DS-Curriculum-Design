@@ -12,11 +12,16 @@ package animations
 	internal class OrientedAnimation extends Animation 
 	{
 		protected var HEIGHT:Number;
-		protected static var rowNow:int;
+		protected var rowNow:int;
+		protected var dirNum:int;
+		private var angleBegin:Number;
+		private var angle:Number;
 		
 		public function OrientedAnimation(unit:Unit) 
 		{
-			super(unit);		
+			super(unit);
+			angleBegin = 360 / (dirNum * 2);
+			angle = 360 / dirNum;
 		}
 		
 		internal function get orientation():Number
@@ -42,10 +47,13 @@ package animations
 			imgNow = new Bitmap(new BitmapData(WIDTH, HEIGHT));
 		}
 		
-		//override public function update(deltaTime:int):void 
-		//{
-			//clipRect.y = rowNow * HEIGHT;
-			//super.update(deltaTime);
-		//}
+		override public function update(deltaTime:int):void 
+		{
+			while (rowNow< _row && angleBegin + rowNow*angle < unit.unitTransform.orientation) rowNow++;
+			rowNow = rowNow == _row?0:rowNow;
+			clipRect.y = rowNow * HEIGHT;
+			super.update(deltaTime);
+			
+		}
 	}
 }

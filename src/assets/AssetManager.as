@@ -174,8 +174,12 @@ package assets
 		//==========================/
 		
 		//========动画图片==========/
+		
 		[Embed(source = "../../assets/Animation/VillagerRun1.png")]
 		public static const HERO_MOVE:Class;
+		
+		[Embed(source = "../../assets/Animation/ball.png")]
+		public static const BALL_EXPLOSION:Class;
 		//==========================/
 	}
 }

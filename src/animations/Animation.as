@@ -76,16 +76,18 @@ package animations
 		
 		public function update(deltaTime:int):void 
 		{
-			timeNow += _speed;
+			timeNow += deltaTime;
 			
 			if (timeNow > timeNum * _speed)
 			{
 				timeNow = timeNow > timeMax? timeNow - timeMax:timeNow;
 				timeNum = timeNum + 1 == _column? 0:timeNum + 1;
 			}
+			imgNow.bitmapData.lock();
 			imgNow.bitmapData.fillRect(new Rectangle(0, 0, imgNow.bitmapData.width, imgNow.bitmapData.height), 0xFFFFFF);
 			imgNow.bitmapData.copyPixels(_img.bitmapData, clipRect, new Point(), null, null, true);
 			clipRect.x = timeNum * WIDTH;
+			imgNow.bitmapData.unlock();
 		}
 	}
 }

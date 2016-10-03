@@ -1,5 +1,6 @@
 package animations 
 {
+	import assets.AssetManager;
 	import units.Unit;
 	
 	/**
@@ -11,8 +12,10 @@ package animations
 		
 		public function SnowballExplosionAnimation(unit:Unit) 
 		{
+			_column = 9;
+			_img = new AssetManager.BALL_EXPLOSION();
+			_speed = 120;
 			super(unit);
-			
 		}
 		
 	}
