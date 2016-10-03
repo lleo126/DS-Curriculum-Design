@@ -28,7 +28,7 @@ package animations
 		{
 			this.unit = unit;
 			timeNow = 0;
-			timeMax = _speed * _column;
+			timeMax = _delay * _column;
 			init();
 			addChild(imgNow);
 		}
@@ -57,14 +57,14 @@ package animations
 			_img = value;
 		}
 		
-		protected var _speed:int;
-		public function get speed():int 
+		protected var _delay:int;
+		public function get delay():int 
 		{
-			return _speed;
+			return _delay;
 		}
-		public function set speed(value:int):void 
+		public function set delay(value:int):void 
 		{
-			_speed = value;
+			_delay = value;
 		}
 		
 		protected var _column:int;
@@ -81,10 +81,12 @@ package animations
 		{
 			timeNow += deltaTime;
 			
-			if (timeNow > timeNum * _speed)
+			// TODO: 还是停留在同一帧就不用渲染
+			if (timeNow >= (timeNum + 1) * _delay)
 			{
-				timeNow = timeNow > timeMax? timeNow - timeMax:timeNow;
-				timeNum = timeNum + 1 == _column? 0:timeNum + 1;
+				timeNow = timeNow >= timeMax? timeNow - timeMax:timeNow;
+				timeNum = timeNow / _delay;
+				//timeNum = timeNum + 1 == _column? 0:timeNum + 1;
 			}
 			imgNow.bitmapData.lock();
 			imgNow.bitmapData.fillRect(selfRect, 0xFFFFFF);

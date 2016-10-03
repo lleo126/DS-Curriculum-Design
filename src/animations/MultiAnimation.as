@@ -33,7 +33,7 @@ package animations
 		{
 			for each (var animation:* in animations) 
 			{
-				return (animation as Animation).speed;
+				return (animation as Animation).delay;
 			}
 			return -1;
 		}
@@ -41,7 +41,7 @@ package animations
 		{
 			for each (var animation:* in animations) 
 			{
-				(animation as Animation).speed = value;
+				(animation as Animation).delay = value;
 			}
 		}
 		
