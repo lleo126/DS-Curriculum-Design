@@ -172,5 +172,10 @@ package assets
 		[Embed(source = "../../assets/photos/salt.png")]
 		public static const SALT_IMG:Class;
 		//==========================/
+		
+		//========动画图片==========/
+		[Embed(source = "../../assets/Animation/VillagerRun1.png")]
+		public static const HERO_MOVE:Class;
+		//==========================/
 	}
 }

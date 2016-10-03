@@ -8,9 +8,12 @@ package animations
 	 */
 	internal class OrientedAnimation extends Animation 
 	{
+		protected var HEIGHT:Number;
+		protected var rowNow:Number;
+		
 		public function OrientedAnimation(unit:Unit) 
 		{
-			super(unit);
+			super(unit);	
 		}
 		
 		internal function get orientation():Number
@@ -28,9 +31,16 @@ package animations
 			_row = value;
 		}
 		
-		override public function update(deltaTime:int):void 
+		override public function init():void
 		{
-			
+			super.update();
+			HEIGHT = _img.height / _row;
 		}
+		
+		//override public function update(deltaTime:int):void 
+		//{
+			//clipRect.y = rowNow * HEIGHT;
+			//super.update(deltaTime);
+		//}
 	}
 }
