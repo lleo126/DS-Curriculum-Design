@@ -16,11 +16,14 @@ package units
 		
 		override public function setByXML(xml:XML):void
 		{
+			
 			name = xml.name.text().toString();
 			_unitTransform.radius = parseInt(xml.radius.text().toString());
 			
 			var ImageClass:Class = AssetManager[xml.img[0].text().toString()];
 			_body = new SpriteEx(new ImageClass());
+			_body.width = parseFloat(xml.width.text().toString());
+			_body.height = parseFloat(xml.height.text().toString());
 		}
 	}
 }

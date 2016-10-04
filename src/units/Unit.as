@@ -1,10 +1,7 @@
 package units 
 {
-	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.utils.getTimer;
-	import flash.utils.setInterval;
 	import interfaces.IUpdate;
 	import models.Player;
 	

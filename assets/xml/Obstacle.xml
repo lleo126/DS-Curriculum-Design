@@ -2,52 +2,102 @@
 	<obstacle>
 		<img>TREE1_IMG</img>
 		<name>tree1</name>
+		<width>60</width>
+		<height>100</height>
+		<unitTransform>
+			<altitude>100</altitude>
+		</unitTransform>
 		<radius>20</radius>
 	</obstacle>
 	<obstacle>
 		<img>TREE2_IMG</img>
 		<name>tree2</name>
+		<width>60</width>
+		<height>100</height>
+		<unitTransform>
+			<altitude>100</altitude>
+		</unitTransform>
 		<radius>20</radius>
 	</obstacle>
 	<obstacle>
 		<img>TREE3_IMG</img>
 		<name>tree3</name>
+		<width>60</width>
+		<height>100</height>
+		<unitTransform>
+			<altitude>100</altitude>
+		</unitTransform>
 		<radius>20</radius>
 	</obstacle>
 	<obstacle>
 		<img>TREE4_IMG</img>
 		<name>tree4</name>
+		<width>60</width>
+		<height>100</height>
+		<unitTransform>
+			<altitude>100</altitude>
+		</unitTransform>
 		<radius>20</radius>
 	</obstacle>
 	<obstacle>
 		<img>TREE5_IMG</img>
 		<name>tree5</name>
+		<width>60</width>
+		<height>100</height>
+		<unitTransform>
+			<altitude>100</altitude>
+		</unitTransform>
 		<radius>20</radius>
 	</obstacle>
 	<obstacle>
 		<img>TREE6_IMG</img>
 		<name>tree6</name>
+		<width>60</width>
+		<height>100</height>
+		<unitTransform>
+			<altitude>100</altitude>
+		</unitTransform>
 		<radius>20</radius>
 	</obstacle>
 	<obstacle>
 		<img>TREE7_IMG</img>
 		<name>tree7</name>
+		<width>60</width>
+		<height>100</height>
+		<unitTransform>
+			<altitude>100</altitude>
+		</unitTransform>
 		<radius>20</radius>
 	</obstacle>
 	<obstacle>
 		<img>TREE8_IMG</img>
 		<name>tree8</name>
+		<width>60</width>
+		<height>100</height>
+		<unitTransform>
+			<altitude>100</altitude>
+		</unitTransform>
 		<radius>20</radius>
 	</obstacle>
 	<obstacle>
 		<img>TREE9_IMG</img>
 		<name>tree9</name>
+		<width>60</width>
+		<height>100</height>
+		<unitTransform>
+			<altitude>100</altitude>
+		</unitTransform>
 		<radius>20</radius>
 	</obstacle>
 
 	<obstacle>
 		<img>CAR_IMG</img>
 		<name>car</name>
+		<width>60</width>
+		<height>100</height>
+		<unitTransform>
+			<altitude>100</altitude>
+		</unitTransform>
 		<radius>20</radius>
 	</obstacle>
 </obstacles>
