@@ -25,6 +25,7 @@ package units
 		public static const CHALLENGE_SCALE:Number = 3.0;
 		public static const SNOW_COLOR:uint = 0x0055EEFF;
 		public static const ALPHA_SNOW_RATIO:Number = 0.00005;
+		var tGroup:Sprite = new Sprite(); //排序测试
 		
 		public function World()
 		{
@@ -48,6 +49,9 @@ package units
 			snowfall = new Bitmap(snowfallData);
 			
 			addChild(snowfall);
+			
+			
+			addChild(tGroup);//排序测试 
 		}
 		
 		//==========
@@ -291,7 +295,9 @@ package units
 			{
 				_monsters.push(unit)
 			}
-			addChild(unit);
+			
+			tGroup.addChild(unit);//排序测试
+			
 		}
 		
 		/**
@@ -424,7 +430,28 @@ package units
 		 */
 		private function zSort():void
 		{
-		
+			
+			var i:int;
+			var children:Array = [];
+			for( i= 0;i<tGroup.numChildren;i++)
+			{
+				children[i] = tGroup.getChildAt(i); //存储显示实例对象
+			}
+			
+			for (i = 1; i < children.length; ++i ) {
+				var j:int = i;
+				var target:Unit = children[i];
+				while (j > 0 && target.y < children[j - 1].y) {
+					children[j] = children[j - 1];
+					j--;
+				}
+				children[j] = target;
+			}
+			
+			for(i = 0;i<children.length;i++)
+			{
+				tGroup.setChildIndex(children[i],i);//重新设置实例对象的显示顺序
+			}
 		}
 		
 		/**
