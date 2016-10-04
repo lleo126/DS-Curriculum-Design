@@ -7,6 +7,21 @@ package units
 	 */
 	public class UnitTransform 
 	{
+		/**
+		 * 求两个切点
+		 * @param	pointUnitTransform	发出射线的点
+		 * @param	circleUnitTransform	圆
+		 * @return	Vector.<UnitTransform>(2, true)	表示两个切点
+		 */
+		public static function getSupportUnitTransforms(pointUnitTransform:UnitTransform, circleUnitTransform:UnitTransform):Vector.<UnitTransform> 
+		{
+			var res:Vector.<UnitTransform> = new Vector.<UnitTransform>(2, true);
+			
+			// TODO (翔宇): 求切点
+			
+			return res;
+		}
+		
 		public function UnitTransform(unit:Unit)
 		{
 			this.unit = unit;
