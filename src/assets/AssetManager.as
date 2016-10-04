@@ -171,6 +171,42 @@ package assets
 		
 		[Embed(source = "../../assets/photos/salt.png")]
 		public static const SALT_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/tree1.png")]
+		public static const TREE1_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/tree2.png")]
+		public static const TREE2_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/tree3.png")]
+		public static const TREE3_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/tree4.png")]
+		public static const TREE4_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/tree5.png")]
+		public static const TREE5_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/tree6.png")]
+		public static const TREE6_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/tree7.png")]
+		public static const TREE7_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/tree8.png")]
+		public static const TREE8_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/tree9.png")]
+		public static const TREE9_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/Youling.png")]
+		public static const YOULING_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/ZhongZiShou.png")]
+		public static const ZHONGZISHOU_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/DaWangHua.png")]
+		public static const DAWANGHUA_IMG:Class;
 		//==========================/
 		
 		//========动画图片==========/

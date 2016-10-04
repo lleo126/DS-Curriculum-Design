@@ -108,8 +108,7 @@ package units
 		public function randomUnit():Unit 
 		{
 			var UnitClass:Class = getDefinitionByName(xml.@klass.toString()) as Class;
-			//var unitXML:XML = xml.items.item[Math.floor(Math.random() * xml..item.length())];
-			var unitXML:XML = xml.item[Math.floor(Math.random() * xml.item.length())];
+			var unitXML:XML = xml.children()[Math.floor(Math.random() * xml.children().length())];
 			var unit:Unit = new UnitClass();
 			unit.setByXML(unitXML);
 			return unit;

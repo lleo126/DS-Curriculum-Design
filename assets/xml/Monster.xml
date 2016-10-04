@@ -8,4 +8,31 @@
 			<addHP>-5</addHP>
 		</skill>
 	</monster>
+	<monster>
+		<img>YOULING_IMG</img>
+		<name>YouLing</name>
+		<bonus>20</bonus>
+		<radius>20</radius>
+		<skill klass="units.skills.AddHP">
+			<addHP>-5</addHP>
+		</skill>
+	</monster>
+	<monster>
+		<img>ZHONGZISHOU_IMG</img>
+		<name>ZhongZiShou</name>
+		<bonus>10</bonus>
+		<radius>20</radius>
+		<skill klass="units.skills.Dizzy">
+			<time>1</time>
+		</skill>
+	</monster>
+	<monster>
+		<img>DAWANGHUA_IMG</img>
+		<name>DaWangHua</name>
+		<bonus>10</bonus>
+		<radius>20</radius>
+		<skill klass="units.skills.SpeedUp">
+			<speedUp>-0.2</speedUp>
+		</skill>
+	</monster>
 </monsters>

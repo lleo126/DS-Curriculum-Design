@@ -1,7 +1,6 @@
 package units
 {
 	import assets.AssetManager;
-	import flash.display.Bitmap;
 	import flash.utils.getDefinitionByName;
 	import units.skills.AddHP;
 	import units.skills.AddSnow;
@@ -47,8 +46,11 @@ package units
 			_body = new SpriteEx(new ImageClass());
 			var skillXML:XML = xml.skill[0];
 			var SkillClass:Class = getDefinitionByName(skillXML.@klass.toString()) as Class;
+			
 			_skill = new SkillClass();
-			for each (var param:XML in skillXML.children())
+			
+			var children:XMLList = skillXML.children();
+			for each (var param:XML in children)
 			{
 				_skill[param.localName().toString()] = parseFloat(param.text().toString());
 				//trace("_skill[", param.localName().toString(), "] = ", param.text().toString());
