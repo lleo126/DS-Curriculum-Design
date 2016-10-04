@@ -8,11 +8,8 @@ package units
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
-	import flash.geom.Point;
 	import flash.geom.Rectangle;
-	import flash.utils.Dictionary;
 	import flash.utils.getTimer;
-	import flash.utils.setInterval;
 	import managers.CollisionManager;
 	import models.Player;
 	import models.Setting;
