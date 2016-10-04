@@ -140,7 +140,6 @@ package units
 			liftSnowball.scaleX = 1.0 / liftSnowball.parent.scaleX;
 			liftSnowball.scaleY = 1.0 / liftSnowball.parent.scaleY;
 			liftSnowball.unitTransform.z = unitTransform.top;
-			
 		}
 		
 		/**

@@ -436,10 +436,10 @@ package units
 		private function zSort():void
 		{
 			var i:int;
-			var children:Array = [];
+			var children:Vector.<Unit> = new Vector.<Unit>(unitGroup.numChildren, true);
 			for( i= 0;i<unitGroup.numChildren;i++)
 			{
-				children[i] = unitGroup.getChildAt(i); //存储显示实例对象
+				children[i] = unitGroup.getChildAt(i) as Unit; //存储显示实例对象
 			}
 			
 			//插入排序
