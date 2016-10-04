@@ -30,10 +30,6 @@ package units
 			displayObject.width = unit.unitTransform.radius * 2;
 			displayObject.height = displayObject.width * 0.6;
 			center();
-			
-			//addChild(displayObject);
-			//阴影中心点要往下移一点
-			//displayObject.y += OFFSET;
 		}
 		
 		//==========
