@@ -218,7 +218,7 @@ package assets
 		public static const BICYCLE2_IMG:Class;
 		
 		[Embed(source = "../../assets/photos/bicycle3.png")]
-		public static const BICYCLE2_IMG:Class;
+		public static const BICYCLE3_IMG:Class;
 		//==========================/
 		
 		//========动画图片==========/

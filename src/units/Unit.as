@@ -161,7 +161,7 @@ package units
 		
 		public function removeFromWorld():void 
 		{
-			(parent as World).removeUnit(this);
+			(parent.parent as World).removeUnit(this);
 		}
 	}
 }

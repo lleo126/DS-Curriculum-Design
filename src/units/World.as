@@ -48,6 +48,7 @@ package units
 			snowfall = new Bitmap(snowfallData);
 			
 			addChild(snowfall);
+			addChild(unitGroup);//排序测试 
 		}
 		
 		//==========
@@ -68,11 +69,6 @@ package units
 		 * 雪量数据
 		 */
 		private var snowfallData:BitmapData;
-		
-		/**
-		 * 雪量
-		 */
-		private var snowfall:Bitmap;
 		
 		/**
 		 * 玩家生成器
@@ -98,6 +94,16 @@ package units
 		 * 表示是否暂停游戏，true 为不暂停，false 为暂停
 		 */
 		private var resumed:Boolean = true;
+		
+		/**
+		 * 第一层，雪量层
+		 */
+		private var snowfall:Bitmap;
+		
+		/**
+		 * 第二层，单位层
+		 */
+		private var unitGroup:Sprite = new Sprite(); //排序测试
 		
 		// for test
 		private var testUnit:Unit;
@@ -204,11 +210,14 @@ package units
 		 */
 		private function generateUnits():void 
 		{
-			var item:Unit = itemGenerator.randomUnit();
-			itemGenerator.dropUnit(item);
-			
-			var obstacle:Unit = obstacleGenerator.randomUnit();
-			obstacleGenerator.dropUnit(obstacle);
+			for (var i:int = 0; i < 10; i++) 
+			{
+				var item:Unit = itemGenerator.randomUnit();
+				itemGenerator.dropUnit(item);
+				
+				var obstacle:Unit = obstacleGenerator.randomUnit();
+				obstacleGenerator.dropUnit(obstacle);
+			}
 			
 			heroGenerator.dropUnit(_players[0].hero);
 			heroGenerator.dropUnit(_players[1].hero);
@@ -291,7 +300,9 @@ package units
 			{
 				_monsters.push(unit)
 			}
-			addChild(unit);
+			
+			unitGroup.addChild(unit);//排序测试
+			
 		}
 		
 		/**
@@ -316,7 +327,7 @@ package units
 			{
 				_monsters.splice(_monsters.indexOf(unit), 1);
 			}
-			removeChild(unit);
+			unitGroup.removeChild(unit);
 		}
 		
 		/**
@@ -424,7 +435,29 @@ package units
 		 */
 		private function zSort():void
 		{
-		
+			var i:int;
+			var children:Array = [];
+			for( i= 0;i<unitGroup.numChildren;i++)
+			{
+				children[i] = unitGroup.getChildAt(i); //存储显示实例对象
+			}
+			
+			//插入排序
+			for (i = 1; i < children.length; ++i ) {
+				var j:int = i;
+				var target:Unit = children[i];
+				while (j > 0 && target.unitTransform.y <= children[j - 1].unitTransform.y) {
+					if (target.unitTransform.y == children[j - 1].unitTransform.y && target.unitTransform.z > children[j - 1].unitTransform.z) break;
+					children[j] = children[j - 1];
+					j--;
+				}
+				children[j] = target;
+			}
+			
+			for(i = 0;i<children.length;i++)
+			{
+				unitGroup.setChildIndex(children[i],i);//重新设置实例对象的显示顺序
+			}
 		}
 		
 		/**
