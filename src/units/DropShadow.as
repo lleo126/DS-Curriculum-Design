@@ -27,7 +27,7 @@ package units
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
-			displayObject.width = unit.radius * 2;
+			displayObject.width = unit.unitTransform.radius * 2;
 			displayObject.height = displayObject.width * 0.6;
 			center();
 			

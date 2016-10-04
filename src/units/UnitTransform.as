@@ -8,10 +8,12 @@ package units
 	public class UnitTransform 
 	{
 		/**
-		 * 求两个切点
+		 * 一个为发出射线的点，一个为椭球的球心
+		 * 以发出射线的点所在水平面截椭球，降三维为二维
+		 * 然后从这点发出两条切线，切刚才截出的圆为两点，求这两点
 		 * @param	pointUnitTransform	发出射线的点
-		 * @param	circleUnitTransform	圆
-		 * @return	Vector.<UnitTransform>(2, true)	表示两个切点
+		 * @param	circleUnitTransform	球心
+		 * @return	两个切点
 		 */
 		public static function getSupportUnitTransforms(pointUnitTransform:UnitTransform, circleUnitTransform:UnitTransform):Vector.<UnitTransform> 
 		{
@@ -31,6 +33,9 @@ package units
 		// 变量
 		//==========
 		
+		/**
+		 * 所属的 unit
+		 */
 		public var unit:Unit;
 		
 		/**
@@ -52,6 +57,11 @@ package units
 		 * 朝向，单位的图片根据朝向设定
 		 */
 		public var orientation:Number = 90.0;
+		
+		/**
+		 * 碰撞半径
+		 */
+		public var radius:Number = 0.0;
 		
 		//==========
 		// 属性
@@ -81,10 +91,10 @@ package units
 			return z + altitude;
 		}
 		
-		/**
-		 * X 轴坐标
-		 */
 		private var _x:Number = 0.0;
+	   /**
+		* X 轴坐标
+		*/
 		public function get x():Number 
 		{
 			return _x;
@@ -95,10 +105,10 @@ package units
 			update();
 		}
 		
-		/**
-		 * Y 轴坐标
-		 */
 		private var _y:Number = 0.0;
+	   /**
+		* Y 轴坐标
+		*/
 		public function get y():Number 
 		{
 			return _y;
@@ -109,10 +119,10 @@ package units
 			update();
 		}
 		
-		/**
-		 * Z 轴坐标
-		 */
 		private var _z:Number = 0.0;
+	   /**
+		* Z 轴坐标
+		*/
 		public function get z():Number 
 		{
 			return _z;

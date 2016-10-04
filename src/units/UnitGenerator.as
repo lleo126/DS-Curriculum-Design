@@ -1,13 +1,8 @@
 package units 
 {
-	import assets.AssetManager;
 	import flash.events.EventDispatcher;
-	import flash.events.IEventDispatcher;
 	import flash.geom.Point;
-	import flash.utils.Dictionary;
 	import flash.utils.getDefinitionByName;
-	import flash.utils.getQualifiedClassName;
-	import models.Player;
 	
 	/**
 	 * 单位随机生成器

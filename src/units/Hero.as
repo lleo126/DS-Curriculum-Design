@@ -42,7 +42,7 @@ package units
 			_sp = SP;
 			attackRange = ATTCK_RANGE;
 			_maxSpeed = MAX_SPEED;
-			_radius = RADIUS;
+			_unitTransform.radius = RADIUS;
 			_unitTransform.altitude = ALTITUDE;
 			
 			_body.pivotX = PIVOT_X;
@@ -88,10 +88,10 @@ package units
 			hpBar.value = value;
 		}
 		
-		/**
-		 * 收集的雪量（Snow Point）
-		 */
 		private var _sp:Number;
+	   /**
+		* 收集的雪量（Snow Point）
+		*/
 		public function get sp():Number 
 		{
 			return _sp;
@@ -102,10 +102,10 @@ package units
 			spBar.value = value;
 		}
 		
-		/**
-		 * 蓄力值，不会超过 MAX_ACCUMUMATION
-		 */
 		private var _accumulation:Number = 0.0;
+	   /**
+		* 蓄力值，不会超过 MAX_ACCUMUMATION
+		*/
 		public function get accumulation():Number 
 		{
 			return _accumulation;

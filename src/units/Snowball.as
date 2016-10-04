@@ -24,8 +24,8 @@ package units
 		{
 			_body = new SpriteEx(new AssetManager.SNOWBALL_IMG());
 			
-			damage = _radius = radius;
-			_unitTransform.altitude = _body.width = _body.height = 2.0 * _radius;
+			damage = _unitTransform.radius = radius;
+			_unitTransform.altitude = _body.width = _body.height = 2.0 * radius;
 			attackRange = radius * ATTACK_RANGE_RATIO;
 			_bonus = bonus;
 			_maxSpeed = MAX_SPEED;
@@ -40,7 +40,7 @@ package units
 		
 		public function clone():Snowball
 		{
-			return new Snowball(_radius, bonus);
+			return new Snowball(_unitTransform.radius, bonus);
 		}
 		
 		override public function removeFromWorld():void 

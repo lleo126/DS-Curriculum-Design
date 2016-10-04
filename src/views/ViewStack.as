@@ -31,18 +31,16 @@ package views
 		// 属性
 		//==========
 		
-		/**
-		 * 当前所处的视图
-		 * @see View
-		 * @example 切换视图至设置视图：view = View.SETTING_VIEW;
-		 */
-		public var _view:DisplayObject;
-		
+		protected var _view:DisplayObject;
+	   /**
+		* 当前所处的视图
+		* @see View
+		* @example 切换视图至设置视图：view = View.SETTING_VIEW;
+		*/
 		public function get view():DisplayObject
 		{
 			return _view;
 		}
-		
 		public function set view(value:DisplayObject):void 
 		{
 			removeChild(_view);

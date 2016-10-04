@@ -139,15 +139,6 @@ package units
 			return _bonus;
 		}
 		
-		/**
-		 * 碰撞半径
-		 */
-		protected var _radius:Number = 0.0;
-		public function get radius():Number 
-		{
-			return _radius;
-		}
-		
 		//==========
 		// 方法
 		//==========

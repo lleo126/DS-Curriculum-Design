@@ -17,7 +17,7 @@ package animations
 		}
 		
 		protected var currentAnimation:Animation;
-		protected var animations:Object = { };
+		protected var _animations:Object = { };
 		
 		protected var _unit:Unit;
 		public function get unit():Unit 
@@ -31,7 +31,7 @@ package animations
 		
 		public function get speed():int
 		{
-			for each (var animation:* in animations) 
+			for each (var animation:* in _animations) 
 			{
 				return (animation as Animation).delay;
 			}
@@ -39,7 +39,7 @@ package animations
 		}
 		public function set speed(value:int):void 
 		{
-			for each (var animation:* in animations) 
+			for each (var animation:* in _animations) 
 			{
 				(animation as Animation).delay = value;
 			}
@@ -47,12 +47,12 @@ package animations
 		
 		public function update(deltaTime:int):void 
 		{
-			currentAnimation.update();
+			currentAnimation.update(deltaTime);
 		}
 		
 		private function onStateChange(e:Event):void 
 		{
-			currentAnimation = animations[unit.status];
+			currentAnimation = _animations[unit.status];
 		}
 	}
 }

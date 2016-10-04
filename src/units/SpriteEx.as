@@ -1,9 +1,7 @@
 package units 
 {
-	import animations.Animation;
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
-	import flash.events.Event;
 	import interfaces.IUpdate;
 	
 	/**
