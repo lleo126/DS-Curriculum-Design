@@ -100,4 +100,44 @@
 		</unitTransform>
 		<radius>20</radius>
 	</obstacle>
+	<obstacle>
+		<img>DUSTBIN_IMG</img>
+		<name>dustbin</name>
+		<width>60</width>
+		<height>100</height>
+		<unitTransform>
+			<altitude>100</altitude>
+		</unitTransform>
+		<radius>20</radius>
+	</obstacle>
+	<obstacle>
+		<img>BICYCLE1_IMG</img>
+		<name>dustbin</name>
+		<width>60</width>
+		<height>100</height>
+		<unitTransform>
+			<altitude>100</altitude>
+		</unitTransform>
+		<radius>20</radius>
+	</obstacle>
+	<obstacle>
+		<img>BICYCLE2_IMG</img>
+		<name>dustbin</name>
+		<width>60</width>
+		<height>100</height>
+		<unitTransform>
+			<altitude>100</altitude>
+		</unitTransform>
+		<radius>20</radius>
+	</obstacle>
+	<obstacle>
+		<img>BICYCLE3_IMG</img>
+		<name>dustbin</name>
+		<width>60</width>
+		<height>100</height>
+		<unitTransform>
+			<altitude>100</altitude>
+		</unitTransform>
+		<radius>20</radius>
+	</obstacle>
 </obstacles>

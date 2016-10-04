@@ -207,6 +207,18 @@ package assets
 		
 		[Embed(source = "../../assets/photos/DaWangHua.png")]
 		public static const DAWANGHUA_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/Dustbin.png")]
+		public static const DUSTBIN_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/bicycle1.png")]
+		public static const BICYCLE1_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/bicycle2.png")]
+		public static const BICYCLE2_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/bicycle3.png")]
+		public static const BICYCLE3_IMG:Class;
 		//==========================/
 		
 		//========动画图片==========/
