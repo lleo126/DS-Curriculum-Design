@@ -1,6 +1,5 @@
 package controls 
 {
-	import assets.AssetManager;
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -37,10 +36,10 @@ package controls
 		// 属性
 		//==========
 		
-		/**
-		 * 值，从 0 ~ 100
-		 */
 		protected var _value:Number = 0.0;
+	   /**
+		* 值，从 0 ~ 100
+		*/
 		public function get value():Number
 		{
 			return _value;
@@ -53,10 +52,10 @@ package controls
 			update();
 		}
 		
-		/**
-		 * 最大值
-		 */
-		private var _maxValue:Number
+		protected var _maxValue:Number
+	   /**
+		* 最大值
+		*/
 		public function get maxValue():Number 
 		{
 			return _maxValue;

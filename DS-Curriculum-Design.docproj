@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<docProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <pageTitle>DS-Curriculum-Design-Doc</pageTitle>
+  <classPaths>D:\Data\编程\Actionscript 3.0\项目\DS-Curriculum-Design\src</classPaths>
+  <sourcesList />
+  <outputDirectory>D:\Data\编程\Actionscript 3.0\项目\DS-Curriculum-Design\docs\asdoc</outputDirectory>
+  <activeCompiler>1</activeCompiler>
+  <extraOptions />
+</docProject>
