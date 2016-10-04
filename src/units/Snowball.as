@@ -48,7 +48,7 @@ package units
 			// TODO: 遮罩爆炸范围
 			// TODO: 伤害
 			var deltaSnow:Number = 1.5 * bonus / (Math.PI * attackRange) / World.ALPHA_SNOW_RATIO;
-			(parent as World).addSnow(deltaSnow, unitTransform, attackRange);
+			(parent.parent as World).addSnow(deltaSnow, unitTransform, attackRange);
 			super.removeFromWorld();
 		}
 	}
