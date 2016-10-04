@@ -19,10 +19,14 @@ package units
 		{
 			var res:Vector.<UnitTransform> = new Vector.<UnitTransform>(2, true);
 			
-			// 圆心坐标
-			var a:Number, b:Number;
-			// 半径
-			var r:Number;
+			// 圆心坐标 (待测试)
+			var a:Number = circleUnitTransform._x, b:Number = circleUnitTransform._y;
+			var dz:Number = Math.abs(pointUnitTransform.centerZ - circleUnitTransform.centerZ);
+			if (circleUnitTransform.radiusZ <= dz) return res; // 水平面截不到圆
+			
+			// 半径 (待测试)
+			var r:Number = circleUnitTransform.radius * circleUnitTransform.radiusZ * Math.sqrt((circleUnitTransform.radiusZ + dz) * (circleUnitTransform.radiusZ - dz));
+			
 			// 圆外该点的座标
 			var m:Number = pointUnitTransform.x;
 			var n:Number = pointUnitTransform.y;
@@ -61,14 +65,21 @@ package units
 				y2 = ( y2 + n ) * l;
 				// 将坐标值赋值
 				
+				res[0] = new UnitTransform();
+				res[0]._x = x1;
+				res[0]._y = y1;
+				res[0]._z = pointUnitTransform._z;
+				
+				res[1] = new UnitTransform();
+				res[1]._x = x2;
+				res[1]._y = y2;
+				res[1]._z = pointUnitTransform._z;
 			}
-			
-			// TODO (翔宇): 求切点
 			
 			return res;
 		}
 		
-		public function UnitTransform(unit:Unit)
+		public function UnitTransform(unit:Unit = null)
 		{
 			this.unit = unit;
 		}
@@ -165,7 +176,7 @@ package units
 		
 		private var _z:Number = 0.0;
 		/**
-		 * Z 轴坐标
+		 * Z 轴坐标（底部）
 		 */
 		public function get z():Number 
 		{
@@ -175,6 +186,26 @@ package units
 		{
 			_z = value;
 			update();
+		}
+		
+		/**
+		 * Z 轴坐标（中部）
+		 */
+		public function get centerZ():Number
+		{
+			return _z + altitude * 0.5;
+		}
+		public function set centerZ(value:Number):void 
+		{
+			_z = value - altitude * 0.5;
+		}
+		
+		/**
+		 * Z 轴长轴半径
+		 */
+		public function get radiusZ():Number
+		{
+			return altitude * 0.5;
 		}
 		
 		//==========

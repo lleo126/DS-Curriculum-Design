@@ -1,6 +1,7 @@
 package units
 {
 	import assets.AssetManager;
+	import flash.events.Event;
 	import flash.utils.getDefinitionByName;
 	import units.skills.AddHP;
 	import units.skills.AddSnow;
@@ -22,6 +23,16 @@ package units
 		public function Item()
 		{
 			super();
+			addEventListener(Event.ADDED_TO_STAGE, init);
+		}
+		
+		// for test
+		private function init(e:Event):void 
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, init);
+			
+			_body.pivotX = _body.width * 0.5;
+			_body.pivotY = _body.height;
 		}
 		
 		//==========
