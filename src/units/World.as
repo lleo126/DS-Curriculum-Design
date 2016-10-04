@@ -103,70 +103,72 @@ package units
 		 */
 		private var resumed:Boolean = true;
 		
+		// for test
+		private var testUnit:Unit;
+		private var testUnitBall:Unit;
+		
 		//==========
 		// 属性
 		//==========
 		
-		/**
-		 * 碰撞管理器
-		 */
 		private var _collisionManager:CollisionManager;
+	   /**
+		* 碰撞管理器
+		*/
 		public function get collisionManager():CollisionManager
 		{
 			return _collisionManager;
 		}
 		
-		/**
-		 * 玩家，根据长度可以判断是单人还是双人
-		 */
 		private var _players:Vector.<Player>;
+	   /**
+		* 玩家，根据长度可以判断是单人还是双人
+		*/
 		public function get players():Vector.<Player>
 		{
 			return _players;
 		}
 		
-		/**
-		 * 雪球
-		 */
 		private var _snowballs:Vector.<Snowball> = new <Snowball>[];
+	   /**
+		* 雪球
+		*/
 		public function get snowballs():Vector.<Snowball>
 		{
 			return _snowballs;
 		}
 		
-		/**
-		 * 怪物
-		 */
 		private var _monsters:Vector.<Monster> = new <Monster>[];
+	   /**
+		* 怪物
+		*/
 		public function get monsters():Vector.<Monster>
 		{
 			return _monsters;
 		}
 		
-		/**
-		 * 障碍物
-		 */
 		private var _obstacles:Vector.<Obstacle> = new <Obstacle>[];
+	   /**
+		* 障碍物
+		*/
 		public function get obstacles():Vector.<Obstacle>
 		{
 			return _obstacles;
 		}
 		
-		/**
-		 * 道具
-		 */
 		private var _items:Vector.<Item> = new <Item>[];
+	   /**
+		* 道具
+		*/
 		public function get items():Vector.<Item>
 		{
 			return _items;
 		}
 		
-		/**
-		 * 自上一帧以来的经过时间，以毫秒为单位
-		 */
 		private var _deltaTime:Number;
-		private var testUnit:Unit;
-		private var testUnitBall:Unit;
+	   /**
+		* 自上一帧以来的经过时间，以毫秒为单位
+		*/
 		public function get deltaTime():Number
 		{
 			return _deltaTime;

@@ -18,7 +18,7 @@ package units
 		{
 			
 			name = xml.name.text().toString();
-			_radius = parseInt(xml.radius.text().toString());
+			_unitTransform.radius = parseInt(xml.radius.text().toString());
 			
 			var ImageClass:Class = AssetManager[xml.img[0].text().toString()];
 			_body = new SpriteEx(new ImageClass());
