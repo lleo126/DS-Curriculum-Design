@@ -4,7 +4,7 @@
 
 ##类图
 
-![类图](imgs/class-diagram.svg)
+![类图](imgs/class-diagram.png)
 
 ##视图切换
 
