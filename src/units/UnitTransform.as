@@ -10,12 +10,56 @@ package units
 		/**
 		 * 求两个切点
 		 * @param	pointUnitTransform	发出射线的点
-		 * @param	circleUnitTransform	圆
+		 * @param	circleUnitTransform	椭圆
 		 * @return	Vector.<UnitTransform>(2, true)	表示两个切点
 		 */
 		public static function getSupportUnitTransforms(pointUnitTransform:UnitTransform, circleUnitTransform:UnitTransform):Vector.<UnitTransform> 
 		{
 			var res:Vector.<UnitTransform> = new Vector.<UnitTransform>(2, true);
+			
+			// 圆心坐标
+			var a:Number, b:Number;
+			// 半径
+			var r:Number;
+			// 圆外该点的座标
+			var m:Number = pointUnitTransform.x;
+			var n:Number = pointUnitTransform.y;
+			// 点到圆心距离的平方
+			var d2:Number = (m - a) * (m - a) + (n - b) * (n - b);
+			// 点到圆心距离
+			var d:Number  = Math.sqrt( d2 );
+			// 半径的平方
+			var r2:Number = r * r;
+			if ( d2 < r2 )
+			{
+				trace("点在圆内，无切点");
+			}
+			else if ( d2 == r2 )
+			{
+				trace("点在圆上，切点为给定点");
+			}
+			else
+			{
+				// 点到切点距离
+				var l:Number = Math.sqrt( d2 - r2 );
+				// 点->圆心的单位向量
+				var x0:Number = ( a - m ) / d;
+				var y0:Number = ( b - n ) / d;
+				// 计算切线与点心连线的夹角
+				var f:Number = Math.asin( r / d );
+				// 向正反两个方向旋转单位向量
+				var x1:Number = x0 * Math.cos( f ) - y0 * Math.sin( f );
+				var y1:Number = x0 * Math.sin( f ) + y0 * Math.cos( f );
+				var x2:Number = x0 * Math.cos(-f ) - y0 * Math.sin(-f );
+				var y2:Number = x0 * Math.sin(-f ) + y0 * Math.cos(-f );
+				// 得到新座标
+				x1 = ( x1 + m ) * l;
+				y1 = ( y1 + n ) * l;
+				x2 = ( x2 + m ) * l;
+				y2 = ( y2 + n ) * l;
+				// 将坐标值赋值
+				
+			}
 			
 			// TODO (翔宇): 求切点
 			
