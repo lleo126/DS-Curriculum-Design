@@ -86,7 +86,6 @@ package animations
 			{
 				timeNow = timeNow >= timeMax? timeNow - timeMax:timeNow;
 				timeNum = timeNow / _delay;
-				//timeNum = timeNum + 1 == _column? 0:timeNum + 1;
 			}
 			imgNow.bitmapData.lock();
 			imgNow.bitmapData.fillRect(selfRect, 0xFFFFFF);

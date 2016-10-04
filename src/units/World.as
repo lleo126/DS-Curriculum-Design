@@ -354,14 +354,20 @@ package units
 			var snowSum:Number = 0.0, diameter:int = 2.0 * radius,
 				originX:int = radius, originY:int = radius,
 				startX:int = unitTransform.x - radius, startY:int = unitTransform.y - radius,
-				area:Rectangle = new Rectangle(startX, startY, diameter, diameter);
+				area:Rectangle = new Rectangle(startX, startY, diameter, diameter),
+				offsetX:int = 0, offsetY:int = 0;
+				
+			// 修正边角情况
+			if (area.left < 0) offsetX -= area.left;
+			if (stage.stageWidth <= area.right) diameter += stage.stageWidth - area.right; 
+			if (area.top < 0) offsetY -= area.top;
 			
 			snowfallData.lock();
 			var vector:Vector.<uint> = snowfallData.getVector(area);
 			for (var i:int = 0; i < vector.length; i++) 
 			{
-				var nextX:int = i % diameter,
-					nextY:int = i / diameter;
+				var nextY:int = (i + offsetX * (nextY + 1)) / diameter + offsetY,
+					nextX:int = (i + offsetX * (nextY + 1)) % diameter;
 					
 				var distance:Number = Math.sqrt((originX - nextX) * (originX - nextX) + (originY - nextY) * (originY - nextY));
 				if (nextX < 0 || snowfallData.width		<= nextX
