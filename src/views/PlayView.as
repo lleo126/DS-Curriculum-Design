@@ -28,17 +28,22 @@ package views
 		private static const STATUSBAR_X:Number			= 140;
 		private static const STATUSBAR_Y:Number			= 600;
 		private static const STATUSBAR_X_PADDING:Number	= 600;
-		private static const STATUSBAR_Y_PADDING:Number	= 50;
+		private static const STATUSBAR_Y_PADDING:Number	= 30;
 		private static const FORMAT_SIZE:Number			= 30;
 		private static const SCORE_X:Number				= 220;
 		private static const SCORE_Y:Number				= 10;
 		
 		private var ui:Sprite;
 		
+		private var baffle1:Bitmap;
+		private var baffle2:Bitmap;
+		
 		private var statusHP1:Bitmap;
 		private var statusSP1:Bitmap;
 		private var statusHP2:Bitmap;
 		private var statusSP2:Bitmap;
+		private var statusAP1:Bitmap;
+		private var statusAP2:Bitmap;
 		private var statusBar1:Sprite;		
 		private var statusBar2:Sprite;
 		
@@ -116,14 +121,20 @@ package views
 			statusSP1	= new AssetManager.SP_IMG();
 			statusHP2	= new AssetManager.HP_IMG();
 			statusSP2	= new AssetManager.SP_IMG();
+			statusAP1   = new AssetManager.AP_IMG();
+			statusAP2   = new AssetManager.AP_IMG();
+			baffle1     = new AssetManager.BAFFLE();
+			baffle2     = new AssetManager.BAFFLE();
 			
 			statusBar1	= new Sprite();
 			statusBarHP1= new HPBar();
-			statusBarSP1= new SPBar();
+			statusBarSP1 = new SPBar();
+			statusBarAP1 = new APBar();
 			
 			statusBar2	= new Sprite();
 			statusBarHP2= new HPBar();
-			statusBarSP2= new SPBar();
+			statusBarSP2 = new SPBar();
+			statusBarAP2 = new APBar();
 			
 			super.init();
 		}
@@ -138,51 +149,78 @@ package views
 			_stop.graphics.endFill();
 			_stop.addEventListener(MouseEvent.CLICK, onClick);
 			
-			_stop.addChild(menuImg);
 			_stop.addChild(stopBackground);
 			_stop.addChild(returnGame);
 			_stop.addChild(buttonBack);
+			_stop.addChild(menuImg);
 			
 			menuImg.x = 440;
-			menuImg.y = 100;
+			menuImg.y = 120;
 			
-			stopBackground.x= menuImg.x - 22;
-			stopBackground.y= menuImg.y + 80;
+			stopBackground.x= 240;
+			stopBackground.y = menuImg.y + 50;
+			stopBackground.width = 550;
+			stopBackground.height = 400;
 			
 			returnGame.x	= menuImg.x + 20;
-			returnGame.y	= stopBackground.y + 60;
-			buttonBack.x	= menuImg.x + 20;
-			buttonBack.y	= returnGame.y + 60;
+			returnGame.y	= stopBackground.y + 100;
+			buttonBack.x	= menuImg.x + 5;
+			buttonBack.y	= returnGame.y + 100;
+			buttonBack.width = 135;
+			buttonBack.height = 60;
 			//=========状态栏=========
 			statusBar1.x = STATUSBAR_X;
 			statusBar1.y = STATUSBAR_Y;
 			
 			statusBarSP1.y = statusBarHP1.y + STATUSBAR_Y_PADDING;
+			statusBarAP1.y = statusBarSP1.y + STATUSBAR_Y_PADDING;
 			statusHP1.x = statusBar1.x - 200;
-			statusHP1.y = statusBarHP1.y - 8;
+			statusHP1.y = statusBarHP1.y;
 			statusSP1.x = statusBar1.x - 200;
-			statusSP1.y = statusBarSP1.y - 8;
+			statusSP1.y = statusBarSP1.y + 1;
+			statusAP1.x = statusBar1.x - 200;
+			statusAP1.y = statusBarAP1.y;
+			
+			baffle1.width = 300;
+			baffle1.height = 150;
+			baffle1.x = -80;
+			baffle1.y = -30;
 			
 			ui.addChild(statusBar1);
+			statusBar1.addChild(baffle1);
 			statusBar1.addChild(statusHP1);
 			statusBar1.addChild(statusBarHP1);
 			statusBar1.addChild(statusSP1);
 			statusBar1.addChild(statusBarSP1);
+			statusBar1.addChild(statusAP1);
+			statusBar1.addChild(statusBarAP1);
+			
 			
 			statusBar2.x = STATUSBAR_X + STATUSBAR_X_PADDING;
 			statusBar2.y = STATUSBAR_Y;
 			
 			statusBarSP2.y = statusBarHP2.y + STATUSBAR_Y_PADDING;
+			statusBarAP2.y = statusBarSP2.y + STATUSBAR_Y_PADDING;
 			statusHP2.x = -60;
-			statusHP2.y = -8;
+			statusHP2.y = statusBarHP2.y;
 			statusSP2.x = -60;
-			statusSP2.y = statusBarSP2.y - 8;
+			statusSP2.y = statusBarSP2.y + 1;
+			statusAP2.x = -60;
+			statusAP2.y = statusBarAP2.y;
+			
+			baffle2.width = baffle1.width;
+			baffle2.height = baffle1.height;
+			baffle2.x = baffle1.x;
+			baffle2.y = baffle1.y;
 			
 			ui.addChild(statusBar2);
+			statusBar2.addChild(baffle2);
 			statusBar2.addChild(statusHP2);
 			statusBar2.addChild(statusBarHP2);
 			statusBar2.addChild(statusSP2);
 			statusBar2.addChild(statusBarSP2);
+			statusBar2.addChild(statusAP2);
+			statusBar2.addChild(statusBarAP2);
 			
 			//=========分数=========
 			var format:TextFormat = new TextFormat();

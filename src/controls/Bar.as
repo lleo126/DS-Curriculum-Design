@@ -22,6 +22,7 @@ package controls
 			bar	= new AssetManager.WHITEBAR_IMG();
 			this.groove = groove;
 			groove.mask = bar;
+			bar.height = 25;
 		}
 		
 		override protected function init(e:Event):void 
@@ -59,10 +60,12 @@ package controls
 		
 		override protected function update():void 
 		{
+			groove.height = 25;
 			groove.width = valueX;
 			text.text = int(_value).toString() + ' / ' + int(maxValue).toString();
 			text.x = (width	- text.width) * 0.5;
 			text.y = (height - text.height) * 0.5;
+			text.textColor = 0xFFFFFF;
 		}
 	}
 }
