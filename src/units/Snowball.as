@@ -47,14 +47,22 @@ package units
 		{
 			// TODO: 遮罩爆炸范围
 			// TODO: 伤害
+			/** 根据圆锥体积公式 V = s * h / 3   ->   h = 1.5 * V / (PI * r) */
 			var deltaSnow:Number = 1.5 * bonus / (Math.PI * attackRange) / World.ALPHA_SNOW_RATIO;
 			world.addSnow(deltaSnow, unitTransform, attackRange);
 			super.removeFromWorld();
 		}
 		
+		override internal function addToWorldUnits(world:World):void 
+		{
+			super.addToWorldUnits(world);
+			world.snowballs.push(this);
+		}
+		
 		override internal function removeFromWorldUnits():void 
 		{
 			world.snowballs.splice(world.snowballs.indexOf(this), 1);
+			super.removeFromWorldUnits();
 		}
 	}
 }

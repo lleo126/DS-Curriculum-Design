@@ -33,7 +33,13 @@ package models
 			hotkeys[1][Keyboard.NUMPAD_6]	= 'SwitchLarge';
 		}
 		
+		/**
+		 * 音乐声音大小
+		 */
 		public var soundValue:Number = 100.0;
+		/**
+		 * 音效声音大小
+		 */
 		public var soundEffectValue:Number = 80.0;
 		/**
 		 * 按键映射表，[0] 表示玩家 1，[1] 表示玩家 2

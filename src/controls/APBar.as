@@ -12,7 +12,7 @@ package controls
 	{
 		public function APBar() 
 		{
-			super(0.0, Hero.MAX_AP, new AssetManager.AP_GROOVE_IMG());
+			super(Hero.AP, Hero.MAX_AP, new AssetManager.AP_GROOVE_IMG());
 		}
 	}
 }

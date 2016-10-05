@@ -2,6 +2,7 @@ package controls
 {
 	import assets.AssetManager;
 	import flash.display.Bitmap;
+	import units.Hero;
 	
 	/**
 	 * ...
@@ -11,7 +12,7 @@ package controls
 	{
 		public function HPBar() 
 		{
-			super(80.0, 100.0, new AssetManager.HP_GROOVE_IMG());
+			super(Hero.HP, Hero.MAX_HP, new AssetManager.HP_GROOVE_IMG());
 		}		
 	}
 }
