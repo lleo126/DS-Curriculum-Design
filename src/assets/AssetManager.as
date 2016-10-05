@@ -98,6 +98,8 @@ package assets
 		[Embed(source="../../assets/play/SP_GROOVE.png")]
 		public static const SP_GROOVE_IMG:Class;
 		
+		public static const AP_GROOVE_IMG:Class;
+		
 		[Embed(source = "../../assets/play/WhiteBar.png")]
 		public static const WHITEBAR_IMG:Class;
 		

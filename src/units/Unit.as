@@ -45,6 +45,11 @@ package units
 		public var owner:Player;
 		
 		/**
+		 * 世界
+		 */
+		internal var world:World;
+		
+		/**
 		 * 伤害值
 		 */
 		protected var damage:Number;
@@ -161,7 +166,12 @@ package units
 		
 		public function removeFromWorld():void 
 		{
-			(parent.parent as World).removeUnit(this);
+			world.removeUnit(this);
+		}
+		
+		internal function removeFromWorldUnits():void 
+		{
+			
 		}
 	}
 }

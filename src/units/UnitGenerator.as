@@ -63,11 +63,11 @@ package units
 			{
 				if (unit is Monster)
 				{
-					if (world.collisionManager.getDistance(unit, world.players[i].hero) <= CONSTRAIN_HERO_MONSTER) return false;
+					if (world.collisionManager.getDistance(unit, world.heroes[i]) <= CONSTRAIN_HERO_MONSTER) return false;
 				}
 				else
 				{
-					if (world.collisionManager.detect(unit, world.players[i].hero) != null) return false;
+					if (world.collisionManager.detect(unit, world.heroes[i]) != null) return false;
 				}
 			}
 			
@@ -103,7 +103,8 @@ package units
 		public function randomUnit():Unit 
 		{
 			var UnitClass:Class = getDefinitionByName(xml.@klass.toString()) as Class;
-			var unitXML:XML = xml.children()[Math.floor(Math.random() * xml.children().length())];
+			var children:XMLList = xml.children();
+			var unitXML:XML = children[Math.floor(Math.random() * children.length())];
 			var unit:Unit = new UnitClass();
 			unit.setByXML(unitXML);
 			return unit;

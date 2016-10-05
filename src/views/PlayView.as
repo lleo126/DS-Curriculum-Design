@@ -1,6 +1,7 @@
 package views 
 {
 	import assets.AssetManager;
+	import controls.APBar;
 	import controls.HPBar;
 	import controls.SPBar;
 	import flash.display.Bitmap;
@@ -43,8 +44,10 @@ package views
 		
 		public var statusBarHP1:HPBar;
 		public var statusBarSP1:SPBar;
+		public var statusBarAP1:APBar;
 		public var statusBarHP2:HPBar;
 		public var statusBarSP2:SPBar;
+		public var statusBarAP2:APBar;
 		
 		private var groupScore:Sprite;
 		private var score:TextField;

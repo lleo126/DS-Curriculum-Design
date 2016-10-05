@@ -11,7 +11,7 @@ package models
 	{
 		public function Player()
 		{
-			_hero.owner = this;
+			
 		}
 		
 		//==========
@@ -32,13 +32,15 @@ package models
 		// 属性
 		//==========
 		
-		private var _hero:Hero = new Hero();
-	   /**
-		* 该玩家控制的人物
-		*/
-		public function get hero():Hero
+		private var _hero:Hero;
+		public function get hero():Hero 
 		{
 			return _hero;
+		}
+		public function set hero(value:Hero):void 
+		{
+			_hero = value;
+			_hero.owner = this;
 		}
 		
 		/** 方向上键按下为 true */
@@ -60,7 +62,7 @@ package models
 		public function releaseAll():void 
 		{
 			upHeld = leftHeld = downHeld = rightHeld = false;
-			_hero.unitTransform.speed = 0.0;
+			hero.unitTransform.speed = 0.0;
 		}
 		
 		public function onMoveUp(keyCode:int, down:Boolean):void
@@ -89,20 +91,20 @@ package models
 		
 		public function onLift(keyCode:int, down:Boolean):void
 		{
-			if (!down || _hero.lifted) return;
+			if (!down || hero.lifted) return;
 			
-			_hero.lift();
+			hero.lift();
 		}
 		
 		public function onThrow(keyCode:int, down:Boolean):void
 		{
 			if (down) // 蓄力
 			{
-				_hero.accumulation += View.PLAY_VIEW.world.deltaTime;
+				hero.ap += View.PLAY_VIEW.world.deltaTime;
 			}
 			else // 投掷
 			{
-				_hero.throw2();
+				hero.throw2();
 			}
 		}
 		
@@ -110,7 +112,7 @@ package models
 		{
 			if (!down) return;
 			
-			_hero.snowball = Hero.SNOWBALLS[0];
+			hero.snowball = Hero.SNOWBALLS[0];
 		}
 		
 		public function onSwitchMedium(keyCode:int, down:Boolean):void
@@ -129,10 +131,10 @@ package models
 		
 		private function update():void
 		{
-			_hero.unitTransform.speed = _hero.maxSpeed * int(!(upHeld == downHeld && leftHeld == rightHeld));
-			if (0.0 < _hero.unitTransform.speed)
+			hero.unitTransform.speed = hero.maxSpeed * int(!(upHeld == downHeld && leftHeld == rightHeld));
+			if (0.0 < hero.unitTransform.speed)
 			{
-				_hero.unitTransform.orientation = Math.atan2(int(downHeld) - int(upHeld), int(rightHeld) - int(leftHeld)) / Math.PI * 180.0;
+				hero.unitTransform.orientation = Math.atan2(int(downHeld) - int(upHeld), int(rightHeld) - int(leftHeld)) / Math.PI * 180.0;
 			}
 		}
 	}

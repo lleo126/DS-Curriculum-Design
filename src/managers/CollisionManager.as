@@ -3,6 +3,7 @@ package managers
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
 	import models.Player;
+	import units.Hero;
 	import units.Item;
 	import units.Monster;
 	import units.Obstacle;
@@ -21,14 +22,14 @@ package managers
 	{
 		public function CollisionManager
 		(
-			players:Vector.<Player>,
+			heros:Vector.<Hero>,
 			snowballs:Vector.<Snowball>,
 			monsters:Vector.<Monster>,
 			obstacles:Vector.<Obstacle>,
 			items:Vector.<Item>
 		) 
 		{
-			this.players = players;
+			this.heros = heros;
 			this.snowballs = snowballs;
 			this.monsters = monsters;
 			this.obstacles = obstacles;
@@ -39,7 +40,7 @@ package managers
 		// 变量
 		//==========
 		
-		private var players:Vector.<Player>;
+		private var heros:Vector.<Hero>;
 		private var snowballs:Vector.<Snowball>;
 		private var monsters:Vector.<Monster>;
 		private var obstacles:Vector.<Obstacle>;
@@ -75,7 +76,7 @@ package managers
 		public function detectAll(deltaTime:Number):void 
 		{
 			var i:int = 0, j:int = 0;
-			for (i = 0; i < players.length; ++i)
+			for (i = 0; i < heros.length; ++i)
 			{
 				for (j = 0; j < monsters.length; ++j) 
 				{
@@ -95,7 +96,7 @@ package managers
 			
 			for (i = 0; i < snowballs.length; ++i)
 			{
-				for (j = 0; j < players.length; ++j)
+				for (j = 0; j < heros.length; ++j)
 				{
 					snowballs[0].unitTransform.vx
 				}
@@ -131,8 +132,8 @@ package managers
 		 */
 		public function update(deltaTime:int):void 
 		{
-			players[0].hero.unitTransform.advance(deltaTime);
-			players[1].hero.unitTransform.advance(deltaTime);
+			heros[0].unitTransform.advance(deltaTime);
+			heros[1].unitTransform.advance(deltaTime);
 			
 			var i:int;
 			for (i = 0; i < snowballs.length; ++i)

@@ -1,6 +1,7 @@
 package units 
 {
 	import assets.AssetManager;
+	import controls.APBar;
 	import controls.HPBar;
 	import controls.SPBar;
 	import flash.utils.getTimer;
@@ -26,7 +27,7 @@ package units
 		private static const ATTCK_RANGE:Number = 200.0;
 		private static const EXPLOSION_DISTANCE:Number = 100.0;
 		private static const MAX_SPEED:Number = 0.5;
-		private static const MAX_ACCUMULATION:Number = 80.0;
+		public static const MAX_AP:Number = 80.0;
 		private static const RADIUS:Number = 25.0;
 		private static const ALTITUDE:Number = 2.0 * RADIUS;
 		private static const PIVOT_X:Number = RADIUS;
@@ -62,6 +63,11 @@ package units
 		 * 该角色的雪条
 		 */
 		public var spBar:SPBar;
+		
+		/**
+		 * 该角色的蓄力条
+		 */
+		public var apBar:APBar;
 		
 		/**
 		 * 雪球大小，有三种预设
@@ -102,17 +108,18 @@ package units
 			spBar.value = value;
 		}
 		
-		private var _accumulation:Number = 0.0;
+		private var _ap:Number = 0.0;
 	   /**
 		* 蓄力值，不会超过 MAX_ACCUMUMATION
 		*/
-		public function get accumulation():Number 
+		public function get ap():Number 
 		{
-			return _accumulation;
+			return _ap;
 		}
-		public function set accumulation(value:Number):void 
+		public function set ap(value:Number):void 
 		{
-			_accumulation = value < MAX_ACCUMULATION ? value : MAX_ACCUMULATION;
+			_ap = Math.min(value, MAX_AP);
+			if (apBar) apBar.value = value;
 		}
 		
 		//==========
@@ -156,12 +163,17 @@ package units
 			liftSnowball.unitTransform.setByUnitTransform(_unitTransform);
 			liftSnowball.unitTransform.z = unitTransform.top;
 			liftSnowball.unitTransform.speed = liftSnowball.maxSpeed;
-			liftSnowball.unitTransform.vz = _accumulation / Snowball.MASS;
+			liftSnowball.unitTransform.vz = ap / Snowball.MASS;
 			View.PLAY_VIEW.world.addUnit(liftSnowball);
 			liftSnowball.scaleX = 1.0 / liftSnowball.parent.scaleX;
 			liftSnowball.scaleY = 1.0 / liftSnowball.parent.scaleY;
 			
-			_accumulation = 0.0;
+			ap = 0.0;
+		}
+		
+		override internal function removeFromWorldUnits():void 
+		{
+			world.heroes.splice(world.heroes.indexOf(this), 1);
 		}
 	}
 }

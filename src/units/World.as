@@ -117,64 +117,49 @@ package units
 	   /**
 		* 碰撞管理器
 		*/
-		public function get collisionManager():CollisionManager
-		{
-			return _collisionManager;
-		}
+		internal function get collisionManager():CollisionManager { return _collisionManager; }
 		
 		private var _players:Vector.<Player>;
 	   /**
 		* 玩家，根据长度可以判断是单人还是双人
 		*/
-		public function get players():Vector.<Player>
-		{
-			return _players;
-		}
+		public function get players():Vector.<Player> { return _players; }
+		
+		private var _heroes:Vector.<Hero>;
+		/**
+		 * 玩家所控制的英雄
+		 */
+		internal function get heroes():Vector.<Hero> { return _heroes; }
 		
 		private var _snowballs:Vector.<Snowball> = new <Snowball>[];
 	   /**
 		* 雪球
 		*/
-		public function get snowballs():Vector.<Snowball>
-		{
-			return _snowballs;
-		}
+		internal function get snowballs():Vector.<Snowball> { return _snowballs; }
 		
 		private var _monsters:Vector.<Monster> = new <Monster>[];
 	   /**
 		* 怪物
 		*/
-		public function get monsters():Vector.<Monster>
-		{
-			return _monsters;
-		}
+		internal function get monsters():Vector.<Monster> { return _monsters; }
 		
 		private var _obstacles:Vector.<Obstacle> = new <Obstacle>[];
 	   /**
 		* 障碍物
 		*/
-		public function get obstacles():Vector.<Obstacle>
-		{
-			return _obstacles;
-		}
+		internal function get obstacles():Vector.<Obstacle> { return _obstacles; }
 		
 		private var _items:Vector.<Item> = new <Item>[];
 	   /**
 		* 道具
 		*/
-		public function get items():Vector.<Item>
-		{
-			return _items;
-		}
+		internal function get items():Vector.<Item> { return _items; }
 		
 		private var _deltaTime:Number;
 	   /**
 		* 自上一帧以来的经过时间，以毫秒为单位
 		*/
-		public function get deltaTime():Number
-		{
-			return _deltaTime;
-		}
+		public function get deltaTime():Number { return _deltaTime; }
 		
 		//==========
 		// 方法
@@ -195,12 +180,22 @@ package units
 			
 			this.type = type;
 			_players = players;
-			_players[0].hero.hpBar = View.PLAY_VIEW.statusBarHP1;
-			_players[0].hero.spBar = View.PLAY_VIEW.statusBarSP1;
-			_players[1].hero.hpBar = View.PLAY_VIEW.statusBarHP2;
-			_players[1].hero.spBar = View.PLAY_VIEW.statusBarSP2;
+			_heroes = new Vector.<Hero>(_players.length, true);
 			
-			_collisionManager = new CollisionManager(_players, _snowballs, _monsters, _obstacles, _items);
+			_heroes[0] = players[0].hero = new Hero();
+			players[0].hero.hpBar = View.PLAY_VIEW.statusBarHP1;
+			players[0].hero.spBar = View.PLAY_VIEW.statusBarSP1;
+			players[0].hero.apBar = View.PLAY_VIEW.statusBarAP1;
+			
+			if (1 < _players.length)
+			{
+				_heroes[1] = players[1].hero = new Hero();
+				players[1].hero.hpBar = View.PLAY_VIEW.statusBarHP2;
+				players[1].hero.spBar = View.PLAY_VIEW.statusBarSP2;
+				players[1].hero.apBar = View.PLAY_VIEW.statusBarAP1;
+			}
+			
+			_collisionManager = new CollisionManager(_heroes, _snowballs, _monsters, _obstacles, _items);
 			
 			generateUnits();
 		}
@@ -300,9 +295,8 @@ package units
 			{
 				_monsters.push(unit)
 			}
-			
-			unitGroup.addChild(unit);//排序测试
-			
+			unit.world = this;
+			unitGroup.addChild(unit);
 		}
 		
 		/**
@@ -311,22 +305,7 @@ package units
 		 */
 		public function removeUnit(unit:Unit):void
 		{
-			if (unit is Snowball)
-			{
-				_snowballs.splice(_snowballs.indexOf(unit), 1);
-			}
-			else if (unit is Item)
-			{
-				_items.splice(_items.indexOf(unit), 1);
-			}
-			else if (unit is Obstacle)
-			{
-				_obstacles.splice(_obstacles.indexOf(unit), 1);
-			}
-			else if (unit is Monster)
-			{
-				_monsters.splice(_monsters.indexOf(unit), 1);
-			}
+			unit.removeFromWorldUnits();
 			unitGroup.removeChild(unit);
 		}
 		

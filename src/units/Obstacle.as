@@ -20,6 +20,8 @@ package units
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
+			if (_body.pivotX == 0.0 && _body.pivotY == 0.0) return;
+			
 			_body.pivotX = _body.width * 0.5;
 			_body.pivotY = _body.height;
 		}
@@ -34,6 +36,11 @@ package units
 			_body = new SpriteEx(new ImageClass());
 			_body.width = parseFloat(xml.width.text().toString());
 			_body.height = parseFloat(xml.height.text().toString());
+		}
+		
+		override internal function removeFromWorldUnits():void 
+		{
+			world.obstacles.splice(world.obstacles.indexOf(this), 1);
 		}
 	}
 }
