@@ -92,12 +92,16 @@ package assets
 		[Embed(source="../../assets/play/SP.png")]
 		public static const SP_IMG:Class;
 		
+		[Embed(source="../../assets/Play/AP.png")]
+		public static const AP_IMG:Class;
+		
 		[Embed(source="../../assets/play/HP_GROOVE.png")]
 		public static const HP_GROOVE_IMG:Class;
 		
 		[Embed(source="../../assets/play/SP_GROOVE.png")]
 		public static const SP_GROOVE_IMG:Class;
 		
+		[Embed(source="../../assets/Play/AP_GROOVE.png")]
 		public static const AP_GROOVE_IMG:Class;
 		
 		[Embed(source = "../../assets/play/WhiteBar.png")]
@@ -120,6 +124,9 @@ package assets
 		
 		[Embed(source="../../assets/Play/Drop_Shadow.png")]
 		public static const DROP_SHADOW_IMG:Class;
+		
+		[Embed(source = "../../assets/Play/Baffle.png")]
+		public static const BAFFLE:Class;
 
 		//==========================/
 		
