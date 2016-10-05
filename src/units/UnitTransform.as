@@ -94,11 +94,6 @@ package units
 		public var unit:Unit;
 		
 		/**
-		 * X 和 Y 分量上的总移动速度
-		 */
-		public var speed:Number = 0.0;
-		
-		/**
 		 * Z 方向上移动速度
 		 */
 		public var vz:Number = 0.0;
@@ -118,70 +113,63 @@ package units
 		 */
 		public var radius:Number = 0.0;
 		
+		private var _speed:Number = 0.0;
+		private var _x:Number = 0.0;
+		private var _y:Number = 0.0;
+		private var _z:Number = 0.0;
+		
 		//==========
 		// 属性
 		//==========
 		
 		/**
+		 * X 和 Y 分量上的总移动速度
+		 */
+		public function get speed():Number { return _speed; }
+		public function set speed(value:Number):void 
+		{
+			_speed = Math.min(value, unit.maxSpeed);
+		}
+		
+		/**
 		 * X 方向上移动速度
 		 */
-		public function get vx():Number 
-		{
-			return speed * Math.cos(orientation * Math.PI / 180);
-		}
+		public function get vx():Number { return speed * Math.cos(orientation * Math.PI / 180); }
 		
 		/**
 		 * Y 方向上移动速度
 		 */
-		public function get vy():Number 
-		{
-			return speed * Math.sin(orientation * Math.PI / 180);
-		}
+		public function get vy():Number { return speed * Math.sin(orientation * Math.PI / 180); }
 		
 		/**
 		 * Z 轴顶部坐标
 		 */
-		public function get top():Number 
-		{
-			return z + altitude;
-		}
+		public function get top():Number { return z + altitude; }
 		
-		private var _x:Number = 0.0;
 		/**
 		 * X 轴坐标
 		 */
-		public function get x():Number 
-		{
-			return _x;
-		}
+		public function get x():Number { return _x; }
 		public function set x(value:Number):void 
 		{
 			_x = value;
 			update();
 		}
 		
-		private var _y:Number = 0.0;
 		/**
 		 * Y 轴坐标
 		 */
-		public function get y():Number 
-		{
-			return _y;
-		}
+		public function get y():Number { return _y; }
 		public function set y(value:Number):void 
 		{
 			_y = value;
 			update();
 		}
 		
-		private var _z:Number = 0.0;
 		/**
 		 * Z 轴坐标（底部）
 		 */
-		public function get z():Number 
-		{
-			return _z;
-		}
+		public function get z():Number { return _z; }
 		public function set z(value:Number):void 
 		{
 			_z = value;
@@ -191,22 +179,16 @@ package units
 		/**
 		 * Z 轴坐标（中部）
 		 */
-		public function get centerZ():Number
-		{
-			return _z + altitude * 0.5;
-		}
+		public function get centerZ():Number { return _z + altitude * 0.5; }
 		public function set centerZ(value:Number):void 
 		{
 			_z = value - altitude * 0.5;
 		}
 		
 		/**
-		 * Z 轴长轴半径
+		 * Z 轴半径
 		 */
-		public function get radiusZ():Number
-		{
-			return altitude * 0.5;
-		}
+		public function get radiusZ():Number { return altitude * 0.5; }
 		
 		//==========
 		// 方法

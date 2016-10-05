@@ -2,6 +2,7 @@ package controls
 {
 	import assets.AssetManager;
 	import flash.display.Bitmap;
+	import units.Hero;
 	
 	/**
 	 * @author leo126
@@ -10,7 +11,7 @@ package controls
 	{
 		public function SPBar() 
 		{
-			super(50.0, 100.0, new AssetManager.SP_GROOVE_IMG());
+			super(Hero.SP, Hero.MAX_SP, new AssetManager.SP_GROOVE_IMG());
 		}
 	}
 }

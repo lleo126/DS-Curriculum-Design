@@ -10,9 +10,9 @@ package controls
 	 */
 	public class APBar extends Bar 
 	{
-		public function APBar(value:Number, maxValue:Number, groove:Bitmap) 
+		public function APBar() 
 		{
-			super(0.0, Hero.MAX_AP, new AssetManager.AP_GROOVE_IMG());
+			super(Hero.AP, Hero.MAX_AP, new AssetManager.AP_GROOVE_IMG());
 		}
 	}
 }

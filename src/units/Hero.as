@@ -22,12 +22,16 @@ package units
 			new Snowball(20, 10),
 			new Snowball(40, 20)
 		];
-		private static const HP:Number = 100.0;
-		private static const SP:Number = 20.0;
+		public static const HP:Number = 100.0;
+		public static const SP:Number = 20.0;
+		public static const AP:Number = 0.0;
+		public static const MAX_HP:Number = 100.0;
+		public static const MAX_SP:Number = 100.0;
+		public static const MAX_AP:Number = 80.0;
+		
 		private static const ATTCK_RANGE:Number = 200.0;
 		private static const EXPLOSION_DISTANCE:Number = 100.0;
 		private static const MAX_SPEED:Number = 0.5;
-		public static const MAX_AP:Number = 80.0;
 		private static const RADIUS:Number = 25.0;
 		private static const ALTITUDE:Number = 2.0 * RADIUS;
 		private static const PIVOT_X:Number = RADIUS;
@@ -41,6 +45,10 @@ package units
 			_body.height = 2.0 * RADIUS;
 			_hp = HP;
 			_sp = SP;
+			_ap = AP;
+			_maxHP = MAX_HP;
+			_maxSP = MAX_SP;
+			_maxAP = MAX_AP;
 			attackRange = ATTCK_RANGE;
 			_maxSpeed = MAX_SPEED;
 			_unitTransform.radius = RADIUS;
@@ -84,6 +92,11 @@ package units
 		 */
 		private var liftSnowball:Snowball;
 		
+		private var _sp:Number;
+		private var _ap:Number;
+		private var _maxSP:Number;
+		private var _maxAP:Number;
+		
 		//==========
 		// 属性
 		//==========
@@ -91,35 +104,45 @@ package units
 		override public function set hp(value:Number):void 
 		{
 			super.hp = value;
-			hpBar.value = value;
+			hpBar.value = _hp;
 		}
 		
-		private var _sp:Number;
+		override public function set maxHP(value:Number):void 
+		{
+			super.maxHP = value;
+			hpBar.maxValue = value;
+		}
+		
 	   /**
 		* 收集的雪量（Snow Point）
 		*/
-		public function get sp():Number 
-		{
-			return _sp;
-		}
+		public function get sp():Number { return _sp; }
 		public function set sp(value:Number):void 
 		{
-			_sp = value;
-			spBar.value = value;
+			_sp = Math.min(value, MAX_SP);
+			spBar.value = _sp;
 		}
 		
-		private var _ap:Number = 0.0;
+		public function set maxSP(value:Number):void 
+		{
+			_maxSP = value;
+			spBar.maxValue = value;
+		}
+		
 	   /**
 		* 蓄力值，不会超过 MAX_ACCUMUMATION
 		*/
-		public function get ap():Number 
-		{
-			return _ap;
-		}
+		public function get ap():Number { return _ap; }
 		public function set ap(value:Number):void 
 		{
 			_ap = Math.min(value, MAX_AP);
-			if (apBar) apBar.value = value;
+			if (apBar) apBar.value = _ap;
+		}
+		
+		public function set maxAP(value:Number):void 
+		{
+			_maxAP = value;
+			apBar.maxValue = value;
 		}
 		
 		//==========

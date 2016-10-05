@@ -19,6 +19,9 @@ package units
 		// 变量
 		//==========
 		
+		/**
+		 * 感应范围，怪物会感应到在范围内的玩家，并追击
+		 */
 		private var senseRange:Number;
 		
 		//==========

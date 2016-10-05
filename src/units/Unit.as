@@ -60,6 +60,14 @@ package units
 		 */
 		protected var dropShadow:DropShadow;
 		
+		protected var _body:SpriteEx;
+		protected var _unitTransform:UnitTransform;
+		protected var _maxSpeed:Number = 0.0;
+		protected var _hp:Number;
+		protected var _maxHP:Number;
+		protected var _status:String;
+		protected var _bonus:int;
+		
 		//==========
 		// 属性
 		//==========
@@ -67,11 +75,7 @@ package units
 		/**
 		 * 本体
 		 */
-		protected var _body:SpriteEx;
-		public function get body():SpriteEx 
-		{
-			return _body;
-		}
+		public function get body():SpriteEx { return _body; }
 		// for test
 		public function set body(value:SpriteEx):void 
 		{
@@ -81,11 +85,7 @@ package units
 		/**
 		 * 包含单位的 z 坐标，速度，碰撞大小等信息，与单位绑定
 		 */
-		protected var _unitTransform:UnitTransform;
-		public function get unitTransform():UnitTransform 
-		{
-			return _unitTransform;
-		}
+		public function get unitTransform():UnitTransform { return _unitTransform; }
 		public function set unitTransform(value:UnitTransform):void 
 		{
 			_unitTransform = value;
@@ -96,33 +96,30 @@ package units
 		/**
 		 * 最大速度
 		 */
-		protected var _maxSpeed:Number = 0.0;
-		public function get maxSpeed():Number 
-		{
-			return _maxSpeed;
-		}
+		public function get maxSpeed():Number { return _maxSpeed; }
 		
 		/**
 		 * 血量
 		 */
-		protected var _hp:Number;
-		public function get hp():Number 
-		{
-			return _hp;
-		}
+		public function get hp():Number { return _hp; }
 		public function set hp(value:Number):void 
 		{
-			_hp = value;
+			_hp = Math.min(value, maxHP);
+		}
+		
+		/**
+		 * 最大血量
+		 */
+		public function get maxHP():Number { return _maxHP; }
+		public function set maxHP(value:Number):void 
+		{
+			_maxHP = value;
 		}
 		
 		/**
 		 * 状态
 		 */
-		protected var _status:String;
-		public function get status():String 
-		{
-			return _status;
-		}
+		public function get status():String { return _status; }
 		public function set status(value:String):void 
 		{
 			_status = value;
@@ -131,11 +128,7 @@ package units
 		/**
 		 * 该单位的击杀奖励分数
 		 */
-		protected var _bonus:int;
-		public function get bonus():int 
-		{
-			return _bonus;
-		}
+		public function get bonus():int { return _bonus; }
 		
 		//==========
 		// 方法
