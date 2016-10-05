@@ -63,11 +63,11 @@ package units
 			{
 				if (unit is Monster)
 				{
-					if (world.collisionManager.getDistance(unit, world.heroes[i]) <= CONSTRAIN_HERO_MONSTER) return false;
+					if (world.collisionManager.getDistance(unit.unitTransform, world.heroes[i].unitTransform) <= CONSTRAIN_HERO_MONSTER) return false;
 				}
 				else
 				{
-					if (world.collisionManager.detect(unit, world.heroes[i]) != null) return false;
+					if (world.collisionManager.detect(unit.unitTransform, world.heroes[i].unitTransform) != null) return false;
 				}
 			}
 			
@@ -75,22 +75,22 @@ package units
 			{
 				if (unit is Hero)
 				{
-					if (world.collisionManager.getDistance(unit, world.monsters[i]) <= CONSTRAIN_HERO_MONSTER) return false;
+					if (world.collisionManager.getDistance(unit.unitTransform, world.monsters[i].unitTransform) <= CONSTRAIN_HERO_MONSTER) return false;
 				}
 				else 
 				{
-					if (world.collisionManager.detect(unit, world.monsters[i]) != null) return false;
+					if (world.collisionManager.detect(unit.unitTransform, world.monsters[i].unitTransform) != null) return false;
 				}
 			}
 			
 			for (i = 0; i < world.obstacles.length; ++i)
 			{
-				if (world.collisionManager.detect(unit, world.obstacles[i]) != null) return false;
+				if (world.collisionManager.detect(unit.unitTransform, world.obstacles[i].unitTransform) != null) return false;
 			}
 			
 			for (i = 0; i < world.items.length; ++i)
 			{
-				if (world.collisionManager.detect(unit, world.items[i]) != null) return false;
+				if (world.collisionManager.detect(unit.unitTransform, world.items[i].unitTransform) != null) return false;
 			}
 			
 			return true;

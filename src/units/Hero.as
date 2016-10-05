@@ -123,6 +123,9 @@ package units
 			spBar.value = _sp;
 		}
 		
+		/**
+		 * 最大 SP
+		 */
 		public function set maxSP(value:Number):void 
 		{
 			_maxSP = value;
@@ -139,6 +142,9 @@ package units
 			if (apBar) apBar.value = _ap;
 		}
 		
+		/**
+		 * 最大 AP
+		 */
 		public function set maxAP(value:Number):void 
 		{
 			_maxAP = value;

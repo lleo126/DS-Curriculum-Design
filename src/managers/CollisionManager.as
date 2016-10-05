@@ -61,19 +61,20 @@ package managers
 		//==========
 		
 		/**
-		 * 检测两个单位的碰撞
+		 * 检测两个单位的碰撞，刚好相碰也算碰撞
 		 * @param	deltaTime
 		 * @return	若碰撞到物体，则返回碰撞的位置，否则返回 null
 		 */
-		public function detect(unit:Unit, unit2:Unit, deltaTime:Number = 0.0):UnitTransform
+		public function detect(unit:UnitTransform, unit2:UnitTransform, deltaTime:int = 0):UnitTransform
 		{
+			
 			return null;
 		}
 		
 		/**
 		 * 检测所有单位的碰撞
 		 */
-		public function detectAll(deltaTime:Number):void 
+		public function detectAll(deltaTime:int):void 
 		{
 			var i:int = 0, j:int = 0;
 			for (i = 0; i < heros.length; ++i)
@@ -121,10 +122,10 @@ package managers
 		 * @param	unit
 		 * @param	unit2
 		 */
-		public function getDistance(unit:Unit, unit2:Unit):Number
+		public function getDistance(unitTransform:UnitTransform, unitTransform2:UnitTransform):Number
 		{
-			return Point.distance(new Point(unit.unitTransform.x,	unit.unitTransform.y),
-								  new Point(unit2.unitTransform.x,	unit2.unitTransform.y));
+			return Point.distance(new Point(unitTransform.x,	unitTransform.y),
+								  new Point(unitTransform2.x,	unitTransform2.y));
 		}
 		
 		/**

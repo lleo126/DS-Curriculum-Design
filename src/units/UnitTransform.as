@@ -13,11 +13,11 @@ package units
 		 * 然后从这点发出两条切线，切刚才截出的圆为两点，求这两点
 		 * @param	pointUnitTransform	发出射线的点
 		 * @param	circleUnitTransform	球心
-		 * @return	两个切点
+		 * @return	若在水平面上有两个切点，则数组有两个元素表示切点；否则为空数组
 		 */
 		public static function getSupportUnitTransforms(pointUnitTransform:UnitTransform, circleUnitTransform:UnitTransform):Vector.<UnitTransform> 
 		{
-			var res:Vector.<UnitTransform> = new Vector.<UnitTransform>(2, true);
+			var res:Vector.<UnitTransform> = new <UnitTransform>[];
 			
 			// 圆心坐标 (待测试)
 			var a:Number = circleUnitTransform._x, b:Number = circleUnitTransform._y;
@@ -65,12 +65,12 @@ package units
 				y2 = ( y2 + n ) * l;
 				// 将坐标值赋值
 				
-				res[0] = new UnitTransform();
+				res.push(new UnitTransform(), new UnitTransform());
+				
 				res[0]._x = x1;
 				res[0]._y = y1;
 				res[0]._z = pointUnitTransform._z;
 				
-				res[1] = new UnitTransform();
 				res[1]._x = x2;
 				res[1]._y = y2;
 				res[1]._z = pointUnitTransform._z;
