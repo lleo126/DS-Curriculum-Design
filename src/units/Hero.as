@@ -170,10 +170,5 @@ package units
 			
 			ap = 0.0;
 		}
-		
-		override internal function removeFromWorldUnits():void 
-		{
-			world.heroes.splice(world.heroes.indexOf(this), 1);
-		}
 	}
 }

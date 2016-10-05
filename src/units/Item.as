@@ -72,9 +72,16 @@ package units
 			}
 		}
 		
+		override internal function addToWorldUnits(world:World):void 
+		{
+			super.addToWorldUnits(world);
+			world.items.push(this);
+		}
+		
 		override internal function removeFromWorldUnits():void 
 		{
 			world.items.splice(world.items.indexOf(this), 1);
+			super.removeFromWorldUnits();
 		}
 	}
 }

@@ -38,9 +38,16 @@ package units
 			_body.height = parseFloat(xml.height.text().toString());
 		}
 		
+		override internal function addToWorldUnits(world:World):void 
+		{
+			super.addToWorldUnits(world);
+			world.obstacles.push(this);
+		}
+		
 		override internal function removeFromWorldUnits():void 
 		{
 			world.obstacles.splice(world.obstacles.indexOf(this), 1);
+			super.removeFromWorldUnits();
 		}
 	}
 }

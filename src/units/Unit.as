@@ -27,12 +27,8 @@ package units
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
 			addChild(dropShadow);
-			//graphics.lineStyle(4, 0xACED24);
-			//graphics.drawRect(0, 0, width, height);
 			addChild(body);
-			//graphics.lineStyle(4, 0x02EDFA);
-			//graphics.drawRect(0, 0, width, height);
-			update(0.0);
+			update(0);
 		}
 		
 		//==========
@@ -169,9 +165,14 @@ package units
 			world.removeUnit(this);
 		}
 		
+		internal function addToWorldUnits(world:World):void 
+		{
+			this.world = world;
+		}
+		
 		internal function removeFromWorldUnits():void 
 		{
-			
+			world = null;
 		}
 	}
 }

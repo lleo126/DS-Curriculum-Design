@@ -114,15 +114,15 @@ package units
 		//==========
 		
 		private var _collisionManager:CollisionManager;
-	   /**
-		* 碰撞管理器
-		*/
+		/**
+		 * 碰撞管理器
+		 */
 		internal function get collisionManager():CollisionManager { return _collisionManager; }
 		
 		private var _players:Vector.<Player>;
-	   /**
-		* 玩家，根据长度可以判断是单人还是双人
-		*/
+		/**
+		 * 玩家，根据长度可以判断是单人还是双人
+		 */
 		public function get players():Vector.<Player> { return _players; }
 		
 		private var _heroes:Vector.<Hero>;
@@ -132,34 +132,34 @@ package units
 		internal function get heroes():Vector.<Hero> { return _heroes; }
 		
 		private var _snowballs:Vector.<Snowball> = new <Snowball>[];
-	   /**
-		* 雪球
-		*/
+		/**
+		 * 雪球
+		 */
 		internal function get snowballs():Vector.<Snowball> { return _snowballs; }
 		
 		private var _monsters:Vector.<Monster> = new <Monster>[];
-	   /**
-		* 怪物
-		*/
+		/**
+		 * 怪物
+		 */
 		internal function get monsters():Vector.<Monster> { return _monsters; }
 		
 		private var _obstacles:Vector.<Obstacle> = new <Obstacle>[];
-	   /**
-		* 障碍物
-		*/
+		/**
+		 * 障碍物
+		 */
 		internal function get obstacles():Vector.<Obstacle> { return _obstacles; }
 		
 		private var _items:Vector.<Item> = new <Item>[];
-	   /**
-		* 道具
-		*/
+		/**
+		 * 道具
+		 */
 		internal function get items():Vector.<Item> { return _items; }
 		
-		private var _deltaTime:Number;
-	   /**
-		* 自上一帧以来的经过时间，以毫秒为单位
-		*/
-		public function get deltaTime():Number { return _deltaTime; }
+		private var _deltaTime:int;
+		/**
+		 * 自上一帧以来的经过时间，以毫秒为单位
+		 */
+		public function get deltaTime():int { return _deltaTime; }
 		
 		//==========
 		// 方法
@@ -279,23 +279,7 @@ package units
 		 */
 		public function addUnit(unit:Unit):void
 		{
-			if (unit is Snowball)
-			{
-				_snowballs.push(unit);
-			}
-			else if (unit is Item)
-			{
-				_items.push(unit);
-			}
-			else if (unit is Obstacle)
-			{
-				_obstacles.push(unit);
-			}
-			else if (unit is Monster)
-			{
-				_monsters.push(unit)
-			}
-			unit.world = this;
+			unit.addToWorldUnits(this);
 			unitGroup.addChild(unit);
 		}
 		
