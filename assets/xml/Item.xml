@@ -3,8 +3,8 @@
 	<item>
 		<img>LITCHI_IMG</img>
 		<name>litchi</name>
-		<width>40</width>
-		<height>60</height>
+		<width>52</width>
+		<height>52</height>
 		<radius>8</radius>
 		<skill klass="units.skills.AddHP">
 			<addHP>5</addHP>
@@ -13,9 +13,9 @@
 	<item>
 		<img>MANGO_IMG</img>
 		<name>mango</name>
-		<width>40</width>
-		<height>60</height>
-		<radius>10</radius>
+		<width>32</width>
+		<height>24</height>
+		<radius>12</radius>
 		<skill klass="units.skills.AddHP">
 			<addHP>10</addHP>
 		</skill>
@@ -23,9 +23,9 @@
 	<item>
 		<img>CARAMBOLA_IMG</img>
 		<name>carambola</name>
-		<width>40</width>
-		<height>60</height>
-		<radius>12</radius>
+		<width>53</width>
+		<height>39</height>
+		<radius>16</radius>
 		<skill klass="units.skills.AddHP">
 			<addHP>15</addHP>
 		</skill>
@@ -34,8 +34,8 @@
 	<item>
 		<img>SOURFRUIT_IMG</img>
 		<name>rotten litchi</name>
-		<width>40</width>
-		<height>60</height>
+		<width>30</width>
+		<height>32</height>
 		<radius>8</radius>
 		<skill klass="units.skills.AddHP">
 			<addHP>-5</addHP>
@@ -44,8 +44,8 @@
 	<item>
 		<img>SOURFRUIT_IMG</img>
 		<name>rotten mango</name>
-		<width>40</width>
-		<height>60</height>
+		<width>30</width>
+		<height>32</height>
 		<radius>10</radius>
 		<skill klass="units.skills.AddHP">
 			<addHP>-10</addHP>
@@ -54,8 +54,8 @@
 	<item>
 		<img>SOURFRUIT_IMG</img>
 		<name>rotten carambola</name>
-		<width>40</width>
-		<height>60</height>
+		<width>30</width>
+		<height>32</height>
 		<radius>12</radius>
 		<skill klass="units.skills.AddHP">
 			<addHP>-15</addHP>
@@ -66,8 +66,8 @@
 	<item>
 		<img>SPICYSTRIPS_IMG</img>
 		<name>spicy strips</name>
-		<width>40</width>
-		<height>60</height>
+		<width>60</width>
+		<height>40</height>
 		<radius>20</radius>
 		<skill klass="units.skills.SpeedUp">
 			<speedUp>0.1</speedUp>
@@ -76,8 +76,8 @@
 	<item>
 		<img>SOUR_SPICYSTRIPS_IMG</img>
 		<name>sour spicy strips</name>
-		<width>40</width>
-		<height>60</height>
+		<width>60</width>
+		<height>40</height>
 		<radius>20</radius>
 		<skill klass="units.skills.SpeedUp">
 			<speedUp>-0.2</speedUp>
@@ -89,7 +89,7 @@
 		<img>ICE_IMG</img>
 		<name>ice</name>
 		<width>40</width>
-		<height>60</height>
+		<height>40</height>
 		<radius>20</radius>
 		<skill klass="units.skills.AddSnow">
 			<addSnow>100</addSnow>
@@ -98,8 +98,8 @@
 	<item>
 		<img>SALT_IMG</img>
 		<name>salt</name>
-		<width>40</width>
-		<height>60</height>
+		<width>34</width>
+		<height>45</height>
 		<radius>20</radius>
 		<skill klass="units.skills.AddSnow">
 			<addSnow>-100</addSnow>
@@ -111,7 +111,7 @@
 		<img>GLUE_IMG</img>
 		<name>glue</name>
 		<width>40</width>
-		<height>60</height>
+		<height>40</height>
 		<radius>20</radius>
 		<skill klass="units.skills.Stop">
 			<time>1</time>
@@ -120,8 +120,8 @@
 	<item>
 		<img>DOG_IMG</img>
 		<name>dog</name>
-		<width>40</width>
-		<height>60</height>
+		<width>35</width>
+		<height>45</height>
 		<radius>20</radius>
 		<skill klass="units.skills.Dizzy">
 			<time>1</time>
@@ -130,8 +130,8 @@
 	<item>
 		<img>POISON_IMG</img>
 		<name>poison</name>
-		<width>40</width>
-		<height>60</height>
+		<width>35</width>
+		<height>70</height>
 		<radius>20</radius>
 		<skill klass="units.skills.MoveBackward">
 			<time>1</time>
