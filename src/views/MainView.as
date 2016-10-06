@@ -23,6 +23,10 @@ package views
 		static private const ABOUT_WIDTH:Number		= 144;
 		static public const BUTTON_WIDTH:Number     = 250;
 		static public const BUTTON_HEIGHT:Number    = 60;
+		static public const TITLE_X:Number			= 220;
+		static public const TITLE_Y:Number			= -30;
+		static public const TITLE_WIDTH:Number		= 600;
+		static public const TITLE_HEIGHT:Number		= 300;
 		
 		private var buttonGroup:Sprite;
 		private var background:Bitmap;
@@ -46,6 +50,7 @@ package views
 			
 			background = new AssetManager.MAIN_BACKGROUND_IMG();
 			title = new AssetManager.MAIN_TITLE_IMG();
+			title.smoothing = true;
 			
 			
 			var bmp:Bitmap = new AssetManager.BUTTON_CHALLENGE_IMG();
@@ -79,10 +84,10 @@ package views
 		
 		override protected function placeElements():void 
 		{
-			title.x = 220;
-			title.y = -30;
-			title.height = 300;
-			title.width = 600;
+			title.x = TITLE_X;
+			title.y = TITLE_Y;
+			title.height = TITLE_HEIGHT;
+			title.width = TITLE_WIDTH;
 			
 			background.x = (stage.stageWidth - background.width) * 0.5;
 			addChild(background);
