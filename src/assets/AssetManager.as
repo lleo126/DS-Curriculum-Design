@@ -30,6 +30,9 @@ package assets
 		
 		[Embed(source="../../assets/Main/Background.png")]
 		public static const MAIN_BACKGROUND_IMG:Class;
+		
+		[Embed(source = "../../assets/Main/Game_Name.png")]
+		public static const MAIN_TITLE_IMG:Class;
 		//==========================/
 		
 		/********设置界面图片*******/

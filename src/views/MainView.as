@@ -15,10 +15,10 @@ package views
 	public class MainView extends View 
 	{
 		static private const GROUP_X:Number			= 100;
-		static private const GROUP_Y:Number			= 200;
+		static private const GROUP_Y:Number			= 240;
 		static private const PADDING:Number			= 80;
 		static private const ABOUT_X:Number			= 735;
-		static private const ABOUT_Y:Number			= 620;
+		static private const ABOUT_Y:Number			= 660;
 		static private const ABOUT_HEIGHT:Number	= 36;
 		static private const ABOUT_WIDTH:Number		= 144;
 		static public const BUTTON_WIDTH:Number     = 250;
@@ -26,6 +26,7 @@ package views
 		
 		private var buttonGroup:Sprite;
 		private var background:Bitmap;
+		private var title:Bitmap;
 		
 		private var buttonBattle:SimpleButton;
 		private var buttonChallenge:SimpleButton;
@@ -44,6 +45,7 @@ package views
 			buttonGroup = new Sprite();
 			
 			background = new AssetManager.MAIN_BACKGROUND_IMG();
+			title = new AssetManager.MAIN_TITLE_IMG();
 			
 			
 			var bmp:Bitmap = new AssetManager.BUTTON_CHALLENGE_IMG();
@@ -77,8 +79,16 @@ package views
 		
 		override protected function placeElements():void 
 		{
+			title.x = 220;
+			title.y = -30;
+			title.height = 300;
+			title.width = 600;
+			
 			background.x = (stage.stageWidth - background.width) * 0.5;
 			addChild(background);
+			addChild(title);
+			
+			
 			
 			buttonGroup.x = GROUP_X;
 			buttonGroup.y = GROUP_Y;
@@ -107,7 +117,7 @@ package views
 			
 			//==========
 			
-			conceptFrame.x = 450; conceptFrame.y = 120;
+			conceptFrame.x = 450; conceptFrame.y = 170;
 			addChild(conceptFrame);
 			conceptFrame.width = 480; conceptFrame.height = 590;
 			
