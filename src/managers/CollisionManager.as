@@ -77,7 +77,7 @@ package managers
 				// TODO: 雪球 Z 轴加速度
 				v0:Number	= Math.sqrt(vx * vx + vy * vy + vz * vz),
 				s0:Number	= v0 * deltaTime,
-				count:int	= Math.ceil(s0 / rm),
+				count:int	= Math.floor(s0 / rm) + 1,
 				time:Number	= deltaTime / count,
 				ut1p:UnitTransform = ut1.clone(),
 				ut2p:UnitTransform = ut2.clone();
@@ -89,7 +89,10 @@ package managers
 				//ut1p.x += vx * time;
 				//ut1p.y += vy * time;
 				//ut1p.z += vz * time;
-				if (detectStill(ut1p, ut2p)) return trace('detected'), ut1p;
+				if (detectStill(ut1p, ut2p))
+				{
+					return trace('detected'), ut1p;
+				}
 			}
 			return null;
 		}
@@ -110,9 +113,9 @@ package managers
 				distance:Number = UnitTransform.getDistance(ut1, ut2);
 			if (distance <= r1 + r2)
 			{
-				trace( "ut1 : " + ut1.unit.name );
-				trace( "ut2 : " + ut2.unit.name );	
-				trace( "distance <= r1 + r2 : ", distance <= r1 + r2 );
+				//trace( "ut1 : " + ut1.unit.name );
+				//trace( "ut2 : " + ut2.unit.name );	
+				//trace( "distance <= r1 + r2 : ", distance <= r1 + r2 );
 			}
 			return distance <= r1 + r2;
 		}
@@ -128,19 +131,19 @@ package managers
 			{
 				for (j = 0; j < monsters.length; ++j) 
 				{
-					res = detect(heroes[i].unitTransform, monsters[i].unitTransform, deltaTime);
+					res = detect(heroes[i].unitTransform, monsters[j].unitTransform, deltaTime);
 					if (res) updateBounce(heroes[i], res);
 				}
 				
 				for (j = 0; j < obstacles.length; ++j)
 				{
-					res = detect(heroes[i].unitTransform, obstacles[i].unitTransform, deltaTime);
+					res = detect(heroes[i].unitTransform, obstacles[j].unitTransform, deltaTime);
 					if (res) updateBounce(heroes[i], res);
 				}
 				
 				for (j = 0; j < items.length; ++j)
 				{
-					res = detect(heroes[i].unitTransform, items[i].unitTransform, deltaTime);
+					res = detect(heroes[i].unitTransform, items[j].unitTransform, deltaTime);
 					//if (res) heroes[i].dispatchEvent(new UnitEvent(UnitEvent.COLLIDED, items[i]));
 				}
 			}

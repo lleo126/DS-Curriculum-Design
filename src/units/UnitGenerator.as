@@ -49,6 +49,10 @@ package units
 				unit.unitTransform.setByPoint(p);
 			} while (!checkConstrains(unit));
 			world.addUnit(unit);
+			if (unit.x == 0 && unit.y == 0)
+			{
+				trace('bug');
+			}
 		}
 		
 		/**

@@ -211,7 +211,7 @@ package units
 				heroGenerator.dropUnit(_players[i].hero);
 			}
 			
-			for (i = 0; i < 100; i++) 
+			for (i = 0; i < 30; i++) 
 			{
 				var item:Unit = itemGenerator.randomUnit();
 				itemGenerator.dropUnit(item);
@@ -309,7 +309,7 @@ package units
 			collisionManager.update(_deltaTime);
 			
 			var i:int;
-			for (i = 0; i < _players.length; i++) 
+			for (i = 0; i < heroes.length; i++) 
 			{
 				var hero:Hero = heroes[i];
 				hero.update(_deltaTime);

@@ -279,12 +279,12 @@ package units
 		
 		public function clone():UnitTransform
 		{
-			var ut:UnitTransform = new UnitTransform(unit);
+			var ut:UnitTransform = new UnitTransform();
 			ut.vz = vz;
 			ut.altitude = altitude;
 			ut.radius = radius;
 			ut._speed = _speed;
-			ut.setByUnitTransform(ut);
+			ut.setByUnitTransform(this);
 			return ut;
 		}
 	}
