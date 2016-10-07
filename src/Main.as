@@ -12,6 +12,7 @@ package
 	 */
 	public class Main extends ViewStack
 	{
+		public static const DEBUG:Boolean = true;
 		static public var current:Main;
 		
 		public function Main() 

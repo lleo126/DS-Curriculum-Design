@@ -156,7 +156,7 @@ package units
 		/**
 		 * Z 轴顶部坐标
 		 */
-		public function get top():Number { return z + altitude; }
+		public function get top():Number { return _z + altitude; }
 		
 		/**
 		 * X 轴坐标
@@ -236,25 +236,20 @@ package units
 		 */
 		public function getUnitTransformOnSurface(targetX:Number, targetY:Number, targetZ:Number):UnitTransform
 		{
-			var x1:Number	= _x,
-				y1:Number	= _y,
-				z1:Number	= centerZ,
-				kx:Number	= targetX - x1,
-				ky:Number	= targetY - y1,
-				kz:Number	= targetZ - z1,
+			var dx:Number	= targetX - _x,
+				dy:Number	= targetY - _y,
+				dz:Number	= targetZ - centerZ,
 				r2:Number	= radius * radius,
-				a2:Number	= radiusZ * radiusZ,
-				A:Number	= (kx * kx + ky * ky) / r2,
-				B:Number	= 2.0 * ((kx * x1 + ky * y1) / (r2 + kz * z1) / a2),
-				C:Number	= (x1 * x1 + y1 * y1) / r2 + z1 * z1 / a2 - 1.0,
-				discriminant:Number = Math.sqrt(B * B - 4.0 * A * C),
-				t1:Number	= 0.5 * (discriminant - B) / A,
-				t2:Number	= 0.5 * (B - discriminant) / A,
-				t:Number	= 0.0 < t1 ? t1 : t2,
-				res:UnitTransform = new UnitTransform();
-			res._x = x1 + kx * t;
-			res._y = y1 + ky * t;
-			res._z = z1 + kz * t;
+				rz2:Number	= radiusZ * radiusZ,
+				A:Number	= (dx * dx + dy * dy) / r2 + dz * dz / rz2,
+				C:Number	= -1.0,
+				discriminant:Number = -4.0 * A * C,
+ 				t:Number	=  0.5 * Math.sqrt(discriminant) / A;
+			//if (t < 0.0) t = -t;
+			var res:UnitTransform = new UnitTransform();
+			res._x = _x + dx * t;
+			res._y = _y + dy * t;
+			res._z = centerZ + dz * t;
 			return res;
 		}
 		

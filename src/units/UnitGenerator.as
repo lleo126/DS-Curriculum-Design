@@ -59,7 +59,7 @@ package units
 		private function checkConstrains(unit:Unit):Boolean 
 		{
 			var i:int;
-			for (i = 0; i < world.players.length; ++i)
+			for (i = 0; i < world.heroes.length; ++i)
 			{
 				if (unit is Monster)
 				{

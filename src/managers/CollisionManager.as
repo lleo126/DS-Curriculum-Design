@@ -70,7 +70,6 @@ package managers
 		{
 			if (!deltaTime) return detectStill(ut1, ut2) ? ut1 : null;
 			
-			// 以 ut2 为参照系（静止）
 			var rm:Number = Math.max(ut1.radius, ut1.radiusZ, ut2.radius, ut2.radiusZ),
 				vx:Number	= ut1.vx - ut2.vx,
 				vy:Number	= ut1.vy - ut2.vy,
@@ -109,6 +108,12 @@ package managers
 				r1:Number = UnitTransform.getDistance(ut1, s1),
 				r2:Number = UnitTransform.getDistance(ut2, s2),
 				distance:Number = UnitTransform.getDistance(ut1, ut2);
+			if (distance <= r1 + r2)
+			{
+				trace( "ut1 : " + ut1.unit.name );
+				trace( "ut2 : " + ut2.unit.name );	
+				trace( "distance <= r1 + r2 : ", distance <= r1 + r2 );
+			}
 			return distance <= r1 + r2;
 		}
 		

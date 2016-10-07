@@ -39,6 +39,8 @@ package units
 		
 		public function Hero() 
 		{
+			name = 'hero';
+			
 			_body = new SpriteEx(new AssetManager.HERO_IMG());
 			
 			_body.width = 2.0 * RADIUS;
@@ -198,6 +200,18 @@ package units
 			liftSnowball.scaleY = 1.0 / liftSnowball.parent.scaleY;
 			
 			ap = 0.0;
+		}
+		
+		override internal function addToWorldUnits(world:World):void 
+		{
+			super.addToWorldUnits(world);
+			world.heroes.push(this);
+		}
+		
+		override internal function removeFromWorldUnits():void 
+		{
+			world.heroes.splice(world.heroes.indexOf(this), 1);
+			super.removeFromWorldUnits();
 		}
 	}
 }

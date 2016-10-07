@@ -180,16 +180,16 @@ package units
 			
 			this.type = type;
 			_players = players;
-			_heroes = new Vector.<Hero>(_players.length, true);
+			_heroes = new <Hero>[];
 			
-			_heroes[0] = players[0].hero = new Hero();
+			players[0].hero = new Hero();
 			players[0].hero.hpBar = View.PLAY_VIEW.statusBarHP1;
 			players[0].hero.spBar = View.PLAY_VIEW.statusBarSP1;
 			players[0].hero.apBar = View.PLAY_VIEW.statusBarAP1;
 			
 			if (1 < _players.length)
 			{
-				_heroes[1] = players[1].hero = new Hero();
+				players[1].hero = new Hero();
 				players[1].hero.hpBar = View.PLAY_VIEW.statusBarHP2;
 				players[1].hero.spBar = View.PLAY_VIEW.statusBarSP2;
 				players[1].hero.apBar = View.PLAY_VIEW.statusBarAP1;
@@ -205,7 +205,13 @@ package units
 		 */
 		private function generateUnits():void 
 		{
-			for (var i:int = 0; i < 10; i++) 
+			var i:int;
+			for (i = 0; i < _players.length; ++i)
+			{
+				heroGenerator.dropUnit(_players[i].hero);
+			}
+			
+			for (i = 0; i < 100; i++) 
 			{
 				var item:Unit = itemGenerator.randomUnit();
 				itemGenerator.dropUnit(item);
@@ -213,9 +219,6 @@ package units
 				var obstacle:Unit = obstacleGenerator.randomUnit();
 				obstacleGenerator.dropUnit(obstacle);
 			}
-			
-			heroGenerator.dropUnit(_players[0].hero);
-			heroGenerator.dropUnit(_players[1].hero);
 			
 			testUnitBall = new Unit();
 			testUnitBall.body = new SpriteEx(new SnowballExplosionAnimation(testUnitBall));
@@ -225,7 +228,6 @@ package units
 			testUnit.body = new SpriteEx(new HeroMoveAnimation(testUnit));
 			addUnit(testUnit);
 			testUnit.x = 200;
-			
 		}
 		
 		/**
@@ -309,10 +311,17 @@ package units
 			var i:int;
 			for (i = 0; i < _players.length; i++) 
 			{
-				var hero:Hero = _players[i].hero;
+				var hero:Hero = heroes[i];
 				hero.update(_deltaTime);
 				hero.sp += -addSnow(-Hero.COLLECT_SPEED * _deltaTime, _players[i].hero.unitTransform, Hero.COLLECT_RADIUS);
 			}
+			
+			for (i = 0; i < _snowballs.length; i++)
+			{
+				var snowball:Snowball = _snowballs[i];
+				snowball.update(_deltaTime);
+			}
+			
 			testUnit.update(_deltaTime);
 			testUnitBall.update(_deltaTime);
 			zSort();

@@ -136,8 +136,14 @@ package units
 		
 		public function update(deltaTime:int):void 
 		{
-			body.update(deltaTime);
+			if (Main.DEBUG)
+			{
+				graphics.clear();
+				graphics.lineStyle(3, 0x4186F4);
+				graphics.drawEllipse(-unitTransform.radius, -unitTransform.top, 2.0 * unitTransform.radius, unitTransform.altitude);
+			}
 			dropShadow.update(deltaTime);
+			body.update(deltaTime);
 		}
 		
 		public function dispose():void 
