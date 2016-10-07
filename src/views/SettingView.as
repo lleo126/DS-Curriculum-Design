@@ -27,7 +27,9 @@ package views
 		static private const GROUP_ROLE_X:Number			= 120;
 		static private const GROUP_ROLE_Y:Number			= 440;
 		static private const ROLE_PADDING:Number			= 100;
-		static private const SETTING_X:Number				= 400;
+		static private const SETTING_X:Number				= 360;
+		static private const SETTING_WIDTH:Number			= 300;
+		static private const SETTING_HEIGHT:Number			= 170;
 		static private const BUTTON_BACK_X:Number			= 60;
 		static private const BUTTON_BACK_Y:Number			= 660;
 		static public const BUTTON_WIDTH:Number    			= 150;
@@ -104,6 +106,7 @@ package views
 			buttonGroupLableTwo.addEventListener(KeyboardEvent.KEY_DOWN, function (ev:KeyboardEvent):void { keyDown(ev, 1); });
 
 			setting 	= new AssetManager.SETTING_IMG();
+			setting.smoothing = true;
 			
 			soundPanel	= new AssetManager.SOUND_PANEL_IMG();
 			music 		= new AssetManager.MUISC_IMG();
@@ -157,6 +160,8 @@ package views
 			addChild(background);
 			
 			setting.x = SETTING_X;
+			setting.width = SETTING_WIDTH;
+			setting.height = SETTING_HEIGHT;
 			
 			addChild(setting);
 			
