@@ -54,14 +54,20 @@ package units
 		{
 			name = xml.name.text().toString();
 			_unitTransform.radius = parseInt(xml.radius.text().toString());
+			_unitTransform.altitude = parseInt(xml.height.text().toString());
 			
 			var ImageClass:Class = AssetManager[xml.img[0].text().toString()];
 			_body = new SpriteEx(new ImageClass());
-			_body.width = parseFloat(xml.width.text().toString());
-			_body.scaleY = _body.scaleX;
-			//_body.height = parseFloat(xml.height.text().toString());
 			_body.pivotX = parseFloat(xml.pivotX.text().toString());
 			_body.pivotY = parseFloat(xml.pivotY.text().toString());
+			
+			addEventListener(Event.ADDED_TO_STAGE, function ():void 
+			{
+				removeEventListener(Event.ADDED_TO_STAGE, arguments.callee);
+				width = parseFloat(xml.width.text().toString());
+				scaleY = scaleX;
+			});
+			
 			var skillXML:XML = xml.skill[0];
 			var SkillClass:Class = getDefinitionByName(skillXML.@klass.toString()) as Class;
 			
@@ -71,7 +77,6 @@ package units
 			for each (var param:XML in children)
 			{
 				_skill[param.localName().toString()] = parseFloat(param.text().toString());
-				//trace("_skill[", param.localName().toString(), "] = ", param.text().toString());
 			}
 		}
 		

@@ -3,14 +3,14 @@
 	<item>
 		<img>LITCHI_IMG</img>
 		<name>litchi</name>
-		<pivotX>13</pivotX>
-		<pivotY>26</pivotY>
-		<width>26</width>
-		<height>26</height>
+		<pivotX>23</pivotX>
+		<pivotY>37</pivotY>
+		<width>22</width>
+		<height>22</height>
 		<unitTransform>
-			<altitude>26</altitude>
+			<altitude>38</altitude>
 		</unitTransform>
-		<radius>8</radius>
+		<radius>17</radius>
 		<skill klass="units.skills.AddHP">
 			<addHP>5</addHP>
 		</skill>
@@ -18,14 +18,14 @@
 	<item>
 		<img>MANGO_IMG</img>
 		<name>mango</name>
-		<pivotX>16</pivotX>
-		<pivotY>12</pivotY>
-		<width>32</width>
-		<height>24</height>
+		<pivotX>30</pivotX>
+		<pivotY>39</pivotY>
+		<width>26.5</width>
+		<height>22</height>
 		<unitTransform>
-			<altitude>24</altitude>
+			<altitude>40</altitude>
 		</unitTransform>
-		<radius>12</radius>
+		<radius>24.5</radius>
 		<skill klass="units.skills.AddHP">
 			<addHP>10</addHP>
 		</skill>
@@ -35,12 +35,12 @@
 		<name>carambola</name>
 		<pivotX>25</pivotX>
 		<pivotY>39</pivotY>
-		<width>53</width>
-		<height>39</height>
+		<width>29</width>
+		<height>22</height>
 		<unitTransform>
-			<altitude>39</altitude>
+			<altitude>36</altitude>
 		</unitTransform>
-		<radius>16</radius>
+		<radius>22</radius>
 		<skill klass="units.skills.AddHP">
 			<addHP>15</addHP>
 		</skill>
@@ -48,47 +48,47 @@
 
 	<item>
 		<img>SOURFRUIT_IMG</img>
-		<name>rotten litchi</name>
-		<pivotX>15</pivotX>
-		<pivotY>32</pivotY>
-		<width>30</width>
-		<height>32</height>
-		<unitTransform>
-			<altitude>32</altitude>
-		</unitTransform>
-		<radius>8</radius>
-		<skill klass="units.skills.AddHP">
-			<addHP>-5</addHP>
-		</skill>
-	</item>
-	<item>
-		<img>SOURFRUIT_IMG</img>
 		<name>rotten mango</name>
-		<pivotX>15</pivotX>
-		<pivotY>32</pivotY>
+		<pivotX>30</pivotX>
+		<pivotY>45</pivotY>
 		<width>30</width>
 		<height>32</height>
 		<unitTransform>
-			<altitude>32</altitude>
+			<altitude>21</altitude>
 		</unitTransform>
-		<radius>10</radius>
+		<radius>25</radius>
 		<skill klass="units.skills.AddHP">
 			<addHP>-10</addHP>
 		</skill>
 	</item>
 	<item>
 		<img>SOURFRUIT_IMG</img>
-		<name>rotten carambola</name>
-		<pivotX>15</pivotX>
-		<pivotY>32</pivotY>
+		<name>rotten mango</name>
+		<pivotX>30</pivotX>
+		<pivotY>45</pivotY>
 		<width>30</width>
 		<height>32</height>
 		<unitTransform>
-			<altitude>32</altitude>
+			<altitude>21</altitude>
 		</unitTransform>
-		<radius>12</radius>
+		<radius>25</radius>
 		<skill klass="units.skills.AddHP">
-			<addHP>-15</addHP>
+			<addHP>-10</addHP>
+		</skill>
+	</item>
+	<item>
+		<img>SOURFRUIT_IMG</img>
+		<name>rotten mango</name>
+		<pivotX>30</pivotX>
+		<pivotY>45</pivotY>
+		<width>30</width>
+		<height>32</height>
+		<unitTransform>
+			<altitude>21</altitude>
+		</unitTransform>
+		<radius>25</radius>
+		<skill klass="units.skills.AddHP">
+			<addHP>-10</addHP>
 		</skill>
 	</item>
 
@@ -96,14 +96,14 @@
 	<item>
 		<img>SPICYSTRIPS_IMG</img>
 		<name>spicy strips</name>
-		<pivotX>30</pivotX>
-		<pivotY>40</pivotY>
-		<width>60</width>
-		<height>40</height>
+		<pivotX>60</pivotX>
+		<pivotY>50</pivotY>
+		<width>67.5</width>
+		<height>32.5</height>
 		<unitTransform>
-			<altitude>32</altitude>
+			<altitude>135</altitude>
 		</unitTransform>
-		<radius>20</radius>
+		<radius>30</radius>
 		<skill klass="units.skills.SpeedUp">
 			<speedUp>0.1</speedUp>
 		</skill>
@@ -111,14 +111,14 @@
 	<item>
 		<img>SOUR_SPICYSTRIPS_IMG</img>
 		<name>sour spicy strips</name>
-		<pivotX>30</pivotX>
-		<pivotY>40</pivotY>
-		<width>60</width>
-		<height>40</height>
+		<pivotX>60</pivotX>
+		<pivotY>50</pivotY>
+		<width>67.5</width>
+		<height>32.5</height>
 		<unitTransform>
-			<altitude>32</altitude>
+			<altitude>135</altitude>
 		</unitTransform>
-		<radius>20</radius>
+		<radius>30</radius>
 		<skill klass="units.skills.SpeedUp">
 			<speedUp>-0.2</speedUp>
 		</skill>
@@ -128,14 +128,14 @@
 	<item>
 		<img>ICE_IMG</img>
 		<name>ice</name>
-		<pivotX>20</pivotX>
-		<pivotY>40</pivotY>
+		<pivotX>53</pivotX>
+		<pivotY>80</pivotY>
 		<width>40</width>
 		<height>40</height>
 		<unitTransform>
-			<altitude>32</altitude>
+			<altitude>90</altitude>
 		</unitTransform>
-		<radius>16</radius>
+		<radius>40</radius>
 		<skill klass="units.skills.AddSnow">
 			<addSnow>100</addSnow>
 		</skill> 
@@ -143,14 +143,14 @@
 	<item>
 		<img>SALT_IMG</img>
 		<name>salt</name>
-		<pivotX>17</pivotX>
-		<pivotY>45</pivotY>
-		<width>34</width>
-		<height>45</height>
+		<pivotX>33</pivotX>
+		<pivotY>78</pivotY>
+		<width>33</width>
+		<height>40</height>
 		<unitTransform>
-			<altitude>45</altitude>
+			<altitude>80</altitude>
 		</unitTransform>
-		<radius>10</radius>
+		<radius>33</radius>
 		<skill klass="units.skills.AddSnow">
 			<addSnow>-100</addSnow>
 		</skill> 
@@ -160,14 +160,14 @@
 	<item>
 		<img>GLUE_IMG</img>
 		<name>glue</name>
-		<pivotX>20</pivotX>
-		<pivotY>40</pivotY>
+		<pivotX>220</pivotX>
+		<pivotY>540</pivotY>
 		<width>40</width>
-		<height>40</height>
+		<height>56</height>
 		<unitTransform>
-			<altitude>40</altitude>
+			<altitude>553</altitude>
 		</unitTransform>
-		<radius>16</radius>
+		<radius>200</radius>
 		<skill klass="units.skills.Stop">
 			<time>1</time>
 		</skill>
@@ -175,14 +175,14 @@
 	<item>
 		<img>DOG_IMG</img>
 		<name>dog</name>
-		<pivotX>16</pivotX>
-		<pivotY>45</pivotY>
-		<width>35</width>
-		<height>45</height>
+		<pivotX>35</pivotX>
+		<pivotY>80</pivotY>
+		<width>51</width>
+		<height>63</height>
 		<unitTransform>
-			<altitude>45</altitude>
+			<altitude>80</altitude>
 		</unitTransform>
-		<radius>10</radius>
+		<radius>18</radius>
 		<skill klass="units.skills.Dizzy">
 			<time>1</time>
 		</skill>
@@ -190,14 +190,14 @@
 	<item>
 		<img>POISON_IMG</img>
 		<name>poison</name>
-		<pivotX>18</pivotX>
-		<pivotY>66</pivotY>
+		<pivotX>32</pivotX>
+		<pivotY>140</pivotY>
 		<width>35</width>
 		<height>70</height>
 		<unitTransform>
-			<altitude>70</altitude>
+			<altitude>140</altitude>
 		</unitTransform>
-		<radius>20</radius>
+		<radius>30</radius>
 		<skill klass="units.skills.MoveBackward">
 			<time>1</time>
 		</skill>
