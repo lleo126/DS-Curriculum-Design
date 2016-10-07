@@ -67,7 +67,7 @@ package units
 				}
 				else
 				{
-					if (world.collisionManager.detect(unit.unitTransform, world.heroes[i].unitTransform) != null) return false;
+					if (world.collisionManager.detectStill(unit.unitTransform, world.heroes[i].unitTransform)) return false;
 				}
 			}
 			
@@ -79,18 +79,18 @@ package units
 				}
 				else 
 				{
-					if (world.collisionManager.detect(unit.unitTransform, world.monsters[i].unitTransform) != null) return false;
+					if (world.collisionManager.detectStill(unit.unitTransform, world.monsters[i].unitTransform)) return false;
 				}
 			}
 			
 			for (i = 0; i < world.obstacles.length; ++i)
 			{
-				if (world.collisionManager.detect(unit.unitTransform, world.obstacles[i].unitTransform) != null) return false;
+				if (world.collisionManager.detectStill(unit.unitTransform, world.obstacles[i].unitTransform)) return false;
 			}
 			
 			for (i = 0; i < world.items.length; ++i)
 			{
-				if (world.collisionManager.detect(unit.unitTransform, world.items[i].unitTransform) != null) return false;
+				if (world.collisionManager.detectStill(unit.unitTransform, world.items[i].unitTransform)) return false;
 			}
 			
 			return true;

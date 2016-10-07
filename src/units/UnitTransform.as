@@ -38,11 +38,11 @@ package units
 			var r2:Number = r * r;
 			if ( d2 < r2 )
 			{
-				trace("点在圆内，无切点");
+				//trace("点在圆内，无切点");
 			}
 			else if ( d2 == r2 )
 			{
-				trace("点在圆上，切点为给定点");
+				//trace("点在圆上，切点为给定点");
 			}
 			else
 			{
@@ -77,6 +77,18 @@ package units
 			}
 			
 			return res;
+		}
+		
+		[inline]
+		/**
+		 * 计算两个 UnitTransform 的中点连线距离
+		 * @param	ut1
+		 * @param	ut2
+		 * @return	两个 UnitTransform 的中点连线距离
+		 */
+		public static function getDistance(ut1:UnitTransform, ut2:UnitTransform):Number
+		{
+			return Math.sqrt((ut1.x - ut2.x) * (ut1.x - ut2.x) + (ut1.y - ut2.y) * (ut1.y - ut2.y) + (ut1.centerZ - ut2.z) * (ut1.centerZ - ut2.centerZ));
 		}
 		
 		public function UnitTransform(unit:Unit = null)
@@ -218,6 +230,35 @@ package units
 		}
 		
 		/**
+		 * 获取从此 UnitTransform 中心到目标点连线与此 UnitTransform 的交点（此方向的面上的点）
+		 * @param	target	目标 UnitTransform
+		 * @return	交点
+		 */
+		public function getUnitTransformOnSurface(targetX:Number, targetY:Number, targetZ:Number):UnitTransform
+		{
+			var x1:Number	= _x,
+				y1:Number	= _y,
+				z1:Number	= centerZ,
+				kx:Number	= targetX - x1,
+				ky:Number	= targetY - y1,
+				kz:Number	= targetZ - z1,
+				r2:Number	= radius * radius,
+				a2:Number	= radiusZ * radiusZ,
+				A:Number	= (kx * kx + ky * ky) / r2,
+				B:Number	= 2.0 * ((kx * x1 + ky * y1) / (r2 + kz * z1) / a2),
+				C:Number	= (x1 * x1 + y1 * y1) / r2 + z1 * z1 / a2 - 1.0,
+				discriminant:Number = Math.sqrt(B * B - 4.0 * A * C),
+				t1:Number	= 0.5 * (discriminant - B) / A,
+				t2:Number	= 0.5 * (B - discriminant) / A,
+				t:Number	= 0.0 < t1 ? t1 : t2,
+				res:UnitTransform = new UnitTransform();
+			res._x = x1 + kx * t;
+			res._y = y1 + ky * t;
+			res._z = z1 + kz * t;
+			return res;
+		}
+		
+		/**
 		 * 根据点设置坐标
 		 * @param	point
 		 */
@@ -239,6 +280,17 @@ package units
 			_z = unitTransform._z;
 			orientation = unitTransform.orientation;
 			update();
+		}
+		
+		public function clone():UnitTransform
+		{
+			var ut:UnitTransform = new UnitTransform(unit);
+			ut.vz = vz;
+			ut.altitude = altitude;
+			ut.radius = radius;
+			ut._speed = _speed;
+			ut.setByUnitTransform(ut);
+			return ut;
 		}
 	}
 }

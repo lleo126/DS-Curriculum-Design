@@ -1,5 +1,6 @@
 package managers 
 {
+	import events.UnitEvent;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
 	import models.Player;
@@ -29,7 +30,7 @@ package managers
 			items:Vector.<Item>
 		) 
 		{
-			this.heros = heros;
+			this.heroes = heros;
 			this.snowballs = snowballs;
 			this.monsters = monsters;
 			this.obstacles = obstacles;
@@ -40,7 +41,7 @@ package managers
 		// 变量
 		//==========
 		
-		private var heros:Vector.<Hero>;
+		private var heroes:Vector.<Hero>;
 		private var snowballs:Vector.<Snowball>;
 		private var monsters:Vector.<Monster>;
 		private var obstacles:Vector.<Obstacle>;
@@ -54,7 +55,7 @@ package managers
 		/**
 		 * Dictionary.<Unit, UnitTransform> 保存着每个 Unit 碰撞的位置
 		 */
-		private var bounce:Dictionary;
+		private var bounce:Dictionary = new Dictionary();
 		
 		//==========
 		// 方法
@@ -65,10 +66,50 @@ package managers
 		 * @param	deltaTime
 		 * @return	若碰撞到物体，则返回碰撞的位置，否则返回 null
 		 */
-		public function detect(unit:UnitTransform, unit2:UnitTransform, deltaTime:int = 0):UnitTransform
+		public function detect(ut1:UnitTransform, ut2:UnitTransform, deltaTime:int = 0):UnitTransform
 		{
+			if (!deltaTime) return detectStill(ut1, ut2) ? ut1 : null;
 			
+			// 以 ut2 为参照系（静止）
+			var rm:Number = Math.max(ut1.radius, ut1.radiusZ, ut2.radius, ut2.radiusZ),
+				vx:Number	= ut1.vx - ut2.vx,
+				vy:Number	= ut1.vy - ut2.vy,
+				vz:Number	= ut1.vz - ut2.vz,
+				// TODO: 雪球 Z 轴加速度
+				v0:Number	= Math.sqrt(vx * vx + vy * vy + vz * vz),
+				s0:Number	= v0 * deltaTime,
+				count:int	= Math.ceil(s0 / rm),
+				time:Number	= deltaTime / count,
+				ut1p:UnitTransform = ut1.clone(),
+				ut2p:UnitTransform = ut2.clone();
+			//trace( "count : " + count );
+			while (count--) 
+			{
+				ut1p.advance(time);
+				ut2p.advance(time);
+				//ut1p.x += vx * time;
+				//ut1p.y += vy * time;
+				//ut1p.z += vz * time;
+				if (detectStill(ut1p, ut2p)) return trace('detected'), ut1p;
+			}
 			return null;
+		}
+		
+		/**
+		 * 检测两个静止单位之间有无碰撞
+		 * @param	ut1
+		 * @param	ut2
+		 * @return	true 为碰撞
+		 */
+		public function detectStill(ut1:UnitTransform, ut2:UnitTransform):Boolean 
+		{
+			// 计算两椭球心到面距离
+			var s1:UnitTransform = ut1.getUnitTransformOnSurface(ut2.x, ut2.y, ut2.centerZ),
+				s2:UnitTransform = ut2.getUnitTransformOnSurface(ut1.x, ut1.y, ut1.centerZ),
+				r1:Number = UnitTransform.getDistance(ut1, s1),
+				r2:Number = UnitTransform.getDistance(ut2, s2),
+				distance:Number = UnitTransform.getDistance(ut1, ut2);
+			return distance <= r1 + r2;
 		}
 		
 		/**
@@ -76,35 +117,41 @@ package managers
 		 */
 		public function detectAll(deltaTime:int):void 
 		{
-			var i:int = 0, j:int = 0;
-			for (i = 0; i < heros.length; ++i)
+			var i:int = 0, j:int = 0,
+				res:UnitTransform;
+			for (i = 0; i < heroes.length; ++i)
 			{
 				for (j = 0; j < monsters.length; ++j) 
 				{
-					
+					res = detect(heroes[i].unitTransform, monsters[i].unitTransform, deltaTime);
+					if (res) updateBounce(heroes[i], res);
 				}
 				
 				for (j = 0; j < obstacles.length; ++j)
 				{
-					
+					res = detect(heroes[i].unitTransform, obstacles[i].unitTransform, deltaTime);
+					if (res) updateBounce(heroes[i], res);
 				}
 				
 				for (j = 0; j < items.length; ++j)
 				{
-					
+					res = detect(heroes[i].unitTransform, items[i].unitTransform, deltaTime);
+					//if (res) heroes[i].dispatchEvent(new UnitEvent(UnitEvent.COLLIDED, items[i]));
 				}
 			}
 			
 			for (i = 0; i < snowballs.length; ++i)
 			{
-				for (j = 0; j < heros.length; ++j)
+				for (j = 0; j < heroes.length; ++j)
 				{
-					snowballs[0].unitTransform.vx
+					res = detect(snowballs[i].unitTransform, heroes[j].unitTransform, deltaTime);
+					if (res) updateBounce(snowballs[i], res);
 				}
 				
-				for (j = 0; j < snowballs.length; ++j)
+				for (j = i + 1; j < snowballs.length; ++j)
 				{
-					
+					res = detect(snowballs[i].unitTransform, snowballs[j].unitTransform, deltaTime);
+					if (res) updateBounce(snowballs[i], res);
 				}
 				
 				// 临时：如果雪球撞到地面，就消失
@@ -115,6 +162,17 @@ package managers
 			}
 			
 			// 如果寻路正确，怪物将不会撞到障碍物上，不需要检测怪物与障碍物的碰撞
+		}
+		
+		/**
+		 * 如果单位新候选碰撞位置比原来的近，那么更新 bounce 数组为新的位置
+		 * @param	unit
+		 * @param	ut
+		 */
+		private function updateBounce(unit:Unit, ut:UnitTransform):void 
+		{
+			trace( "CollisionManager.updateBounce > unit : " + unit + ", ut : " + ut );
+			if (!(unit in bounce) || UnitTransform.getDistance(unit.unitTransform, ut) < UnitTransform.getDistance(unit.unitTransform, bounce[unit])) bounce[unit] = ut;
 		}
 		
 		/**
@@ -133,21 +191,26 @@ package managers
 		 */
 		public function update(deltaTime:int):void 
 		{
-			heros[0].unitTransform.advance(deltaTime);
-			heros[1].unitTransform.advance(deltaTime);
-			
 			var i:int;
-			for (i = 0; i < snowballs.length; ++i)
+			for (i = 0; i < heroes.length; ++i) 
 			{
-				snowballs[i].unitTransform.advance(deltaTime);
+				if (heroes[i] in bounce) heroes[i].unitTransform = bounce[heroes[i]];
+				else heroes[i].unitTransform.advance(deltaTime);
 			}
 			
-			for each (var key:* in next)
+			for (i = 0; i < snowballs.length; ++i) 
 			{
-				var unit:Unit = key as Unit;
-				unit.unitTransform = next[unit];
+				if (snowballs[i] in bounce) snowballs[i].unitTransform = bounce[snowballs[i]];
+				else snowballs[i].unitTransform.advance(deltaTime);
 			}
-			next = new Dictionary();
+			
+			//for (var key:* in bounce)
+			//{
+				//var unit:Unit = key as Unit;
+				//if (unit in bounce) unit.unitTransform = bounce[unit];
+				//else unit.unitTransform.advance(deltaTime);
+			//}
+			bounce = new Dictionary();
 		}
 	}
 }
