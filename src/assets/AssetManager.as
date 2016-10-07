@@ -166,8 +166,32 @@ package assets
 		[Embed(source = "../../assets/photos/sour_spicystrips.png")]
 		public static const SOUR_SPICYSTRIPS_IMG:Class;
 		
-		[Embed(source = "../../assets/photos/car.png")]
-		public static const CAR_IMG:Class;
+		[Embed(source = "../../assets/photos/car1.png")]
+		public static const CAR1_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/car2.png")]
+		public static const CAR2_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/car3.png")]
+		public static const CAR3_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/car4.png")]
+		public static const CAR4_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/car5.png")]
+		public static const CAR5_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/car6.png")]
+		public static const CAR6_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/car7.png")]
+		public static const CAR7_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/car8.png")]
+		public static const CAR8_IMG:Class;
+		
+		[Embed(source = "../../assets/photos/car9.png")]
+		public static const CAR9_IMG:Class;
 		
 		[Embed(source = "../../assets/photos/dog.png")]
 		public static const DOG_IMG:Class;

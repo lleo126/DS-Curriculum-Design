@@ -2,14 +2,14 @@
 	<obstacle>
 		<img>TREE1_IMG</img>
 		<name>tree1</name>
-		<pivotX>70</pivotX>
-		<pivotY>150</pivotY>
+		<pivotX>66</pivotX>
+		<pivotY>138</pivotY>
 		<width>140</width>
 		<height>150</height>
 		<unitTransform>
 			<altitude>150</altitude>
 		</unitTransform>
-		<radius>20</radius>
+		<radius>34</radius>
 	</obstacle>
 	<obstacle>
 		<img>TREE2_IMG</img>
@@ -21,61 +21,61 @@
 		<unitTransform>
 			<altitude>204</altitude>
 		</unitTransform>
-		<radius>20</radius>
+		<radius>18</radius>
 	</obstacle>
 	<obstacle>
 		<img>TREE3_IMG</img>
 		<name>tree3</name>
-		<pivotX>42</pivotX>
+		<pivotX>44</pivotX>
 		<pivotY>216</pivotY>
 		<width>84</width>
 		<height>216</height>
 		<unitTransform>
 			<altitude>216</altitude>
 		</unitTransform>
-		<radius>20</radius>
+		<radius>18</radius>
 	</obstacle>
 	<obstacle>
 		<img>TREE4_IMG</img>
 		<name>tree4</name>
 		<pivotX>65</pivotX>
-		<pivotY>195</pivotY>
+		<pivotY>190</pivotY>
 		<width>135</width>
 		<height>195</height>
 		<unitTransform>
 			<altitude>195</altitude>
 		</unitTransform>
-		<radius>20</radius>
+		<radius>30</radius>
 	</obstacle>
 	<obstacle>
 		<img>TREE5_IMG</img>
 		<name>tree5</name>
-		<pivotX>80</pivotX>
-		<pivotY>130</pivotY>
+		<pivotX>90</pivotX>
+		<pivotY>120</pivotY>
 		<width>160</width>
 		<height>130</height>
 		<unitTransform>
 			<altitude>130</altitude>
 		</unitTransform>
-		<radius>20</radius>
+		<radius>34</radius>
 	</obstacle>
 	<obstacle>
 		<img>TREE6_IMG</img>
 		<name>tree6</name>
-		<pivotX>41</pivotX>
-		<pivotY>168</pivotY>
+		<pivotX>50</pivotX>
+		<pivotY>160</pivotY>
 		<width>96</width>
 		<height>168</height>
 		<unitTransform>
 			<altitude>168</altitude>
 		</unitTransform>
-		<radius>20</radius>
+		<radius>18</radius>
 	</obstacle>
 	<obstacle>
 		<img>TREE7_IMG</img>
 		<name>tree7</name>
-		<pivotX>60</pivotX>
-		<pivotY>120</pivotY>
+		<pivotX>58</pivotX>
+		<pivotY>116</pivotY>
 		<width>120</width>
 		<height>120</height>
 		<unitTransform>
@@ -86,7 +86,7 @@
 	<obstacle>
 		<img>TREE8_IMG</img>
 		<name>tree8</name>
-		<pivotX>55</pivotX>
+		<pivotX>58</pivotX>
 		<pivotY>150</pivotY>
 		<width>110</width>
 		<height>150</height>
@@ -98,19 +98,99 @@
 	<obstacle>
 		<img>TREE9_IMG</img>
 		<name>tree9</name>
-		<pivotX>60</pivotX>
-		<pivotY>120</pivotY>
+		<pivotX>56</pivotX>
+		<pivotY>116</pivotY>
 		<width>120</width>
 		<height>120</height>
 		<unitTransform>
 			<altitude>120</altitude>
 		</unitTransform>
-		<radius>20</radius>
+		<radius>30</radius>
 	</obstacle>
 
 	<obstacle>
-		<img>CAR_IMG</img>
-		<name>car</name>
+		<img>CAR1_IMG</img>
+		<name>car1</name>
+		<width>60</width>
+		<height>100</height>
+		<unitTransform>
+			<altitude>100</altitude>
+		</unitTransform>
+		<radius>20</radius>
+	</obstacle>
+	<obstacle>
+		<img>CAR2_IMG</img>
+		<name>car2</name>
+		<width>60</width>
+		<height>100</height>
+		<unitTransform>
+			<altitude>100</altitude>
+		</unitTransform>
+		<radius>20</radius>
+	</obstacle>
+	<obstacle>
+		<img>CAR3_IMG</img>
+		<name>car3</name>
+		<width>60</width>
+		<height>100</height>
+		<unitTransform>
+			<altitude>100</altitude>
+		</unitTransform>
+		<radius>20</radius>
+	</obstacle>
+	<obstacle>
+		<img>CAR4_IMG</img>
+		<name>car4</name>
+		<width>60</width>
+		<height>100</height>
+		<unitTransform>
+			<altitude>100</altitude>
+		</unitTransform>
+		<radius>20</radius>
+	</obstacle>
+	<obstacle>
+		<img>CAR5_IMG</img>
+		<name>car5</name>
+		<width>60</width>
+		<height>100</height>
+		<unitTransform>
+			<altitude>100</altitude>
+		</unitTransform>
+		<radius>20</radius>
+	</obstacle>
+	<obstacle>
+		<img>CAR6_IMG</img>
+		<name>car6</name>
+		<width>60</width>
+		<height>100</height>
+		<unitTransform>
+			<altitude>100</altitude>
+		</unitTransform>
+		<radius>20</radius>
+	</obstacle>
+	<obstacle>
+		<img>CAR7_IMG</img>
+		<name>car7</name>
+		<width>60</width>
+		<height>100</height>
+		<unitTransform>
+			<altitude>100</altitude>
+		</unitTransform>
+		<radius>20</radius>
+	</obstacle>
+	<obstacle>
+		<img>CAR8_IMG</img>
+		<name>car8</name>
+		<width>60</width>
+		<height>100</height>
+		<unitTransform>
+			<altitude>100</altitude>
+		</unitTransform>
+		<radius>20</radius>
+	</obstacle>
+	<obstacle>
+		<img>CAR9_IMG</img>
+		<name>car9</name>
 		<width>60</width>
 		<height>100</height>
 		<unitTransform>
@@ -121,8 +201,8 @@
 	<obstacle>
 		<img>DUSTBIN_IMG</img>
 		<name>dustbin</name>
-		<pivotX>36</pivotX>
-		<pivotY>88</pivotY>
+		<pivotX>18</pivotX>
+		<pivotY>44</pivotY>
 		<width>72</width>
 		<height>88</height>
 		<unitTransform>
@@ -146,7 +226,7 @@
 		<img>BICYCLE2_IMG</img>
 		<name>bicycle2</name>
 		<pivotX>54</pivotX>
-		<pivotY>36</pivotY>
+		<pivotY>70</pivotY>
 		<width>108</width>
 		<height>72</height>
 		<unitTransform>

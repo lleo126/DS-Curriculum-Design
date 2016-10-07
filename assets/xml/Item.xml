@@ -3,8 +3,13 @@
 	<item>
 		<img>LITCHI_IMG</img>
 		<name>litchi</name>
-		<width>52</width>
-		<height>52</height>
+		<pivotX>13</pivotX>
+		<pivotY>26</pivotY>
+		<width>26</width>
+		<height>26</height>
+		<unitTransform>
+			<altitude>26</altitude>
+		</unitTransform>
 		<radius>8</radius>
 		<skill klass="units.skills.AddHP">
 			<addHP>5</addHP>
@@ -13,8 +18,13 @@
 	<item>
 		<img>MANGO_IMG</img>
 		<name>mango</name>
+		<pivotX>16</pivotX>
+		<pivotY>12</pivotY>
 		<width>32</width>
 		<height>24</height>
+		<unitTransform>
+			<altitude>24</altitude>
+		</unitTransform>
 		<radius>12</radius>
 		<skill klass="units.skills.AddHP">
 			<addHP>10</addHP>
@@ -23,8 +33,13 @@
 	<item>
 		<img>CARAMBOLA_IMG</img>
 		<name>carambola</name>
+		<pivotX>25</pivotX>
+		<pivotY>39</pivotY>
 		<width>53</width>
 		<height>39</height>
+		<unitTransform>
+			<altitude>39</altitude>
+		</unitTransform>
 		<radius>16</radius>
 		<skill klass="units.skills.AddHP">
 			<addHP>15</addHP>
@@ -34,8 +49,13 @@
 	<item>
 		<img>SOURFRUIT_IMG</img>
 		<name>rotten litchi</name>
+		<pivotX>15</pivotX>
+		<pivotY>32</pivotY>
 		<width>30</width>
 		<height>32</height>
+		<unitTransform>
+			<altitude>32</altitude>
+		</unitTransform>
 		<radius>8</radius>
 		<skill klass="units.skills.AddHP">
 			<addHP>-5</addHP>
@@ -44,8 +64,13 @@
 	<item>
 		<img>SOURFRUIT_IMG</img>
 		<name>rotten mango</name>
+		<pivotX>15</pivotX>
+		<pivotY>32</pivotY>
 		<width>30</width>
 		<height>32</height>
+		<unitTransform>
+			<altitude>32</altitude>
+		</unitTransform>
 		<radius>10</radius>
 		<skill klass="units.skills.AddHP">
 			<addHP>-10</addHP>
@@ -54,8 +79,13 @@
 	<item>
 		<img>SOURFRUIT_IMG</img>
 		<name>rotten carambola</name>
+		<pivotX>15</pivotX>
+		<pivotY>32</pivotY>
 		<width>30</width>
 		<height>32</height>
+		<unitTransform>
+			<altitude>32</altitude>
+		</unitTransform>
 		<radius>12</radius>
 		<skill klass="units.skills.AddHP">
 			<addHP>-15</addHP>
@@ -66,8 +96,13 @@
 	<item>
 		<img>SPICYSTRIPS_IMG</img>
 		<name>spicy strips</name>
+		<pivotX>30</pivotX>
+		<pivotY>40</pivotY>
 		<width>60</width>
 		<height>40</height>
+		<unitTransform>
+			<altitude>32</altitude>
+		</unitTransform>
 		<radius>20</radius>
 		<skill klass="units.skills.SpeedUp">
 			<speedUp>0.1</speedUp>
@@ -76,8 +111,13 @@
 	<item>
 		<img>SOUR_SPICYSTRIPS_IMG</img>
 		<name>sour spicy strips</name>
+		<pivotX>30</pivotX>
+		<pivotY>40</pivotY>
 		<width>60</width>
 		<height>40</height>
+		<unitTransform>
+			<altitude>32</altitude>
+		</unitTransform>
 		<radius>20</radius>
 		<skill klass="units.skills.SpeedUp">
 			<speedUp>-0.2</speedUp>
@@ -88,9 +128,14 @@
 	<item>
 		<img>ICE_IMG</img>
 		<name>ice</name>
+		<pivotX>20</pivotX>
+		<pivotY>40</pivotY>
 		<width>40</width>
 		<height>40</height>
-		<radius>20</radius>
+		<unitTransform>
+			<altitude>32</altitude>
+		</unitTransform>
+		<radius>16</radius>
 		<skill klass="units.skills.AddSnow">
 			<addSnow>100</addSnow>
 		</skill> 
@@ -98,9 +143,14 @@
 	<item>
 		<img>SALT_IMG</img>
 		<name>salt</name>
+		<pivotX>17</pivotX>
+		<pivotY>45</pivotY>
 		<width>34</width>
 		<height>45</height>
-		<radius>20</radius>
+		<unitTransform>
+			<altitude>45</altitude>
+		</unitTransform>
+		<radius>10</radius>
 		<skill klass="units.skills.AddSnow">
 			<addSnow>-100</addSnow>
 		</skill> 
@@ -110,9 +160,14 @@
 	<item>
 		<img>GLUE_IMG</img>
 		<name>glue</name>
+		<pivotX>20</pivotX>
+		<pivotY>40</pivotY>
 		<width>40</width>
 		<height>40</height>
-		<radius>20</radius>
+		<unitTransform>
+			<altitude>40</altitude>
+		</unitTransform>
+		<radius>16</radius>
 		<skill klass="units.skills.Stop">
 			<time>1</time>
 		</skill>
@@ -120,9 +175,14 @@
 	<item>
 		<img>DOG_IMG</img>
 		<name>dog</name>
+		<pivotX>16</pivotX>
+		<pivotY>45</pivotY>
 		<width>35</width>
 		<height>45</height>
-		<radius>20</radius>
+		<unitTransform>
+			<altitude>45</altitude>
+		</unitTransform>
+		<radius>10</radius>
 		<skill klass="units.skills.Dizzy">
 			<time>1</time>
 		</skill>
@@ -130,8 +190,13 @@
 	<item>
 		<img>POISON_IMG</img>
 		<name>poison</name>
+		<pivotX>18</pivotX>
+		<pivotY>66</pivotY>
 		<width>35</width>
 		<height>70</height>
+		<unitTransform>
+			<altitude>70</altitude>
+		</unitTransform>
 		<radius>20</radius>
 		<skill klass="units.skills.MoveBackward">
 			<time>1</time>

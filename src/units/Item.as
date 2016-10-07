@@ -58,7 +58,10 @@ package units
 			var ImageClass:Class = AssetManager[xml.img[0].text().toString()];
 			_body = new SpriteEx(new ImageClass());
 			_body.width = parseFloat(xml.width.text().toString());
-			_body.height = parseFloat(xml.height.text().toString());
+			_body.scaleY = _body.scaleX;
+			//_body.height = parseFloat(xml.height.text().toString());
+			_body.pivotX = parseFloat(xml.pivotX.text().toString());
+			_body.pivotY = parseFloat(xml.pivotY.text().toString());
 			var skillXML:XML = xml.skill[0];
 			var SkillClass:Class = getDefinitionByName(skillXML.@klass.toString()) as Class;
 			
