@@ -322,6 +322,18 @@ package units
 				snowball.update(_deltaTime);
 			}
 			
+			for (i = 0; i < _obstacles.length; ++i)
+			{
+				var obstacle:Obstacle = _obstacles[i];
+				obstacle.update(_deltaTime);
+			}
+			
+			for (i = 0; i < _items.length; ++i)
+			{
+				var item:Item= _items[i];
+				item.update(_deltaTime);
+			}
+			
 			testUnit.update(_deltaTime);
 			testUnitBall.update(_deltaTime);
 			zSort();

@@ -13,7 +13,7 @@ package units
 		 * 然后从这点发出两条切线，切刚才截出的圆为两点，求这两点
 		 * @param	pointUnitTransform	发出射线的点
 		 * @param	circleUnitTransform	球心
-		 * @return	若在水平面上有两个切点，则数组有两个元素表示切点；否则为空数组
+		 * @return	若在水平面上有四个切点，则数组有四个元素表示切点；否则为空数组
 		 */
 		public static function getSupportUnitTransforms(pointUnitTransform:UnitTransform, circleUnitTransform:UnitTransform):Vector.<UnitTransform> 
 		{
@@ -38,11 +38,11 @@ package units
 			var r2:Number = r * r;
 			if ( d2 < r2 )
 			{
-				//trace("点在圆内，无切点");
+				throw new Error("点在圆内，无切点");
 			}
 			else if ( d2 == r2 )
 			{
-				//trace("点在圆上，切点为给定点");
+				throw new Error("点在圆上，切点为给定点");
 			}
 			else
 			{
@@ -65,7 +65,7 @@ package units
 				y2 = ( y2 + n ) * l;
 				// 将坐标值赋值
 				
-				res.push(new UnitTransform(), new UnitTransform());
+				res.push(new UnitTransform(), new UnitTransform(), new UnitTransform(), new UnitTransform());
 				
 				res[0]._x = x1;
 				res[0]._y = y1;
@@ -74,6 +74,23 @@ package units
 				res[1]._x = x2;
 				res[1]._y = y2;
 				res[1]._z = pointUnitTransform._z;
+				
+				// 两切点的中点到圆心的连线
+				var L:Number = Math.sqrt( ( (x1 + x2) / 2 - a ) * ( (x1 + x2) / 2 - a ) - ( (y1 + y2) / 2 - b ) * ( (y1 + y2) / 2 - b ) );
+				
+				// 求两切于大圆的直线交圆心与小圆切点连线的交点
+				var	x3:Number = a + (x1 - a) * L / r,
+					y3:Number = b + (y1 - b) * L / r,
+					x4:Number = a + (x2 - a) * L / r,
+					y4:Number = b + (y2 - b) * L / r;
+					
+				res[2]._x = x3;
+				res[2]._y = y3;
+				res[2]._z = pointUnitTransform._z;
+				
+				res[3]._x = x4;
+				res[3]._y = y4;
+				res[3]._z = pointUnitTransform._z;
 			}
 			
 			return res;
