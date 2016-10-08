@@ -51,7 +51,7 @@ package units
 			_maxHP = MAX_HP;
 			_maxSP = MAX_SP;
 			_maxAP = MAX_AP;
-			attackRange = ATTCK_RANGE;
+			_attackRange = ATTCK_RANGE;
 			_maxSpeed = MAX_SPEED;
 			_unitTransform.radius = RADIUS;
 			_unitTransform.altitude = ALTITUDE;

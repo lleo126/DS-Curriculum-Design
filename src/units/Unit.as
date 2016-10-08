@@ -53,7 +53,7 @@ package units
 		/**
 		 * 攻击距离
 		 */
-		protected var attackRange:Number;
+		protected var _attackRange:Number;
 		
 		/**
 		 * 阴影
@@ -129,6 +129,11 @@ package units
 		 * 该单位的击杀奖励分数
 		 */
 		public function get bonus():int { return _bonus; }
+		
+		public function get attackRange():Number 
+		{
+			return _attackRange;
+		}
 		
 		//==========
 		// 方法

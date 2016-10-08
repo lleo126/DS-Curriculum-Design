@@ -1,16 +1,21 @@
 package managers 
 {
+	import animations.SnowballExplosionAnimation;
 	import events.UnitEvent;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
+	import flash.utils.setTimeout;
 	import models.Player;
+	import units.Effect;
 	import units.Hero;
 	import units.Item;
 	import units.Monster;
 	import units.Obstacle;
 	import units.Snowball;
+	import units.SpriteEx;
 	import units.Unit;
 	import units.UnitTransform;
+	import units.World;
 	
 	/**
 	 * 碰撞管理器
@@ -41,6 +46,7 @@ package managers
 		// 变量
 		//==========
 		
+		public var world:World;
 		private var heroes:Vector.<Hero>;
 		private var snowballs:Vector.<Snowball>;
 		private var monsters:Vector.<Monster>;
@@ -162,9 +168,16 @@ package managers
 					if (res) updateBounce(snowballs[i], res);
 				}
 				
+				for (j = 0; j < obstacles.length; ++j)
+				{
+					res = detect(snowballs[i].unitTransform, obstacles[j].unitTransform, deltaTime);
+					if (res) updateBounce(snowballs[i], res);
+				}
+				
 				// 临时：如果雪球撞到地面，就消失
 				if (snowballs[i].unitTransform.z < 0.0) 
 				{
+					snowballExplode(snowballs[i]);
 					snowballs[i].removeFromWorld();
 				}
 			}
@@ -208,7 +221,12 @@ package managers
 			
 			for (i = 0; i < snowballs.length; ++i) 
 			{
-				if (snowballs[i] in bounce) snowballs[i].unitTransform = bounce[snowballs[i]];
+				if (snowballs[i] in bounce)
+				{
+					snowballs[i].unitTransform = bounce[snowballs[i]];
+					snowballExplode(snowballs[i]);
+					snowballs[i].removeFromWorld();
+				}
 				else snowballs[i].unitTransform.advance(deltaTime);
 			}
 			
@@ -219,6 +237,17 @@ package managers
 				//else unit.unitTransform.advance(deltaTime);
 			//}
 			bounce = new Dictionary();
+		}
+		
+		private function snowballExplode(snowball:Snowball):void 
+		{
+			var explosion:Effect = new Effect(new SnowballExplosionAnimation(explosion));
+			explosion.unitTransform.setByUnitTransform(snowball.unitTransform);
+			world.addUnit(explosion);
+			setTimeout(function ():void 
+			{
+				explosion.removeFromWorld();
+			}, 250);
 		}
 	}
 }

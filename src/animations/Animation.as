@@ -12,7 +12,7 @@ package animations
 	 * ...
 	 * @author 彩月葵☆彡
 	 */
-	internal class Animation extends Sprite implements IUpdate
+	public class Animation extends Sprite implements IUpdate
 	{
 		private static const origin:Point = new Point();
 		protected var timeNow:int;
@@ -24,7 +24,7 @@ package animations
 		protected var imgNow:Bitmap;
 		protected var WIDTH:Number;
 		
-		public function Animation(unit:Unit) 
+		public function Animation(unit:Unit = null) 
 		{
 			this.unit = unit;
 			timeNow = 0;

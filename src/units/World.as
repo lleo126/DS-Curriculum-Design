@@ -155,11 +155,19 @@ package units
 		 */
 		internal function get items():Vector.<Item> { return _items; }
 		
+		private var _effects:Vector.<Effect> = new <Effect>[];
+		
+		public function get effects():Vector.<Effect> 
+		{
+			return _effects;
+		}
+		
 		private var _deltaTime:int;
 		/**
 		 * 自上一帧以来的经过时间，以毫秒为单位
 		 */
 		public function get deltaTime():int { return _deltaTime; }
+		
 		
 		//==========
 		// 方法
@@ -196,6 +204,7 @@ package units
 			}
 			
 			_collisionManager = new CollisionManager(_heroes, _snowballs, _monsters, _obstacles, _items);
+			_collisionManager.world = this;
 			
 			generateUnits();
 		}
@@ -334,8 +343,14 @@ package units
 				item.update(_deltaTime);
 			}
 			
+			for (i = 0; i < _effects.length; ++i)
+			{
+				var effect:Effect = _effects[i];
+				effect.update(_deltaTime);
+			}
+			
 			testUnit.update(_deltaTime);
-			testUnitBall.update(_deltaTime);
+			//testUnitBall.update(_deltaTime);
 			zSort();
 		}
 		

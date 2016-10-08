@@ -26,7 +26,7 @@ package units
 			
 			damage = _unitTransform.radius = radius;
 			_unitTransform.altitude = _body.width = _body.height = 2.0 * radius;
-			attackRange = radius * ATTACK_RANGE_RATIO;
+			_attackRange = radius * ATTACK_RANGE_RATIO;
 			_bonus = bonus;
 			_maxSpeed = MAX_SPEED;
 			
