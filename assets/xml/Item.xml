@@ -129,7 +129,7 @@
 		<img>ICE_IMG</img>
 		<name>ice</name>
 		<pivotX>53</pivotX>
-		<pivotY>80</pivotY>
+		<pivotY>88</pivotY>
 		<width>40</width>
 		<height>40</height>
 		<unitTransform>
@@ -150,7 +150,7 @@
 		<unitTransform>
 			<altitude>80</altitude>
 		</unitTransform>
-		<radius>33</radius>
+		<radius>40</radius>
 		<skill klass="units.skills.AddSnow">
 			<addSnow>-100</addSnow>
 		</skill> 
@@ -161,13 +161,13 @@
 		<img>GLUE_IMG</img>
 		<name>glue</name>
 		<pivotX>220</pivotX>
-		<pivotY>540</pivotY>
+		<pivotY>552</pivotY>
 		<width>40</width>
 		<height>56</height>
 		<unitTransform>
 			<altitude>553</altitude>
 		</unitTransform>
-		<radius>200</radius>
+		<radius>220</radius>
 		<skill klass="units.skills.Stop">
 			<time>1</time>
 		</skill>
