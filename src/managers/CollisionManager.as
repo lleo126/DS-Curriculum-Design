@@ -2,6 +2,7 @@ package managers
 {
 	import animations.SnowballExplosionAnimation;
 	import events.UnitEvent;
+	import flash.display.Shape;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
 	import flash.utils.setTimeout;
@@ -16,6 +17,7 @@ package managers
 	import units.Unit;
 	import units.UnitTransform;
 	import units.World;
+	import flash.display.Graphics;
 	
 	/**
 	 * 碰撞管理器
@@ -97,7 +99,7 @@ package managers
 				//ut1p.z += vz * time;
 				if (detectStill(ut1p, ut2p))
 				{
-					return trace('detected'), ut1p;
+					//return trace('detected'), ut1p;
 				}
 			}
 			return null;
@@ -192,7 +194,7 @@ package managers
 		 */
 		private function updateBounce(unit:Unit, ut:UnitTransform):void 
 		{
-			trace( "CollisionManager.updateBounce > unit : " + unit + ", ut : " + ut );
+			//trace( "CollisionManager.updateBounce > unit : " + unit + ", ut : " + ut );
 			if (!(unit in bounce) || UnitTransform.getDistance(unit.unitTransform, ut) < UnitTransform.getDistance(unit.unitTransform, bounce[unit])) bounce[unit] = ut;
 		}
 		
@@ -248,6 +250,27 @@ package managers
 			{
 				explosion.removeFromWorld();
 			}, 250);
+			
+			var res:Vector.<UnitTransform>;
+			var deleteImg:Shape = new Shape();
+			
+			for (var i:int = 0; i < obstacles.length; ++i) 
+			{
+				if (getDistance(snowball.unitTransform, obstacles[i].unitTransform) <= snowball.attackRange + obstacles[i].unitTransform.radius)
+				{
+					res = UnitTransform.getSupportUnitTransforms(snowball.unitTransform, obstacles[i].unitTransform);
+					if (res.length == 0) continue;
+					deleteImg.graphics.beginFill(0xffff6f);
+					deleteImg.graphics.moveTo(res[0].x + res[0].z, res[0].y + res[0].z);
+					deleteImg.graphics.lineTo(res[1].x + res[1].z, res[1].y + res[1].z);
+					deleteImg.graphics.lineTo(res[3].x + res[3].z, res[3].y + res[3].z);
+					deleteImg.graphics.lineTo(res[2].x + res[2].z, res[2].y + res[2].z);
+					deleteImg.graphics.endFill();
+					world.stage.addChild(deleteImg);
+					trace('aa');
+				}
+				//explosion.body
+			}
 		}
 	}
 }

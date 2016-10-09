@@ -25,7 +25,7 @@ package units
 			if (circleUnitTransform.radiusZ <= dz) return res; // 水平面截不到圆
 			
 			// 半径 (待测试)
-			var r:Number = circleUnitTransform.radius * circleUnitTransform.radiusZ * Math.sqrt((circleUnitTransform.radiusZ + dz) * (circleUnitTransform.radiusZ - dz));
+			var r:Number = circleUnitTransform.radius / circleUnitTransform.radiusZ * Math.sqrt((circleUnitTransform.radiusZ + dz) * (circleUnitTransform.radiusZ - dz));
 			
 			// 圆外该点的座标
 			var m:Number = pointUnitTransform.x;
@@ -38,7 +38,7 @@ package units
 			var r2:Number = r * r;
 			if ( d2 < r2 )
 			{
-				throw new Error("点在圆内，无切点");
+//				throw new Error("点在圆内，无切点");
 			}
 			else if ( d2 == r2 )
 			{
@@ -59,10 +59,16 @@ package units
 				var x2:Number = x0 * Math.cos(-f ) - y0 * Math.sin(-f );
 				var y2:Number = x0 * Math.sin(-f ) + y0 * Math.cos(-f );
 				// 得到新座标
-				x1 = ( x1 + m ) * l;
-				y1 = ( y1 + n ) * l;
-				x2 = ( x2 + m ) * l;
-				y2 = ( y2 + n ) * l;
+				//x1 = ( x1 + m ) * l;
+				//y1 = ( y1 + n ) * l;
+				//x2 = ( x2 + m ) * l;
+				//y2 = ( y2 + n ) * l;
+				
+				x1 = ( x1 * l + m );
+				y1 = ( y1 * l + n );
+				x2 = ( x2 * l + m );
+				y2 = ( y2 * l + n );
+				
 				// 将坐标值赋值
 				
 				res.push(new UnitTransform(), new UnitTransform(), new UnitTransform(), new UnitTransform());
@@ -76,13 +82,13 @@ package units
 				res[1]._z = pointUnitTransform._z;
 				
 				// 两切点的中点到圆心的连线
-				var L:Number = Math.sqrt( ( (x1 + x2) / 2 - a ) * ( (x1 + x2) / 2 - a ) - ( (y1 + y2) / 2 - b ) * ( (y1 + y2) / 2 - b ) );
+				var L:Number = Math.sqrt( ( (x1 + x2) / 2 - a ) * ( (x1 + x2) / 2 - a ) + ( (y1 + y2) / 2 - b ) * ( (y1 + y2) / 2 - b ) );
 				
 				// 求两切于大圆的直线交圆心与小圆切点连线的交点
-				var	x3:Number = a + (x1 - a) * L / r,
-					y3:Number = b + (y1 - b) * L / r,
-					x4:Number = a + (x2 - a) * L / r,
-					y4:Number = b + (y2 - b) * L / r;
+				var	x3:Number = a + (x1 - a) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L,
+					y3:Number = b + (y1 - b) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L,
+					x4:Number = a + (x2 - a) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L,
+					y4:Number = b + (y2 - b) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L;
 					
 				res[2]._x = x3;
 				res[2]._y = y3;
