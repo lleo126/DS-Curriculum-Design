@@ -38,6 +38,7 @@ package animations
 			WIDTH = _img.width / _column;
 			clipRect = new Rectangle(0, 0, WIDTH, _img.height);
 			imgNow = new Bitmap(new BitmapData(WIDTH, _img.height));
+			imgNow.smoothing = true;
 			selfRect = new Rectangle(0, 0, imgNow.bitmapData.width, imgNow.bitmapData.height)
 		}
 		
@@ -92,6 +93,7 @@ package animations
 			imgNow.bitmapData.copyPixels(_img.bitmapData, clipRect, origin, null, null, true);
 			clipRect.x = timeNum * WIDTH;
 			imgNow.bitmapData.unlock();
+			imgNow.smoothing = true;
 		}
 	}
 }
