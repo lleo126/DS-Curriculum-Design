@@ -154,17 +154,21 @@ package views
 			_stop.addChild(buttonBack);
 			_stop.addChild(menuImg);
 			
-			menuImg.x = 440;
-			menuImg.y = 120;
+			menuImg.smoothing = true;
+			menuImg.width = 300;
+			menuImg.height = 160;
+			menuImg.x = 365;
+			menuImg.y = 60;
 			
+			stopBackground.smoothing = true;
 			stopBackground.x= 240;
-			stopBackground.y = menuImg.y + 50;
+			stopBackground.y = menuImg.y + 110;
 			stopBackground.width = 550;
 			stopBackground.height = 400;
 			
-			returnGame.x	= menuImg.x + 20;
+			returnGame.x	= menuImg.x + 95;
 			returnGame.y	= stopBackground.y + 100;
-			buttonBack.x	= menuImg.x + 5;
+			buttonBack.x	= menuImg.x + 80;
 			buttonBack.y	= returnGame.y + 100;
 			buttonBack.width = 135;
 			buttonBack.height = 60;
