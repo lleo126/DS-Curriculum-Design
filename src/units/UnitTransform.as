@@ -19,59 +19,6 @@ package units
 		public static function getSupportUnitTransforms(pointUnitTransform:UnitTransform, circleUnitTransform:UnitTransform):Vector.<UnitTransform> 
 		{
 			var res:Vector.<UnitTransform> = new <UnitTransform>[];
-			/*
-			// 截出的圆的圆心坐标
-			var a:Number = circleUnitTransform._x, b:Number = circleUnitTransform._y;
-			var dz:Number = Math.abs(pointUnitTransform.centerZ - circleUnitTransform.centerZ);
-			if (circleUnitTransform.radiusZ <= dz) return res; // 水平面截不到圆
-			
-			// 截出的圆的半径
-			var r:Number = circleUnitTransform.radius / circleUnitTransform.radiusZ * Math.sqrt((circleUnitTransform.radiusZ + dz) * (circleUnitTransform.radiusZ - dz));
-			
-			// 圆外该点的座标
-			var m:Number = pointUnitTransform.x;
-			var n:Number = pointUnitTransform.y;
-			
-			
-			// 点到圆心距离的平方
-			var d2:Number = (m - a) * (m - a) + (n - b) * (n - b);
-			// 点到圆心距离
-			var d:Number  = Math.sqrt( d2 );
-			// 半径的平方
-			var r2:Number = r * r;
-			if ( d2 < r2 )
-			{
-				throw new Error("点在圆内，无切点");
-			}
-			else if ( d2 == r2 )
-			{
-				throw new Error("点在圆上，切点为给定点");
-			}
-			else
-			{
-				// 点到切点距离
-				var l:Number = Math.sqrt( d2 - r2 );
-				// 点->圆心的单位向量
-				var x0:Number = ( a - m ) / d;
-				var y0:Number = ( b - n ) / d;
-				// 计算切线与点心连线的夹角
-				var f:Number = Math.asin( r / d );
-				// 向正反两个方向旋转单位向量
-				var x1:Number = x0 * Math.cos( f ) - y0 * Math.sin( f );
-				var y1:Number = x0 * Math.sin( f ) + y0 * Math.cos( f );
-				var x2:Number = x0 * Math.cos(-f ) - y0 * Math.sin(-f );
-				var y2:Number = x0 * Math.sin(-f ) + y0 * Math.cos(-f );
-				// 得到新座标
-				//x1 = ( x1 + m ) * l;
-				//y1 = ( y1 + n ) * l;
-				//x2 = ( x2 + m ) * l;
-				//y2 = ( y2 + n ) * l;
-				
-				x1 = ( x1 * l + m );
-				y1 = ( y1 * l + n );
-				x2 = ( x2 * l + m );
-				y2 = ( y2 * l + n );
-			*/	
 				
 			// 截出的圆的圆心坐标
 			var p_x:Number = circleUnitTransform._x;
@@ -95,15 +42,15 @@ package units
 				dy2:Number = p2_y - p_y,
 				r2:Number = Math.sqrt(dx2 * dx2 + dy2 * dy2); 
 			
-			var a:Number = p2_x - p_x, 
-				b:Number = p2_y - p_y,
+			var a:Number = dx2, 
+				b:Number = dy2,
 				r1:Number = (a * a + b * b + r * r - r2 * r2) / 2; 
 			
 			// 两切点坐标
 			var rp1_x:Number, rp1_y:Number,
 				rp2_x:Number, rp2_y:Number;
 			
-			if(a==0&&b!=0) 
+			if(a==0&&b!=0)
 			{ 
 					rp1_y = rp2_y = r1 / b;
 					rp1_x = Math.sqrt(r * r - rp1_y * rp1_y); 
@@ -123,9 +70,9 @@ package units
 					rp1_x = (r1 - b * rp1_y) / a; 
 					rp2_x = (r1 - b * rp2_y) / a; 
 			} 
-		
-			// 将切点坐标值赋值
-			res.push(new UnitTransform(), new UnitTransform(), new UnitTransform(), new UnitTransform());
+
+			// 将两切点坐标值赋值
+			res.push(new UnitTransform(), new UnitTransform());
 			
 			res[0]._x = rp1_x + p_x;
 			res[0]._y = rp1_y + p_y;
@@ -134,27 +81,32 @@ package units
 			res[1]._x = rp2_x + p_x;
 			res[1]._y = rp2_y + p_y;
 			res[1]._z = pointUnitTransform._z;
-			
+
 			// 两切点的中点到圆心的连线
 			var L:Number = Math.sqrt( ( (res[0]._x + res[1]._x) / 2 - p_x ) * ( (res[0]._x + res[1]._x) / 2 - p_x )
 									+ ( (res[0]._y + res[1]._y) / 2 - p_y ) * ( (res[0]._y + res[1]._y) / 2 - p_y ) );
 			
-			// 求两切于大圆的直线交圆心与小圆切点连线的交点
-			var	x3:Number = p_x + (res[0]._x - p_x) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L,
-				y3:Number = p_y + (res[0]._y - p_y) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L,
-				x4:Number = p_x + (res[1]._x - p_x) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L,
-				y4:Number = p_y + (res[1]._y - p_y) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L;
+			if (L < pointUnitTransform.radius)
+			{
+				res.push(new UnitTransform(), new UnitTransform());
+				// 求两切于大圆的直线交圆心与小圆切点连线的交点
+				var	x3:Number = p_x + (res[0]._x - p_x) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / (r * L),
+					y3:Number = p_y + (res[0]._y - p_y) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / (r * L),
+					x4:Number = p_x + (res[1]._x - p_x) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / (r * L),
+					y4:Number = p_y + (res[1]._y - p_y) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / (r * L);
+					
+				res[2]._x = x3;
+				res[2]._y = y3;
+				res[2]._z = pointUnitTransform._z;
 				
-			res[2]._x = x3;
-			res[2]._y = y3;
-			res[2]._z = pointUnitTransform._z;
+				res[3]._x = x4;
+				res[3]._y = y4;
+				res[3]._z = pointUnitTransform._z;
+				
+				return res;
+			}
 			
-			res[3]._x = x4;
-			res[3]._y = y4;
-			res[3]._z = pointUnitTransform._z;
-			//}
-			
-			return res;
+			return null;
 		}
 		
 		[inline]
