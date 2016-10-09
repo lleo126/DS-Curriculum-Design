@@ -202,13 +202,13 @@
 		<img>DUSTBIN_IMG</img>
 		<name>dustbin</name>
 		<pivotX>90</pivotX>
-		<pivotY>186</pivotY>
+		<pivotY>194</pivotY>
 		<width>50</width>
 		<height>40</height>
 		<unitTransform>
 			<altitude>180</altitude>
 		</unitTransform>
-		<radius>60</radius>
+		<radius>100</radius>
 	</obstacle>
 	<obstacle>
 		<img>BICYCLE1_IMG</img>

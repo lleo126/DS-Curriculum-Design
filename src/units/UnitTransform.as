@@ -1,5 +1,6 @@
 package units 
 {
+	import asunit.errors.UnimplementedFeatureError;
 	import flash.geom.Point;
 	/**
 	 * 单位的位置、速度和碰撞信息，与单位绑定
@@ -18,18 +19,20 @@ package units
 		public static function getSupportUnitTransforms(pointUnitTransform:UnitTransform, circleUnitTransform:UnitTransform):Vector.<UnitTransform> 
 		{
 			var res:Vector.<UnitTransform> = new <UnitTransform>[];
-			
-			// 圆心坐标 (待测试)
+			/*
+			// 截出的圆的圆心坐标
 			var a:Number = circleUnitTransform._x, b:Number = circleUnitTransform._y;
 			var dz:Number = Math.abs(pointUnitTransform.centerZ - circleUnitTransform.centerZ);
 			if (circleUnitTransform.radiusZ <= dz) return res; // 水平面截不到圆
 			
-			// 半径 (待测试)
+			// 截出的圆的半径
 			var r:Number = circleUnitTransform.radius / circleUnitTransform.radiusZ * Math.sqrt((circleUnitTransform.radiusZ + dz) * (circleUnitTransform.radiusZ - dz));
 			
 			// 圆外该点的座标
 			var m:Number = pointUnitTransform.x;
 			var n:Number = pointUnitTransform.y;
+			
+			
 			// 点到圆心距离的平方
 			var d2:Number = (m - a) * (m - a) + (n - b) * (n - b);
 			// 点到圆心距离
@@ -38,7 +41,7 @@ package units
 			var r2:Number = r * r;
 			if ( d2 < r2 )
 			{
-//				throw new Error("点在圆内，无切点");
+				throw new Error("点在圆内，无切点");
 			}
 			else if ( d2 == r2 )
 			{
@@ -68,36 +71,88 @@ package units
 				y1 = ( y1 * l + n );
 				x2 = ( x2 * l + m );
 				y2 = ( y2 * l + n );
+			*/	
 				
-				// 将坐标值赋值
+			// 截出的圆的圆心坐标
+			var p_x:Number = circleUnitTransform._x;
+			var p_y:Number = circleUnitTransform._y;
+			var dz:Number = Math.abs(pointUnitTransform.centerZ - circleUnitTransform.centerZ);
+			if (circleUnitTransform.radiusZ <= dz) return res; // 水平面截不到圆
+			
+			// 截出的圆的半径
+			var r:Number = circleUnitTransform.radius / circleUnitTransform.radiusZ * Math.sqrt((circleUnitTransform.radiusZ + dz) * (circleUnitTransform.radiusZ - dz));
+		
+			// 圆外该点的座标
+			var sp_x:Number = pointUnitTransform.x,
+				sp_y:Number = pointUnitTransform.y;
 				
-				res.push(new UnitTransform(), new UnitTransform(), new UnitTransform(), new UnitTransform());
+			// 截出圆的圆心与圆外该点的中点设为圆心
+			var p2_x:Number = (p_x + sp_x) / 2,
+				p2_y:Number = (p_y + sp_y) / 2;
+			
+			// 求新圆的半径
+			var dx2:Number = p2_x - p_x, 
+				dy2:Number = p2_y - p_y,
+				r2:Number = Math.sqrt(dx2 * dx2 + dy2 * dy2); 
+			
+			var a:Number = p2_x - p_x, 
+				b:Number = p2_y - p_y,
+				r1:Number = (a * a + b * b + r * r - r2 * r2) / 2; 
+			
+			// 两切点坐标
+			var rp1_x:Number, rp1_y:Number,
+				rp2_x:Number, rp2_y:Number;
+			
+			if(a==0&&b!=0) 
+			{ 
+					rp1_y = rp2_y = r1 / b;
+					rp1_x = Math.sqrt(r * r - rp1_y * rp1_y); 
+					rp2_x=-rp1_x; 
+			} 
+			else if(a!=0&&b==0) 
+			{ 
+					rp1_x = rp2_x = r1 / a; 
+					rp1_y = Math.sqrt(r * r - rp1_x * rp2_x); 
+					rp2_y =-rp1_y; 
+			} 
+			else if(a!=0&&b!=0) 
+			{  
+					var delta:Number = b * b * r1 * r1 - (a * a + b * b) * (r1 * r1 - r * r * a * a);
+					rp1_y = (b * r1 + Math.sqrt(delta)) / (a * a + b * b); 
+					rp2_y = (b * r1 - Math.sqrt(delta)) / (a * a + b * b); 
+					rp1_x = (r1 - b * rp1_y) / a; 
+					rp2_x = (r1 - b * rp2_y) / a; 
+			} 
+		
+			// 将切点坐标值赋值
+			res.push(new UnitTransform(), new UnitTransform(), new UnitTransform(), new UnitTransform());
+			
+			res[0]._x = rp1_x + p_x;
+			res[0]._y = rp1_y + p_y;
+			res[0]._z = pointUnitTransform._z;
+			
+			res[1]._x = rp2_x + p_x;
+			res[1]._y = rp2_y + p_y;
+			res[1]._z = pointUnitTransform._z;
+			
+			// 两切点的中点到圆心的连线
+			var L:Number = Math.sqrt( ( (res[0]._x + res[1]._x) / 2 - p_x ) * ( (res[0]._x + res[1]._x) / 2 - p_x )
+									+ ( (res[0]._y + res[1]._y) / 2 - p_y ) * ( (res[0]._y + res[1]._y) / 2 - p_y ) );
+			
+			// 求两切于大圆的直线交圆心与小圆切点连线的交点
+			var	x3:Number = p_x + (res[0]._x - p_x) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L,
+				y3:Number = p_y + (res[0]._y - p_y) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L,
+				x4:Number = p_x + (res[1]._x - p_x) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L,
+				y4:Number = p_y + (res[1]._y - p_y) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L;
 				
-				res[0]._x = x1;
-				res[0]._y = y1;
-				res[0]._z = pointUnitTransform._z;
-				
-				res[1]._x = x2;
-				res[1]._y = y2;
-				res[1]._z = pointUnitTransform._z;
-				
-				// 两切点的中点到圆心的连线
-				var L:Number = Math.sqrt( ( (x1 + x2) / 2 - a ) * ( (x1 + x2) / 2 - a ) + ( (y1 + y2) / 2 - b ) * ( (y1 + y2) / 2 - b ) );
-				
-				// 求两切于大圆的直线交圆心与小圆切点连线的交点
-				var	x3:Number = a + (x1 - a) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L,
-					y3:Number = b + (y1 - b) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L,
-					x4:Number = a + (x2 - a) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L,
-					y4:Number = b + (y2 - b) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L;
-					
-				res[2]._x = x3;
-				res[2]._y = y3;
-				res[2]._z = pointUnitTransform._z;
-				
-				res[3]._x = x4;
-				res[3]._y = y4;
-				res[3]._z = pointUnitTransform._z;
-			}
+			res[2]._x = x3;
+			res[2]._y = y3;
+			res[2]._z = pointUnitTransform._z;
+			
+			res[3]._x = x4;
+			res[3]._y = y4;
+			res[3]._z = pointUnitTransform._z;
+			//}
 			
 			return res;
 		}
