@@ -1,6 +1,7 @@
 package units
 {
 	import assets.AssetManager;
+	import events.UnitEvent;
 	import flash.events.Event;
 	import flash.utils.getDefinitionByName;
 	import units.skills.AddHP;
@@ -24,9 +25,9 @@ package units
 		{
 			super();
 			addEventListener(Event.ADDED_TO_STAGE, init);
+			addEventListener(UnitEvent.COLLIDED, onCollided);
 		}
 		
-		// for test
 		private function init(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
@@ -92,6 +93,14 @@ package units
 		{
 			world.items.splice(world.items.indexOf(this), 1);
 			super.removeFromWorldUnits();
+		}
+		
+		private function onCollided(e:UnitEvent):void 
+		{
+			if (e.unit is Hero)
+			{
+				_skill.apply(e.unit);
+			}
 		}
 	}
 }

@@ -6,18 +6,15 @@ package managers
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
 	import flash.utils.setTimeout;
-	import models.Player;
 	import units.Effect;
 	import units.Hero;
 	import units.Item;
 	import units.Monster;
 	import units.Obstacle;
 	import units.Snowball;
-	import units.SpriteEx;
 	import units.Unit;
 	import units.UnitTransform;
 	import units.World;
-	import flash.display.Graphics;
 	
 	/**
 	 * 碰撞管理器
@@ -89,15 +86,11 @@ package managers
 				time:Number	= deltaTime / count,
 				ut1p:UnitTransform = ut1.clone(),
 				ut2p:UnitTransform = ut2.clone();
-			//trace( "count : " + count );
 			while (count--) 
 			{
 				var out1p:UnitTransform = ut1p.clone();
 				ut1p.advance(time);
 				ut2p.advance(time);
-				//ut1p.x += vx * time;
-				//ut1p.y += vy * time;
-				//ut1p.z += vz * time;
 				if (detectStill(ut1p, ut2p))
 				{
 					//trace('detected');
@@ -119,7 +112,6 @@ package managers
 						}
 					} while (1.0 < UnitTransform.getDistance(lo, hi))
 					return lo;
-					//return trace('detected'), ut1p;
 				}
 			}
 			return null;
@@ -172,7 +164,12 @@ package managers
 				for (j = 0; j < items.length; ++j)
 				{
 					res = detect(heroes[i].unitTransform, items[j].unitTransform, deltaTime);
-					//if (res) heroes[i].dispatchEvent(new UnitEvent(UnitEvent.COLLIDED, items[i]));
+					if (res)
+					{
+						heroes[i].dispatchEvent(new UnitEvent(UnitEvent.COLLIDED, items[j]));
+						items[j].dispatchEvent(new UnitEvent(UnitEvent.COLLIDED, heroes[i]));
+						items[j].removeFromWorld();
+					}
 				}
 			}
 			
