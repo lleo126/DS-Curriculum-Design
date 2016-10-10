@@ -24,7 +24,7 @@ package units
 		 * 当它被第一次添加入舞台时调用
 		 * @param	e
 		 */
-		private function init(e:Event):void 
+		protected function init(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			

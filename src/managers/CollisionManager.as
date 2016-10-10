@@ -2,6 +2,7 @@ package managers
 {
 	import animations.SnowballExplosionAnimation;
 	import events.UnitEvent;
+	import flash.display.BlendMode;
 	import flash.display.Shape;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
@@ -260,37 +261,61 @@ package managers
 		
 		private function snowballExplode(snowball:Snowball):void 
 		{
-			var explosion:Effect = new Effect(new SnowballExplosionAnimation(explosion));
+			var explosion:Effect = new Effect(new SnowballExplosionAnimation(explosion, snowball.attackRange));
 			explosion.unitTransform.setByUnitTransform(snowball.unitTransform);
 			world.addUnit(explosion);
+			// TODO: 在 Animation 里提供接口
 			setTimeout(function ():void 
 			{
 				explosion.removeFromWorld();
 			}, 250);
 			
-			var res:Vector.<UnitTransform>;
-			var deleteImg:Shape = new Shape();
+			var shadows:Shape = new Shape();
+			shadows.y -= explosion.unitTransform.z;
+			shadows.blendMode = BlendMode.ERASE;
+			explosion.blendMode = BlendMode.LAYER;
+			explosion.addChild(shadows);
 			
+			var res:Vector.<UnitTransform>;
 			for (var i:int = 0; i < obstacles.length; ++i) 
 			{
 				if (getDistance(snowball.unitTransform, obstacles[i].unitTransform) <= snowball.attackRange + obstacles[i].unitTransform.radius)
 				{
 					res = UnitTransform.getSupportUnitTransforms(snowball.unitTransform, obstacles[i].unitTransform);
 					if (!res) continue;
-					deleteImg.graphics.beginFill(0xffff6f);
-					deleteImg.graphics.moveTo(res[0].x, res[0].y + res[0].z);
-					deleteImg.graphics.lineTo(res[1].x, res[1].y + res[1].z);
-					deleteImg.graphics.lineTo(res[3].x, res[3].y + res[3].z);
-					deleteImg.graphics.lineTo(res[2].x, res[2].y + res[2].z);
-					deleteImg.graphics.endFill();
 					
-					deleteImg.graphics.beginFill(0xffff0f);
-					deleteImg.graphics.drawCircle(obstacles[i].unitTransform.x, obstacles[i].unitTransform.y, obstacles[i].unitTransform.radius);
-					deleteImg.graphics.endFill();
-					world.stage.addChild(deleteImg);
+					for (var j:int = 0; j < res.length; ++j)
+					{
+						res[j] = UnitTransform.globalToLocal(res[j], explosion.unitTransform);
+					}
+					
+					// 遮蔽障碍物
+					shadows.graphics.beginFill(0x2EEAAF);
+					var localObstacleUnitTransform:UnitTransform = UnitTransform.globalToLocal(obstacles[i].unitTransform, explosion.unitTransform);
+					shadows.graphics.drawCircle(localObstacleUnitTransform.x, localObstacleUnitTransform.y, obstacles[i].unitTransform.radius);
+					shadows.graphics.endFill();
+					
+					// 遮蔽梯形
+					shadows.graphics.beginFill(0xFFFF6F);
+					shadows.graphics.moveTo(res[0].x, res[0].y);
+					shadows.graphics.lineTo(res[1].x, res[1].y);
+					shadows.graphics.lineTo(res[2].x, res[2].y);
+					shadows.graphics.lineTo(res[3].x, res[3].y);
+					shadows.graphics.endFill();
 			
+					if (Main.DEBUG)
+					{
+						// 爆炸点
+						shadows.graphics.beginFill(0xFFA330);
+						shadows.graphics.drawCircle(0.0, 0.0, 10.0);
+						shadows.graphics.endFill();
+						
+						// 爆炸范围
+						shadows.graphics.lineStyle(4.0, 0x31FEA3);
+						shadows.graphics.drawCircle(0.0, 0.0, snowball.attackRange);
+						shadows.graphics.lineStyle();
+					}
 				}
-				//explosion.body
 			}
 		}
 	}

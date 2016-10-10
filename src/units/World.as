@@ -107,7 +107,7 @@ package units
 		
 		// for test
 		private var testUnit:Unit;
-		private var testUnitBall:Unit;
+		private var testUnitBall:Effect;
 		
 		//==========
 		// 属性
@@ -229,8 +229,7 @@ package units
 				obstacleGenerator.dropUnit(obstacle);
 			}
 			
-			testUnitBall = new Unit();
-			testUnitBall.body = new SpriteEx(new SnowballExplosionAnimation(testUnitBall));
+			testUnitBall = new Effect(new SnowballExplosionAnimation(testUnitBall, 200));
 			addChild(testUnitBall);
 
 			testUnit = new Unit();

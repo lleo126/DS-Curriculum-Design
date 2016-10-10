@@ -11,14 +11,15 @@ package units
 		public function Effect(animation:Animation)
 		{
 			this.animation = animation;
-			addEventListener(Event.ADDED_TO_STAGE, init);
 		}
 		
-		private function init(e:Event):void 
+		override protected function init(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
+			addChild(_body);
 			_body.center();
+			update(0);
 		}
 		
 		private var _animation:Animation;
