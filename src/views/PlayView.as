@@ -10,6 +10,7 @@ package views
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.net.URLRequest;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.ui.Keyboard;
@@ -100,8 +101,11 @@ package views
 		// 方法
 		//==========
 		override protected function init(ev:Event = null):void 
-		{	ui = new Sprite();
-		
+		{	
+			
+			
+			ui = new Sprite();
+
 			_stop = new Sprite();
 			menuImg	= new AssetManager.MENU_IMG();
 			stopBackground = new AssetManager.STOPBACKGROUND_IMG();
@@ -141,6 +145,7 @@ package views
 		
 		override protected function placeElements():void 
 		{
+			
 			addChild(_world);
 			addChild(ui);
 			//=========暂停界面=======

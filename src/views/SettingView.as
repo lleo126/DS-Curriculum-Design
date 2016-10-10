@@ -8,6 +8,7 @@ package views
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.media.SoundTransform;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.ui.Keyboard;
@@ -92,6 +93,7 @@ package views
 			
 		override protected function init(ev:Event = null):void 
 		{
+			
 			background = new AssetManager.SETTING_BACKGROUND();
 			
 			buttonGroupSound 	= new Sprite();
@@ -147,6 +149,8 @@ package views
 		private function setSoundValue(e:Event):void 
 		{
 			Setting.current.soundValue = slider1.value;
+			AssetManager.transMusic.volume = slider1.value / 100;
+			AssetManager.songMusic.soundTransform = AssetManager.transMusic;
 		}
 		
 		private function setSoundEffectValue(e:Event):void 

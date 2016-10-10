@@ -148,7 +148,7 @@ package units
 		/**
 		 * 朝向，单位的图片根据朝向设定
 		 */
-		public var orientation:Number = 90.0;
+		private var _orientation:Number = 90.0;
 		
 		/**
 		 * 碰撞半径
@@ -232,6 +232,16 @@ package units
 		 */
 		public function get radiusZ():Number { return altitude * 0.5; }
 		
+		public function get orientation():Number 
+		{
+			return _orientation;
+		}
+		
+		public function set orientation(value:Number):void 
+		{
+			_orientation = (value + 360.0) % 360.0;
+		}
+		
 		//==========
 		// 方法
 		//==========
@@ -303,7 +313,7 @@ package units
 			_x = unitTransform._x;
 			_y = unitTransform._y;
 			_z = unitTransform._z;
-			orientation = unitTransform.orientation;
+			_orientation = unitTransform._orientation;
 			update();
 		}
 		

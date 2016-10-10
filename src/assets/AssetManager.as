@@ -1,5 +1,9 @@
 package assets 
 {
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
+	import flash.media.SoundTransform;
+	import flash.net.URLRequest;
 	/**
 	 * ...
 	 * @author 彩月葵☆彡
@@ -268,5 +272,9 @@ package assets
 		[Embed(source = "../../assets/Animation/ball.png")]
 		public static const BALL_EXPLOSION:Class;
 		//==========================/
+		
+		public static var songMusic:SoundChannel;
+		public static var soundFactory:Sound;
+		public static var transMusic:SoundTransform = new SoundTransform();
 	}
 }

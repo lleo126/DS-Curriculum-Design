@@ -1,5 +1,6 @@
 package units 
 {
+	import animations.HeroMoveAnimation;
 	import assets.AssetManager;
 	import controls.APBar;
 	import controls.HPBar;
@@ -28,23 +29,23 @@ package units
 		public static const MAX_HP:Number = 100.0;
 		public static const MAX_SP:Number = 100.0;
 		public static const MAX_AP:Number = 80.0;
+		static public const SCALE:Number = 1.0;
 		
 		private static const ATTCK_RANGE:Number = 200.0;
 		private static const EXPLOSION_DISTANCE:Number = 100.0;
-		private static const MAX_SPEED:Number = 0.5;
-		private static const RADIUS:Number = 25.0;
-		private static const ALTITUDE:Number = 2.0 * RADIUS;
-		private static const PIVOT_X:Number = RADIUS;
-		private static const PIVOT_Y:Number = 2.0 * RADIUS;
+		private static const MAX_SPEED:Number = 0.35;
+		private static const RADIUS:Number = 21.0;
+		private static const ALTITUDE:Number = 62.0;
+		private static const PIVOT_X:Number = 29.0;
+		private static const PIVOT_Y:Number = 83.0;
 		
 		public function Hero() 
 		{
 			name = 'hero';
 			
-			_body = new SpriteEx(new AssetManager.HERO_IMG());
+			_body = new SpriteEx(new HeroMoveAnimation(this));
 			
-			_body.width = 2.0 * RADIUS;
-			_body.height = 2.0 * RADIUS;
+			_body.scaleX = _body.scaleY = SCALE;
 			_hp = HP;
 			_sp = SP;
 			_ap = AP;

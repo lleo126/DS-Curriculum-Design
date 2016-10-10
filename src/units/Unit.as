@@ -5,6 +5,8 @@ package units
 	import interfaces.IUpdate;
 	import models.Player;
 	
+	[event(type=Event.CHANGE)]
+	
 	/**
 	 * 游戏世界中最基本的单位，抽象类
 	 * @author 彩月葵☆彡

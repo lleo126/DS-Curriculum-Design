@@ -7,8 +7,11 @@ package views
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.media.Sound;
+	import flash.net.URLRequest;
 	import flash.system.fscommand;
 	import models.Player;
+
 	/**
 	 * @author Weng_X
 	 */
@@ -39,6 +42,8 @@ package views
 		private var buttonAbout:SimpleButton;
 		private var conceptFrame:ConceptFrame;
 		
+		
+		
 		public function MainView() 
 		{
 			
@@ -46,6 +51,10 @@ package views
 		
 		override protected function init(ev:Event = null):void 
 		{
+			AssetManager.soundFactory = new Sound();
+			AssetManager.soundFactory.load(new URLRequest("music/MySound.mp3"));
+			AssetManager.songMusic = AssetManager.soundFactory.play(0,int.MAX_VALUE);
+			
 			buttonGroup = new Sprite();
 			
 			background = new AssetManager.MAIN_BACKGROUND_IMG();
