@@ -259,12 +259,16 @@ package managers
 				if (getDistance(snowball.unitTransform, obstacles[i].unitTransform) <= snowball.attackRange + obstacles[i].unitTransform.radius)
 				{
 					res = UnitTransform.getSupportUnitTransforms(snowball.unitTransform, obstacles[i].unitTransform);
-					if (res.length == 0) continue;
+					if (!res) continue;
 					deleteImg.graphics.beginFill(0xffff6f);
 					deleteImg.graphics.moveTo(res[0].x + res[0].z, res[0].y + res[0].z);
 					deleteImg.graphics.lineTo(res[1].x + res[1].z, res[1].y + res[1].z);
 					deleteImg.graphics.lineTo(res[3].x + res[3].z, res[3].y + res[3].z);
 					deleteImg.graphics.lineTo(res[2].x + res[2].z, res[2].y + res[2].z);
+					deleteImg.graphics.endFill();
+					
+					deleteImg.graphics.beginFill(0xffff0f);
+					deleteImg.graphics.drawCircle(obstacles[i].unitTransform.x, obstacles[i].unitTransform.y, obstacles[i].unitTransform.radius);
 					deleteImg.graphics.endFill();
 					world.stage.addChild(deleteImg);
 					trace('aa');

@@ -220,7 +220,7 @@ package units
 				heroGenerator.dropUnit(_players[i].hero);
 			}
 			
-			for (i = 0; i < 30; i++) 
+			for (i = 0; i < 10; i++) 
 			{
 				var item:Unit = itemGenerator.randomUnit();
 				itemGenerator.dropUnit(item);

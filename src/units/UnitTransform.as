@@ -18,13 +18,15 @@ package units
 		 */
 		public static function getSupportUnitTransforms(pointUnitTransform:UnitTransform, circleUnitTransform:UnitTransform):Vector.<UnitTransform> 
 		{
-			var res:Vector.<UnitTransform> = new <UnitTransform>[];
+			var res:Vector.<UnitTransform>;
 				
 			// 截出的圆的圆心坐标
 			var p_x:Number = circleUnitTransform._x;
 			var p_y:Number = circleUnitTransform._y;
 			var dz:Number = Math.abs(pointUnitTransform.centerZ - circleUnitTransform.centerZ);
 			if (circleUnitTransform.radiusZ <= dz) return res; // 水平面截不到圆
+			
+			res = new <UnitTransform>[];
 			
 			// 截出的圆的半径
 			var r:Number = circleUnitTransform.radius / circleUnitTransform.radiusZ * Math.sqrt((circleUnitTransform.radiusZ + dz) * (circleUnitTransform.radiusZ - dz));
@@ -90,11 +92,11 @@ package units
 			{
 				res.push(new UnitTransform(), new UnitTransform());
 				// 求两切于大圆的直线交圆心与小圆切点连线的交点
-				var	x3:Number = p_x + (res[0]._x - p_x) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / (r * L),
-					y3:Number = p_y + (res[0]._y - p_y) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / (r * L),
-					x4:Number = p_x + (res[1]._x - p_x) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / (r * L),
-					y4:Number = p_y + (res[1]._y - p_y) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / (r * L);
-					
+				var	x3:Number = p_x + (res[0]._x - p_x) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L,
+					y3:Number = p_y + (res[0]._y - p_y) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L,
+					x4:Number = p_x + (res[1]._x - p_x) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L,
+					y4:Number = p_y + (res[1]._y - p_y) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L;
+									
 				res[2]._x = x3;
 				res[2]._y = y3;
 				res[2]._z = pointUnitTransform._z;
@@ -105,7 +107,6 @@ package units
 				
 				return res;
 			}
-			
 			return null;
 		}
 		
