@@ -348,7 +348,7 @@ package units
 				effect.update(_deltaTime);
 			}
 			
-			testUnit.update(_deltaTime);
+			//testUnit.update(_deltaTime);
 			//testUnitBall.update(_deltaTime);
 			zSort();
 		}
