@@ -229,14 +229,14 @@ package units
 				obstacleGenerator.dropUnit(obstacle);
 			}
 			
-			testUnitBall = new Unit();
-			testUnitBall.body = new SpriteEx(new SnowballExplosionAnimation(testUnitBall));
-			addChild(testUnitBall);
-
-			testUnit = new Unit();
-			testUnit.body = new SpriteEx(new HeroMoveAnimation(testUnit));
-			addUnit(testUnit);
-			testUnit.x = 200;
+			//testUnitBall = new Unit();
+			//testUnitBall.body = new SpriteEx(new SnowballExplosionAnimation(testUnitBall));
+			//addChild(testUnitBall);
+//
+			//testUnit = new Unit();
+			//testUnit.body = new SpriteEx(new HeroMoveAnimation(testUnit));
+			//addUnit(testUnit);
+			//testUnit.x = 200;
 		}
 		
 		/**
@@ -349,7 +349,7 @@ package units
 				effect.update(_deltaTime);
 			}
 			
-			testUnit.update(_deltaTime);
+			//testUnit.update(_deltaTime);
 			//testUnitBall.update(_deltaTime);
 			zSort();
 		}
