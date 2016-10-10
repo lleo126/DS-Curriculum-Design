@@ -1,5 +1,7 @@
 package units.skills 
 {
+	import units.Hero;
+	import units.Unit;
 	/**
 	 * ...
 	 * @author leo126
@@ -13,6 +15,10 @@ package units.skills
 			//
 		}
 		public var addSnow:Number;
+		
+		override public function apply(unit:Unit):void 
+		{
+			(unit as Hero).sp += addSnow;
+		}
 	}
-
 }

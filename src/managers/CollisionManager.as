@@ -6,18 +6,15 @@ package managers
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
 	import flash.utils.setTimeout;
-	import models.Player;
 	import units.Effect;
 	import units.Hero;
 	import units.Item;
 	import units.Monster;
 	import units.Obstacle;
 	import units.Snowball;
-	import units.SpriteEx;
 	import units.Unit;
 	import units.UnitTransform;
 	import units.World;
-	import flash.display.Graphics;
 	
 	/**
 	 * 碰撞管理器
@@ -89,17 +86,32 @@ package managers
 				time:Number	= deltaTime / count,
 				ut1p:UnitTransform = ut1.clone(),
 				ut2p:UnitTransform = ut2.clone();
-			//trace( "count : " + count );
 			while (count--) 
 			{
+				var out1p:UnitTransform = ut1p.clone();
 				ut1p.advance(time);
 				ut2p.advance(time);
-				//ut1p.x += vx * time;
-				//ut1p.y += vy * time;
-				//ut1p.z += vz * time;
 				if (detectStill(ut1p, ut2p))
 				{
-					//return trace('detected'), ut1p;
+					//trace('detected');
+					var lo:UnitTransform = out1p,
+						hi:UnitTransform = ut1p,
+						mi:UnitTransform = lo.clone();
+					do
+					{
+						mi.x = (lo.x + hi.x) * 0.5;
+						mi.y = (lo.y + hi.y) * 0.5;
+						mi.z = (lo.z + hi.z) * 0.5;
+						if (detectStill(mi, ut2p))
+						{
+							hi = mi;
+						}
+						else 
+						{
+							lo = mi;
+						}
+					} while (1.0 < UnitTransform.getDistance(lo, hi))
+					return lo;
 				}
 			}
 			return null;
@@ -152,7 +164,12 @@ package managers
 				for (j = 0; j < items.length; ++j)
 				{
 					res = detect(heroes[i].unitTransform, items[j].unitTransform, deltaTime);
-					//if (res) heroes[i].dispatchEvent(new UnitEvent(UnitEvent.COLLIDED, items[i]));
+					if (res)
+					{
+						heroes[i].dispatchEvent(new UnitEvent(UnitEvent.COLLIDED, items[j]));
+						items[j].dispatchEvent(new UnitEvent(UnitEvent.COLLIDED, heroes[i]));
+						items[j].removeFromWorld();
+					}
 				}
 			}
 			
@@ -259,12 +276,16 @@ package managers
 				if (getDistance(snowball.unitTransform, obstacles[i].unitTransform) <= snowball.attackRange + obstacles[i].unitTransform.radius)
 				{
 					res = UnitTransform.getSupportUnitTransforms(snowball.unitTransform, obstacles[i].unitTransform);
-					if (res.length == 0) continue;
+					if (!res) continue;
 					deleteImg.graphics.beginFill(0xffff6f);
 					deleteImg.graphics.moveTo(res[0].x, res[0].y + res[0].z);
 					deleteImg.graphics.lineTo(res[1].x, res[1].y + res[1].z);
 					deleteImg.graphics.lineTo(res[3].x, res[3].y + res[3].z);
 					deleteImg.graphics.lineTo(res[2].x, res[2].y + res[2].z);
+					deleteImg.graphics.endFill();
+					
+					deleteImg.graphics.beginFill(0xffff0f);
+					deleteImg.graphics.drawCircle(obstacles[i].unitTransform.x, obstacles[i].unitTransform.y, obstacles[i].unitTransform.radius);
 					deleteImg.graphics.endFill();
 					world.stage.addChild(deleteImg);
 			
