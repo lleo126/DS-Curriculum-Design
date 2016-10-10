@@ -10,6 +10,7 @@ package views
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
+	import models.Player;
 	
 	/**
 	 * 成绩界面
@@ -56,7 +57,7 @@ package views
 		
 		//分数组定义
 		private var scoreGroup:Sprite;
-		private var blackboard:Bitmap;
+		private var background:Bitmap;
 		private var scorePlayerShow1:TextField;
 		private var scorePlayerShow2:TextField;
 		private var win:TextField;
@@ -78,8 +79,8 @@ package views
 		{
 			//传入的分数(测试用)
 			scorePlayer1 = 4326;//测试用 等传入数值1
-			scorePlayer2 = 4957;//测试用 等传入数值2
-			playerType = 1;
+			scorePlayer2 = 47;//测试用 等传入数值2
+			playerType = 2;
 			//type = 'challenge';
 			
 			
@@ -90,7 +91,7 @@ package views
 			scoreGroup = new Sprite();
 			//scoreGroup.addEventListener(MouseEvent.CLICK, inactivate);
 			
-			blackboard = new AssetManager.BLACKBOARD_IMG();
+			background = new AssetManager.BACKGROUND_SCORE();
 			
 			scorePlayerShow1 = new TextField();
 			scorePlayerShow2 = new TextField(); 
@@ -134,7 +135,7 @@ package views
 			buttonGroup = new Sprite();
 			buttonGroup.addEventListener(MouseEvent.CLICK, buttonClick);
 			
-			var bmp:Bitmap = new AssetManager.BUTTON_BACK_IMG();
+			var bmp:Bitmap = new AssetManager.BACK_BUTTON_SCORE();
 			buttonBack = new SimpleButton(bmp, bmp, bmp, bmp);
 			
 			bmp = new AssetManager.RETURN_GAME_IMG();
@@ -144,13 +145,10 @@ package views
 		override protected function placeElements():void
 		{
 			//分数类显示
-			blackboard.width = BLACKBOARD_WIDTH;
-			blackboard.height = BLACKBOARD_HEIGHT;
-			blackboard.x = BLACKBOARD_X;
-			blackboard.y = BLACKBOARD_Y;
 			
+			background.x = (stage.stageWidth - background.width) * 0.5;
+			addChild(background);
 			addChild(scoreGroup);
-			scoreGroup.addChild(blackboard);
 			
 			if (type == 'challenge')
 			{
@@ -227,6 +225,7 @@ package views
 					else
 					{
 						Main.current.view = View.PLAY_VIEW;
+						View.PLAY_VIEW.world.start(PlayView.BATTLE, new <Player>[new Player(), new Player()]); // 临时 测试用
 					}
 			}
 		}

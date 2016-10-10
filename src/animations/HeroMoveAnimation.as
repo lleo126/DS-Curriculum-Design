@@ -14,10 +14,10 @@ package animations
 		public function HeroMoveAnimation(unit:Unit) 
 		{
 			rowNow = 0;
-			_delay = 30;
+			_delay = 60;
 			_img = new AssetManager.HERO_MOVE();
 			_row = 8;
-			_column = 13;
+			_column = 9;
 			dirNum = 8;
 			super(unit);
 		}

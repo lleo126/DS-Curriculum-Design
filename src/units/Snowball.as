@@ -12,7 +12,7 @@ package units
 		/** 质量，与蓄力后雪球的投掷距离成反比 */
 		public static const MASS:Number = 50.0;
 		private static const MAX_SPEED:Number = 1.0;
-		private static const ATTACK_RANGE_RATIO:Number = 5.0;
+		public static const ATTACK_RANGE_RATIO:Number = 5.0;
 		private static const DAMAGE_SNOW_RATIO:Number = 0.2;
 		
 		/**
@@ -26,7 +26,7 @@ package units
 			
 			damage = _unitTransform.radius = radius;
 			_unitTransform.altitude = _body.width = _body.height = 2.0 * radius;
-			attackRange = radius * ATTACK_RANGE_RATIO;
+			_attackRange = radius * ATTACK_RANGE_RATIO;
 			_bonus = bonus;
 			_maxSpeed = MAX_SPEED;
 			

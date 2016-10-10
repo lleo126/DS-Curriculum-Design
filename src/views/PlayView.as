@@ -55,6 +55,7 @@ package views
 		public var statusBarAP2:APBar;
 		
 		private var groupScore:Sprite;
+		private var scoreBaffle:Bitmap;
 		private var score:TextField;
 		private var role1_score:TextField;
 		private var colon:TextField;
@@ -112,6 +113,7 @@ package views
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
 			
 			groupScore	= new Sprite();
+			scoreBaffle = new AssetManager.BAFFLE();
 			score		= new TextField();
 			role1_score = new TextField();
 			colon		= new TextField();
@@ -154,17 +156,21 @@ package views
 			_stop.addChild(buttonBack);
 			_stop.addChild(menuImg);
 			
-			menuImg.x = 440;
-			menuImg.y = 120;
+			menuImg.smoothing = true;
+			menuImg.width = 300;
+			menuImg.height = 160;
+			menuImg.x = 365;
+			menuImg.y = 60;
 			
+			stopBackground.smoothing = true;
 			stopBackground.x= 240;
-			stopBackground.y = menuImg.y + 50;
+			stopBackground.y = menuImg.y + 110;
 			stopBackground.width = 550;
 			stopBackground.height = 400;
 			
-			returnGame.x	= menuImg.x + 20;
+			returnGame.x	= menuImg.x + 95;
 			returnGame.y	= stopBackground.y + 100;
-			buttonBack.x	= menuImg.x + 5;
+			buttonBack.x	= menuImg.x + 80;
 			buttonBack.y	= returnGame.y + 100;
 			buttonBack.width = 135;
 			buttonBack.height = 60;
@@ -242,11 +248,18 @@ package views
 			role2_score.text= '0';
 			
 			colon.x = stage.stageWidth * 0.5;
+			
 			score.x = colon.x - 360;
+			scoreBaffle.x = score.x;
+			scoreBaffle.y = score.y;
+			scoreBaffle.width = role2_score.x - score.x;
+			scoreBaffle.height = score.height;
+			
 			role1_score.x = colon.x - 60 - role1_score.width;
 			role2_score.x = colon.x + 60;
 
 			ui.addChild(groupScore);
+			groupScore.addChild(scoreBaffle);
 			groupScore.addChild(score);
 			groupScore.addChild(role1_score);
 			groupScore.addChild(colon);

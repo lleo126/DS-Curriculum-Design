@@ -1,5 +1,6 @@
 package units 
 {
+	import asunit.errors.UnimplementedFeatureError;
 	import flash.geom.Point;
 	/**
 	 * 单位的位置、速度和碰撞信息，与单位绑定
@@ -13,70 +14,100 @@ package units
 		 * 然后从这点发出两条切线，切刚才截出的圆为两点，求这两点与发出射线的点连线于圆的切线组成的梯形
 		 * @param	pointUnitTransform	发出射线的点
 		 * @param	circleUnitTransform	球心
-		 * @return	若在水平面上有两个切点，则数组有两个元素表示切点；否则为空数组
+		 * @return	若在水平面上有四个切点，则数组有四个元素表示切点；否则为空数组
 		 */
 		public static function getSupportUnitTransforms(pointUnitTransform:UnitTransform, circleUnitTransform:UnitTransform):Vector.<UnitTransform> 
 		{
-			var res:Vector.<UnitTransform> = new <UnitTransform>[];
-			
-			// 圆心坐标 (待测试)
-			var a:Number = circleUnitTransform._x, b:Number = circleUnitTransform._y;
+			var res:Vector.<UnitTransform>;
+				
+			// 截出的圆的圆心坐标
+			var p_x:Number = circleUnitTransform._x;
+			var p_y:Number = circleUnitTransform._y;
 			var dz:Number = Math.abs(pointUnitTransform.centerZ - circleUnitTransform.centerZ);
 			if (circleUnitTransform.radiusZ <= dz) return res; // 水平面截不到圆
 			
-			// 半径 (待测试)
+			res = new <UnitTransform>[];
+			
+			// 截出的圆的半径
 			var r:Number = circleUnitTransform.radius / circleUnitTransform.radiusZ * Math.sqrt((circleUnitTransform.radiusZ + dz) * (circleUnitTransform.radiusZ - dz));
-			
+		
 			// 圆外该点的座标
-			var m:Number = pointUnitTransform.x;
-			var n:Number = pointUnitTransform.y;
-			// 点到圆心距离的平方
-			var d2:Number = (m - a) * (m - a) + (n - b) * (n - b);
-			// 点到圆心距离
-			var d:Number  = Math.sqrt( d2 );
-			// 半径的平方
-			var r2:Number = r * r;
-			if ( d2 < r2 )
-			{
-				//trace("点在圆内，无切点");
-			}
-			else if ( d2 == r2 )
-			{
-				//trace("点在圆上，切点为给定点");
-			}
-			else
-			{
-				// 点到切点距离
-				var l:Number = Math.sqrt( d2 - r2 );
-				// 点->圆心的单位向量
-				var x0:Number = ( a - m ) / d;
-				var y0:Number = ( b - n ) / d;
-				// 计算切线与点心连线的夹角
-				var f:Number = Math.asin( r / d );
-				// 向正反两个方向旋转单位向量
-				var x1:Number = x0 * Math.cos( f ) - y0 * Math.sin( f );
-				var y1:Number = x0 * Math.sin( f ) + y0 * Math.cos( f );
-				var x2:Number = x0 * Math.cos(-f ) - y0 * Math.sin(-f );
-				var y2:Number = x0 * Math.sin(-f ) + y0 * Math.cos(-f );
-				// 得到新座标
-				x1 = ( x1 + m ) * l;
-				y1 = ( y1 + n ) * l;
-				x2 = ( x2 + m ) * l;
-				y2 = ( y2 + n ) * l;
-				// 将坐标值赋值
+			var sp_x:Number = pointUnitTransform.x,
+				sp_y:Number = pointUnitTransform.y;
 				
-				res.push(new UnitTransform(), new UnitTransform());
-				
-				res[0]._x = x1;
-				res[0]._y = y1;
-				res[0]._z = pointUnitTransform._z;
-				
-				res[1]._x = x2;
-				res[1]._y = y2;
-				res[1]._z = pointUnitTransform._z;
-			}
+			// 截出圆的圆心与圆外该点的中点设为圆心
+			var p2_x:Number = (p_x + sp_x) / 2,
+				p2_y:Number = (p_y + sp_y) / 2;
 			
-			return res;
+			// 求新圆的半径
+			var dx2:Number = p2_x - p_x, 
+				dy2:Number = p2_y - p_y,
+				r2:Number = Math.sqrt(dx2 * dx2 + dy2 * dy2); 
+			
+			var a:Number = dx2, 
+				b:Number = dy2,
+				r1:Number = (a * a + b * b + r * r - r2 * r2) / 2; 
+			
+			// 两切点坐标
+			var rp1_x:Number, rp1_y:Number,
+				rp2_x:Number, rp2_y:Number;
+			
+			if(a==0&&b!=0)
+			{ 
+					rp1_y = rp2_y = r1 / b;
+					rp1_x = Math.sqrt(r * r - rp1_y * rp1_y); 
+					rp2_x=-rp1_x; 
+			} 
+			else if(a!=0&&b==0) 
+			{ 
+					rp1_x = rp2_x = r1 / a; 
+					rp1_y = Math.sqrt(r * r - rp1_x * rp2_x); 
+					rp2_y =-rp1_y; 
+			} 
+			else if(a!=0&&b!=0) 
+			{  
+					var delta:Number = b * b * r1 * r1 - (a * a + b * b) * (r1 * r1 - r * r * a * a);
+					rp1_y = (b * r1 + Math.sqrt(delta)) / (a * a + b * b); 
+					rp2_y = (b * r1 - Math.sqrt(delta)) / (a * a + b * b); 
+					rp1_x = (r1 - b * rp1_y) / a; 
+					rp2_x = (r1 - b * rp2_y) / a; 
+			} 
+
+			// 将两切点坐标值赋值
+			res.push(new UnitTransform(), new UnitTransform());
+			
+			res[0]._x = rp1_x + p_x;
+			res[0]._y = rp1_y + p_y;
+			res[0]._z = pointUnitTransform._z;
+			
+			res[1]._x = rp2_x + p_x;
+			res[1]._y = rp2_y + p_y;
+			res[1]._z = pointUnitTransform._z;
+
+			// 两切点的中点到圆心的连线
+			var L:Number = Math.sqrt( ( (res[0]._x + res[1]._x) / 2 - p_x ) * ( (res[0]._x + res[1]._x) / 2 - p_x )
+									+ ( (res[0]._y + res[1]._y) / 2 - p_y ) * ( (res[0]._y + res[1]._y) / 2 - p_y ) );
+			
+			if (L < pointUnitTransform.radius)
+			{
+				res.push(new UnitTransform(), new UnitTransform());
+				// 求两切于大圆的直线交圆心与小圆切点连线的交点
+				var	x3:Number = p_x + (res[0]._x - p_x) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L,
+					y3:Number = p_y + (res[0]._y - p_y) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L,
+					x4:Number = p_x + (res[1]._x - p_x) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L,
+					y4:Number = p_y + (res[1]._y - p_y) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L;
+									
+				res[2]._x = x3;
+				res[2]._y = y3;
+				res[2]._z = pointUnitTransform._z;
+				
+				res[3]._x = x4;
+				res[3]._y = y4;
+				res[3]._z = pointUnitTransform._z;
+				
+				return res;
+			}
+			return null;
 		}
 		
 		[inline]

@@ -53,7 +53,7 @@ package units
 		/**
 		 * 攻击距离
 		 */
-		protected var attackRange:Number;
+		protected var _attackRange:Number;
 		
 		/**
 		 * 阴影
@@ -130,6 +130,11 @@ package units
 		 */
 		public function get bonus():int { return _bonus; }
 		
+		public function get attackRange():Number 
+		{
+			return _attackRange;
+		}
+		
 		//==========
 		// 方法
 		//==========
@@ -140,7 +145,7 @@ package units
 			{
 				graphics.clear();
 				graphics.lineStyle(3, 0x4186F4);
-				graphics.drawEllipse(-unitTransform.radius, -unitTransform.top, 2.0 * unitTransform.radius, unitTransform.altitude);
+				graphics.drawEllipse(-unitTransform.radius / scaleX, -unitTransform.top / scaleX, 2.0 * unitTransform.radius / scaleX, unitTransform.altitude / scaleX);
 			}
 			dropShadow.update(deltaTime);
 			body.update(deltaTime);

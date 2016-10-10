@@ -1,16 +1,23 @@
 package managers 
 {
+	import animations.SnowballExplosionAnimation;
 	import events.UnitEvent;
+	import flash.display.Shape;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
+	import flash.utils.setTimeout;
 	import models.Player;
+	import units.Effect;
 	import units.Hero;
 	import units.Item;
 	import units.Monster;
 	import units.Obstacle;
 	import units.Snowball;
+	import units.SpriteEx;
 	import units.Unit;
 	import units.UnitTransform;
+	import units.World;
+	import flash.display.Graphics;
 	
 	/**
 	 * 碰撞管理器
@@ -41,6 +48,7 @@ package managers
 		// 变量
 		//==========
 		
+		public var world:World;
 		private var heroes:Vector.<Hero>;
 		private var snowballs:Vector.<Snowball>;
 		private var monsters:Vector.<Monster>;
@@ -182,9 +190,16 @@ package managers
 					if (res) updateBounce(snowballs[i], res);
 				}
 				
+				for (j = 0; j < obstacles.length; ++j)
+				{
+					res = detect(snowballs[i].unitTransform, obstacles[j].unitTransform, deltaTime);
+					if (res) updateBounce(snowballs[i], res);
+				}
+				
 				// 临时：如果雪球撞到地面，就消失
 				if (snowballs[i].unitTransform.z < 0.0) 
 				{
+					snowballExplode(snowballs[i]);
 					snowballs[i].removeFromWorld();
 				}
 			}
@@ -199,7 +214,7 @@ package managers
 		 */
 		private function updateBounce(unit:Unit, ut:UnitTransform):void 
 		{
-			trace( "CollisionManager.updateBounce > unit : " + unit + ", ut : " + ut );
+			//trace( "CollisionManager.updateBounce > unit : " + unit + ", ut : " + ut );
 			if (!(unit in bounce) || UnitTransform.getDistance(unit.unitTransform, ut) < UnitTransform.getDistance(unit.unitTransform, bounce[unit])) bounce[unit] = ut;
 		}
 		
@@ -228,7 +243,12 @@ package managers
 			
 			for (i = 0; i < snowballs.length; ++i) 
 			{
-				if (snowballs[i] in bounce) snowballs[i].unitTransform = bounce[snowballs[i]];
+				if (snowballs[i] in bounce)
+				{
+					snowballs[i].unitTransform = bounce[snowballs[i]];
+					snowballExplode(snowballs[i]);
+					snowballs[i].removeFromWorld();
+				}
 				else snowballs[i].unitTransform.advance(deltaTime);
 			}
 			
@@ -239,6 +259,42 @@ package managers
 				//else unit.unitTransform.advance(deltaTime);
 			//}
 			bounce = new Dictionary();
+		}
+		
+		private function snowballExplode(snowball:Snowball):void 
+		{
+			var explosion:Effect = new Effect(new SnowballExplosionAnimation(explosion));
+			explosion.unitTransform.setByUnitTransform(snowball.unitTransform);
+			world.addUnit(explosion);
+			setTimeout(function ():void 
+			{
+				explosion.removeFromWorld();
+			}, 250);
+			
+			var res:Vector.<UnitTransform>;
+			var deleteImg:Shape = new Shape();
+			
+			for (var i:int = 0; i < obstacles.length; ++i) 
+			{
+				if (getDistance(snowball.unitTransform, obstacles[i].unitTransform) <= snowball.attackRange + obstacles[i].unitTransform.radius)
+				{
+					res = UnitTransform.getSupportUnitTransforms(snowball.unitTransform, obstacles[i].unitTransform);
+					if (!res) continue;
+					deleteImg.graphics.beginFill(0xffff6f);
+					deleteImg.graphics.moveTo(res[0].x + res[0].z, res[0].y + res[0].z);
+					deleteImg.graphics.lineTo(res[1].x + res[1].z, res[1].y + res[1].z);
+					deleteImg.graphics.lineTo(res[3].x + res[3].z, res[3].y + res[3].z);
+					deleteImg.graphics.lineTo(res[2].x + res[2].z, res[2].y + res[2].z);
+					deleteImg.graphics.endFill();
+					
+					deleteImg.graphics.beginFill(0xffff0f);
+					deleteImg.graphics.drawCircle(obstacles[i].unitTransform.x, obstacles[i].unitTransform.y, obstacles[i].unitTransform.radius);
+					deleteImg.graphics.endFill();
+					world.stage.addChild(deleteImg);
+					trace('aa');
+				}
+				//explosion.body
+			}
 		}
 	}
 }
