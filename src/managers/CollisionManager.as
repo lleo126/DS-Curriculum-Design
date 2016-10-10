@@ -84,6 +84,7 @@ package managers
 			//trace( "count : " + count );
 			while (count--) 
 			{
+				var out1p:UnitTransform = ut1p.clone();
 				ut1p.advance(time);
 				ut2p.advance(time);
 				//ut1p.x += vx * time;
@@ -91,7 +92,26 @@ package managers
 				//ut1p.z += vz * time;
 				if (detectStill(ut1p, ut2p))
 				{
-					return trace('detected'), ut1p;
+					//trace('detected');
+					var lo:UnitTransform = out1p,
+						hi:UnitTransform = ut1p,
+						mi:UnitTransform = lo.clone();
+					do
+					{
+						mi.x = (lo.x + hi.x) * 0.5;
+						mi.y = (lo.y + hi.y) * 0.5;
+						mi.z = (lo.z + hi.z) * 0.5;
+						if (detectStill(mi, ut2p))
+						{
+							hi = mi;
+						}
+						else 
+						{
+							lo = mi;
+						}
+					} while (1.0 < UnitTransform.getDistance(lo, hi))
+					return lo;
+					//return trace('detected'), ut1p;
 				}
 			}
 			return null;
