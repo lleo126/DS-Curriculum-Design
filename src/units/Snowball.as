@@ -24,7 +24,7 @@ package units
 		{
 			_body = new SpriteEx(new AssetManager.SNOWBALL_IMG());
 			
-			damage = _unitTransform.radius = radius;
+			_damage = _unitTransform.radius = radius;
 			_unitTransform.altitude = _body.width = _body.height = 2.0 * radius;
 			_attackRange = radius * ATTACK_RANGE_RATIO;
 			_bonus = bonus;

@@ -305,6 +305,16 @@ package units
 			return res;
 		}
 		
+		/**
+		 * 判断此 UnitTransform 所在水平面与所给 UnitTransform 是否有交
+		 * @param	ut
+		 * @return	true 表示有交
+		 */
+		public function determineCross(ut:UnitTransform):Boolean
+		{
+			return ut.radiusZ <= Math.abs(centerZ - ut.centerZ);
+		}
+		
 		[obsolete]
 		public function getSupportUnitTransform(target:UnitTransform):UnitTransform
 		{

@@ -47,10 +47,8 @@ package units
 		 */
 		internal var world:World;
 		
-		/**
-		 * 伤害值
-		 */
-		protected var damage:Number;
+		protected var _damage:Number;
+		
 		
 		/**
 		 * 攻击距离
@@ -78,11 +76,6 @@ package units
 		 * 本体
 		 */
 		public function get body():SpriteEx { return _body; }
-		// for test
-		public function set body(value:SpriteEx):void 
-		{
-			_body = value;
-		}
 		
 		/**
 		 * 包含单位的 z 坐标，速度，碰撞大小等信息，与单位绑定
@@ -132,10 +125,12 @@ package units
 		 */
 		public function get bonus():int { return _bonus; }
 		
-		public function get attackRange():Number 
-		{
-			return _attackRange;
-		}
+		public function get attackRange():Number { return _attackRange; }
+		
+		/**
+		 * 伤害值
+		 */
+		public function get damage():Number { return _damage; }
 		
 		//==========
 		// 方法

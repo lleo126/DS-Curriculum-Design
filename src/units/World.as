@@ -228,14 +228,6 @@ package units
 				var obstacle:Unit = obstacleGenerator.randomUnit();
 				obstacleGenerator.dropUnit(obstacle);
 			}
-			
-			testUnitBall = new Effect(new SnowballExplosionAnimation(testUnitBall, 200));
-			addChild(testUnitBall);
-
-			testUnit = new Unit();
-			testUnit.body = new SpriteEx(new HeroMoveAnimation(testUnit));
-			addUnit(testUnit);
-			testUnit.x = 200;
 		}
 		
 		/**

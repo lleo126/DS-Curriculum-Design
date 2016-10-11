@@ -3,6 +3,7 @@ package managers
 	import animations.SnowballExplosionAnimation;
 	import events.UnitEvent;
 	import flash.display.BlendMode;
+	import flash.display.IGraphicsData;
 	import flash.display.Shape;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
@@ -76,7 +77,8 @@ package managers
 		{
 			if (!deltaTime) return detectStill(ut1, ut2) ? ut1 : null;
 			
-			var rm:Number = Math.max(ut1.radius, ut1.radiusZ, ut2.radius, ut2.radiusZ),
+			// 把当前帧切分为每一次移动都不会穿过物体的小帧
+			var rm:Number = Math.min(ut1.radius, ut1.radiusZ, ut2.radius, ut2.radiusZ),
 				vx:Number	= ut1.vx - ut2.vx,
 				vy:Number	= ut1.vy - ut2.vy,
 				vz:Number	= ut1.vz - ut2.vz,
@@ -87,18 +89,17 @@ package managers
 				time:Number	= deltaTime / count,
 				ut1p:UnitTransform = ut1.clone(),
 				ut2p:UnitTransform = ut2.clone();
-			while (count--) 
+			while (count--) // 模拟移动 count 个小帧
 			{
 				var out1p:UnitTransform = ut1p.clone();
 				ut1p.advance(time);
 				ut2p.advance(time);
-				if (detectStill(ut1p, ut2p))
+				if (detectStill(ut1p, ut2p)) // 当检测到两物体发生碰撞
 				{
-					//trace('detected');
 					var lo:UnitTransform = out1p,
 						hi:UnitTransform = ut1p,
 						mi:UnitTransform = lo.clone();
-					do
+					do // 二分查找碰撞点
 					{
 						mi.x = (lo.x + hi.x) * 0.5;
 						mi.y = (lo.y + hi.y) * 0.5;
@@ -132,12 +133,6 @@ package managers
 				r1:Number = UnitTransform.getDistance(ut1, s1),
 				r2:Number = UnitTransform.getDistance(ut2, s2),
 				distance:Number = UnitTransform.getDistance(ut1, ut2);
-			if (distance <= r1 + r2)
-			{
-				//trace( "ut1 : " + ut1.unit.name );
-				//trace( "ut2 : " + ut2.unit.name );	
-				//trace( "distance <= r1 + r2 : ", distance <= r1 + r2 );
-			}
 			return distance <= r1 + r2;
 		}
 		
@@ -198,7 +193,6 @@ package managers
 				if (snowballs[i].unitTransform.z < 0.0) 
 				{
 					snowballExplode(snowballs[i]);
-					snowballs[i].removeFromWorld();
 				}
 			}
 			
@@ -221,7 +215,7 @@ package managers
 		 * @param	unit
 		 * @param	unit2
 		 */
-		public function getDistance(unitTransform:UnitTransform, unitTransform2:UnitTransform):Number
+		public function getDistanceXoY(unitTransform:UnitTransform, unitTransform2:UnitTransform):Number
 		{
 			return Point.distance(new Point(unitTransform.x,	unitTransform.y),
 								  new Point(unitTransform2.x,	unitTransform2.y));
@@ -245,7 +239,6 @@ package managers
 				{
 					snowballs[i].unitTransform = bounce[snowballs[i]];
 					snowballExplode(snowballs[i]);
-					snowballs[i].removeFromWorld();
 				}
 				else snowballs[i].unitTransform.advance(deltaTime);
 			}
@@ -259,6 +252,10 @@ package managers
 			bounce = new Dictionary();
 		}
 		
+		/**
+		 * 雪球爆炸，产生遮罩特效，伤害，炸掉物品，连锁引爆旁边的雪球
+		 * @param	snowball
+		 */
 		private function snowballExplode(snowball:Snowball):void 
 		{
 			var explosion:Effect = new Effect(new SnowballExplosionAnimation(explosion, snowball.attackRange));
@@ -270,53 +267,102 @@ package managers
 				explosion.removeFromWorld();
 			}, 250);
 			
-			var shadows:Shape = new Shape();
-			shadows.y -= explosion.unitTransform.z;
-			shadows.blendMode = BlendMode.ERASE;
+			var shadowShape:Shape = new Shape();
+			shadowShape.y -= explosion.unitTransform.z;
+			shadowShape.blendMode = BlendMode.ERASE;
 			explosion.blendMode = BlendMode.LAYER;
-			explosion.addChild(shadows);
 			
-			var res:Vector.<UnitTransform>;
+			var shadows:Vector.<Vector.<UnitTransform>> = setShadowShape(shadowShape, snowball);
+			explosion.addChild(shadowShape);
+			
+			var i:int;
+			for (i = 0; i < heroes.length; ++i)
+			{
+				// TODO: 如果英雄注册点在爆炸范围内，且不在遮蔽区域内，则造成与爆炸点距离成反比的伤害
+				if (!inExplosion(heroes[i].unitTransform, explosion.unitTransform, shadows)) continue;
+				
+				heroes[i].hp -= snowball.damage * (snowball.attackRange - UnitTransform.getDistance(explosion.unitTransform, heroes[i].unitTransform));
+			}
+			
+			for (i = 0; i < items.length; ++i)
+			{
+				// TODO: 如果道具……，则消失
+			}
+			
+			snowball.removeFromWorld();
+			
+			// DFS
+			for (i = 0; i < snowballs.length; ++i)
+			{
+				// TODO: 如果雪球……，则引爆
+			}
+		}
+		
+		/**
+		 * 判断所给 unitUt 在不在由 explosionUt 和 shadows 所定义的爆炸范围内
+		 * @param	unitUt
+		 * @param	explosionUt
+		 * @param	shadows
+		 * @return	true 表示在
+		 */
+		private function inExplosion(unitUt:UnitTransform, explosionUt:UnitTransform, shadows:Vector.<Vector.<UnitTransform>>):Boolean 
+		{
+			return false;
+			explosionUt.determineCross(unitUt);
+		}
+		
+		/**
+		 * 设置阴影 Shape
+		 * @param	shadowShape
+		 * @param	snowball
+		 * @return	定义阴影的 UnitTransform 数组
+		 */
+		private function setShadowShape(shadowShape:Shape, snowball:Snowball):Vector.<Vector.<UnitTransform>> 
+		{
+			var shadows:Vector.<Vector.<UnitTransform>> = new <Vector.<UnitTransform>>[];
 			for (var i:int = 0; i < obstacles.length; ++i) 
 			{
-				if (getDistance(snowball.unitTransform, obstacles[i].unitTransform) <= snowball.attackRange + obstacles[i].unitTransform.radius)
+				if (snowball.attackRange + obstacles[i].unitTransform.radius < getDistanceXoY(snowball.unitTransform, obstacles[i].unitTransform)) continue; // 排除掉不会炸到的障碍物
+				
+				var supportUnitTransforms:Vector.<UnitTransform> = UnitTransform.getSupportUnitTransforms(snowball.unitTransform, obstacles[i].unitTransform);
+				if (!supportUnitTransforms) continue;
+				
+				shadows.push(supportUnitTransforms);
+				
+				// 转换到局部坐标系
+				for (var j:int = 0; j < shadows.length; ++j)
 				{
-					res = UnitTransform.getSupportUnitTransforms(snowball.unitTransform, obstacles[i].unitTransform);
-					if (!res) continue;
+					supportUnitTransforms[j] = UnitTransform.globalToLocal(supportUnitTransforms[j], snowball.unitTransform);
+				}
+				
+				// 遮蔽障碍物
+				shadowShape.graphics.beginFill(0x2EEAAF);
+				var localObstacleUnitTransform:UnitTransform = UnitTransform.globalToLocal(obstacles[i].unitTransform, snowball.unitTransform);
+				shadowShape.graphics.drawCircle(localObstacleUnitTransform.x, localObstacleUnitTransform.y, obstacles[i].unitTransform.radius);
+				shadowShape.graphics.endFill();
+				
+				// 遮蔽梯形
+				shadowShape.graphics.beginFill(0xFFFF6F);
+				shadowShape.graphics.moveTo(supportUnitTransforms[0].x, supportUnitTransforms[0].y);
+				shadowShape.graphics.lineTo(supportUnitTransforms[1].x, supportUnitTransforms[1].y);
+				shadowShape.graphics.lineTo(supportUnitTransforms[2].x, supportUnitTransforms[2].y);
+				shadowShape.graphics.lineTo(supportUnitTransforms[3].x, supportUnitTransforms[3].y);
+				shadowShape.graphics.endFill();
+		
+				if (Main.DEBUG)
+				{
+					// 爆炸点
+					shadowShape.graphics.beginFill(0xFFA330);
+					shadowShape.graphics.drawCircle(0.0, 0.0, 10.0);
+					shadowShape.graphics.endFill();
 					
-					for (var j:int = 0; j < res.length; ++j)
-					{
-						res[j] = UnitTransform.globalToLocal(res[j], explosion.unitTransform);
-					}
-					
-					// 遮蔽障碍物
-					shadows.graphics.beginFill(0x2EEAAF);
-					var localObstacleUnitTransform:UnitTransform = UnitTransform.globalToLocal(obstacles[i].unitTransform, explosion.unitTransform);
-					shadows.graphics.drawCircle(localObstacleUnitTransform.x, localObstacleUnitTransform.y, obstacles[i].unitTransform.radius);
-					shadows.graphics.endFill();
-					
-					// 遮蔽梯形
-					shadows.graphics.beginFill(0xFFFF6F);
-					shadows.graphics.moveTo(res[0].x, res[0].y);
-					shadows.graphics.lineTo(res[1].x, res[1].y);
-					shadows.graphics.lineTo(res[2].x, res[2].y);
-					shadows.graphics.lineTo(res[3].x, res[3].y);
-					shadows.graphics.endFill();
-			
-					if (Main.DEBUG)
-					{
-						// 爆炸点
-						shadows.graphics.beginFill(0xFFA330);
-						shadows.graphics.drawCircle(0.0, 0.0, 10.0);
-						shadows.graphics.endFill();
-						
-						// 爆炸范围
-						shadows.graphics.lineStyle(4.0, 0x31FEA3);
-						shadows.graphics.drawCircle(0.0, 0.0, snowball.attackRange);
-						shadows.graphics.lineStyle();
-					}
+					// 爆炸范围
+					shadowShape.graphics.lineStyle(4.0, 0x31FEA3);
+					shadowShape.graphics.drawCircle(0.0, 0.0, snowball.attackRange);
+					shadowShape.graphics.lineStyle();
 				}
 			}
+			return shadows;
 		}
 	}
 }
