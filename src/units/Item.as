@@ -18,20 +18,16 @@ package units
 	 */
 	public class Item extends Unit
 	{
-		//private static const radius:Number;
 		public static var a:AddHP, b:AddSnow, c:Dizzy, d:MoveBackward, e:SpeedUp, f:Stop;
 		
 		public function Item()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init);
 			addEventListener(UnitEvent.COLLIDED, onCollided);
 		}
 		
-		private function init(e:Event):void 
+		override protected function init(e:Event):void 
 		{
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			
+			super.init(e);
 			if (!(_body.pivotX == 0.0 && _body.pivotY == 0.0)) return;
 			
 			_body.pivotX = _body.width * 0.5;

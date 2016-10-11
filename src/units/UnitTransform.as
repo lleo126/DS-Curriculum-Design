@@ -8,6 +8,15 @@ package units
 	 */
 	public class UnitTransform 
 	{
+		public static function globalToLocal(global:UnitTransform, parent:UnitTransform):UnitTransform
+		{
+			var local:UnitTransform = global.clone();
+			local._x -= parent._x;
+			local._y -= parent._y;
+			local._z -= parent._z;
+			return local;
+		}
+		
 		/**
 		 * 一个为发出射线的点，一个为椭球的球心
 		 * 以发出射线的点所在水平面截椭球，降三维为二维
@@ -33,7 +42,9 @@ package units
 		
 			// 圆外该点的座标
 			var sp_x:Number = pointUnitTransform.x,
-				sp_y:Number = pointUnitTransform.y;
+				sp_y:Number = pointUnitTransform.y,
+				sp_cz:Number = pointUnitTransform.centerZ,
+				sp_r:Number = pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO;
 				
 			// 截出圆的圆心与圆外该点的中点设为圆心
 			var p2_x:Number = (p_x + sp_x) / 2,
@@ -78,32 +89,32 @@ package units
 			
 			res[0]._x = rp1_x + p_x;
 			res[0]._y = rp1_y + p_y;
-			res[0]._z = pointUnitTransform._z;
+			res[0]._z = sp_cz;
 			
 			res[1]._x = rp2_x + p_x;
 			res[1]._y = rp2_y + p_y;
-			res[1]._z = pointUnitTransform._z;
+			res[1]._z = sp_cz;
 
 			// 两切点的中点到圆心的连线
-			var L:Number = Math.sqrt( ( (res[0]._x + res[1]._x) / 2 - p_x ) * ( (res[0]._x + res[1]._x) / 2 - p_x )
-									+ ( (res[0]._y + res[1]._y) / 2 - p_y ) * ( (res[0]._y + res[1]._y) / 2 - p_y ) );
+			var L:Number = Math.sqrt( ( (res[0]._x + res[1]._x) / 2 - sp_x ) * ( (res[0]._x + res[1]._x) / 2 - sp_x )
+									+ ( (res[0]._y + res[1]._y) / 2 - sp_y ) * ( (res[0]._y + res[1]._y) / 2 - sp_y ) );
 			
-			if (L < pointUnitTransform.radius)
+			if (L < sp_r)
 			{
 				res.push(new UnitTransform(), new UnitTransform());
 				// 求两切于大圆的直线交圆心与小圆切点连线的交点
-				var	x3:Number = p_x + (res[0]._x - p_x) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L,
-					y3:Number = p_y + (res[0]._y - p_y) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L,
-					x4:Number = p_x + (res[1]._x - p_x) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L,
-					y4:Number = p_y + (res[1]._y - p_y) * pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO / L;
+				var	x3:Number = sp_x + (res[0]._x - sp_x) * sp_r / L,
+					y3:Number = sp_y + (res[0]._y - sp_y) * sp_r / L,
+					x4:Number = sp_x + (res[1]._x - sp_x) * sp_r / L,
+					y4:Number = sp_y + (res[1]._y - sp_y) * sp_r / L;
 									
-				res[2]._x = x3;
-				res[2]._y = y3;
-				res[2]._z = pointUnitTransform._z;
+				res[3]._x = x3;
+				res[3]._y = y3;
+				res[3]._z = sp_cz;
 				
-				res[3]._x = x4;
-				res[3]._y = y4;
-				res[3]._z = pointUnitTransform._z;
+				res[2]._x = x4;
+				res[2]._y = y4;
+				res[2]._z = sp_cz;
 				
 				return res;
 			}
@@ -270,7 +281,6 @@ package units
 			update();
 		}
 		
-		[obsolete]
 		/**
 		 * 获取从此 UnitTransform 中心到目标点连线与此 UnitTransform 的交点（此方向的面上的点）
 		 * @param	target	目标 UnitTransform

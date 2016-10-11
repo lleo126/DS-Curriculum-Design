@@ -13,6 +13,7 @@ package units
 	import managers.CollisionManager;
 	import models.Player;
 	import models.Setting;
+	import models.msToTime;
 	import views.View;
 	
 	/**
@@ -107,7 +108,7 @@ package units
 		
 		// for test
 		private var testUnit:Unit;
-		private var testUnitBall:Unit;
+		private var testUnitBall:Effect;
 		
 		//==========
 		// 属性
@@ -220,8 +221,13 @@ package units
 				heroGenerator.dropUnit(_players[i].hero);
 			}
 			
-			for (i = 0; i < 10; i++) 
+			for (i = 0; i < 20; i++) 
 			{
+				var time:msToTime = new msToTime;
+				
+				time.ms = 128094626414123746;
+				trace(time.currentTime);
+				
 				var item:Unit = itemGenerator.randomUnit();
 				itemGenerator.dropUnit(item);
 				
@@ -229,14 +235,13 @@ package units
 				obstacleGenerator.dropUnit(obstacle);
 			}
 			
-			//testUnitBall = new Unit();
-			//testUnitBall.body = new SpriteEx(new SnowballExplosionAnimation(testUnitBall));
-			//addChild(testUnitBall);
-//
-			//testUnit = new Unit();
-			//testUnit.body = new SpriteEx(new HeroMoveAnimation(testUnit));
-			//addUnit(testUnit);
-			//testUnit.x = 200;
+			testUnitBall = new Effect(new SnowballExplosionAnimation(testUnitBall, 200));
+			addChild(testUnitBall);
+
+			testUnit = new Unit();
+			testUnit.body = new SpriteEx(new HeroMoveAnimation(testUnit));
+			addUnit(testUnit);
+			testUnit.x = 200;
 		}
 		
 		/**

@@ -12,19 +12,15 @@ package units
 		public function Obstacle() 
 		{
 			super();
-			addEventListener(Event.ADDED_TO_STAGE, init);
 		}
 		
-		// for test
-		private function init(e:Event):void 
+		override protected function init(e:Event):void 
 		{
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			
+			super.init(e);
 			if (!(_body.pivotX == 0.0 && _body.pivotY == 0.0)) return;
 			
 			_body.pivotX = _body.width * 0.5;
 			_body.pivotY = _body.height;
-			
 		}
 		
 		override public function setByXML(xml:XML):void

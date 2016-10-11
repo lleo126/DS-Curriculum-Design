@@ -95,5 +95,13 @@ package animations
 			imgNow.bitmapData.unlock();
 			imgNow.smoothing = true;
 		}
+		
+		/**
+		 * 销毁资源
+		 */
+		public function dispose():void 
+		{
+			
+		}
 	}
 }
