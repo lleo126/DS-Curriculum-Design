@@ -11,11 +11,11 @@ package animations
 	 */
 	public class HeroMoveAnimation extends OrientedAnimation implements IUpdate
 	{		
-		public function HeroMoveAnimation(unit:Unit) 
+		public function HeroMoveAnimation(unit:Unit,heroImg:Bitmap) 
 		{
 			rowNow = 0;
 			_delay = 60;
-			_img = new AssetManager.HERO_MOVE();
+			_img = heroImg;
 			_row = 8;
 			_column = 9;
 			dirNum = 8;

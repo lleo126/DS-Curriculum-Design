@@ -1,10 +1,13 @@
 package managers 
 {
 	import animations.SnowballExplosionAnimation;
+	import assets.AssetManager;
 	import events.UnitEvent;
 	import flash.display.BlendMode;
 	import flash.display.Shape;
 	import flash.geom.Point;
+	import flash.media.Sound;
+	import flash.net.URLRequest;
 	import flash.utils.Dictionary;
 	import flash.utils.setTimeout;
 	import units.Effect;
@@ -261,6 +264,10 @@ package managers
 		
 		private function snowballExplode(snowball:Snowball):void 
 		{
+			AssetManager.soundEffect = new Sound();
+			AssetManager.soundEffect.load(new URLRequest("music/Explode.mp3"));
+			AssetManager.songEffect = AssetManager.soundEffect.play();
+			AssetManager.songEffect.soundTransform = AssetManager.transEffect;
 			var explosion:Effect = new Effect(new SnowballExplosionAnimation(explosion, snowball.attackRange));
 			explosion.unitTransform.setByUnitTransform(snowball.unitTransform);
 			world.addUnit(explosion);

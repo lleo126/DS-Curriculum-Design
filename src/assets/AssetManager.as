@@ -245,6 +245,9 @@ package assets
 		[Embed(source = "../../assets/Animation/VillagerRun1.png")]
 		public static const HERO_MOVE:Class;
 		
+		[Embed(source = "../../assets/Animation/VillagerRun2.png")]
+		public static const HERO_MOVE_TWO:Class;
+		
 		[Embed(source = "../../assets/Animation/ball.png")]
 		public static const BALL_EXPLOSION:Class;
 		//==========================/

@@ -2,6 +2,7 @@ package animations
 {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import units.Unit;
 	
@@ -55,8 +56,16 @@ package animations
 			rowNow = rowNow == _row?0:rowNow;
 			clipRect.y = rowNow * HEIGHT;
 			
-			unit.unitTransform.speed
-			super.update(deltaTime);
+			if (unit.unitTransform.speed != 0)
+			{
+				super.update(deltaTime);
+			}
+			else
+			{
+				imgNow.bitmapData.fillRect(selfRect, 0xFFFFFF);
+				imgNow.bitmapData.copyPixels(_img.bitmapData, clipRect, new Point(), null, null, true);
+				clipRect.x = 0;
+			}
 		}
 	}
 }
