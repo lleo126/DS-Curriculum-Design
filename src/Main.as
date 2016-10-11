@@ -40,17 +40,17 @@ package
 			if (value as View == View.PLAY_VIEW)
 			{
 				AssetManager.songMusic.stop();
-				AssetManager.soundFactory = new Sound();
-				AssetManager.soundFactory.load(new URLRequest("music/MySound2.mp3"));
-				AssetManager.songMusic = AssetManager.soundFactory.play(0,int.MAX_VALUE);
+				AssetManager.soundMusic = new Sound();
+				AssetManager.soundMusic.load(new URLRequest("music/MySound2.mp3"));
+				AssetManager.songMusic = AssetManager.soundMusic.play(0,int.MAX_VALUE);
 				AssetManager.songMusic.soundTransform = AssetManager.transMusic;
 			}
 			else if (this.view == View.PLAY_VIEW)
 			{
 				AssetManager.songMusic.stop();
-				AssetManager.soundFactory = new Sound();
-				AssetManager.soundFactory.load(new URLRequest("music/MySound.mp3"));
-				AssetManager.songMusic = AssetManager.soundFactory.play(0,int.MAX_VALUE);
+				AssetManager.soundMusic = new Sound();
+				AssetManager.soundMusic.load(new URLRequest("music/MySound.mp3"));
+				AssetManager.songMusic = AssetManager.soundMusic.play(0,int.MAX_VALUE);
 				AssetManager.songMusic.soundTransform = AssetManager.transMusic;
 			}
 			

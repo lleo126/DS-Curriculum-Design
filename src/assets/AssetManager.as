@@ -274,7 +274,10 @@ package assets
 		//==========================/
 		
 		public static var songMusic:SoundChannel;
-		public static var soundFactory:Sound;
+		public static var songEffect:SoundChannel;
+		public static var soundMusic:Sound;
+		public static var soundEffect:Sound;
 		public static var transMusic:SoundTransform = new SoundTransform();
+		public static var transEffect:SoundTransform = new SoundTransform();
 	}
 }

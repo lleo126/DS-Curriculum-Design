@@ -8,6 +8,7 @@ package views
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.media.Sound;
+	import flash.media.SoundChannel;
 	import flash.net.URLRequest;
 	import flash.system.fscommand;
 	import models.Player;
@@ -51,9 +52,11 @@ package views
 		
 		override protected function init(ev:Event = null):void 
 		{
-			AssetManager.soundFactory = new Sound();
-			AssetManager.soundFactory.load(new URLRequest("music/MySound.mp3"));
-			AssetManager.songMusic = AssetManager.soundFactory.play(0,int.MAX_VALUE);
+			AssetManager.soundMusic = new Sound();
+			AssetManager.soundMusic.load(new URLRequest("music/MySound.mp3"));
+			AssetManager.songMusic = AssetManager.soundMusic.play(0, int.MAX_VALUE);
+			
+			AssetManager.songEffect = new SoundChannel();
 			
 			buttonGroup = new Sprite();
 			
