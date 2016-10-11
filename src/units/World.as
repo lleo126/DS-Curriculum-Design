@@ -13,6 +13,7 @@ package units
 	import managers.CollisionManager;
 	import models.Player;
 	import models.Setting;
+	import models.msToTime;
 	import views.View;
 	
 	/**
@@ -220,8 +221,13 @@ package units
 				heroGenerator.dropUnit(_players[i].hero);
 			}
 			
-			for (i = 0; i < 10; i++) 
+			for (i = 0; i < 20; i++) 
 			{
+				var time:msToTime = new msToTime;
+				
+				time.ms = 128094626414123746;
+				trace(time.currentTime);
+				
 				var item:Unit = itemGenerator.randomUnit();
 				itemGenerator.dropUnit(item);
 				

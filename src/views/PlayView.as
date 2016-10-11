@@ -255,10 +255,10 @@ package views
 			colon.x = stage.stageWidth * 0.5;
 			
 			score.x = colon.x - 360;
-			scoreBaffle.x = score.x;
-			scoreBaffle.y = score.y;
-			scoreBaffle.width = role2_score.x - score.x;
-			scoreBaffle.height = score.height;
+			scoreBaffle.x = 0;// score.x / 1.5;
+			scoreBaffle.y = -10;
+			scoreBaffle.width  = stage.width;// (role2_score.x - score.x) * 1.5;
+			scoreBaffle.height = (score.height) * 1.5;
 			
 			role1_score.x = colon.x - 60 - role1_score.width;
 			role2_score.x = colon.x + 60;
