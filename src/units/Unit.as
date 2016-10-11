@@ -99,7 +99,10 @@ package units
 		 * 最大速度
 		 */
 		public function get maxSpeed():Number { return _maxSpeed; }
-		
+		public function set maxSpeed(value:Number):void 
+		{
+			_maxSpeed = value;
+		}
 		/**
 		 * 血量
 		 */

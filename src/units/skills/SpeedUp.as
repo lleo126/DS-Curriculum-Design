@@ -1,5 +1,6 @@
 package units.skills 
 {
+	import units.Unit;
 	/**
 	 * ...
 	 * @author leo126
@@ -13,6 +14,11 @@ package units.skills
 			
 		}
 		public var speedUp:Number;
+		
+		override public function apply(unit:Unit):void 
+		{
+			unit.maxSpeed += speedUp;
+		}
 	}
 
 }

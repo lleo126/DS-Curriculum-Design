@@ -1,17 +1,5 @@
 <obstacles klass="units.Obstacle">
 	<obstacle>
-		<img>TREE1_IMG</img>
-		<name>tree1</name>
-		<pivotX>140</pivotX>
-		<pivotY>268</pivotY>
-		<width>140</width>
-		<height>142.5</height>
-		<unitTransform>
-			<altitude>280</altitude>
-		</unitTransform>
-		<radius>100</radius>
-	</obstacle>
-	<obstacle>
 		<img>TREE2_IMG</img>
 		<name>tree2</name>
 		<pivotX>60</pivotX>
@@ -21,7 +9,7 @@
 		<unitTransform>
 			<altitude>336</altitude>
 		</unitTransform>
-		<radius>60</radius>
+		<radius>56</radius>
 	</obstacle>
 	<obstacle>
 		<img>TREE3_IMG</img>
@@ -33,7 +21,7 @@
 		<unitTransform>
 			<altitude>336</altitude>
 		</unitTransform>
-		<radius>74</radius>
+		<radius>68</radius>
 	</obstacle>
 	<obstacle>
 		<img>TREE4_IMG</img>
@@ -45,19 +33,7 @@
 		<unitTransform>
 			<altitude>250</altitude>
 		</unitTransform>
-		<radius>85</radius>
-	</obstacle>
-	<obstacle>
-		<img>TREE5_IMG</img>
-		<name>tree5</name>
-		<pivotX>192</pivotX>
-		<pivotY>246</pivotY>
-		<width>160</width>
-		<height>130</height>
-		<unitTransform>
-			<altitude>240</altitude>
-		</unitTransform>
-		<radius>160</radius>
+		<radius>40</radius>
 	</obstacle>
 	<obstacle>
 		<img>TREE6_IMG</img>
@@ -81,7 +57,7 @@
 		<unitTransform>
 			<altitude>274</altitude>
 		</unitTransform>
-		<radius>140</radius>
+		<radius>120</radius>
 	</obstacle>
 	<obstacle>
 		<img>TREE8_IMG</img>
@@ -108,95 +84,54 @@
 		<radius>120</radius>
 	</obstacle>
 
-	<obstacle>
-		<img>CAR1_IMG</img>
-		<name>car1</name>
-		<width>60</width>
-		<height>100</height>
-		<unitTransform>
-			<altitude>100</altitude>
-		</unitTransform>
-		<radius>20</radius>
-	</obstacle>
+	
 	<obstacle>
 		<img>CAR2_IMG</img>
 		<name>car2</name>
-		<width>60</width>
-		<height>100</height>
+		<pivotX>31</pivotX>
+		<pivotY>66</pivotY>
+		<width>61</width>
+		<height>81</height>
 		<unitTransform>
-			<altitude>100</altitude>
+			<altitude>80</altitude>
 		</unitTransform>
-		<radius>20</radius>
-	</obstacle>
-	<obstacle>
-		<img>CAR3_IMG</img>
-		<name>car3</name>
-		<width>60</width>
-		<height>100</height>
-		<unitTransform>
-			<altitude>100</altitude>
-		</unitTransform>
-		<radius>20</radius>
+		<radius>30</radius>
 	</obstacle>
 	<obstacle>
 		<img>CAR4_IMG</img>
 		<name>car4</name>
-		<width>60</width>
-		<height>100</height>
+		<pivotX>58</pivotX>
+		<pivotY>56</pivotY>
+		<width>119</width>
+		<height>83</height>
 		<unitTransform>
-			<altitude>100</altitude>
+			<altitude>80</altitude>
 		</unitTransform>
-		<radius>20</radius>
-	</obstacle>
-	<obstacle>
-		<img>CAR5_IMG</img>
-		<name>car5</name>
-		<width>60</width>
-		<height>100</height>
-		<unitTransform>
-			<altitude>100</altitude>
-		</unitTransform>
-		<radius>20</radius>
+		<radius>30</radius>
 	</obstacle>
 	<obstacle>
 		<img>CAR6_IMG</img>
 		<name>car6</name>
-		<width>60</width>
-		<height>100</height>
+		<pivotX>60</pivotX>
+		<pivotY>36</pivotY>
+		<width>116</width>
+		<height>59</height>
 		<unitTransform>
-			<altitude>100</altitude>
+			<altitude>58</altitude>
 		</unitTransform>
-		<radius>20</radius>
-	</obstacle>
-	<obstacle>
-		<img>CAR7_IMG</img>
-		<name>car7</name>
-		<width>60</width>
-		<height>100</height>
-		<unitTransform>
-			<altitude>100</altitude>
-		</unitTransform>
-		<radius>20</radius>
-	</obstacle>
-	<obstacle>
-		<img>CAR8_IMG</img>
-		<name>car8</name>
-		<width>60</width>
-		<height>100</height>
-		<unitTransform>
-			<altitude>100</altitude>
-		</unitTransform>
-		<radius>20</radius>
+		<radius>30</radius>
 	</obstacle>
 	<obstacle>
 		<img>CAR9_IMG</img>
 		<name>car9</name>
-		<width>60</width>
-		<height>100</height>
+		<pivotX>50</pivotX>
+		<pivotY>50</pivotY>
+		<width>95</width>
+		<height>81</height>
 		<unitTransform>
-			<altitude>100</altitude>
+			<altitude>80</altitude>
 		</unitTransform>
-		<radius>20</radius>
+		<radius>30</radius>
 	</obstacle>
 	<obstacle>
 		<img>DUSTBIN_IMG</img>
@@ -213,37 +148,25 @@
 	<obstacle>
 		<img>BICYCLE1_IMG</img>
 		<name>bicycle1</name>
-		<pivotX>54</pivotX>
-		<pivotY>68</pivotY>
-		<width>108</width>
-		<height>68</height>
+		<pivotX>253</pivotX>
+		<pivotY>304</pivotY>
+		<width>78.9</width>
+		<height>50</height>
 		<unitTransform>
-			<altitude>100</altitude>
+			<altitude>300</altitude>
 		</unitTransform>
-		<radius>30</radius>
+		<radius>260</radius>
 	</obstacle>
 	<obstacle>
 		<img>BICYCLE2_IMG</img>
 		<name>bicycle2</name>
-		<pivotX>54</pivotX>
-		<pivotY>70</pivotY>
-		<width>108</width>
-		<height>72</height>
+		<pivotX>268</pivotX>
+		<pivotY>314</pivotY>
+		<width>80.1</width>
+		<height>51.3</height>
 		<unitTransform>
-			<altitude>100</altitude>
+			<altitude>300</altitude>
 		</unitTransform>
-		<radius>30</radius>
-	</obstacle>
-	<obstacle>
-		<img>BICYCLE3_IMG</img>
-		<name>bicycle3</name>
-		<pivotX>51.2</pivotX>
-		<pivotY>68</pivotY>
-		<width>102.4</width>
-		<height>69.3</height>
-		<unitTransform>
-			<altitude>100</altitude>
-		</unitTransform>
-		<radius>30</radius>
+		<radius>260</radius>
 	</obstacle>
 </obstacles>
