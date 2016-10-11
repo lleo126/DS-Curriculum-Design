@@ -1,25 +1,26 @@
 package models 
 {
+	import flash.text.TextField;
 	/**
 	 * 毫秒(ms)转换成时间(time)
 	 * @author leo126
 	 */
-	public class msToTime 
+	public class Clock extends TextField
 	{
-		private var _ms:uint = 0;
+		private var _ms:int = 0;
 		private var _currentTime:String = null;
 		
-		public function msToTime()
+		public function Clock()
 		{
 			
 		}
 
-		public function get ms():uint
+		public function get ms():int
 		{
 			return _ms;
 		}
 		
-		public function set ms(value:uint):void
+		public function set ms(value:int):void
 		{
 			_ms = value;
 			calculateTime();
@@ -32,12 +33,17 @@ package models
 		
 		private function calculateTime():void
 		{
-			var days:int	= _ms / (1000 * 60 * 60 * 24);
-			var hours:int	= (_ms % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
 			var minutes:int = (_ms % (1000 * 60 * 60)) / (1000 * 60);
 			var seconds:int = (_ms % (1000 * 60)) / 1000;
 			
-			_currentTime = (days + " days " + hours + " hours " + minutes + " minutes " + seconds  + " seconds ");
+			if (seconds < 10)
+			{
+				_currentTime = minutes + " :0" + seconds;
+			}
+			else
+			{			
+				_currentTime = minutes + " : " + seconds;
+			}
 		}
 	}
 

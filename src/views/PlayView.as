@@ -10,12 +10,16 @@ package views
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.events.TimerEvent;
 	import flash.net.URLRequest;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.ui.Keyboard;
+	import flash.utils.Timer;
+	import flash.utils.getTimer;
 	import flash.utils.setInterval;
 	import models.Player;
+	import models.Clock;
 	import units.World;
 	/**
 	 * 游戏界面
@@ -69,6 +73,8 @@ package views
 		private var returnGame:SimpleButton;
 		private var buttonBack:SimpleButton;
 		
+		private var timeTxt:TextField;
+		
 		public function PlayView() 
 		{
 			
@@ -103,7 +109,7 @@ package views
 		//==========
 		override protected function init(ev:Event = null):void 
 		{	
-			
+			timeTxt = new TextField();
 			
 			ui = new Sprite();
 
@@ -237,6 +243,24 @@ package views
 			var format:TextFormat = new TextFormat();
 			format.size 				= FORMAT_SIZE;
 			
+			var tick:Timer;
+			var dateTime:Clock = new Clock();
+			dateTime.textColor = 0xFF0010;
+			dateTime.defaultTextFormat = format;
+			
+			function showTime():void
+			{
+				tick=new Timer(1);
+				tick.addEventListener(TimerEvent.TIMER, filltxt);
+				tick.start();
+			}
+			function filltxt(event:TimerEvent):void
+			{
+				dateTime.ms = getTimer();
+				dateTime.text = dateTime.currentTime;
+			}
+			showTime();
+			
 			groupScore.y = SCORE_Y;
 			
 			score.autoSize = "left";
@@ -264,6 +288,7 @@ package views
 			role2_score.x = colon.x + 60;
 
 			ui.addChild(groupScore);
+			groupScore.addChild(dateTime);
 			groupScore.addChild(scoreBaffle);
 			groupScore.addChild(score);
 			groupScore.addChild(role1_score);
