@@ -1,5 +1,6 @@
 package units
 {
+	import adobe.utils.CustomActions;
 	import animations.HeroMoveAnimation;
 	import animations.SnowballExplosionAnimation;
 	import assets.AssetManager;
@@ -191,17 +192,17 @@ package units
 			_players = players;
 			_heroes = new <Hero>[];
 			
-			players[0].hero = new Hero();
+			players[0].hero = new Hero(new AssetManager.HERO_MOVE());
 			players[0].hero.hpBar = View.PLAY_VIEW.statusBarHP1;
 			players[0].hero.spBar = View.PLAY_VIEW.statusBarSP1;
 			players[0].hero.apBar = View.PLAY_VIEW.statusBarAP1;
 			
 			if (1 < _players.length)
 			{
-				players[1].hero = new Hero();
+				players[1].hero = new Hero(new AssetManager.HERO_MOVE_TWO());
 				players[1].hero.hpBar = View.PLAY_VIEW.statusBarHP2;
 				players[1].hero.spBar = View.PLAY_VIEW.statusBarSP2;
-				players[1].hero.apBar = View.PLAY_VIEW.statusBarAP1;
+				players[1].hero.apBar = View.PLAY_VIEW.statusBarAP2;
 			}
 			
 			_collisionManager = new CollisionManager(_heroes, _snowballs, _monsters, _obstacles, _items);
@@ -230,13 +231,13 @@ package units
 				obstacleGenerator.dropUnit(obstacle);
 			}
 			
-			testUnitBall = new Effect(new SnowballExplosionAnimation(testUnitBall, 200));
-			addChild(testUnitBall);
+			//testUnitBall = new Effect(new SnowballExplosionAnimation(testUnitBall, 200));
+			//addChild(testUnitBall);
 
-			testUnit = new Unit();
-			testUnit.body = new SpriteEx(new HeroMoveAnimation(testUnit));
-			addUnit(testUnit);
-			testUnit.x = 200;
+			//testUnit = new Unit();
+			//testUnit.body = new SpriteEx(new HeroMoveAnimation(testUnit));
+			//addUnit(testUnit);
+			//testUnit.x = 200;
 		}
 		
 		/**

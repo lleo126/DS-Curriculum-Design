@@ -8,7 +8,9 @@ package views
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.media.Sound;
 	import flash.media.SoundTransform;
+	import flash.net.URLRequest;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.ui.Keyboard;
@@ -156,6 +158,8 @@ package views
 		private function setSoundEffectValue(e:Event):void 
 		{
 			Setting.current.soundEffectValue = slider2.value;
+			AssetManager.transEffect.volume = slider2.value / 100;
+			AssetManager.songEffect.soundTransform = AssetManager.transEffect;
 		}
 		
 		override protected function placeElements():void 
@@ -385,10 +389,18 @@ package views
 						}
 						
 						tempLable.text = ch;
+						
+						AssetManager.soundEffect = new Sound();
+						AssetManager.soundEffect.load(new URLRequest("music/Setting_Success.mp3"));
+						AssetManager.songEffect = AssetManager.soundEffect.play();
+						AssetManager.songEffect.soundTransform = AssetManager.transEffect;
 				}
 				else
 				{
-					// TODO: 播放警告音效
+					AssetManager.soundEffect = new Sound();
+					AssetManager.soundEffect.load(new URLRequest("music/Setting_Fail.mp3"));
+					AssetManager.songEffect = AssetManager.soundEffect.play();
+					AssetManager.songEffect.soundTransform = AssetManager.transEffect;
 				}
 			}
 		}

@@ -80,8 +80,9 @@ package animations
 		
 		public function update(deltaTime:int):void 
 		{
+
 			timeNow += deltaTime;
-			
+		
 			// TODO: 还是停留在同一帧就不用渲染
 			if (timeNow >= (timeNum + 1) * _delay)
 			{
@@ -94,6 +95,7 @@ package animations
 			clipRect.x = timeNum * WIDTH;
 			imgNow.bitmapData.unlock();
 			imgNow.smoothing = true;
+			
 		}
 		
 		/**

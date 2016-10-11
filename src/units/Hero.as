@@ -5,6 +5,7 @@ package units
 	import controls.APBar;
 	import controls.HPBar;
 	import controls.SPBar;
+	import flash.display.Bitmap;
 	import flash.utils.getTimer;
 	import flash.utils.setInterval;
 	import views.View;
@@ -39,11 +40,11 @@ package units
 		private static const PIVOT_X:Number = 29.0;
 		private static const PIVOT_Y:Number = 83.0;
 		
-		public function Hero() 
+		public function Hero(img:Bitmap) 
 		{
 			name = 'hero';
 			
-			_body = new SpriteEx(new HeroMoveAnimation(this));
+			_body = new SpriteEx(new HeroMoveAnimation(this, img));
 			
 			_body.scaleX = _body.scaleY = SCALE;
 			_hp = HP;
