@@ -4,6 +4,8 @@ package units
 	import events.UnitEvent;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.geom.ColorTransform;
+	import flash.utils.setTimeout;
 	import interfaces.IUpdate;
 	import models.Player;
 	
@@ -189,6 +191,18 @@ package units
 			dispatchEvent(new UnitEvent(UnitEvent.ATTACKED, attacker));
 			if (straight) dispatchEvent(new UnitEvent(UnitEvent.STRAIGHT_ATTACKED, attacker));
 			if (_status == UnitStatus.DEAD) dispatchEvent(new UnitEvent(UnitEvent.DEATH, attacker));
+			else
+			{
+				// TODO: 完善封装被攻击特效
+				var c:ColorTransform = transform.colorTransform;
+				c.redMultiplier = 1.5;
+				transform.colorTransform = c;
+				setTimeout(function ():void 
+				{
+					c.redMultiplier = 1.0;
+				transform.colorTransform = c;
+				}, 100);
+			}
 		}
 		
 		internal function addToWorldUnits(world:World):void 
