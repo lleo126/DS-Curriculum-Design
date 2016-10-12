@@ -74,7 +74,7 @@ package units
 		protected var _hp:Number;
 		protected var _maxHP:Number;
 		protected var _status:String = UnitStatus.STANDING;
-		protected var _bonus:int = 10;
+		protected var _bonus:int;
 		
 		//==========
 		// 属性

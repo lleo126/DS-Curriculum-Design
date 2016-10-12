@@ -262,23 +262,23 @@ package units
 		public function dispose():void
 		{
 			var i:int;
-			for (i = 0; i < _heroes.length; i++)
+			for (i = _heroes.length - 1; 0 <= i; --i)
 			{
 				_heroes[i].dispose();
 			}
-			for (i = 0; i < _snowballs.length; i++)
+			for (i = _snowballs.length - 1; 0 <= i; --i)
 			{
 				_snowballs[i].dispose();
 			}
-			for (i = 0; i < _monsters.length; i++)
+			for (i = _monsters.length - 1; 0 <= i; --i)
 			{
 				_monsters[i].dispose();
 			}
-			for (i = 0; i < _obstacles.length; i++)
+			for (i = _obstacles.length - 1; 0 <= i; --i)
 			{
 				_obstacles[i].dispose();
 			}
-			for (i = 0; i < _items.length; i++)
+			for (i = _items.length - 1; 0 <= i; --i)
 			{
 				_items[i].dispose();
 			}

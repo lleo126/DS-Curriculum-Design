@@ -31,6 +31,8 @@ package units
 			_body = new SpriteEx(new ImageClass());
 			_body.pivotX = parseFloat(xml.pivotX.text().toString());
 			_body.pivotY = parseFloat(xml.pivotY.text().toString());
+			_hp = parseFloat(xml.hp.text().toString());
+			_bonus = parseFloat(xml.bonus.text().toString());
 			
 			var scale:Number = parseFloat(xml.width.text().toString()) / _body.width;
 			_unitTransform.radius = parseFloat(xml.radius.text().toString()) * scale;

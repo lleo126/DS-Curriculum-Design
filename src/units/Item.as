@@ -23,7 +23,7 @@ package units
 		
 		public function Item()
 		{
-			_hp = 1;
+			_hp = 1.0;
 			addEventListener(UnitEvent.COLLIDED, onCollided);
 		}
 		
@@ -57,6 +57,7 @@ package units
 			_body = new SpriteEx(new ImageClass());
 			_body.pivotX = parseFloat(xml.pivotX.text().toString());
 			_body.pivotY = parseFloat(xml.pivotY.text().toString());
+			_bonus = parseFloat(xml.bonus.text().toString());
 			
 			var scale:Number = parseFloat(xml.width.text().toString()) / _body.width;
 			_unitTransform.radius = parseFloat(xml.radius.text().toString()) * scale;
@@ -95,13 +96,13 @@ package units
 		
 		private function onCollided(e:UnitEvent):void 
 		{
-			trace( "Item.onCollided > e : " + e );
 			var unit:Unit = (e.data as Collision).source as Unit;
 			if (unit is Hero)
 			{
 				_skill.apply(unit);
 				attacked(unit, 10.0);
 			}
+			if (unit is Snowball) attacked(unit, 10.0, true);
 		}
 	}
 }
