@@ -3,6 +3,7 @@
 	<item>
 		<img>LITCHI_IMG</img>
 		<name>litchi</name>
+		<bonus>40</bonus>
 		<pivotX>23</pivotX>
 		<pivotY>37</pivotY>
 		<width>22</width>
@@ -18,6 +19,7 @@
 	<item>
 		<img>MANGO_IMG</img>
 		<name>mango</name>
+		<bonus>60</bonus>
 		<pivotX>30</pivotX>
 		<pivotY>39</pivotY>
 		<width>26.5</width>
@@ -33,6 +35,7 @@
 	<item>
 		<img>CARAMBOLA_IMG</img>
 		<name>carambola</name>
+		<bonus>80</bonus>
 		<pivotX>25</pivotX>
 		<pivotY>39</pivotY>
 		<width>29</width>
@@ -49,6 +52,7 @@
 	<item>
 		<img>SOURFRUIT_IMG</img>
 		<name>rotten mango</name>
+		<bonus>20</bonus>
 		<pivotX>30</pivotX>
 		<pivotY>45</pivotY>
 		<width>30</width>
@@ -64,6 +68,7 @@
 	<item>
 		<img>SOURFRUIT_IMG</img>
 		<name>rotten mango</name>
+		<bonus>20</bonus>
 		<pivotX>30</pivotX>
 		<pivotY>45</pivotY>
 		<width>30</width>
@@ -79,6 +84,7 @@
 	<item>
 		<img>SOURFRUIT_IMG</img>
 		<name>rotten mango</name>
+		<bonus>20</bonus>
 		<pivotX>30</pivotX>
 		<pivotY>45</pivotY>
 		<width>30</width>
@@ -96,6 +102,7 @@
 	<item>
 		<img>SPICYSTRIPS_IMG</img>
 		<name>spicy strips</name>
+		<bonus>20</bonus>
 		<pivotX>60</pivotX>
 		<pivotY>50</pivotY>
 		<width>67.5</width>
@@ -105,12 +112,13 @@
 		</unitTransform>
 		<radius>30</radius>
 		<skill klass="units.skills.SpeedUp">
-			<speedUp>0.1</speedUp>
+			<speedUp>0.05</speedUp>
 		</skill>
 	</item>
 	<item>
 		<img>SOUR_SPICYSTRIPS_IMG</img>
 		<name>sour spicy strips</name>
+		<bonus>20</bonus>
 		<pivotX>60</pivotX>
 		<pivotY>50</pivotY>
 		<width>67.5</width>
@@ -120,7 +128,7 @@
 		</unitTransform>
 		<radius>30</radius>
 		<skill klass="units.skills.SpeedUp">
-			<speedUp>-0.2</speedUp>
+			<speedUp>-0.05</speedUp>
 		</skill>
 	</item>
 
@@ -128,6 +136,7 @@
 	<item>
 		<img>ICE_IMG</img>
 		<name>ice</name>
+		<bonus>20</bonus>
 		<pivotX>53</pivotX>
 		<pivotY>88</pivotY>
 		<width>40</width>
@@ -143,6 +152,7 @@
 	<item>
 		<img>SALT_IMG</img>
 		<name>salt</name>
+		<bonus>20</bonus>
 		<pivotX>33</pivotX>
 		<pivotY>78</pivotY>
 		<width>33</width>
@@ -160,6 +170,7 @@
 	<item>
 		<img>GLUE_IMG</img>
 		<name>glue</name>
+		<bonus>20</bonus>
 		<pivotX>220</pivotX>
 		<pivotY>552</pivotY>
 		<width>40</width>
@@ -175,6 +186,7 @@
 	<item>
 		<img>DOG_IMG</img>
 		<name>dog</name>
+		<bonus>20</bonus>
 		<pivotX>35</pivotX>
 		<pivotY>80</pivotY>
 		<width>51</width>
@@ -190,6 +202,7 @@
 	<item>
 		<img>POISON_IMG</img>
 		<name>poison</name>
+		<bonus>20</bonus>
 		<pivotX>32</pivotX>
 		<pivotY>140</pivotY>
 		<width>35</width>

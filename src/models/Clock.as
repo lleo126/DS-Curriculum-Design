@@ -2,6 +2,7 @@ package models
 {
 	import flash.events.TimerEvent;
 	import flash.text.TextField;
+	import flash.text.TextFormat;
 	import flash.utils.Timer;
 	/**
 	 * 毫秒(ms)转换成时间(time)
@@ -9,41 +10,27 @@ package models
 	 */
 	public class Clock extends TextField
 	{
-		private var _beginTime:Date;
 		private var _currentTime:Date;
 		private var _minutesZero:String;
 		private var _secondsZero:String;
-		private var _elapsedMinutes:int = 0;
-		private var _elapsedSeconds:int = 0;
 		private var timer:Timer = new Timer(1000);
 		
 		public function Clock()
 		{
-			_beginTime = new Date();
-			_currentTime = new Date();
-			
+			_currentTime = new Date(0, 0, 1, 0, 0, 0, 0);
 			timer.addEventListener(TimerEvent.TIMER, onTimer);
+			update();
 		}
 		
 		private function onTimer(e:TimerEvent):void 
 		{
 			_currentTime.seconds++;
-			
-			_elapsedSeconds = (_currentTime.seconds + 60 - _beginTime.seconds) % 60;
-			
-			if (_elapsedMinutes < 10) { _minutesZero = "0"; } 
-			if (_elapsedSeconds < 10) { _secondsZero = "0"; }
-			text = _minutesZero + _elapsedMinutes.toString() + " : " + _secondsZero + _elapsedSeconds.toString();
-			
-			_minutesZero = _secondsZero = ""; 
-			
-			_elapsedMinutes += _elapsedSeconds / 59;
+			update();
 		}
 		
 		public function set time(value:Date):void
 		{
 			_currentTime = value;
-			_beginTime = value;
 			if (_currentTime.minutes < 10) { _minutesZero = "0"; }
 			if (_currentTime.seconds < 10) { _secondsZero = "0"; }
 			text = _minutesZero + _currentTime.minutes.toString() + " : " + _secondsZero + _currentTime.seconds.toString();
@@ -54,6 +41,12 @@ package models
 		public function get time():Date
 		{
 			return _currentTime;
+		}
+		
+		override public function set defaultTextFormat(value:TextFormat):void 
+		{
+			super.defaultTextFormat = value;
+			update();
 		}
 		
 		public function start():void 
@@ -69,8 +62,14 @@ package models
 		public function reset():void 
 		{
 			timer.reset();
-			_elapsedSeconds = 0;
-			_elapsedMinutes = 0;
+			_currentTime = null;
+			_currentTime = new Date(0, 0, 1, 0, 0, 0, 0);
+			update();
+		}
+		
+		private function update(e:TimerEvent = null):void 
+		{
+			time = _currentTime;
 		}
 	}
 
