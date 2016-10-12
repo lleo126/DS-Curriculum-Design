@@ -4,6 +4,7 @@ package animations
 	import flash.display.Bitmap;
 	import flash.geom.Point;
 	import interfaces.IUpdate;
+	import units.StatusType;
 	import units.Unit;
 	
 	/**
@@ -27,10 +28,11 @@ package animations
 		override public function update(deltaTime:int):void 
 		{		
 			super.findRow();
-			if (unit.unitTransform.speed == 0)
+			if (unit.status == StatusType.STANDING)
 			{
 				timeNum = 0;
 				deltaTime = 0;
+				timeNow = 0;
 			}
 			super.update(deltaTime);
 		}
