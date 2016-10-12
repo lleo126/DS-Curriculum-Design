@@ -15,7 +15,7 @@ package animations
 		{
 			super(unit);
 			
-			currentAnimation = _animations[UnitStatus.MOVING] = new HeroMoveAnimation(unit, index);
+			currentAnimation = _animations[UnitStatus.MOVING] = _animations[UnitStatus.STANDING] = new HeroMoveAnimation(unit, index);
 			var attackAnimation:HeroThrowAnimation = new HeroThrowAnimation(unit, index);
 			_animations[UnitStatus.THROWING] = _animations[UnitStatus.LIFTING] = attackAnimation;
 			attackAnimation.addEventListener(Event.COMPLETE, onAttackComplete);
@@ -26,6 +26,7 @@ package animations
 		private function onAttackComplete(e:Event):void 
 		{
 			unit.status = UnitStatus.MOVING;
+			unit.status = UnitStatus.STANDING;
 		}
 	}
 }

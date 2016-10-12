@@ -31,6 +31,7 @@ package animations
 			if(unit.status == UnitStatus.LIFTING)
 			{
 				timeNow = 0;
+				timeNum = 0;
 				deltaTime = 0;
 			}
 			trace( "timeNow : " + timeNow );

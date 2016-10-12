@@ -167,9 +167,16 @@ package models
 		
 		private function update():void
 		{
-			_hero.unitTransform.speed = hero.maxSpeed * int(!(upHeld == downHeld && leftHeld == rightHeld));
-			if (_hero.unitTransform.speed == 0.0) status = UnitStatus.STANDING;
-			if (0.0 < _hero.unitTransform.speed)
+			hero.unitTransform.speed = hero.maxSpeed * int(!(upHeld == downHeld && leftHeld == rightHeld));
+			if (_hero.unitTransform.speed == 0.0) 
+			{
+				_hero.status = UnitStatus.STANDING;
+			}
+			else
+			{
+				_hero.status = UnitStatus.MOVING;
+			}
+			if (0.0 < hero.unitTransform.speed)
 			{
 				_hero.unitTransform.orientation = Math.atan2(int(downHeld) - int(upHeld), int(rightHeld) - int(leftHeld)) / Math.PI * 180.0;
 			}

@@ -47,6 +47,8 @@ package views
 		private var baffle1:Bitmap;
 		private var baffle2:Bitmap;
 		
+		private var dateTime:Clock;
+		
 		private var statusHP1:Bitmap;
 		private var statusSP1:Bitmap;
 		private var statusHP2:Bitmap;
@@ -101,7 +103,7 @@ package views
 		//==========
 		override protected function init(ev:Event = null):void 
 		{	
-			timeTxt = new TextField();
+			dateTime = new Clock();
 			
 			ui = new Sprite();
 
@@ -237,10 +239,8 @@ package views
 			var format:TextFormat = new TextFormat();
 			format.size 				= FORMAT_SIZE;
 			
-			var dateTime:Clock = new Clock();
-			dateTime.start();
 			dateTime.defaultTextFormat = format;
-
+			
 			groupScore.y = SCORE_Y;
 			
 			score.autoSize = "left";
@@ -286,12 +286,14 @@ package views
 			if (!pressESCYet && e.keyCode == Keyboard.ESCAPE)
 			{
 				pressESCYet = true;
+				dateTime.stop();
 				ui.addChild(_stop);
 				_world.resume(false);
 			}
 			else if (pressESCYet && e.keyCode == Keyboard.ESCAPE)
 			{
 				pressESCYet = false;
+				dateTime.start();
 				ui.removeChild(_stop);
 				_world.resume(true);
 			}
@@ -302,6 +304,7 @@ package views
 			if (e.target == returnGame)
 			{	
 				pressESCYet = false;
+				dateTime.start();
 				ui.removeChild(_stop);
 				stage.focus = null;
 				_world.resume(true);
@@ -318,6 +321,8 @@ package views
 		{
 			super.activate(ev);
 			world.start(type, players);
+			dateTime.reset();
+			dateTime.start();
 		}
 		
 		override protected function inactivate(ev:Event):void 
