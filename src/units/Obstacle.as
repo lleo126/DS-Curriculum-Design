@@ -33,7 +33,7 @@ package units
 			_body.pivotY = parseFloat(xml.pivotY.text().toString());
 			
 			var scale:Number = parseFloat(xml.width.text().toString()) / _body.width;
-			_unitTransform.radius = parseFloat(xml.radius.text().toString()) * scale;
+			_unitTransform.radius = parseFloat(xml.radius.text().toString()) *  scale;
 			_unitTransform.altitude = parseFloat(xml.unitTransform.altitude.text().toString()) * scale;
 			
 			addEventListener(Event.ADDED_TO_STAGE, function ():void 

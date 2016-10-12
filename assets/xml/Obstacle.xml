@@ -2,6 +2,8 @@
 	<obstacle>
 		<img>TREE2_IMG</img>
 		<name>tree2</name>
+		<hp>160</hp>
+		<bonus>160</bonus>
 		<pivotX>60</pivotX>
 		<pivotY>336</pivotY>
 		<width>58</width>
@@ -11,9 +13,12 @@
 		</unitTransform>
 		<radius>56</radius>
 	</obstacle>
+	
 	<obstacle>
 		<img>TREE3_IMG</img>
 		<name>tree3</name>
+		<hp>160</hp>
+		<bonus>160</bonus>
 		<pivotX>74</pivotX>
 		<pivotY>336</pivotY>
 		<width>70</width>
@@ -26,6 +31,8 @@
 	<obstacle>
 		<img>TREE4_IMG</img>
 		<name>tree4</name>
+		<hp>200</hp>
+		<bonus>200</bonus>
 		<pivotX>82</pivotX>
 		<pivotY>252</pivotY>
 		<width>175</width>
@@ -38,6 +45,8 @@
 	<obstacle>
 		<img>TREE6_IMG</img>
 		<name>tree6</name>
+		<hp>160</hp>
+		<bonus>160</bonus>
 		<pivotX>88</pivotX>
 		<pivotY>252</pivotY>
 		<width>80</width>
@@ -50,6 +59,8 @@
 	<obstacle>
 		<img>TREE7_IMG</img>
 		<name>tree7</name>
+		<hp>160</hp>
+		<bonus>160</bonus>
 		<pivotX>145</pivotX>
 		<pivotY>275</pivotY>
 		<width>150</width>
@@ -62,6 +73,8 @@
 	<obstacle>
 		<img>TREE8_IMG</img>
 		<name>tree8</name>
+		<hp>160</hp>
+		<bonus>160</bonus>
 		<pivotX>125</pivotX>
 		<pivotY>282</pivotY>
 		<width>107</width>
@@ -74,6 +87,8 @@
 	<obstacle>
 		<img>TREE9_IMG</img>
 		<name>tree9</name>
+		<hp>160</hp>
+		<bonus>160</bonus>
 		<pivotX>127</pivotX>
 		<pivotY>265</pivotY>
 		<width>130</width>
@@ -88,6 +103,8 @@
 	<obstacle>
 		<img>CAR2_IMG</img>
 		<name>car2</name>
+		<hp>120</hp>
+		<bonus>120</bonus>
 		<pivotX>31</pivotX>
 		<pivotY>66</pivotY>
 		<width>61</width>
@@ -100,6 +117,8 @@
 	<obstacle>
 		<img>CAR4_IMG</img>
 		<name>car4</name>
+		<hp>120</hp>
+		<bonus>120</bonus>
 		<pivotX>58</pivotX>
 		<pivotY>56</pivotY>
 		<width>119</width>
@@ -112,6 +131,8 @@
 	<obstacle>
 		<img>CAR6_IMG</img>
 		<name>car6</name>
+		<hp>120</hp>
+		<bonus>120</bonus>
 		<pivotX>60</pivotX>
 		<pivotY>36</pivotY>
 		<width>116</width>
@@ -124,6 +145,8 @@
 	<obstacle>
 		<img>CAR9_IMG</img>
 		<name>car9</name>
+		<hp>120</hp>
+		<bonus>120</bonus>
 		<pivotX>50</pivotX>
 		<pivotY>50</pivotY>
 		<width>95</width>
@@ -136,6 +159,8 @@
 	<obstacle>
 		<img>DUSTBIN_IMG</img>
 		<name>dustbin</name>
+		<hp>60</hp>
+		<bonus>60</bonus>
 		<pivotX>90</pivotX>
 		<pivotY>194</pivotY>
 		<width>50</width>
@@ -148,6 +173,8 @@
 	<obstacle>
 		<img>BICYCLE1_IMG</img>
 		<name>bicycle1</name>
+		<hp>80</hp>
+		<bonus>80</bonus>
 		<pivotX>253</pivotX>
 		<pivotY>304</pivotY>
 		<width>78.9</width>
@@ -160,6 +187,8 @@
 	<obstacle>
 		<img>BICYCLE2_IMG</img>
 		<name>bicycle2</name>
+		<hp>80</hp>
+		<bonus>80</bonus>
 		<pivotX>268</pivotX>
 		<pivotY>314</pivotY>
 		<width>80.1</width>
