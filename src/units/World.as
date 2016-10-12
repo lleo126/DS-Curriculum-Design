@@ -3,6 +3,7 @@ package units
 	import animations.HeroMoveAnimation;
 	import animations.SnowballExplosionAnimation;
 	import assets.AssetManager;
+	import events.UnitEvent;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
@@ -103,66 +104,63 @@ package units
 		/**
 		 * 第二层，单位层
 		 */
-		private var unitGroup:Sprite = new Sprite(); //排序测试
+		private var unitGroup:Sprite = new Sprite();
 		
-		// for test
-		private var testUnit:Unit;
-		private var testUnitBall:Effect;
+		
+		private var _collisionManager:CollisionManager;
+		private var _players:Vector.<Player>;
+		private var _heroes:Vector.<Hero>;
+		private var _snowballs:Vector.<Snowball> = new <Snowball>[];
+		private var _monsters:Vector.<Monster> = new <Monster>[];
+		private var _obstacles:Vector.<Obstacle> = new <Obstacle>[];
+		private var _items:Vector.<Item> = new <Item>[];
+		private var _effects:Vector.<Effect> = new <Effect>[];
+		private var _deltaTime:int;
 		
 		//==========
 		// 属性
 		//==========
 		
-		private var _collisionManager:CollisionManager;
 		/**
 		 * 碰撞管理器
 		 */
 		internal function get collisionManager():CollisionManager { return _collisionManager; }
 		
-		private var _players:Vector.<Player>;
 		/**
 		 * 玩家，根据长度可以判断是单人还是双人
 		 */
 		public function get players():Vector.<Player> { return _players; }
 		
-		private var _heroes:Vector.<Hero>;
 		/**
 		 * 玩家所控制的英雄
 		 */
 		internal function get heroes():Vector.<Hero> { return _heroes; }
 		
-		private var _snowballs:Vector.<Snowball> = new <Snowball>[];
 		/**
 		 * 雪球
 		 */
 		internal function get snowballs():Vector.<Snowball> { return _snowballs; }
 		
-		private var _monsters:Vector.<Monster> = new <Monster>[];
 		/**
 		 * 怪物
 		 */
 		internal function get monsters():Vector.<Monster> { return _monsters; }
 		
-		private var _obstacles:Vector.<Obstacle> = new <Obstacle>[];
 		/**
 		 * 障碍物
 		 */
 		internal function get obstacles():Vector.<Obstacle> { return _obstacles; }
 		
-		private var _items:Vector.<Item> = new <Item>[];
 		/**
 		 * 道具
 		 */
 		internal function get items():Vector.<Item> { return _items; }
 		
-		private var _effects:Vector.<Effect> = new <Effect>[];
+		/**
+		 * 特效
+		 */
+		public function get effects():Vector.<Effect> { return _effects; }
 		
-		public function get effects():Vector.<Effect> 
-		{
-			return _effects;
-		}
-		
-		private var _deltaTime:int;
 		/**
 		 * 自上一帧以来的经过时间，以毫秒为单位
 		 */
@@ -252,10 +250,10 @@ package units
 		 */
 		public function dispose():void
 		{
-			var i:int = 0;
-			for (i = 0; i < _players.length; i++)
+			var i:int;
+			for (i = 0; i < _heroes.length; i++)
 			{
-				_players[i].hero.dispose();
+				_heroes[i].dispose();
 			}
 			for (i = 0; i < _snowballs.length; i++)
 			{

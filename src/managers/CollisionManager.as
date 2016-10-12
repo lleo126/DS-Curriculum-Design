@@ -3,11 +3,11 @@ package managers
 	import animations.SnowballExplosionAnimation;
 	import events.UnitEvent;
 	import flash.display.BlendMode;
-	import flash.display.IGraphicsData;
 	import flash.display.Shape;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
 	import flash.utils.setTimeout;
+	import models.Collision;
 	import units.Effect;
 	import units.Hero;
 	import units.Item;
@@ -96,8 +96,8 @@ package managers
 				ut2p.advance(time);
 				if (detectStill(ut1p, ut2p)) // 当检测到两物体发生碰撞
 				{
-					var lo:UnitTransform = out1p,
-						hi:UnitTransform = ut1p,
+					var lo:UnitTransform = out1p, // 不变性：lo 未碰撞
+						hi:UnitTransform = ut1p, // hi 必碰撞
 						mi:UnitTransform = lo.clone();
 					do // 二分查找碰撞点
 					{
@@ -142,30 +142,31 @@ package managers
 		public function detectAll(deltaTime:int):void 
 		{
 			var i:int = 0, j:int = 0,
-				res:UnitTransform;
+				pos:UnitTransform;
 			for (i = 0; i < heroes.length; ++i)
 			{
 				for (j = 0; j < monsters.length; ++j) 
 				{
-					res = detect(heroes[i].unitTransform, monsters[j].unitTransform, deltaTime);
-					if (res) updateBounce(heroes[i], res);
+					pos = detect(heroes[i].unitTransform, monsters[j].unitTransform, deltaTime);
+					if (pos) updateBounce(heroes[i], monsters[j], pos);
 				}
 				
 				for (j = 0; j < obstacles.length; ++j)
 				{
-					res = detect(heroes[i].unitTransform, obstacles[j].unitTransform, deltaTime);
-					if (res) updateBounce(heroes[i], res);
+					pos = detect(heroes[i].unitTransform, obstacles[j].unitTransform, deltaTime);
+					if (pos) updateBounce(heroes[i], obstacles[j], pos);
 				}
 				
 				for (j = 0; j < items.length; ++j)
 				{
-					res = detect(heroes[i].unitTransform, items[j].unitTransform, deltaTime);
-					if (res)
-					{
-						heroes[i].dispatchEvent(new UnitEvent(UnitEvent.COLLIDED, items[j]));
-						items[j].dispatchEvent(new UnitEvent(UnitEvent.COLLIDED, heroes[i]));
-						items[j].removeFromWorld();
-					}
+					pos = detect(heroes[i].unitTransform, items[j].unitTransform, deltaTime);
+					if (pos) updateBounce(heroes[i], items[j], pos);
+					//if (pos)
+					//{
+						//heroes[i].dispatchEvent(new UnitEvent(UnitEvent.COLLIDED, items[j]));
+						//items[j].dispatchEvent(new UnitEvent(UnitEvent.COLLIDED, heroes[i]));
+						//items[j].removeFromWorld();
+					//}
 				}
 			}
 			
@@ -173,20 +174,20 @@ package managers
 			{
 				for (j = 0; j < heroes.length; ++j)
 				{
-					res = detect(snowballs[i].unitTransform, heroes[j].unitTransform, deltaTime);
-					if (res) updateBounce(snowballs[i], res);
+					pos = detect(snowballs[i].unitTransform, heroes[j].unitTransform, deltaTime);
+					if (pos) updateBounce(snowballs[i], heroes[j], pos);
 				}
 				
 				for (j = i + 1; j < snowballs.length; ++j)
 				{
-					res = detect(snowballs[i].unitTransform, snowballs[j].unitTransform, deltaTime);
-					if (res) updateBounce(snowballs[i], res);
+					pos = detect(snowballs[i].unitTransform, snowballs[j].unitTransform, deltaTime);
+					if (pos) updateBounce(snowballs[i], snowballs[j], pos);
 				}
 				
 				for (j = 0; j < obstacles.length; ++j)
 				{
-					res = detect(snowballs[i].unitTransform, obstacles[j].unitTransform, deltaTime);
-					if (res) updateBounce(snowballs[i], res);
+					pos = detect(snowballs[i].unitTransform, obstacles[j].unitTransform, deltaTime);
+					if (pos) updateBounce(snowballs[i], obstacles[j], pos);
 				}
 				
 				// 临时：如果雪球撞到地面，就消失
@@ -204,10 +205,11 @@ package managers
 		 * @param	unit
 		 * @param	ut
 		 */
-		private function updateBounce(unit:Unit, ut:UnitTransform):void 
+		private function updateBounce(source:Unit, target:Unit, next:UnitTransform):void 
 		{
+			var newCollision:Collision = new Collision(source, target, next);
 			//trace( "CollisionManager.updateBounce > unit : " + unit + ", ut : " + ut );
-			if (!(unit in bounce) || UnitTransform.getDistance(unit.unitTransform, ut) < UnitTransform.getDistance(unit.unitTransform, bounce[unit])) bounce[unit] = ut;
+			if (!(source in bounce) || newCollision.nextDistance < (bounce[source] as Collision).nextDistance) bounce[source] = newCollision;
 		}
 		
 		/**
@@ -226,10 +228,11 @@ package managers
 		 */
 		public function update(deltaTime:int):void 
 		{
+			// 修正 Hero 和 Snowball 的位置
 			var i:int;
 			for (i = 0; i < heroes.length; ++i) 
 			{
-				if (heroes[i] in bounce) heroes[i].unitTransform = bounce[heroes[i]];
+				if (heroes[i] in bounce) heroes[i].unitTransform = (bounce[heroes[i]] as Collision).next;
 				else heroes[i].unitTransform.advance(deltaTime);
 			}
 			
@@ -237,18 +240,20 @@ package managers
 			{
 				if (snowballs[i] in bounce)
 				{
-					snowballs[i].unitTransform = bounce[snowballs[i]];
+					snowballs[i].unitTransform = (bounce[snowballs[i]] as Collision).next;
 					snowballExplode(snowballs[i]);
 				}
 				else snowballs[i].unitTransform.advance(deltaTime);
 			}
 			
-			//for (var key:* in bounce)
-			//{
-				//var unit:Unit = key as Unit;
-				//if (unit in bounce) unit.unitTransform = bounce[unit];
-				//else unit.unitTransform.advance(deltaTime);
-			//}
+			// 为所有发生碰撞的单位发送事件
+			for each (var elem:* in bounce)
+			{
+				var collision:Collision = elem as Collision;
+				collision.source.dispatchEvent(new UnitEvent(UnitEvent.COLLIDED, collision));
+				collision.target.dispatchEvent(new UnitEvent(UnitEvent.COLLIDED, collision));
+			}
+			
 			bounce = new Dictionary();
 		}
 		
@@ -258,43 +263,52 @@ package managers
 		 */
 		private function snowballExplode(snowball:Snowball):void 
 		{
+			// 产生特效
 			var explosion:Effect = new Effect(new SnowballExplosionAnimation(explosion, snowball.attackRange));
 			explosion.unitTransform.setByUnitTransform(snowball.unitTransform);
+			explosion.unitTransform.radius = snowball.attackRange;
 			world.addUnit(explosion);
+			
 			// TODO: 在 Animation 里提供接口
 			setTimeout(function ():void 
 			{
 				explosion.removeFromWorld();
 			}, 250);
 			
+			// 爆炸范围遮挡
 			var shadowShape:Shape = new Shape();
 			shadowShape.y -= explosion.unitTransform.z;
 			shadowShape.blendMode = BlendMode.ERASE;
 			explosion.blendMode = BlendMode.LAYER;
 			
-			var shadows:Vector.<Vector.<UnitTransform>> = setShadowShape(shadowShape, snowball);
+			var shadows:Vector.<Vector.<UnitTransform>> = setShadowShape(shadowShape, snowball, explosion);
 			explosion.addChild(shadowShape);
 			
 			var i:int;
+			// 如果英雄注册点在爆炸范围内，且不在遮蔽区域内，则造成与爆炸点距离成反比的伤害
 			for (i = 0; i < heroes.length; ++i)
 			{
-				// TODO: 如果英雄注册点在爆炸范围内，且不在遮蔽区域内，则造成与爆炸点距离成反比的伤害
 				if (!inExplosion(heroes[i].unitTransform, explosion.unitTransform, shadows)) continue;
 				
-				heroes[i].hp -= snowball.damage * (snowball.attackRange - UnitTransform.getDistance(explosion.unitTransform, heroes[i].unitTransform));
+				heroes[i].hp -= snowball.damage * (snowball.attackRange - getDistanceXoY(explosion.unitTransform, heroes[i].unitTransform)) / snowball.attackRange;
 			}
 			
+			// 如果道具在……，则消失
 			for (i = 0; i < items.length; ++i)
 			{
-				// TODO: 如果道具……，则消失
+				if (!inExplosion(items[i].unitTransform, explosion.unitTransform, shadows)) continue;
+				
+				items[i].removeFromWorld();
 			}
 			
 			snowball.removeFromWorld();
 			
-			// DFS
+			// 如果雪球在……，则引爆
 			for (i = 0; i < snowballs.length; ++i)
 			{
-				// TODO: 如果雪球……，则引爆
+				if (!inExplosion(snowballs[i].unitTransform, explosion.unitTransform, shadows)) continue;
+				
+				snowballExplode(snowballs[i]);
 			}
 		}
 		
@@ -307,8 +321,18 @@ package managers
 		 */
 		private function inExplosion(unitUt:UnitTransform, explosionUt:UnitTransform, shadows:Vector.<Vector.<UnitTransform>>):Boolean 
 		{
+			return explosionUt.determineCross(unitUt)
+				&& getDistanceXoY(unitUt, explosionUt) <= explosionUt.radius
+				&& !inShadows(unitUt, shadows);
+		}
+		
+		private function inShadows(unitUt:UnitTransform, shadows:Vector.<Vector.<UnitTransform>>):Boolean 
+		{
+			for (var i:int = 0; i < shadows.length; i++) 
+			{
+				if (unitUt.inPolygon(shadows[i])) return true;
+			}
 			return false;
-			explosionUt.determineCross(unitUt);
 		}
 		
 		/**
@@ -317,7 +341,7 @@ package managers
 		 * @param	snowball
 		 * @return	定义阴影的 UnitTransform 数组
 		 */
-		private function setShadowShape(shadowShape:Shape, snowball:Snowball):Vector.<Vector.<UnitTransform>> 
+		private function setShadowShape(shadowShape:Shape, snowball:Snowball, explosion:Effect):Vector.<Vector.<UnitTransform>> 
 		{
 			var shadows:Vector.<Vector.<UnitTransform>> = new <Vector.<UnitTransform>>[];
 			for (var i:int = 0; i < obstacles.length; ++i) 
@@ -330,23 +354,23 @@ package managers
 				shadows.push(supportUnitTransforms);
 				
 				// 转换到局部坐标系
-				for (var j:int = 0; j < shadows.length; ++j)
+				var localUnitTransforms:Vector.<UnitTransform> = supportUnitTransforms.map(function (ut:UnitTransform, i:int, thisObj:Object):UnitTransform 
 				{
-					supportUnitTransforms[j] = UnitTransform.globalToLocal(supportUnitTransforms[j], snowball.unitTransform);
-				}
+					return UnitTransform.globalToLocal(ut, explosion.unitTransform);
+				});
 				
 				// 遮蔽障碍物
 				shadowShape.graphics.beginFill(0x2EEAAF);
-				var localObstacleUnitTransform:UnitTransform = UnitTransform.globalToLocal(obstacles[i].unitTransform, snowball.unitTransform);
+				var localObstacleUnitTransform:UnitTransform = UnitTransform.globalToLocal(obstacles[i].unitTransform, explosion.unitTransform);
 				shadowShape.graphics.drawCircle(localObstacleUnitTransform.x, localObstacleUnitTransform.y, obstacles[i].unitTransform.radius);
 				shadowShape.graphics.endFill();
 				
 				// 遮蔽梯形
 				shadowShape.graphics.beginFill(0xFFFF6F);
-				shadowShape.graphics.moveTo(supportUnitTransforms[0].x, supportUnitTransforms[0].y);
-				shadowShape.graphics.lineTo(supportUnitTransforms[1].x, supportUnitTransforms[1].y);
-				shadowShape.graphics.lineTo(supportUnitTransforms[2].x, supportUnitTransforms[2].y);
-				shadowShape.graphics.lineTo(supportUnitTransforms[3].x, supportUnitTransforms[3].y);
+				shadowShape.graphics.moveTo(localUnitTransforms[0].x, localUnitTransforms[0].y);
+				shadowShape.graphics.lineTo(localUnitTransforms[1].x, localUnitTransforms[1].y);
+				shadowShape.graphics.lineTo(localUnitTransforms[2].x, localUnitTransforms[2].y);
+				shadowShape.graphics.lineTo(localUnitTransforms[3].x, localUnitTransforms[3].y);
 				shadowShape.graphics.endFill();
 		
 				if (Main.DEBUG)

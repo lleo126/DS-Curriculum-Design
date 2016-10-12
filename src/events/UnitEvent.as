@@ -10,18 +10,20 @@ package events
 	public class UnitEvent extends Event 
 	{
 		public static const COLLIDED:String = 'collided';
+		public static const DEATH:String = 'death';
+		public static const STRAIGHT_ATTACKED:String = "straightAttacked";
 		
-		public function UnitEvent(type:String, unit:Unit) 
+		public function UnitEvent(type:String, data:* = null) 
 		{
 			super(type);
-			_unit = unit;
+			_data = data;
 		}
 		
-		private var _unit:Unit;
+		private var _data:*;
 		
 		/**
-		 * 触发此事件的另一个单位
+		 * 数据，是什么由事件类型决定
 		 */
-		public function get unit():Unit { return _unit; }
+		public function get data():* { return _data; }
 	}
 }

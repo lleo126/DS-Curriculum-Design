@@ -3,10 +3,13 @@ package animations
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import interfaces.IUpdate;
 	import units.Unit;
+	
+	[event(Event.COMPLETE)]
 	
 	/**
 	 * ...
@@ -87,6 +90,7 @@ package animations
 			{
 				timeNow = timeNow >= timeMax? timeNow - timeMax:timeNow;
 				timeNum = timeNow / _delay;
+				dispatchEvent(new Event(Event.COMPLETE)); // 发送事件
 			}
 			imgNow.bitmapData.lock();
 			imgNow.bitmapData.fillRect(selfRect, 0xFFFFFF);

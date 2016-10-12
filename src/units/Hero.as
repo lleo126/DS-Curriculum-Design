@@ -5,6 +5,7 @@ package units
 	import controls.APBar;
 	import controls.HPBar;
 	import controls.SPBar;
+	import events.UnitEvent;
 	import flash.utils.getTimer;
 	import flash.utils.setInterval;
 	import views.View;

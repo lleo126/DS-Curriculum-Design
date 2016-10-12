@@ -93,10 +93,8 @@ package units
 		
 		private function onCollided(e:UnitEvent):void 
 		{
-			if (e.unit is Hero)
-			{
-				_skill.apply(e.unit);
-			}
+			if (e.data is Hero) _skill.apply(e.data);
+			removeFromWorld();
 		}
 	}
 }

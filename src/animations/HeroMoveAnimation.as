@@ -22,5 +22,4 @@ package animations
 			super(unit);
 		}
 	}
-
 }

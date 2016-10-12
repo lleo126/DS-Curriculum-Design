@@ -1,11 +1,14 @@
 package units 
 {
+	import events.UnitEvent;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import interfaces.IUpdate;
 	import models.Player;
 	
-	[event(type=Event.CHANGE)]
+	[event(Event.CHANGE)]
+	[event(UnitEvent.COLLIDED)]
+	[event(UnitEvent.DEATH)]
 	
 	/**
 	 * 游戏世界中最基本的单位，抽象类
@@ -18,6 +21,7 @@ package units
 			_unitTransform = new UnitTransform(this);
 			dropShadow = new DropShadow(this);
 			addEventListener(Event.ADDED_TO_STAGE, init);
+			addEventListener(UnitEvent.DEATH, onDeath);
 		}
 		
 		/**
@@ -99,6 +103,11 @@ package units
 		public function get hp():Number { return _hp; }
 		public function set hp(value:Number):void 
 		{
+			if (value <= 0.0)
+			{
+				value = 0.0;
+				dispatchEvent(new UnitEvent(UnitEvent.DEATH));
+			}
 			_hp = Math.min(value, maxHP);
 		}
 		
@@ -138,7 +147,7 @@ package units
 		
 		public function update(deltaTime:int):void 
 		{
-			if (Main.DEBUG)
+			if (Main.DEBUG && !(this is Effect))
 			{
 				graphics.clear();
 				graphics.lineStyle(3, 0x4186F4);
@@ -174,6 +183,11 @@ package units
 		internal function removeFromWorldUnits():void 
 		{
 			world = null;
+		}
+		
+		private function onDeath(e:UnitEvent):void 
+		{
+			removeFromWorld();
 		}
 	}
 }
