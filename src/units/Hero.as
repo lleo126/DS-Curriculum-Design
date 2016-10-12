@@ -1,5 +1,6 @@
 package units 
 {
+	import animations.HeroAnimation;
 	import animations.HeroMoveAnimation;
 	import assets.AssetManager;
 	import controls.APBar;
@@ -30,7 +31,7 @@ package units
 		public static const MAX_HP:Number = 100.0;
 		public static const MAX_SP:Number = 100.0;
 		public static const MAX_AP:Number = 80.0;
-		static public const SCALE:Number = 1.0;
+		public static const SCALE:Number = 1.0;
 		
 		private static const ATTCK_RANGE:Number = 200.0;
 		private static const EXPLOSION_DISTANCE:Number = 100.0;
@@ -39,12 +40,14 @@ package units
 		private static const ALTITUDE:Number = 62.0;
 		private static const PIVOT_X:Number = 29.0;
 		private static const PIVOT_Y:Number = 83.0;
+		private static const BONUS:Number = 1000.0;
 		
-		public function Hero() 
+		public function Hero(index:int) 
 		{
 			name = 'hero';
 			
-			_body = new SpriteEx(new HeroMoveAnimation(this));
+			_body = new SpriteEx(new HeroAnimation(this, index));
+			//_body = new SpriteEx(new HeroMoveAnimation(this, index));
 			
 			_body.scaleX = _body.scaleY = SCALE;
 			_hp = HP;
@@ -55,6 +58,7 @@ package units
 			_maxAP = MAX_AP;
 			_attackRange = ATTCK_RANGE;
 			_maxSpeed = MAX_SPEED;
+			_bonus = BONUS;
 			_unitTransform.radius = RADIUS;
 			_unitTransform.altitude = ALTITUDE;
 			
@@ -149,6 +153,7 @@ package units
 		 */
 		public function lift():void 
 		{
+			status = UnitStatus.LIFTING;
 			liftSnowball = snowball.clone();
 			if (liftSnowball.bonus <= sp)
 			{
@@ -175,6 +180,7 @@ package units
 		{
 			if (!lifted) return;
 			lifted = false;
+			status = UnitStatus.THROWING;
 			
 			// TODO: 玩家移动的话速度更快？
 			removeChild(liftSnowball);

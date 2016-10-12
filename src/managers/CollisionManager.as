@@ -1,10 +1,13 @@
 package managers 
 {
 	import animations.SnowballExplosionAnimation;
+	import assets.AssetManager;
 	import events.UnitEvent;
 	import flash.display.BlendMode;
 	import flash.display.Shape;
 	import flash.geom.Point;
+	import flash.media.Sound;
+	import flash.net.URLRequest;
 	import flash.utils.Dictionary;
 	import flash.utils.setTimeout;
 	import models.Collision;
@@ -264,6 +267,10 @@ package managers
 		private function snowballExplode(snowball:Snowball):void 
 		{
 			// 产生特效
+			AssetManager.soundEffect = new Sound();
+			AssetManager.soundEffect.load(new URLRequest("music/Explode.mp3"));
+			AssetManager.songEffect = AssetManager.soundEffect.play();
+			AssetManager.songEffect.soundTransform = AssetManager.transEffect;
 			var explosion:Effect = new Effect(new SnowballExplosionAnimation(explosion, snowball.attackRange));
 			explosion.unitTransform.setByUnitTransform(snowball.unitTransform);
 			explosion.unitTransform.radius = snowball.attackRange;
@@ -293,13 +300,20 @@ package managers
 				heroes[i].attacked(snowball, snowball.damage * (snowball.attackRange - getDistanceXoY(explosion.unitTransform, heroes[i].unitTransform)) / snowball.attackRange);
 			}
 			
-			// 如果道具在……，则消失
+			// 如果道具在……，则炸掉
 			for (i = 0; i < items.length; ++i)
 			{
 				if (!inExplosion(items[i].unitTransform, explosion.unitTransform, shadows)) continue;
 				
 				items[i].attacked(snowball, snowball.damage * (snowball.attackRange - getDistanceXoY(explosion.unitTransform, items[i].unitTransform)) / snowball.attackRange);
-				//items[i].removeFromWorld();
+			}
+			
+			// 如果障碍物在……，则损坏
+			for (i = 0; i < obstacles.length; ++i)
+			{
+				if (!inExplosion(obstacles[i].unitTransform, explosion.unitTransform, shadows)) continue;
+				
+				obstacles[i].attacked(snowball, snowball.damage * (snowball.attackRange - getDistanceXoY(explosion.unitTransform, obstacles[i].unitTransform)) / snowball.attackRange);
 			}
 			
 			snowball.removeFromWorld();

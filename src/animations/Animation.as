@@ -83,21 +83,8 @@ package animations
 		
 		public function update(deltaTime:int):void 
 		{
-			timeNow += deltaTime;
-			
-			// TODO: 还是停留在同一帧就不用渲染
-			if (timeNow >= (timeNum + 1) * _delay)
-			{
-				timeNow = timeNow >= timeMax? timeNow - timeMax:timeNow;
-				timeNum = timeNow / _delay;
-				dispatchEvent(new Event(Event.COMPLETE)); // 发送事件
-			}
-			imgNow.bitmapData.lock();
-			imgNow.bitmapData.fillRect(selfRect, 0xFFFFFF);
-			imgNow.bitmapData.copyPixels(_img.bitmapData, clipRect, origin, null, null, true);
-			clipRect.x = timeNum * WIDTH;
-			imgNow.bitmapData.unlock();
-			imgNow.smoothing = true;
+			enterFrame(deltaTime);
+			renderImg();
 		}
 		
 		/**
@@ -106,6 +93,33 @@ package animations
 		public function dispose():void 
 		{
 			
+		}
+		
+		protected function enterFrame(deltaTime:int):void 
+		{
+			timeNow += deltaTime;
+		
+			// TODO: 还是停留在同一帧就不用渲染
+			if (timeNow >= (timeNum + 1) * _delay)
+			{
+				if (timeNow >= timeMax)
+				{
+					timeNow = timeNow - timeMax;
+					dispatchEvent(new Event(Event.COMPLETE));
+				}
+				timeNum = timeNow / _delay;
+				dispatchEvent(new Event(Event.COMPLETE)); // 发送事件
+			}
+		}
+		
+		private function renderImg():void 
+		{
+			imgNow.bitmapData.lock();
+			imgNow.bitmapData.fillRect(selfRect, 0xFFFFFF);
+			imgNow.bitmapData.copyPixels(_img.bitmapData, clipRect, origin, null, null, true);
+			clipRect.x = timeNum * WIDTH;
+			imgNow.bitmapData.unlock();
+			imgNow.smoothing = true;
 		}
 	}
 }

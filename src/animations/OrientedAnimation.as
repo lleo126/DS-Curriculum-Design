@@ -48,15 +48,13 @@ package animations
 			selfRect = new Rectangle(0, 0, imgNow.bitmapData.width, imgNow.bitmapData.height)
 		}
 		
-		override public function update(deltaTime:int):void 
+		public function findRow():void
 		{
 			rowNow = 0;
 			while (rowNow< _row && angleBegin + rowNow*angle < unit.unitTransform.orientation) rowNow++;
 			rowNow = rowNow == _row?0:rowNow;
 			clipRect.y = rowNow * HEIGHT;
-			
-			unit.unitTransform.speed
-			super.update(deltaTime);
 		}
+		
 	}
 }

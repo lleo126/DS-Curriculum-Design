@@ -1,14 +1,16 @@
 package animations 
 {
+	import avmplus.getQualifiedClassName;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import interfaces.IUpdate;
 	import units.Unit;
 	
 	/**
 	 * ...
 	 * @author 彩月葵☆彡
 	 */
-	internal class MultiAnimation extends Sprite 
+	internal class MultiAnimation extends Sprite implements IUpdate
 	{
 		public function MultiAnimation(unit:Unit) 
 		{
@@ -52,7 +54,12 @@ package animations
 		
 		private function onStateChange(e:Event):void 
 		{
+			if (!(unit.status in _animations)) return;
+			if (currentAnimation == _animations[unit.status]) return;
+			
+			removeChild(currentAnimation);
 			currentAnimation = _animations[unit.status];
+			addChild(currentAnimation);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package units
 {
+	import adobe.utils.CustomActions;
 	import animations.HeroMoveAnimation;
 	import animations.SnowballExplosionAnimation;
 	import assets.AssetManager;
@@ -16,6 +17,7 @@ package units
 	import models.PlayerStatus;
 	import models.Setting;
 	import views.PlayView;
+	import models.Clock;
 	import views.View;
 	
 	[event(Event.COMPLETE)]
@@ -190,7 +192,7 @@ package units
 			this.type = type;
 			_players = players;
 			
-			players[0].hero = new Hero();
+			players[0].hero = new Hero(0);
 			players[0].hpBar = View.PLAY_VIEW.statusBarHP1;
 			players[0].spBar = View.PLAY_VIEW.statusBarSP1;
 			players[0].apBar = View.PLAY_VIEW.statusBarAP1;
@@ -198,7 +200,7 @@ package units
 			
 			if (1 < _players.length)
 			{
-				players[1].hero = new Hero();
+				players[1].hero = new Hero(1);
 				players[1].hpBar = View.PLAY_VIEW.statusBarHP2;
 				players[1].spBar = View.PLAY_VIEW.statusBarSP2;
 				players[1].apBar = View.PLAY_VIEW.statusBarAP2;

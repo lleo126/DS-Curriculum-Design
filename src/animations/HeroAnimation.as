@@ -11,17 +11,21 @@ package animations
 	public class HeroAnimation extends MultiAnimation 
 	{
 		
-		public function HeroAnimation(unit:Unit) 
+		public function HeroAnimation(unit:Unit, index:int) 
 		{
 			super(unit);
 			
-			_animations[UnitStatus.MOVING] = new HeroMoveAnimation(unit);
-			var throwAni:HeroThrowAnimation = new HeroThrowAnimation(unit);
-			throwAni.addEventLitsener(new Event(Event.COMPLETE));
-			_animations[UnitStatus.THROWING] = throwAni;
-			// ...
+			currentAnimation = _animations[UnitStatus.MOVING] = new HeroMoveAnimation(unit, index);
+			var attackAnimation:HeroThrowAnimation = new HeroThrowAnimation(unit, index);
+			_animations[UnitStatus.THROWING] = _animations[UnitStatus.LIFTING] = attackAnimation;
+			attackAnimation.addEventListener(Event.COMPLETE, onAttackComplete);
+			
+			addChild(currentAnimation);
 		}
 		
+		private function onAttackComplete(e:Event):void 
+		{
+			unit.status = UnitStatus.MOVING;
+		}
 	}
-
 }

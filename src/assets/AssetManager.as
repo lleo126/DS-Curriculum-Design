@@ -173,29 +173,14 @@ package assets
 		[Embed(source = "../../assets/photos/sour_spicystrips.png")]
 		public static const SOUR_SPICYSTRIPS_IMG:Class;
 		
-		[Embed(source = "../../assets/photos/car1.png")]
-		public static const CAR1_IMG:Class;
-		
 		[Embed(source = "../../assets/photos/car2.png")]
 		public static const CAR2_IMG:Class;
-		
-		[Embed(source = "../../assets/photos/car3.png")]
-		public static const CAR3_IMG:Class;
 		
 		[Embed(source = "../../assets/photos/car4.png")]
 		public static const CAR4_IMG:Class;
 		
-		[Embed(source = "../../assets/photos/car5.png")]
-		public static const CAR5_IMG:Class;
-		
 		[Embed(source = "../../assets/photos/car6.png")]
 		public static const CAR6_IMG:Class;
-		
-		[Embed(source = "../../assets/photos/car7.png")]
-		public static const CAR7_IMG:Class;
-		
-		[Embed(source = "../../assets/photos/car8.png")]
-		public static const CAR8_IMG:Class;
 		
 		[Embed(source = "../../assets/photos/car9.png")]
 		public static const CAR9_IMG:Class;
@@ -215,9 +200,6 @@ package assets
 		[Embed(source = "../../assets/photos/salt.png")]
 		public static const SALT_IMG:Class;
 		
-		[Embed(source = "../../assets/photos/tree1.png")]
-		public static const TREE1_IMG:Class;
-		
 		[Embed(source = "../../assets/photos/tree2.png")]
 		public static const TREE2_IMG:Class;
 		
@@ -226,10 +208,7 @@ package assets
 		
 		[Embed(source = "../../assets/photos/tree4.png")]
 		public static const TREE4_IMG:Class;
-		
-		[Embed(source = "../../assets/photos/tree5.png")]
-		public static const TREE5_IMG:Class;
-		
+
 		[Embed(source = "../../assets/photos/tree6.png")]
 		public static const TREE6_IMG:Class;
 		
@@ -259,9 +238,6 @@ package assets
 		
 		[Embed(source = "../../assets/photos/bicycle2.png")]
 		public static const BICYCLE2_IMG:Class;
-		
-		[Embed(source = "../../assets/photos/bicycle3.png")]
-		public static const BICYCLE3_IMG:Class;
 		//==========================/
 		
 		//========动画图片==========/
@@ -269,12 +245,28 @@ package assets
 		[Embed(source = "../../assets/Animation/VillagerRun1.png")]
 		public static const HERO_MOVE:Class;
 		
+		[Embed(source = "../../assets/Animation/VillagerRun2.png")]
+		public static const HERO_MOVE_TWO:Class;
+		
 		[Embed(source = "../../assets/Animation/ball.png")]
 		public static const BALL_EXPLOSION:Class;
+		
+		[Embed(source = "../../assets/Animation/VillagerAttack1.png")]
+		public static const HERO_ATTACK:Class;
+		
+		[Embed(source = "../../assets/Animation/VillagerAttack2.png")]
+		public static const HERO_ATTACK_TWO:Class;
 		//==========================/
 		
+		
+		//========音效声明==========/
 		public static var songMusic:SoundChannel;
-		public static var soundFactory:Sound;
+		public static var songEffect:SoundChannel;
+		public static var soundMusic:Sound;
+		public static var soundEffect:Sound;
 		public static var transMusic:SoundTransform = new SoundTransform();
+		public static var transEffect:SoundTransform = new SoundTransform();
+		//==========================/
+		
 	}
 }

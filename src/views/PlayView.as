@@ -10,11 +10,10 @@ package views
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
-	import flash.net.URLRequest;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.ui.Keyboard;
-	import flash.utils.setInterval;
+	import models.Clock;
 	import models.Player;
 	import units.World;
 	/**
@@ -69,6 +68,8 @@ package views
 		private var returnGame:SimpleButton;
 		private var buttonBack:SimpleButton;
 		
+		private var timeTxt:TextField;
+		
 		public function PlayView() 
 		{
 			
@@ -100,6 +101,8 @@ package views
 		//==========
 		override protected function init(ev:Event = null):void 
 		{	
+			timeTxt = new TextField();
+			
 			ui = new Sprite();
 
 			_stop = new Sprite();
@@ -234,6 +237,10 @@ package views
 			var format:TextFormat = new TextFormat();
 			format.size 				= FORMAT_SIZE;
 			
+			var dateTime:Clock = new Clock();
+			dateTime.start();
+			dateTime.defaultTextFormat = format;
+
 			groupScore.y = SCORE_Y;
 			
 			score.autoSize = "left";
@@ -251,16 +258,18 @@ package views
 			
 			colon.x = stage.stageWidth * 0.5;
 			
-			score.x = colon.x - 360;
-			scoreBaffle.x = score.x;
-			scoreBaffle.y = score.y;
-			scoreBaffle.width = role2_score.x - score.x;
-			scoreBaffle.height = score.height;
+			score.x = colon.x - 260;
+			dateTime.x = score.x - 120;
+			scoreBaffle.x = score.x - 140;// score.x / 1.5;
+			scoreBaffle.y = -10;
+			scoreBaffle.width  =  (role2_score.x - score.x) * 1.5;
+			scoreBaffle.height = (score.height) * 1.5;
 			
-			role1_score.x = colon.x - 60 - role1_score.width;
+			role1_score.x = colon.x - 54 - role1_score.width;
 			role2_score.x = colon.x + 60;
-
+			
 			ui.addChild(groupScore);
+			groupScore.addChild(dateTime);
 			groupScore.addChild(scoreBaffle);
 			groupScore.addChild(score);
 			groupScore.addChild(role1_score);
