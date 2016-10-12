@@ -192,14 +192,14 @@ package units
 			_players = players;
 			_heroes = new <Hero>[];
 			
-			players[0].hero = new Hero(new AssetManager.HERO_MOVE());
+			players[0].hero = new Hero(0);
 			players[0].hero.hpBar = View.PLAY_VIEW.statusBarHP1;
 			players[0].hero.spBar = View.PLAY_VIEW.statusBarSP1;
 			players[0].hero.apBar = View.PLAY_VIEW.statusBarAP1;
 			
 			if (1 < _players.length)
 			{
-				players[1].hero = new Hero(new AssetManager.HERO_MOVE_TWO());
+				players[1].hero = new Hero(1);
 				players[1].hero.hpBar = View.PLAY_VIEW.statusBarHP2;
 				players[1].hero.spBar = View.PLAY_VIEW.statusBarSP2;
 				players[1].hero.apBar = View.PLAY_VIEW.statusBarAP2;
