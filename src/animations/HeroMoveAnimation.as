@@ -29,8 +29,8 @@ package animations
 			super.findRow();
 			if (unit.unitTransform.speed == 0)
 			{
-				deltaTime = 0;
 				timeNum = 0;
+				deltaTime = 0;
 			}
 			super.update(deltaTime);
 		}
