@@ -1,5 +1,6 @@
 package units 
 {
+	import animations.HeroAnimation;
 	import animations.HeroMoveAnimation;
 	import assets.AssetManager;
 	import controls.APBar;
@@ -40,11 +41,12 @@ package units
 		private static const PIVOT_X:Number = 29.0;
 		private static const PIVOT_Y:Number = 83.0;
 		
-		public function Hero(img:Bitmap) 
+		public function Hero(index:int) 
 		{
 			name = 'hero';
 			
-			_body = new SpriteEx(new HeroMoveAnimation(this, img));
+			_body = new SpriteEx(new HeroAnimation(this, index));
+			//_body = new SpriteEx(new HeroMoveAnimation(this, index));
 			
 			_body.scaleX = _body.scaleY = SCALE;
 			_hp = HP;
@@ -164,6 +166,7 @@ package units
 		 */
 		public function lift():void 
 		{
+			status = StatusType.LIFTING;
 			liftSnowball = snowball.clone();
 			if (liftSnowball.bonus <= sp)
 			{
@@ -189,6 +192,7 @@ package units
 		{
 			if (!lifted) return;
 			lifted = false;
+			status = StatusType.THROWING;
 			
 			// TODO: 玩家移动的话速度更快？
 			removeChild(liftSnowball);

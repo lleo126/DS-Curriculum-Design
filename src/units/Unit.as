@@ -5,7 +5,7 @@ package units
 	import interfaces.IUpdate;
 	import models.Player;
 	
-	[event(type=Event.CHANGE)]
+	[event(Event.CHANGE)]
 	
 	/**
 	 * 游戏世界中最基本的单位，抽象类
@@ -67,7 +67,7 @@ package units
 		protected var _maxSpeed:Number = 0.0;
 		protected var _hp:Number;
 		protected var _maxHP:Number;
-		protected var _status:String;
+		protected var _status:String = StatusType.MOVING;
 		protected var _bonus:int;
 		
 		//==========
@@ -128,6 +128,7 @@ package units
 		public function set status(value:String):void 
 		{
 			_status = value;
+			dispatchEvent(new Event(Event.CHANGE));
 		}
 		
 		/**

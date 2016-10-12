@@ -250,13 +250,23 @@ package assets
 		
 		[Embed(source = "../../assets/Animation/ball.png")]
 		public static const BALL_EXPLOSION:Class;
+		
+		[Embed(source = "../../assets/Animation/VillagerAttack1.png")]
+		public static const HERO_ATTACK:Class;
+		
+		[Embed(source = "../../assets/Animation/VillagerAttack2.png")]
+		public static const HERO_ATTACK_TWO:Class;
 		//==========================/
 		
+		
+		//========音效声明==========/
 		public static var songMusic:SoundChannel;
 		public static var songEffect:SoundChannel;
 		public static var soundMusic:Sound;
 		public static var soundEffect:Sound;
 		public static var transMusic:SoundTransform = new SoundTransform();
 		public static var transEffect:SoundTransform = new SoundTransform();
+		//==========================/
+		
 	}
 }
