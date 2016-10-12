@@ -208,7 +208,6 @@ package managers
 		private function updateBounce(source:Unit, target:Unit, next:UnitTransform):void 
 		{
 			var newCollision:Collision = new Collision(source, target, next);
-			//trace( "CollisionManager.updateBounce > unit : " + unit + ", ut : " + ut );
 			if (!(source in bounce) || newCollision.nextDistance < (bounce[source] as Collision).nextDistance) bounce[source] = newCollision;
 		}
 		
@@ -257,6 +256,7 @@ package managers
 			bounce = new Dictionary();
 		}
 		
+		// TODO: 重构到 Snowball 里去
 		/**
 		 * 雪球爆炸，产生遮罩特效，伤害，炸掉物品，连锁引爆旁边的雪球
 		 * @param	snowball
@@ -290,7 +290,7 @@ package managers
 			{
 				if (!inExplosion(heroes[i].unitTransform, explosion.unitTransform, shadows)) continue;
 				
-				heroes[i].hp -= snowball.damage * (snowball.attackRange - getDistanceXoY(explosion.unitTransform, heroes[i].unitTransform)) / snowball.attackRange;
+				heroes[i].attacked(snowball, snowball.damage * (snowball.attackRange - getDistanceXoY(explosion.unitTransform, heroes[i].unitTransform)) / snowball.attackRange);
 			}
 			
 			// 如果道具在……，则消失
@@ -298,7 +298,8 @@ package managers
 			{
 				if (!inExplosion(items[i].unitTransform, explosion.unitTransform, shadows)) continue;
 				
-				items[i].removeFromWorld();
+				items[i].attacked(snowball, snowball.damage * (snowball.attackRange - getDistanceXoY(explosion.unitTransform, items[i].unitTransform)) / snowball.attackRange);
+				//items[i].removeFromWorld();
 			}
 			
 			snowball.removeFromWorld();

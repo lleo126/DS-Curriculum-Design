@@ -13,9 +13,12 @@ package units
 	import flash.utils.getTimer;
 	import managers.CollisionManager;
 	import models.Player;
+	import models.PlayerStatus;
 	import models.Setting;
+	import views.PlayView;
 	import views.View;
 	
+	[event(Event.COMPLETE)]
 	/**
 	 * 游戏世界
 	 * @author 彩月葵☆彡
@@ -49,7 +52,7 @@ package units
 			snowfall = new Bitmap(snowfallData);
 			
 			addChild(snowfall);
-			addChild(unitGroup);//排序测试 
+			addChild(unitGroup);
 		}
 		
 		//==========
@@ -109,12 +112,12 @@ package units
 		
 		private var _collisionManager:CollisionManager;
 		private var _players:Vector.<Player>;
-		private var _heroes:Vector.<Hero>;
-		private var _snowballs:Vector.<Snowball> = new <Snowball>[];
-		private var _monsters:Vector.<Monster> = new <Monster>[];
-		private var _obstacles:Vector.<Obstacle> = new <Obstacle>[];
-		private var _items:Vector.<Item> = new <Item>[];
-		private var _effects:Vector.<Effect> = new <Effect>[];
+		private var _heroes:Vector.<Hero>			= new <Hero>[];
+		private var _snowballs:Vector.<Snowball>	= new <Snowball>[];
+		private var _monsters:Vector.<Monster>		= new <Monster>[];
+		private var _obstacles:Vector.<Obstacle>	= new <Obstacle>[];
+		private var _items:Vector.<Item>			= new <Item>[];
+		private var _effects:Vector.<Effect>		= new <Effect>[];
 		private var _deltaTime:int;
 		
 		//==========
@@ -186,19 +189,25 @@ package units
 			
 			this.type = type;
 			_players = players;
-			_heroes = new <Hero>[];
 			
 			players[0].hero = new Hero();
-			players[0].hero.hpBar = View.PLAY_VIEW.statusBarHP1;
-			players[0].hero.spBar = View.PLAY_VIEW.statusBarSP1;
-			players[0].hero.apBar = View.PLAY_VIEW.statusBarAP1;
+			players[0].hpBar = View.PLAY_VIEW.statusBarHP1;
+			players[0].spBar = View.PLAY_VIEW.statusBarSP1;
+			players[0].apBar = View.PLAY_VIEW.statusBarAP1;
+			players[0].scoreBoard = View.PLAY_VIEW.role1_score;
 			
 			if (1 < _players.length)
 			{
 				players[1].hero = new Hero();
-				players[1].hero.hpBar = View.PLAY_VIEW.statusBarHP2;
-				players[1].hero.spBar = View.PLAY_VIEW.statusBarSP2;
-				players[1].hero.apBar = View.PLAY_VIEW.statusBarAP1;
+				players[1].hpBar = View.PLAY_VIEW.statusBarHP2;
+				players[1].spBar = View.PLAY_VIEW.statusBarSP2;
+				players[1].apBar = View.PLAY_VIEW.statusBarAP2;
+				players[1].scoreBoard = View.PLAY_VIEW.role2_score;
+			}
+			
+			for (var i:int = 0; i < _players.length; i++) 
+			{
+				_players[i].hero.addEventListener(UnitEvent.DEATH, onHeroDeath);
 			}
 			
 			_collisionManager = new CollisionManager(_heroes, _snowballs, _monsters, _obstacles, _items);
@@ -307,9 +316,9 @@ package units
 			collisionManager.update(_deltaTime);
 			
 			var i:int;
-			for (i = 0; i < heroes.length; i++) 
+			for (i = 0; i < _heroes.length; i++) 
 			{
-				var hero:Hero = heroes[i];
+				var hero:Hero = _heroes[i];
 				hero.update(_deltaTime);
 				hero.sp += -addSnow(-Hero.COLLECT_SPEED * _deltaTime, _players[i].hero.unitTransform, Hero.COLLECT_RADIUS);
 			}
@@ -446,6 +455,23 @@ package units
 			{
 				unitGroup.setChildIndex(children[i],i);//重新设置实例对象的显示顺序
 			}
+		}
+		
+		/**
+		 * 英雄死亡时，游戏结束
+		 * @param	e
+		 */
+		private function onHeroDeath(e:UnitEvent):void 
+		{
+			trace( "World.onHeroDeath > e : " + e );
+			resume(false);
+			var player:Player = (e.currentTarget as Unit).owner;
+			if (type == PlayView.BATTLE)
+			{
+				_players[0].status = _players[0].hero.status == UnitStatus.DEAD ? PlayerStatus.LOST : PlayerStatus.WON;
+				_players[1].status = _players[1].hero.status == UnitStatus.DEAD ? PlayerStatus.LOST : PlayerStatus.WON;
+			}
+			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
 		/**

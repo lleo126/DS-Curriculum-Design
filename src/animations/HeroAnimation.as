@@ -1,7 +1,7 @@
 package animations 
 {
 	import flash.events.Event;
-	import units.StatusType;
+	import units.UnitStatus;
 	import units.Unit;
 	
 	/**
@@ -15,10 +15,10 @@ package animations
 		{
 			super(unit);
 			
-			_animations[StatusType.MOVING] = new HeroMoveAnimation(unit);
+			_animations[UnitStatus.MOVING] = new HeroMoveAnimation(unit);
 			var throwAni:HeroThrowAnimation = new HeroThrowAnimation(unit);
 			throwAni.addEventLitsener(new Event(Event.COMPLETE));
-			_animations[StatusType.THROWING] = throwAni;
+			_animations[UnitStatus.THROWING] = throwAni;
 			// ...
 		}
 		

@@ -1,5 +1,6 @@
 package units 
 {
+	import avmplus.getQualifiedClassName;
 	import events.UnitEvent;
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -51,8 +52,10 @@ package units
 		 */
 		internal var world:World;
 		
+		/**
+		 * 伤害
+		 */
 		protected var _damage:Number;
-		
 		
 		/**
 		 * 攻击距离
@@ -64,13 +67,14 @@ package units
 		 */
 		protected var dropShadow:DropShadow;
 		
+		
 		protected var _body:SpriteEx;
 		protected var _unitTransform:UnitTransform;
 		protected var _maxSpeed:Number = 0.0;
 		protected var _hp:Number;
 		protected var _maxHP:Number;
-		protected var _status:String;
-		protected var _bonus:int;
+		protected var _status:String = UnitStatus.MOVING;
+		protected var _bonus:int = 10;
 		
 		//==========
 		// 属性
@@ -106,7 +110,7 @@ package units
 			if (value <= 0.0)
 			{
 				value = 0.0;
-				dispatchEvent(new UnitEvent(UnitEvent.DEATH));
+				status = UnitStatus.DEAD;
 			}
 			_hp = Math.min(value, maxHP);
 		}
@@ -175,6 +179,14 @@ package units
 			world.removeUnit(this);
 		}
 		
+		public function attacked(attacker:Unit, damage:Number, straight:Boolean = false):void 
+		{
+			hp -= damage;
+			dispatchEvent(new UnitEvent(UnitEvent.ATTACKED, attacker));
+			if (straight) dispatchEvent(new UnitEvent(UnitEvent.STRAIGHT_ATTACKED, attacker));
+			if (_status == UnitStatus.DEAD) dispatchEvent(new UnitEvent(UnitEvent.DEATH, attacker));
+		}
+		
 		internal function addToWorldUnits(world:World):void 
 		{
 			this.world = world;
@@ -187,6 +199,9 @@ package units
 		
 		private function onDeath(e:UnitEvent):void 
 		{
+			var attacker:Unit = e.data as Unit;
+			if (attacker.owner) attacker.owner.score += _bonus;
+			// TODO: 死亡特效
 			removeFromWorld();
 		}
 	}

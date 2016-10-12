@@ -72,15 +72,15 @@ package views
 		private var line5:Shape;//双人对战白线2
 		
 		//模式区分 单人双人区分
-		public var playerType:Number;
+		public var players:Vector.<Player>;
 		public var type:String;
 		
 		public function ScoreView()
 		{
 			//传入的分数(测试用)
-			scorePlayer1 = 4326;//测试用 等传入数值1
-			scorePlayer2 = 47;//测试用 等传入数值2
-			playerType = 2;
+			//scorePlayer1 = 4326;//测试用 等传入数值1
+			//scorePlayer2 = 47;//测试用 等传入数值2
+			//players = 2;
 			//type = 'challenge';
 			
 			
@@ -155,9 +155,9 @@ package views
 				format.size = FORMAT_CHALLENGE_SIZE;
 				scorePlayerShow1.defaultTextFormat = format;
 				scorePlayerShow2.defaultTextFormat = format;
-				scorePlayerShow1.text = scorePlayer1.toString();
-				scorePlayerShow2.text = scorePlayer2.toString();
-				if (playerType == 1)
+				scorePlayerShow1.text = players[0].score.toString();
+				scorePlayerShow2.text = players[1].score.toString();
+				if (players.length == 1)
 				{
 					scorePlayerShow1.x = CHALLENGE_ONE_SHOW1_X;
 					scorePlayerShow1.y = SHOW_Y;		
@@ -180,8 +180,8 @@ package views
 				format.size = FORMAT_BATTLE_NUM_SIZE;
 				scorePlayerShow1.defaultTextFormat = format;
 				scorePlayerShow2.defaultTextFormat = format;
-				scorePlayerShow1.text = scorePlayer1.toString();
-				scorePlayerShow2.text = scorePlayer2.toString();
+				scorePlayerShow1.text = players[0].score.toString();
+				scorePlayerShow2.text = players[1].score.toString();
 				fail.x = FAIL_X;
 				fail.y = SHOW_Y;
 				win.x = WIN_X;
@@ -224,8 +224,8 @@ package views
 					}
 					else
 					{
+						View.PLAY_VIEW.players = new <Player>[new Player(), new Player()];
 						Main.current.view = View.PLAY_VIEW;
-						View.PLAY_VIEW.world.start(PlayView.BATTLE, new <Player>[new Player(), new Player()]); // 临时 测试用
 					}
 			}
 		}

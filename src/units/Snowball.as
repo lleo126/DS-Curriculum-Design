@@ -75,8 +75,7 @@ package units
 			var unit:Unit = (e.data as Collision).target as Unit;
 			if (unit is Hero)
 			{
-				unit.hp -= _damage * STRAIGHT_ATTACK_BONUS;
-				unit.dispatchEvent(new UnitEvent(UnitEvent.STRAIGHT_ATTACKED));
+				unit.attacked(this, _damage * STRAIGHT_ATTACK_BONUS, true);
 			}
 		}
 	}

@@ -4,6 +4,7 @@ package units
 	import events.UnitEvent;
 	import flash.events.Event;
 	import flash.utils.getDefinitionByName;
+	import models.Collision;
 	import units.skills.AddHP;
 	import units.skills.AddSnow;
 	import units.skills.Dizzy;
@@ -22,6 +23,7 @@ package units
 		
 		public function Item()
 		{
+			_hp = 1;
 			addEventListener(UnitEvent.COLLIDED, onCollided);
 		}
 		
@@ -93,8 +95,13 @@ package units
 		
 		private function onCollided(e:UnitEvent):void 
 		{
-			if (e.data is Hero) _skill.apply(e.data);
-			removeFromWorld();
+			trace( "Item.onCollided > e : " + e );
+			var unit:Unit = (e.data as Collision).source as Unit;
+			if (unit is Hero)
+			{
+				_skill.apply(unit);
+				attacked(unit, 10.0);
+			}
 		}
 	}
 }

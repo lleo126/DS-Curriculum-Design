@@ -67,21 +67,6 @@ package units
 		//==========
 		
 		/**
-		 * 该角色的血条
-		 */
-		public var hpBar:HPBar;
-		
-		/**
-		 * 该角色的雪条
-		 */
-		public var spBar:SPBar;
-		
-		/**
-		 * 该角色的蓄力条
-		 */
-		public var apBar:APBar;
-		
-		/**
 		 * 雪球大小，有三种预设
 		 */
 		public var snowball:Snowball = SNOWBALLS[1];
@@ -108,13 +93,13 @@ package units
 		override public function set hp(value:Number):void 
 		{
 			super.hp = value;
-			hpBar.value = _hp;
+			owner.hpBar.value = _hp;
 		}
 		
 		override public function set maxHP(value:Number):void 
 		{
 			super.maxHP = value;
-			hpBar.maxValue = value;
+			owner.hpBar.maxValue = value;
 		}
 		
 	   /**
@@ -124,7 +109,7 @@ package units
 		public function set sp(value:Number):void 
 		{
 			_sp = Math.min(value, MAX_SP);
-			spBar.value = _sp;
+			owner.spBar.value = _sp;
 		}
 		
 		/**
@@ -133,7 +118,7 @@ package units
 		public function set maxSP(value:Number):void 
 		{
 			_maxSP = value;
-			spBar.maxValue = value;
+			owner.spBar.maxValue = value;
 		}
 		
 	   /**
@@ -143,7 +128,7 @@ package units
 		public function set ap(value:Number):void 
 		{
 			_ap = Math.min(value, MAX_AP);
-			if (apBar) apBar.value = _ap;
+			owner.apBar.value = _ap;
 		}
 		
 		/**
@@ -152,7 +137,7 @@ package units
 		public function set maxAP(value:Number):void 
 		{
 			_maxAP = value;
-			apBar.maxValue = value;
+			owner.apBar.maxValue = value;
 		}
 		
 		//==========
@@ -177,6 +162,7 @@ package units
 			lifted = true;
 			
 			addChild(liftSnowball);
+			liftSnowball.owner = owner;
 			liftSnowball.scaleX = 1.0 / liftSnowball.parent.scaleX;
 			liftSnowball.scaleY = 1.0 / liftSnowball.parent.scaleY;
 			liftSnowball.unitTransform.z = unitTransform.top;
@@ -208,6 +194,9 @@ package units
 		{
 			super.addToWorldUnits(world);
 			world.heroes.push(this);
+			hp = _hp;
+			sp = _sp;
+			ap = _ap;
 		}
 		
 		override internal function removeFromWorldUnits():void 

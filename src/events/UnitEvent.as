@@ -9,9 +9,10 @@ package events
 	 */
 	public class UnitEvent extends Event 
 	{
-		public static const COLLIDED:String = 'collided';
-		public static const DEATH:String = 'death';
-		public static const STRAIGHT_ATTACKED:String = "straightAttacked";
+		public static const COLLIDED:String 			= 'collided';
+		public static const DEATH:String				= 'death';
+		public static const STRAIGHT_ATTACKED:String	= "straightAttacked";
+		public static const ATTACKED:String				= "attacked";
 		
 		public function UnitEvent(type:String, data:* = null) 
 		{
