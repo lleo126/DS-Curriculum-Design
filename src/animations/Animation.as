@@ -108,7 +108,6 @@ package animations
 					dispatchEvent(new Event(Event.COMPLETE));
 				}
 				timeNum = timeNow / _delay;
-				dispatchEvent(new Event(Event.COMPLETE)); // 发送事件
 			}
 		}
 		

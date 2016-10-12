@@ -26,7 +26,6 @@ package animations
 		}
 		override public function update(deltaTime:int):void 
 		{
-			trace( "HeroThrowAnimation.update > deltaTime : " + deltaTime );
 			super.findRow();
 			if(unit.status == UnitStatus.LIFTING)
 			{
@@ -34,7 +33,6 @@ package animations
 				timeNum = 0;
 				deltaTime = 0;
 			}
-			trace( "timeNow : " + timeNow );
 			super.update(deltaTime);
 		}
 	}
