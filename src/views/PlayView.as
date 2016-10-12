@@ -10,16 +10,11 @@ package views
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
-	import flash.events.TimerEvent;
-	import flash.net.URLRequest;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.ui.Keyboard;
-	import flash.utils.Timer;
-	import flash.utils.getTimer;
-	import flash.utils.setInterval;
-	import models.Player;
 	import models.Clock;
+	import models.Player;
 	import units.World;
 	/**
 	 * 游戏界面
@@ -243,24 +238,10 @@ package views
 			var format:TextFormat = new TextFormat();
 			format.size 				= FORMAT_SIZE;
 			
-			var tick:Timer;
 			var dateTime:Clock = new Clock();
-			dateTime.textColor = 0xFF0010;
+			dateTime.start();
 			dateTime.defaultTextFormat = format;
-			
-			function showTime():void
-			{
-				tick=new Timer(1);
-				tick.addEventListener(TimerEvent.TIMER, filltxt);
-				tick.start();
-			}
-			function filltxt(event:TimerEvent):void
-			{
-				dateTime.ms = getTimer();
-				dateTime.text = dateTime.currentTime;
-			}
-			showTime();
-			
+
 			groupScore.y = SCORE_Y;
 			
 			score.autoSize = "left";
@@ -278,15 +259,16 @@ package views
 			
 			colon.x = stage.stageWidth * 0.5;
 			
-			score.x = colon.x - 360;
-			scoreBaffle.x = 0;// score.x / 1.5;
+			score.x = colon.x - 260;
+			dateTime.x = score.x - 120;
+			scoreBaffle.x = score.x - 140;// score.x / 1.5;
 			scoreBaffle.y = -10;
-			scoreBaffle.width  = stage.width;// (role2_score.x - score.x) * 1.5;
+			scoreBaffle.width  =  (role2_score.x - score.x) * 1.5;
 			scoreBaffle.height = (score.height) * 1.5;
 			
-			role1_score.x = colon.x - 60 - role1_score.width;
+			role1_score.x = colon.x - 54 - role1_score.width;
 			role2_score.x = colon.x + 60;
-
+			
 			ui.addChild(groupScore);
 			groupScore.addChild(dateTime);
 			groupScore.addChild(scoreBaffle);
