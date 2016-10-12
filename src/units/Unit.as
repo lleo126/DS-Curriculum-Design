@@ -67,7 +67,7 @@ package units
 		protected var _maxSpeed:Number = 0.0;
 		protected var _hp:Number;
 		protected var _maxHP:Number;
-		protected var _status:String = StatusType.MOVING;
+		protected var _status:String = StatusType.STANDING;
 		protected var _bonus:int;
 		
 		//==========

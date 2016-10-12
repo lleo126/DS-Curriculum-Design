@@ -30,6 +30,7 @@ package animations
 			if(unit.status == StatusType.LIFTING)
 			{
 				timeNow = 0;
+				timeNum = 0;
 				deltaTime = 0;
 			}
 			super.update(deltaTime);
