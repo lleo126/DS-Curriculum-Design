@@ -23,7 +23,7 @@ package units
 		
 		public function Item()
 		{
-			_hp = 1.0;
+			_hp = _maxHP = 1.0;
 			addEventListener(UnitEvent.COLLIDED, onCollided);
 		}
 		
@@ -102,7 +102,6 @@ package units
 				_skill.apply(unit);
 				attacked(unit, 10.0);
 			}
-			if (unit is Snowball) attacked(unit, 10.0, true);
 		}
 	}
 }

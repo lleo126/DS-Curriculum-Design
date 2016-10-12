@@ -266,11 +266,13 @@ package managers
 		 */
 		private function snowballExplode(snowball:Snowball):void 
 		{
-			// 产生特效
+			// TODO(翁熙): 封装播放音效
 			AssetManager.soundEffect = new Sound();
 			AssetManager.soundEffect.load(new URLRequest("music/Explode.mp3"));
 			AssetManager.songEffect = AssetManager.soundEffect.play();
 			AssetManager.songEffect.soundTransform = AssetManager.transEffect;
+			
+			// 产生特效
 			var explosion:Effect = new Effect(new SnowballExplosionAnimation(explosion, snowball.attackRange));
 			explosion.unitTransform.setByUnitTransform(snowball.unitTransform);
 			explosion.unitTransform.radius = snowball.attackRange;
@@ -293,7 +295,7 @@ package managers
 			
 			var i:int;
 			// 如果英雄注册点在爆炸范围内，且不在遮蔽区域内，则造成与爆炸点距离成反比的伤害
-			for (i = 0; i < heroes.length; ++i)
+			for (i = heroes.length - 1; 0 <= i; --i)
 			{
 				if (!inExplosion(heroes[i].unitTransform, explosion.unitTransform, shadows)) continue;
 				
@@ -301,7 +303,7 @@ package managers
 			}
 			
 			// 如果道具在……，则炸掉
-			for (i = 0; i < items.length; ++i)
+			for (i = items.length - 1; 0 <= i; --i)
 			{
 				if (!inExplosion(items[i].unitTransform, explosion.unitTransform, shadows)) continue;
 				
@@ -309,7 +311,7 @@ package managers
 			}
 			
 			// 如果障碍物在……，则损坏
-			for (i = 0; i < obstacles.length; ++i)
+			for (i = obstacles.length - 1; 0 <= i; --i)
 			{
 				if (!inExplosion(obstacles[i].unitTransform, explosion.unitTransform, shadows)) continue;
 				
@@ -319,7 +321,7 @@ package managers
 			snowball.removeFromWorld();
 			
 			// 如果雪球在……，则引爆
-			for (i = 0; i < snowballs.length; ++i)
+			for (i = snowballs.length - 1; 0 <= i; --i)
 			{
 				if (!inExplosion(snowballs[i].unitTransform, explosion.unitTransform, shadows)) continue;
 				

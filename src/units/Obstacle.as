@@ -1,7 +1,9 @@
 package units 
 {
 	import assets.AssetManager;
+	import events.UnitEvent;
 	import flash.events.Event;
+	import models.Collision;
 	
 	/**
 	 * 障碍物
@@ -11,7 +13,7 @@ package units
 	{
 		public function Obstacle() 
 		{
-			super();
+			
 		}
 		
 		override protected function init(e:Event):void 
@@ -31,7 +33,7 @@ package units
 			_body = new SpriteEx(new ImageClass());
 			_body.pivotX = parseFloat(xml.pivotX.text().toString());
 			_body.pivotY = parseFloat(xml.pivotY.text().toString());
-			_hp = parseFloat(xml.hp.text().toString());
+			_hp = _maxHP = parseFloat(xml.hp.text().toString());
 			_bonus = parseFloat(xml.bonus.text().toString());
 			
 			var scale:Number = parseFloat(xml.width.text().toString()) / _body.width;

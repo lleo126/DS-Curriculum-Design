@@ -73,7 +73,7 @@ package units
 		private function onCollided(e:UnitEvent):void 
 		{
 			var unit:Unit = (e.data as Collision).target as Unit;
-			if (unit is Hero)
+			if (unit is Hero || unit is Obstacle)
 			{
 				unit.attacked(this, _damage * STRAIGHT_ATTACK_BONUS, true);
 			}
