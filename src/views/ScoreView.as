@@ -10,6 +10,7 @@ package views
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
+	import models.Clock;
 	import models.Player;
 	
 	/**
@@ -49,6 +50,12 @@ package views
 		static public const LINE_TWO_LINE1_BATTLE_X_B:Number = 590;
 		static public const LINE_TWO_LINE1_BATTLE_X_E:Number = 890;
 		static public const LINE_Y_BATTLE:Number = 400;
+		static public const TIME_X:Number = 380;
+		static public const TIME_Y:Number = 150;
+		static public const SCORE_Y:Number = -20;
+		static public const SCORE_X:Number = 360;
+		static public const SCORE_WIDTH:Number = 300;
+		static public const SCORE_HEIGHT:Number	= 170;
 		
 		//按钮组定义
 		private var buttonGroup:Sprite;
@@ -74,6 +81,13 @@ package views
 		//模式区分 单人双人区分
 		public var players:Vector.<Player>;
 		public var type:String;
+		
+		//时间
+		private var dateTime:Clock;
+		private var timeTxt:TextField;
+		
+		//标题
+		private var score:Bitmap;
 		
 		public function ScoreView()
 		{
@@ -140,10 +154,22 @@ package views
 			
 			bmp = new AssetManager.RETURN_GAME_IMG();
 			buttonReturn = new SimpleButton(bmp, bmp, bmp, bmp);
+			
+			//时间
+			dateTime = new Clock();
+			dateTime.width = 200;
+			dateTime.height = 200;
+			format.size = 50;
+			dateTime.defaultTextFormat = format;
+			
+			//标题
+			score = new AssetManager.SCORE_TITLE();
+			score.smoothing = true;
 		}
 		
 		override protected function placeElements():void
 		{
+			
 			//分数类显示
 			
 			background.x = (stage.stageWidth - background.width) * 0.5;
@@ -186,6 +212,11 @@ package views
 				fail.y = SHOW_Y;
 				win.x = WIN_X;
 				win.y = SHOW_Y;
+				if (players[0].score < players[1].score) 
+				{
+					fail.x = WIN_X;
+					win.x = FAIL_X;
+				}
 				scorePlayerShow1.y = BATTLE_SCORE_Y;
 				scorePlayerShow1.x = BATTLE_SCORE_X1;
 				scorePlayerShow2.y = BATTLE_SCORE_Y;
@@ -207,6 +238,20 @@ package views
 			addChild(buttonGroup);
 			buttonGroup.addChild(buttonBack);
 			buttonGroup.addChild(buttonReturn);
+			
+			//时间显示
+			dateTime.time = players[0].endTime;
+			dateTime.x = TIME_X;
+			dateTime.y = TIME_Y;
+			addChild(dateTime);
+			
+			//标题显示
+			score.x = SCORE_X;
+			score.y = SCORE_Y;
+			score.width = SCORE_WIDTH;
+			score.height = SCORE_HEIGHT;
+			addChild(score);
+			
 		}
 		
 		private function buttonClick(e:MouseEvent):void

@@ -153,6 +153,7 @@ package views
 					break;
 				case buttonBattle:
 					View.PLAY_VIEW.players = new <Player>[new Player(), new Player()];
+					View.PLAY_VIEW.type = PlayView.BATTLE;
 					Main.current.view = View.PLAY_VIEW;
 					break;
 				case buttonSetting:

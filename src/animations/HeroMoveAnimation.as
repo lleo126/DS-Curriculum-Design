@@ -30,8 +30,8 @@ package animations
 			super.findRow();
 			if (unit.status == UnitStatus.STANDING)
 			{
-				deltaTime = 0;
 				timeNum = 0;
+				deltaTime = 0;
 				timeNow = 0;
 			}
 			super.update(deltaTime);
