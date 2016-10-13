@@ -7,6 +7,7 @@ package units
 	import controls.HPBar;
 	import controls.SPBar;
 	import events.UnitEvent;
+	import flash.events.Event;
 	import flash.utils.getTimer;
 	import flash.utils.setInterval;
 	import views.View;
@@ -33,6 +34,7 @@ package units
 		public static const MAX_AP:Number = 80.0;
 		public static const SCALE:Number = 1.0;
 		
+		private static const AP_TIME_RATIO:Number = 0.5;
 		private static const ATTCK_RANGE:Number = 200.0;
 		private static const EXPLOSION_DISTANCE:Number = 100.0;
 		private static const MAX_SPEED:Number = 0.35;
@@ -47,7 +49,6 @@ package units
 			name = 'hero';
 			
 			_body = new SpriteEx(new HeroAnimation(this, index));
-			//_body = new SpriteEx(new HeroMoveAnimation(this, index));
 			
 			_body.scaleX = _body.scaleY = SCALE;
 			_hp = HP;
@@ -74,11 +75,12 @@ package units
 		 * 雪球大小，有三种预设
 		 */
 		public var snowball:Snowball = SNOWBALLS[1];
+		public var accerelating:Boolean = false;
 		
 		/**
-		 * 举起状态
+		 * 表示有没有正在举起雪球
 		 */
-		public var lifted:Boolean = false;
+		private var lifted:Boolean = false;
 		
 		/**
 		 * 正在举起的雪球
@@ -104,6 +106,11 @@ package units
 		{
 			super.maxHP = value;
 			owner.hpBar.maxValue = value;
+		}
+		
+		override public function get maxSpeed():Number
+		{
+			return _maxSpeed * (accerelating ? 1.5 : 1.0);
 		}
 		
 	   /**
@@ -153,7 +160,6 @@ package units
 		 */
 		public function lift():void 
 		{
-			status = UnitStatus.LIFTING;
 			liftSnowball = snowball.clone();
 			if (liftSnowball.bonus <= sp)
 			{
@@ -164,8 +170,8 @@ package units
 				return;
 			}
 			
+			status = UnitStatus.LIFTING;
 			lifted = true;
-			
 			addChild(liftSnowball);
 			liftSnowball.owner = owner;
 			liftSnowball.scaleX = 1.0 / liftSnowball.parent.scaleX;
@@ -179,8 +185,8 @@ package units
 		public function throw2():void 
 		{
 			if (!lifted) return;
-			lifted = false;
 			status = UnitStatus.THROWING;
+			lifted = false;
 			
 			// TODO: 玩家移动的话速度更快？
 			removeChild(liftSnowball);
@@ -189,11 +195,17 @@ package units
 			liftSnowball.unitTransform.z = unitTransform.top;
 			liftSnowball.unitTransform.speed = liftSnowball.maxSpeed;
 			liftSnowball.unitTransform.vz = ap / Snowball.MASS;
-			View.PLAY_VIEW.world.addUnit(liftSnowball);
+			world.addUnit(liftSnowball);
 			liftSnowball.scaleX = 1.0 / liftSnowball.parent.scaleX;
 			liftSnowball.scaleY = 1.0 / liftSnowball.parent.scaleY;
 			
 			ap = 0.0;
+		}
+		
+		override public function update(deltaTime:int):void 
+		{
+			super.update(deltaTime);
+			if (_status == UnitStatus.LIFTING) ap += deltaTime * AP_TIME_RATIO;
 		}
 		
 		override internal function addToWorldUnits(world:World):void 

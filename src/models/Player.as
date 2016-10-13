@@ -4,6 +4,7 @@ package models
 	import controls.HPBar;
 	import controls.SPBar;
 	import flash.text.TextField;
+	import flash.utils.setTimeout;
 	import units.Hero;
 	import units.UnitStatus;
 	import views.View;
@@ -125,44 +126,50 @@ package models
 			update();
 		}
 		
-		public function onLift(keyCode:int, down:Boolean):void
-		{
-			if (!down || hero.lifted) return;
-			
-			hero.lift();
-		}
-		
 		public function onThrow(keyCode:int, down:Boolean):void
 		{
 			if (down) // 蓄力
 			{
-				hero.ap += View.PLAY_VIEW.world.deltaTime;
+				if (_hero.status != UnitStatus.LIFTING) _hero.lift();
 			}
 			else // 投掷
 			{
-				hero.throw2();
+				_hero.throw2();
 			}
+		}
+		
+		public function onAccelerate(keyCode:int, down:Boolean):void 
+		{
+			if (_hero.status != UnitStatus.MOVING) return;
+			if (!down || _hero.accerelating) return;
+			
+			trace( "down : " + down );
+			_hero.accerelating = true;
+			setTimeout(function ():void 
+			{
+				_hero.accerelating = false;
+			}, 1000.0);
 		}
 		
 		public function onSwitchSmall(keyCode:int, down:Boolean):void
 		{
 			if (!down) return;
 			
-			hero.snowball = Hero.SNOWBALLS[0];
+			_hero.snowball = Hero.SNOWBALLS[0];
 		}
 		
 		public function onSwitchMedium(keyCode:int, down:Boolean):void
 		{
 			if (!down) return;
 			
-			hero.snowball = Hero.SNOWBALLS[1];
+			_hero.snowball = Hero.SNOWBALLS[1];
 		}
 		
 		public function onSwitchLarge(keyCode:int, down:Boolean):void
 		{
 			if (!down) return;
 			
-			hero.snowball = Hero.SNOWBALLS[2];
+			_hero.snowball = Hero.SNOWBALLS[2];
 		}
 		
 		private function update():void

@@ -443,7 +443,6 @@ package units
 		 */
 		private function onHeroDeath(e:UnitEvent):void 
 		{
-			trace( "World.onHeroDeath > e : " + e );
 			resume(false);
 			var player:Player = (e.currentTarget as Unit).owner;
 			if (type == PlayView.BATTLE)

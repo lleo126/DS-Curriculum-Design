@@ -104,6 +104,7 @@ package units
 		public function get maxSpeed():Number { return _maxSpeed; }
 		public function set maxSpeed(value:Number):void 
 		{
+			trace(_maxSpeed);
 			_maxSpeed = value;
 		}
 		/**
@@ -144,6 +145,9 @@ package units
 		 */
 		public function get bonus():int { return _bonus; }
 		
+		/**
+		 * 伤害距离
+		 */
 		public function get attackRange():Number { return _attackRange; }
 		
 		/**

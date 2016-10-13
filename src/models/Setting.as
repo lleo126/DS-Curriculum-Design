@@ -16,8 +16,8 @@ package models
 			hotkeys[0][Keyboard.A]			= 'MoveLeft';
 			hotkeys[0][Keyboard.S]			= 'MoveDown';
 			hotkeys[0][Keyboard.D]			= 'MoveRight';
-			hotkeys[0][Keyboard.J]			= 'Lift';
-			hotkeys[0][Keyboard.K]			= 'Throw';
+			hotkeys[0][Keyboard.J]			= 'Throw';
+			hotkeys[0][Keyboard.K]			= 'Accelerate';
 			hotkeys[0][Keyboard.U]			= 'SwitchSmall';
 			hotkeys[0][Keyboard.I]			= 'SwitchMedium';
 			hotkeys[0][Keyboard.O]			= 'SwitchLarge';
@@ -26,8 +26,8 @@ package models
 			hotkeys[1][Keyboard.LEFT]		= 'MoveLeft';
 			hotkeys[1][Keyboard.DOWN]		= 'MoveDown';
 			hotkeys[1][Keyboard.RIGHT]		= 'MoveRight';
-			hotkeys[1][Keyboard.NUMPAD_1]	= 'Lift';
-			hotkeys[1][Keyboard.NUMPAD_2]	= 'Throw';
+			hotkeys[1][Keyboard.NUMPAD_1]	= 'Throw';
+			hotkeys[1][Keyboard.NUMPAD_2]	= 'Accelerate';
 			hotkeys[1][Keyboard.NUMPAD_4]	= 'SwitchSmall';
 			hotkeys[1][Keyboard.NUMPAD_5]	= 'SwitchMedium';
 			hotkeys[1][Keyboard.NUMPAD_6]	= 'SwitchLarge';

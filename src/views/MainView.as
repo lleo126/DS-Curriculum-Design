@@ -2,6 +2,7 @@ package views
 {
 	import assets.AssetManager;
 	import controls.ConceptFrame;
+	import flash.desktop.NativeApplication;
 	import flash.display.Bitmap;
 	import flash.display.SimpleButton;
 	import flash.display.Sprite;
@@ -160,7 +161,7 @@ package views
 					Main.current.view = View.SETTING_VIEW;
 					break;
 				case buttonExit:
-					fscommand("quit");
+					NativeApplication.nativeApplication.exit();
 					break;
 				default:
 			}

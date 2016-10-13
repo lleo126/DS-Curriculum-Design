@@ -5,7 +5,10 @@ package units
 	import flash.events.TimerEvent;
 	import flash.geom.Point;
 	import flash.utils.Timer;
+	import flash.utils.clearInterval;
 	import flash.utils.getDefinitionByName;
+	import flash.utils.getTimer;
+	import flash.utils.setInterval;
 	import models.GenerationOption;
 	
 	/**
@@ -138,9 +141,26 @@ package units
 				return function (e:TimerEvent):void 
 				{
 					option = options[type] as GenerationOption;
-					if ((world[type + 's'] as Vector).length == option.maxUnit) return;
+					if (world[type + 's'].length == option.maxUnit) return;
 					
-					dropUnit(randomUnit(option.xml));
+					var unit:Unit = randomUnit(option.xml);
+					dropUnit(unit);
+					
+					// TODD: 单位生成效果
+					var scale:Number = unit.scaleX;
+					unit.scaleX = unit.scaleY = 0.0;
+					var ot:int = getTimer();
+					var tid:int = setInterval(function ():void 
+					{
+						var t:int = getTimer() - ot;
+						if (1000.0 < t)
+						{
+							unit.scaleX = unit.scaleY = scale;
+							clearInterval(tid);
+							return;
+						}
+						unit.scaleX = unit.scaleY = scale * t / 1000.0;
+					}, 30);
 				}
 			}
 		}

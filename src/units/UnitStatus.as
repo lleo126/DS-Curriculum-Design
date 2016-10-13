@@ -7,10 +7,10 @@ package units
 	 */
 	public class UnitStatus 
 	{
-		public static const STANDING:String	= 'standing';
-		public static const MOVING:String	= 'moving';
-		public static const DEAD:String		= 'dead';
-		public static const THROWING:String = "throwing";
-		public static const LIFTING:String	= "lifting";
+		public static const STANDING:String		= 'standing';
+		public static const MOVING:String		= 'moving';
+		public static const DEAD:String			= 'dead';
+		public static const THROWING:String 	= "throwing";
+		public static const LIFTING:String		= "lifting";
 	}
 }

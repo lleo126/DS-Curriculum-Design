@@ -12,6 +12,7 @@ package views
 	import flash.text.TextFormat;
 	import models.Clock;
 	import models.Player;
+	import models.PlayerStatus;
 	
 	/**
 	 * 成绩界面
@@ -212,7 +213,7 @@ package views
 				fail.y = SHOW_Y;
 				win.x = WIN_X;
 				win.y = SHOW_Y;
-				if (players[0].score < players[1].score) 
+				if (players[0].status == PlayerStatus.LOST) 
 				{
 					fail.x = WIN_X;
 					win.x = FAIL_X;
