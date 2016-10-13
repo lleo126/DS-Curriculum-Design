@@ -370,7 +370,12 @@ package views
 				if (!(e.keyCode in Setting.current.hotkeys[0]) && !(e.keyCode in Setting.current.hotkeys[1])
 				&& ((Keyboard.NUMBER_0 <= e.keyCode && e.keyCode <= Keyboard.NUMBER_9)
 				|| (Keyboard.A <= e.keyCode && e.keyCode <= Keyboard.Z) 
-				|| (Keyboard.NUMPAD_0 <= e.keyCode && e.keyCode <= Keyboard.NUMPAD_9)))
+				|| (Keyboard.NUMPAD_0 <= e.keyCode && e.keyCode <= Keyboard.NUMPAD_9)
+				|| (Keyboard.NUMPAD_MULTIPLY <= e.keyCode && e.keyCode <= Keyboard.NUMPAD_DIVIDE)
+				|| (e.keyCode == Keyboard.MINUS) || (e.keyCode == Keyboard.EQUAL) || (e.keyCode == Keyboard.COMMA)
+				|| (e.keyCode == Keyboard.SEMICOLON) || (e.keyCode == Keyboard.QUOTE) || (e.keyCode == Keyboard.SPACE)
+				|| (e.keyCode == Keyboard.LEFTBRACKET) || (e.keyCode == Keyboard.RIGHTBRACKET) || (e.keyCode == Keyboard.BACKSLASH)
+				|| (e.keyCode == Keyboard.BACKQUOTE) || (e.keyCode == Keyboard.PERIOD) || (e.keyCode == Keyboard.SLASH)))
 				{	
 						for (var tmp:* in Setting.current.hotkeys[ID])
 						{
@@ -386,6 +391,65 @@ package views
 							e.keyCode = e.keyCode - 48;
 							ch = String.fromCharCode(e.keyCode);
 							ch = '小键盘' + ch;
+						}
+						
+						switch (e.keyCode)
+						{
+							case 106:
+								ch = '小键盘*';
+								break;
+							case 107:
+								ch = '小键盘+';
+								break;
+							case 108:
+								ch = '小键盘Enter';
+								break;
+							case 109:
+								ch = '小键盘-';
+								break;
+							case 110:
+								ch = '小键盘.';
+								break;
+							case 111:
+								ch = '小键盘/';
+								break;
+							case 189:
+								ch = '-';
+								break;
+							case 187:
+								ch = '=';
+								break;
+							case 186:
+								ch = ';';
+								break;
+							case 222:
+								ch = '\'';
+								break;
+							case 32:
+								ch = 'SPACE';
+								break;
+							case 219:
+								ch = '[';
+								break;
+							case 220:
+								ch = '\\';
+								break;
+							case 221:
+								ch = ']';
+								break;
+							case 192:
+								ch = '`';
+								break;
+							case 188:
+								ch = ',';
+								break;
+							case 190:
+								ch = '.';
+								break;
+							case 191:
+								ch = '/';
+								break;
+							default:
 						}
 						
 						tempLable.text = ch;
