@@ -133,6 +133,34 @@ package units
 			return Math.sqrt((ut1.x - ut2.x) * (ut1.x - ut2.x) + (ut1.y - ut2.y) * (ut1.y - ut2.y) + (ut1.centerZ - ut2.z) * (ut1.centerZ - ut2.centerZ));
 		}
 		
+		public static function area2(p:UnitTransform, q:UnitTransform, r:UnitTransform):Number
+		{
+			return	p.x * q.y - p.y * q.x
+				+	q.x * r.y - q.y * r.x
+				+	r.x * p.y - r.y * p.x;
+		}
+		
+		public static function toLeft(p:UnitTransform, q:UnitTransform, r:UnitTransform):Boolean
+		{
+			var s2:Number = area2(p, q, r);
+			if (0.0 < s2) return true;
+			if (s2 < 0.0) return false;
+			return between(p, q, r);
+		}
+		
+		public static function toRight(p:UnitTransform, q:UnitTransform, r:UnitTransform):Boolean
+		{
+			var s2:Number = area2(p, q, r);
+			if (0.0 < s2) return false;
+			if (s2 < 0.0) return true;
+			return between(p, q, r);
+		}
+		
+		public static function between(p:UnitTransform, q:UnitTransform, r:UnitTransform):Boolean
+		{
+			return 0.0 < (q.x - p.x) * (r.x - q.x) + (q.y - p.y) * (r.y - q.y);
+		}
+		
 		public function UnitTransform(unit:Unit = null)
 		{
 			this.unit = unit;
@@ -305,6 +333,16 @@ package units
 			return res;
 		}
 		
+		/**
+		 * 判断此 UnitTransform 所在水平面与所给 UnitTransform 是否有交
+		 * @param	ut
+		 * @return	true 表示有交
+		 */
+		public function determineCross(ut:UnitTransform):Boolean
+		{
+			return ut.radiusZ <= Math.abs(centerZ - ut.centerZ);
+		}
+		
 		[obsolete]
 		public function getSupportUnitTransform(target:UnitTransform):UnitTransform
 		{
@@ -399,6 +437,10 @@ package units
 			update();
 		}
 		
+		/**
+		 * 复制一份 UnitTransform，不复制所属单位信息
+		 * @return
+		 */
 		public function clone():UnitTransform
 		{
 			var ut:UnitTransform = new UnitTransform();
@@ -408,6 +450,26 @@ package units
 			ut._speed = _speed;
 			ut.setByUnitTransform(this);
 			return ut;
+		}
+		
+		/**
+		 * 判断此 UnitTransform 的注册点在不在由所给 UnitTransform 数组定义的多边形内（XoY面投影）
+		 * @param	uts	多边形
+		 * @return	true 为在多边形内
+		 */
+		public function inPolygon(uts:Vector.<units.UnitTransform>):Boolean
+		{
+			return allEqual.call(this, toLeft) || allEqual.call(this, toRight);
+			
+			function allEqual(func:Function):Boolean
+			{
+				var res:Boolean = func(uts[0], uts[1], this), i:int;
+				for (i = 1; i < uts.length - 1; i++) 
+				{
+					if (func(uts[i], uts[i + 1], this) != res) return false;
+				}
+				return func(uts[i], uts[0], this) == res;
+			}
 		}
 	}
 }

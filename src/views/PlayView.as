@@ -33,6 +33,15 @@ package views
 		private static const SCORE_X:Number				= 220;
 		private static const SCORE_Y:Number				= 10;
 		
+		public var statusBarHP1:HPBar;
+		public var statusBarSP1:SPBar;
+		public var statusBarAP1:APBar;
+		public var statusBarHP2:HPBar;
+		public var statusBarSP2:SPBar;
+		public var statusBarAP2:APBar;
+		public var role1_score:TextField;
+		public var role2_score:TextField;
+		
 		private var ui:Sprite;
 		
 		private var baffle1:Bitmap;
@@ -49,19 +58,10 @@ package views
 		private var statusBar1:Sprite;		
 		private var statusBar2:Sprite;
 		
-		public var statusBarHP1:HPBar;
-		public var statusBarSP1:SPBar;
-		public var statusBarAP1:APBar;
-		public var statusBarHP2:HPBar;
-		public var statusBarSP2:SPBar;
-		public var statusBarAP2:APBar;
-		
 		private var groupScore:Sprite;
 		private var scoreBaffle:Bitmap;
 		private var score:TextField;
-		private var role1_score:TextField;
 		private var colon:TextField;
-		private var role2_score:TextField;
 		
 		private var pressESCYet:Boolean = false;
 		private var _stop:Sprite;
@@ -96,10 +96,7 @@ package views
 		//==========
 		
 		private var _world:World = new World();
-		public function get world():World 
-		{
-			return _world;
-		}
+		public function get world():World { return _world; }
 		
 		//==========
 		// 方法
@@ -144,6 +141,8 @@ package views
 			statusBarHP2= new HPBar();
 			statusBarSP2 = new SPBar();
 			statusBarAP2 = new APBar();
+			
+			world.addEventListener(Event.COMPLETE, onWorldComplete);
 			
 			super.init();
 		}
@@ -321,6 +320,7 @@ package views
 		override protected function activate(ev:Event):void 
 		{
 			super.activate(ev);
+			world.start(type, players);
 			dateTime.reset();
 			dateTime.start();
 		}
@@ -329,6 +329,16 @@ package views
 		{
 			super.inactivate(ev);
 			world.dispose();
+		}
+		
+		/**
+		 * 当游戏结束，跳转到成绩界面
+		 * @param	e
+		 */
+		private function onWorldComplete(e:Event):void 
+		{
+			View.SCORE_VIEW.players = players;
+			Main.current.view = View.SCORE_VIEW;
 		}
 	}
 }

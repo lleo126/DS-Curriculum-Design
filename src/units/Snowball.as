@@ -1,7 +1,11 @@
 package units 
 {
 	import assets.AssetManager;
+	import events.UnitEvent;
 	import flash.display.Bitmap;
+	import models.Collision;
+	
+	[event(UnitEvent.COLLIDED)]
 	
 	/**
 	 * 玩家投掷的雪球
@@ -14,6 +18,7 @@ package units
 		private static const MAX_SPEED:Number = 1.0;
 		public static const ATTACK_RANGE_RATIO:Number = 5.0;
 		private static const DAMAGE_SNOW_RATIO:Number = 0.2;
+		private static const STRAIGHT_ATTACK_BONUS:Number = 1.2;
 		
 		/**
 		 * 
@@ -24,7 +29,7 @@ package units
 		{
 			_body = new SpriteEx(new AssetManager.SNOWBALL_IMG());
 			
-			damage = _unitTransform.radius = radius;
+			_damage = _unitTransform.radius = radius;
 			_unitTransform.altitude = _body.width = _body.height = 2.0 * radius;
 			_attackRange = radius * ATTACK_RANGE_RATIO;
 			_bonus = bonus;
@@ -32,6 +37,8 @@ package units
 			
 			_body.pivotX = radius;
 			_body.pivotY = 2.0 * radius;
+			
+			addEventListener(UnitEvent.COLLIDED, onCollided);
 		}
 		
 		//==========
@@ -45,8 +52,6 @@ package units
 		
 		override public function removeFromWorld():void 
 		{
-			// TODO: 遮罩爆炸范围
-			// TODO: 伤害
 			/** 根据圆锥体积公式 V = s * h / 3   ->   h = 1.5 * V / (PI * r) */
 			var deltaSnow:Number = 1.5 * bonus / (Math.PI * attackRange) / World.ALPHA_SNOW_RATIO;
 			world.addSnow(deltaSnow, unitTransform, attackRange);
@@ -63,6 +68,15 @@ package units
 		{
 			world.snowballs.splice(world.snowballs.indexOf(this), 1);
 			super.removeFromWorldUnits();
+		}
+		
+		private function onCollided(e:UnitEvent):void 
+		{
+			var unit:Unit = (e.data as Collision).target as Unit;
+			if (unit is Hero || unit is Obstacle)
+			{
+				unit.attacked(this, _damage * STRAIGHT_ATTACK_BONUS, true);
+			}
 		}
 	}
 }

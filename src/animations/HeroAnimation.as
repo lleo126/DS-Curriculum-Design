@@ -1,7 +1,7 @@
 package animations 
 {
 	import flash.events.Event;
-	import units.StatusType;
+	import units.UnitStatus;
 	import units.Unit;
 	
 	/**
@@ -15,9 +15,9 @@ package animations
 		{
 			super(unit);
 			
-			currentAnimation = _animations[StatusType.MOVING] = _animations[StatusType.STANDING] = new HeroMoveAnimation(unit, index);
+			currentAnimation = _animations[UnitStatus.MOVING] = _animations[UnitStatus.STANDING] = new HeroMoveAnimation(unit, index);
 			var attackAnimation:HeroThrowAnimation = new HeroThrowAnimation(unit, index);
-			_animations[StatusType.THROWING] = _animations[StatusType.LIFTING] = attackAnimation;
+			_animations[UnitStatus.THROWING] = _animations[UnitStatus.LIFTING] = attackAnimation;
 			attackAnimation.addEventListener(Event.COMPLETE, onAttackComplete);
 			
 			addChild(currentAnimation);
@@ -25,7 +25,8 @@ package animations
 		
 		private function onAttackComplete(e:Event):void 
 		{
-			unit.status = StatusType.STANDING;
+			unit.status = UnitStatus.MOVING;
+			unit.status = UnitStatus.STANDING;
 		}
 	}
 }

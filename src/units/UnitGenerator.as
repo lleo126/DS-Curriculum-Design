@@ -49,10 +49,6 @@ package units
 				unit.unitTransform.setByPoint(p);
 			} while (!checkConstrains(unit));
 			world.addUnit(unit);
-			if (unit.x == 0 && unit.y == 0)
-			{
-				trace('bug');
-			}
 		}
 		
 		/**
@@ -67,7 +63,7 @@ package units
 			{
 				if (unit is Monster)
 				{
-					if (world.collisionManager.getDistance(unit.unitTransform, world.heroes[i].unitTransform) <= CONSTRAIN_HERO_MONSTER) return false;
+					if (world.collisionManager.getDistanceXoY(unit.unitTransform, world.heroes[i].unitTransform) <= CONSTRAIN_HERO_MONSTER) return false;
 				}
 				else
 				{
@@ -79,7 +75,7 @@ package units
 			{
 				if (unit is Hero)
 				{
-					if (world.collisionManager.getDistance(unit.unitTransform, world.monsters[i].unitTransform) <= CONSTRAIN_HERO_MONSTER) return false;
+					if (world.collisionManager.getDistanceXoY(unit.unitTransform, world.monsters[i].unitTransform) <= CONSTRAIN_HERO_MONSTER) return false;
 				}
 				else 
 				{

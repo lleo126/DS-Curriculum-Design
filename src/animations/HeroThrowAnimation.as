@@ -3,8 +3,8 @@ package animations
 	import assets.AssetManager;
 	import flash.display.Bitmap;
 	import interfaces.IUpdate;
-	import units.StatusType;
 	import units.Unit;
+	import units.UnitStatus;
 	
 	/**
 	 * ...
@@ -25,9 +25,9 @@ package animations
 			super(unit);
 		}
 		override public function update(deltaTime:int):void 
-		{		
+		{
 			super.findRow();
-			if(unit.status == StatusType.LIFTING)
+			if(unit.status == UnitStatus.LIFTING)
 			{
 				timeNow = 0;
 				timeNum = 0;

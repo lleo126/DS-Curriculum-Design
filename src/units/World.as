@@ -4,6 +4,7 @@ package units
 	import animations.HeroMoveAnimation;
 	import animations.SnowballExplosionAnimation;
 	import assets.AssetManager;
+	import events.UnitEvent;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
@@ -13,10 +14,13 @@ package units
 	import flash.utils.getTimer;
 	import managers.CollisionManager;
 	import models.Player;
+	import models.PlayerStatus;
 	import models.Setting;
+	import views.PlayView;
 	import models.Clock;
 	import views.View;
 	
+	[event(Event.COMPLETE)]
 	/**
 	 * 游戏世界
 	 * @author 彩月葵☆彡
@@ -50,7 +54,7 @@ package units
 			snowfall = new Bitmap(snowfallData);
 			
 			addChild(snowfall);
-			addChild(unitGroup);//排序测试 
+			addChild(unitGroup);
 		}
 		
 		//==========
@@ -105,66 +109,63 @@ package units
 		/**
 		 * 第二层，单位层
 		 */
-		private var unitGroup:Sprite = new Sprite(); //排序测试
+		private var unitGroup:Sprite = new Sprite();
 		
-		// for test
-		private var testUnit:Unit;
-		private var testUnitBall:Effect;
+		
+		private var _collisionManager:CollisionManager;
+		private var _players:Vector.<Player>;
+		private var _heroes:Vector.<Hero>			= new <Hero>[];
+		private var _snowballs:Vector.<Snowball>	= new <Snowball>[];
+		private var _monsters:Vector.<Monster>		= new <Monster>[];
+		private var _obstacles:Vector.<Obstacle>	= new <Obstacle>[];
+		private var _items:Vector.<Item>			= new <Item>[];
+		private var _effects:Vector.<Effect>		= new <Effect>[];
+		private var _deltaTime:int;
 		
 		//==========
 		// 属性
 		//==========
 		
-		private var _collisionManager:CollisionManager;
 		/**
 		 * 碰撞管理器
 		 */
 		internal function get collisionManager():CollisionManager { return _collisionManager; }
 		
-		private var _players:Vector.<Player>;
 		/**
 		 * 玩家，根据长度可以判断是单人还是双人
 		 */
 		public function get players():Vector.<Player> { return _players; }
 		
-		private var _heroes:Vector.<Hero>;
 		/**
 		 * 玩家所控制的英雄
 		 */
 		internal function get heroes():Vector.<Hero> { return _heroes; }
 		
-		private var _snowballs:Vector.<Snowball> = new <Snowball>[];
 		/**
 		 * 雪球
 		 */
 		internal function get snowballs():Vector.<Snowball> { return _snowballs; }
 		
-		private var _monsters:Vector.<Monster> = new <Monster>[];
 		/**
 		 * 怪物
 		 */
 		internal function get monsters():Vector.<Monster> { return _monsters; }
 		
-		private var _obstacles:Vector.<Obstacle> = new <Obstacle>[];
 		/**
 		 * 障碍物
 		 */
 		internal function get obstacles():Vector.<Obstacle> { return _obstacles; }
 		
-		private var _items:Vector.<Item> = new <Item>[];
 		/**
 		 * 道具
 		 */
 		internal function get items():Vector.<Item> { return _items; }
 		
-		private var _effects:Vector.<Effect> = new <Effect>[];
+		/**
+		 * 特效
+		 */
+		public function get effects():Vector.<Effect> { return _effects; }
 		
-		public function get effects():Vector.<Effect> 
-		{
-			return _effects;
-		}
-		
-		private var _deltaTime:int;
 		/**
 		 * 自上一帧以来的经过时间，以毫秒为单位
 		 */
@@ -190,19 +191,25 @@ package units
 			
 			this.type = type;
 			_players = players;
-			_heroes = new <Hero>[];
 			
 			players[0].hero = new Hero(0);
-			players[0].hero.hpBar = View.PLAY_VIEW.statusBarHP1;
-			players[0].hero.spBar = View.PLAY_VIEW.statusBarSP1;
-			players[0].hero.apBar = View.PLAY_VIEW.statusBarAP1;
+			players[0].hpBar = View.PLAY_VIEW.statusBarHP1;
+			players[0].spBar = View.PLAY_VIEW.statusBarSP1;
+			players[0].apBar = View.PLAY_VIEW.statusBarAP1;
+			players[0].scoreBoard = View.PLAY_VIEW.role1_score;
 			
 			if (1 < _players.length)
 			{
 				players[1].hero = new Hero(1);
-				players[1].hero.hpBar = View.PLAY_VIEW.statusBarHP2;
-				players[1].hero.spBar = View.PLAY_VIEW.statusBarSP2;
-				players[1].hero.apBar = View.PLAY_VIEW.statusBarAP2;
+				players[1].hpBar = View.PLAY_VIEW.statusBarHP2;
+				players[1].spBar = View.PLAY_VIEW.statusBarSP2;
+				players[1].apBar = View.PLAY_VIEW.statusBarAP2;
+				players[1].scoreBoard = View.PLAY_VIEW.role2_score;
+			}
+			
+			for (var i:int = 0; i < _players.length; i++) 
+			{
+				_players[i].hero.addEventListener(UnitEvent.DEATH, onHeroDeath);
 			}
 			
 			_collisionManager = new CollisionManager(_heroes, _snowballs, _monsters, _obstacles, _items);
@@ -230,14 +237,6 @@ package units
 				var obstacle:Unit = obstacleGenerator.randomUnit();
 				obstacleGenerator.dropUnit(obstacle);
 			}
-			
-			//testUnitBall = new Effect(new SnowballExplosionAnimation(testUnitBall, 200));
-			//addChild(testUnitBall);
-
-			//testUnit = new Unit();
-			//testUnit.body = new SpriteEx(new HeroMoveAnimation(testUnit));
-			//addUnit(testUnit);
-			//testUnit.x = 200;
 		}
 		
 		/**
@@ -262,24 +261,24 @@ package units
 		 */
 		public function dispose():void
 		{
-			var i:int = 0;
-			for (i = 0; i < _players.length; i++)
+			var i:int;
+			for (i = _heroes.length - 1; 0 <= i; --i)
 			{
-				_players[i].hero.dispose();
+				_heroes[i].dispose();
 			}
-			for (i = 0; i < _snowballs.length; i++)
+			for (i = _snowballs.length - 1; 0 <= i; --i)
 			{
 				_snowballs[i].dispose();
 			}
-			for (i = 0; i < _monsters.length; i++)
+			for (i = _monsters.length - 1; 0 <= i; --i)
 			{
 				_monsters[i].dispose();
 			}
-			for (i = 0; i < _obstacles.length; i++)
+			for (i = _obstacles.length - 1; 0 <= i; --i)
 			{
 				_obstacles[i].dispose();
 			}
-			for (i = 0; i < _items.length; i++)
+			for (i = _items.length - 1; 0 <= i; --i)
 			{
 				_items[i].dispose();
 			}
@@ -319,9 +318,9 @@ package units
 			collisionManager.update(_deltaTime);
 			
 			var i:int;
-			for (i = 0; i < heroes.length; i++) 
+			for (i = 0; i < _heroes.length; i++) 
 			{
-				var hero:Hero = heroes[i];
+				var hero:Hero = _heroes[i];
 				hero.update(_deltaTime);
 				hero.sp += -addSnow(-Hero.COLLECT_SPEED * _deltaTime, _players[i].hero.unitTransform, Hero.COLLECT_RADIUS);
 			}
@@ -458,6 +457,23 @@ package units
 			{
 				unitGroup.setChildIndex(children[i],i);//重新设置实例对象的显示顺序
 			}
+		}
+		
+		/**
+		 * 英雄死亡时，游戏结束
+		 * @param	e
+		 */
+		private function onHeroDeath(e:UnitEvent):void 
+		{
+			trace( "World.onHeroDeath > e : " + e );
+			resume(false);
+			var player:Player = (e.currentTarget as Unit).owner;
+			if (type == PlayView.BATTLE)
+			{
+				_players[0].status = _players[0].hero.status == UnitStatus.DEAD ? PlayerStatus.LOST : PlayerStatus.WON;
+				_players[1].status = _players[1].hero.status == UnitStatus.DEAD ? PlayerStatus.LOST : PlayerStatus.WON;
+			}
+			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
 		/**

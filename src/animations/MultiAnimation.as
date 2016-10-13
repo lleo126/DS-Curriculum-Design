@@ -54,6 +54,7 @@ package animations
 		
 		private function onStateChange(e:Event):void 
 		{
+			if (!(unit.status in _animations)) return;
 			if (currentAnimation == _animations[unit.status]) return;
 			
 			removeChild(currentAnimation);

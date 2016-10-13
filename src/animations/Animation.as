@@ -10,6 +10,7 @@ package animations
 	import units.Unit;
 	
 	[event(Event.COMPLETE)]
+	
 	/**
 	 * ...
 	 * @author 彩月葵☆彡

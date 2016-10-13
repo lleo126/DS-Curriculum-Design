@@ -1,7 +1,11 @@
 package models
 {
+	import controls.APBar;
+	import controls.HPBar;
+	import controls.SPBar;
+	import flash.text.TextField;
 	import units.Hero;
-	import units.StatusType;
+	import units.UnitStatus;
 	import views.View;
 	
 	/**
@@ -20,29 +24,35 @@ package models
 		//==========
 		
 		/**
-		 * 玩家的分数
-		 */
-		public var score:int = 0;
-		
-		/**
 		 * 玩家的结束时间，若胜利则是游戏结束时间，若中途死亡则是死亡时间
 		 */
-		public var endTime:int;
+		public var endTime:Date;
 		
-		//==========
-		// 属性
-		//==========
+		/**
+		 * 表示玩家通过情况或胜负
+		 */
+		public var status:String;
 		
-		private var _hero:Hero;
-		public function get hero():Hero 
-		{
-			return _hero;
-		}
-		public function set hero(value:Hero):void 
-		{
-			_hero = value;
-			_hero.owner = this;
-		}
+		/**
+		 * 该玩家的血条
+		 */
+		public var hpBar:HPBar;
+		
+		/**
+		 * 该玩家的雪条
+		 */
+		public var spBar:SPBar;
+		
+		/**
+		 * 该玩家的蓄力条
+		 */
+		public var apBar:APBar;
+		
+		/**
+		 * 该玩家的分数板
+		 */
+		// TODO(翔宇): 封装
+		public var scoreBoard:TextField;
 		
 		/** 方向上键按下为 true */
 		private var upHeld:Boolean = false;
@@ -52,6 +62,31 @@ package models
 		private var downHeld:Boolean = false;
 		/** 方向右键按下为 true */
 		private var rightHeld:Boolean = false;
+		
+		
+		private var _hero:Hero;
+		private var _score:int = 0;
+		
+		//==========
+		// 属性
+		//==========
+		
+		public function get hero():Hero { return _hero; }
+		public function set hero(value:Hero):void 
+		{
+			_hero = value;
+			_hero.owner = this;
+		}
+		
+		/**
+		 * 玩家的分数
+		 */
+		public function get score():int { return _score; }
+		public function set score(value:int):void 
+		{
+			_score = value;
+			scoreBoard.text = int(_score).toString();
+		}
 		
 		//==========
 		// 方法
@@ -135,15 +170,15 @@ package models
 			hero.unitTransform.speed = hero.maxSpeed * int(!(upHeld == downHeld && leftHeld == rightHeld));
 			if (_hero.unitTransform.speed == 0.0) 
 			{
-				_hero.status = StatusType.STANDING;
+				_hero.status = UnitStatus.STANDING;
 			}
 			else
 			{
-				_hero.status = StatusType.MOVING;
+				_hero.status = UnitStatus.MOVING;
 			}
 			if (0.0 < hero.unitTransform.speed)
 			{
-				hero.unitTransform.orientation = Math.atan2(int(downHeld) - int(upHeld), int(rightHeld) - int(leftHeld)) / Math.PI * 180.0;
+				_hero.unitTransform.orientation = Math.atan2(int(downHeld) - int(upHeld), int(rightHeld) - int(leftHeld)) / Math.PI * 180.0;
 			}
 		}
 	}

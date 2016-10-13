@@ -6,7 +6,7 @@ package units
 	import controls.APBar;
 	import controls.HPBar;
 	import controls.SPBar;
-	import flash.display.Bitmap;
+	import events.UnitEvent;
 	import flash.utils.getTimer;
 	import flash.utils.setInterval;
 	import views.View;
@@ -31,7 +31,7 @@ package units
 		public static const MAX_HP:Number = 100.0;
 		public static const MAX_SP:Number = 100.0;
 		public static const MAX_AP:Number = 80.0;
-		static public const SCALE:Number = 1.0;
+		public static const SCALE:Number = 1.0;
 		
 		private static const ATTCK_RANGE:Number = 200.0;
 		private static const EXPLOSION_DISTANCE:Number = 100.0;
@@ -40,6 +40,7 @@ package units
 		private static const ALTITUDE:Number = 62.0;
 		private static const PIVOT_X:Number = 29.0;
 		private static const PIVOT_Y:Number = 83.0;
+		private static const BONUS:Number = 1000.0;
 		
 		public function Hero(index:int) 
 		{
@@ -57,6 +58,7 @@ package units
 			_maxAP = MAX_AP;
 			_attackRange = ATTCK_RANGE;
 			_maxSpeed = MAX_SPEED;
+			_bonus = BONUS;
 			_unitTransform.radius = RADIUS;
 			_unitTransform.altitude = ALTITUDE;
 			
@@ -67,21 +69,6 @@ package units
 		//==========
 		// 变量
 		//==========
-		
-		/**
-		 * 该角色的血条
-		 */
-		public var hpBar:HPBar;
-		
-		/**
-		 * 该角色的雪条
-		 */
-		public var spBar:SPBar;
-		
-		/**
-		 * 该角色的蓄力条
-		 */
-		public var apBar:APBar;
 		
 		/**
 		 * 雪球大小，有三种预设
@@ -110,13 +97,13 @@ package units
 		override public function set hp(value:Number):void 
 		{
 			super.hp = value;
-			hpBar.value = _hp;
+			owner.hpBar.value = _hp;
 		}
 		
 		override public function set maxHP(value:Number):void 
 		{
 			super.maxHP = value;
-			hpBar.maxValue = value;
+			owner.hpBar.maxValue = value;
 		}
 		
 	   /**
@@ -126,7 +113,7 @@ package units
 		public function set sp(value:Number):void 
 		{
 			_sp = Math.min(value, MAX_SP);
-			spBar.value = _sp;
+			owner.spBar.value = _sp;
 		}
 		
 		/**
@@ -135,7 +122,7 @@ package units
 		public function set maxSP(value:Number):void 
 		{
 			_maxSP = value;
-			spBar.maxValue = value;
+			owner.spBar.maxValue = value;
 		}
 		
 	   /**
@@ -145,7 +132,7 @@ package units
 		public function set ap(value:Number):void 
 		{
 			_ap = Math.min(value, MAX_AP);
-			if (apBar) apBar.value = _ap;
+			owner.apBar.value = _ap;
 		}
 		
 		/**
@@ -154,7 +141,7 @@ package units
 		public function set maxAP(value:Number):void 
 		{
 			_maxAP = value;
-			apBar.maxValue = value;
+			owner.apBar.maxValue = value;
 		}
 		
 		//==========
@@ -166,7 +153,7 @@ package units
 		 */
 		public function lift():void 
 		{
-			status = StatusType.LIFTING;
+			status = UnitStatus.LIFTING;
 			liftSnowball = snowball.clone();
 			if (liftSnowball.bonus <= sp)
 			{
@@ -180,6 +167,7 @@ package units
 			lifted = true;
 			
 			addChild(liftSnowball);
+			liftSnowball.owner = owner;
 			liftSnowball.scaleX = 1.0 / liftSnowball.parent.scaleX;
 			liftSnowball.scaleY = 1.0 / liftSnowball.parent.scaleY;
 			liftSnowball.unitTransform.z = unitTransform.top;
@@ -192,7 +180,7 @@ package units
 		{
 			if (!lifted) return;
 			lifted = false;
-			status = StatusType.THROWING;
+			status = UnitStatus.THROWING;
 			
 			// TODO: 玩家移动的话速度更快？
 			removeChild(liftSnowball);
@@ -212,6 +200,9 @@ package units
 		{
 			super.addToWorldUnits(world);
 			world.heroes.push(this);
+			hp = _hp;
+			sp = _sp;
+			ap = _ap;
 		}
 		
 		override internal function removeFromWorldUnits():void 

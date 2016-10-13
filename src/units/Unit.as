@@ -1,11 +1,17 @@
 package units 
 {
+	import avmplus.getQualifiedClassName;
+	import events.UnitEvent;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.geom.ColorTransform;
+	import flash.utils.setTimeout;
 	import interfaces.IUpdate;
 	import models.Player;
 	
 	[event(Event.CHANGE)]
+	[event(UnitEvent.COLLIDED)]
+	[event(UnitEvent.DEATH)]
 	
 	/**
 	 * 游戏世界中最基本的单位，抽象类
@@ -18,6 +24,7 @@ package units
 			_unitTransform = new UnitTransform(this);
 			dropShadow = new DropShadow(this);
 			addEventListener(Event.ADDED_TO_STAGE, init);
+			addEventListener(UnitEvent.DEATH, onDeath);
 		}
 		
 		/**
@@ -48,9 +55,9 @@ package units
 		internal var world:World;
 		
 		/**
-		 * 伤害值
+		 * 伤害
 		 */
-		protected var damage:Number;
+		protected var _damage:Number;
 		
 		/**
 		 * 攻击距离
@@ -62,12 +69,13 @@ package units
 		 */
 		protected var dropShadow:DropShadow;
 		
+		
 		protected var _body:SpriteEx;
 		protected var _unitTransform:UnitTransform;
 		protected var _maxSpeed:Number = 0.0;
 		protected var _hp:Number;
 		protected var _maxHP:Number;
-		protected var _status:String = StatusType.STANDING;
+		protected var _status:String = UnitStatus.STANDING;
 		protected var _bonus:int;
 		
 		//==========
@@ -78,11 +86,6 @@ package units
 		 * 本体
 		 */
 		public function get body():SpriteEx { return _body; }
-		// for test
-		public function set body(value:SpriteEx):void 
-		{
-			_body = value;
-		}
 		
 		/**
 		 * 包含单位的 z 坐标，速度，碰撞大小等信息，与单位绑定
@@ -109,6 +112,11 @@ package units
 		public function get hp():Number { return _hp; }
 		public function set hp(value:Number):void 
 		{
+			if (value <= 0.0)
+			{
+				value = 0.0;
+				status = UnitStatus.DEAD;
+			}
 			_hp = Math.min(value, maxHP);
 		}
 		
@@ -136,10 +144,12 @@ package units
 		 */
 		public function get bonus():int { return _bonus; }
 		
-		public function get attackRange():Number 
-		{
-			return _attackRange;
-		}
+		public function get attackRange():Number { return _attackRange; }
+		
+		/**
+		 * 伤害值
+		 */
+		public function get damage():Number { return _damage; }
 		
 		//==========
 		// 方法
@@ -147,7 +157,7 @@ package units
 		
 		public function update(deltaTime:int):void 
 		{
-			if (Main.DEBUG)
+			if (Main.DEBUG && !(this is Effect))
 			{
 				graphics.clear();
 				graphics.lineStyle(3, 0x4186F4);
@@ -175,6 +185,26 @@ package units
 			world.removeUnit(this);
 		}
 		
+		public function attacked(attacker:Unit, damage:Number, straight:Boolean = false):void 
+		{
+			hp -= damage;
+			dispatchEvent(new UnitEvent(UnitEvent.ATTACKED, attacker));
+			if (straight) dispatchEvent(new UnitEvent(UnitEvent.STRAIGHT_ATTACKED, attacker));
+			if (_status == UnitStatus.DEAD) dispatchEvent(new UnitEvent(UnitEvent.DEATH, attacker));
+			else
+			{
+				// TODO: 完善封装被攻击特效
+				var c:ColorTransform = transform.colorTransform;
+				c.redMultiplier = 1.5;
+				transform.colorTransform = c;
+				setTimeout(function ():void 
+				{
+					c.redMultiplier = 1.0;
+				transform.colorTransform = c;
+				}, 100);
+			}
+		}
+		
 		internal function addToWorldUnits(world:World):void 
 		{
 			this.world = world;
@@ -183,6 +213,14 @@ package units
 		internal function removeFromWorldUnits():void 
 		{
 			world = null;
+		}
+		
+		private function onDeath(e:UnitEvent):void 
+		{
+			var attacker:Unit = e.data as Unit;
+			if (attacker.owner) attacker.owner.score += _bonus;
+			// TODO: 死亡特效
+			removeFromWorld();
 		}
 	}
 }

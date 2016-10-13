@@ -152,8 +152,8 @@ package views
 					Main.current.view = View.CHALLENGE_VIEW;
 					break;
 				case buttonBattle:
+					View.PLAY_VIEW.players = new <Player>[new Player(), new Player()];
 					Main.current.view = View.PLAY_VIEW;
-					View.PLAY_VIEW.world.start(PlayView.BATTLE, new <Player>[new Player(), new Player()]);
 					break;
 				case buttonSetting:
 					Main.current.view = View.SETTING_VIEW;
