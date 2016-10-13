@@ -79,7 +79,13 @@ package units
 		 */
 		public function dispose():void 
 		{
-			
+			for (var type:String in options)
+			{
+				var timer:Timer = timers[type] as Timer;
+				timer.reset();
+			}
+			world = null;
+			options = timers = null;
 		}
 		
 		/**

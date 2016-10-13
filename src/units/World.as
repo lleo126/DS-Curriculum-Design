@@ -260,6 +260,8 @@ package units
 			{
 				_items[i].dispose();
 			}
+			
+			unitGenerator.dispose();
 		}
 		
 		/**
