@@ -109,7 +109,7 @@
 		<width>61</width>
 		<height>81</height>
 		<unitTransform>
-			<altitude>80</altitude>
+			<altitude>60</altitude>
 		</unitTransform>
 		<radius>30</radius>
 	</obstacle>
@@ -123,7 +123,7 @@
 		<width>119</width>
 		<height>83</height>
 		<unitTransform>
-			<altitude>80</altitude>
+			<altitude>60</altitude>
 		</unitTransform>
 		<radius>30</radius>
 	</obstacle>
@@ -137,7 +137,7 @@
 		<width>116</width>
 		<height>59</height>
 		<unitTransform>
-			<altitude>58</altitude>
+			<altitude>60</altitude>
 		</unitTransform>
 		<radius>30</radius>
 	</obstacle>
@@ -151,7 +151,7 @@
 		<width>95</width>
 		<height>81</height>
 		<unitTransform>
-			<altitude>80</altitude>
+			<altitude>60</altitude>
 		</unitTransform>
 		<radius>30</radius>
 	</obstacle>

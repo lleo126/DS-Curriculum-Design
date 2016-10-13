@@ -1,4 +1,4 @@
-package models 
+package controls 
 {
 	import flash.events.TimerEvent;
 	import flash.text.TextField;

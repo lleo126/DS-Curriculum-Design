@@ -21,7 +21,7 @@ package units
 	import models.PlayerStatus;
 	import models.Setting;
 	import views.PlayView;
-	import models.Clock;
+	import controls.Clock;
 	import views.View;
 	
 	[event(Event.COMPLETE)]
@@ -40,8 +40,8 @@ package units
 		public static const MAX_ITEM:int			= 30;
 		public static const MAX_OBSTACLE:int		= 20;
 		public static const DELAY_MONSTER:Number	= 10000.0;
-		public static const DELAY_ITEM:Number		= 4000.0;
-		public static const DELAY_OBSTACLE:Number	= 7000.0;
+		public static const DELAY_ITEM:Number		= 7000.0;
+		public static const DELAY_OBSTACLE:Number	= 12000.0;
 		
 		public function World()
 		{

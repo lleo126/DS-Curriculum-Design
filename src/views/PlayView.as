@@ -13,7 +13,7 @@ package views
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.ui.Keyboard;
-	import models.Clock;
+	import controls.Clock;
 	import models.Player;
 	import units.World;
 	/**
@@ -237,7 +237,7 @@ package views
 			statusBar2.addChild(statusBarAP2);
 			
 			//=========分数=========
-			var format:TextFormat = new TextFormat();
+			var format:TextFormat = new TextFormat(null);
 			format.size 				= FORMAT_SIZE;
 			
 			_dateTime.defaultTextFormat = format;
@@ -257,9 +257,9 @@ package views
 			score.x = colon.x - 260;
 			_dateTime.x = score.x - 120;
 			scoreBaffle.x = score.x - 140;// score.x / 1.5;
-			scoreBaffle.y = -10;
+			scoreBaffle.y = SCORE_Y - 12;
 			scoreBaffle.width  =  (role2_score.x - score.x) * 1.5;
-			scoreBaffle.height = (score.height) * 1.5;
+			scoreBaffle.height =  (score.height) * 10;
 			
 			role1_score.x = colon.x - 54 - role1_score.width;
 			role2_score.x = colon.x + 60;
@@ -318,9 +318,13 @@ package views
 			super.activate(ev);
 			
 			score.text			= 'SCORE';
+			score.selectable	= false;
 			role1_score.text	= '0';
+			role1_score.selectable = false;
 			colon.text			= ':';
+			colon.selectable	= false;
 			role2_score.text	= '0';
+			role2_score.selectable = false;
 			
 			world.start(type, players);
 			_dateTime.reset();
