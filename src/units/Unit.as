@@ -193,7 +193,7 @@ package units
 			if (_status == UnitStatus.DEAD) dispatchEvent(new UnitEvent(UnitEvent.DEATH, attacker));
 			else
 			{
-				// TODO: 完善封装被攻击特效
+				// TODO: 封装被攻击特效
 				var c:ColorTransform = transform.colorTransform;
 				c.redMultiplier = 1.5;
 				transform.colorTransform = c;

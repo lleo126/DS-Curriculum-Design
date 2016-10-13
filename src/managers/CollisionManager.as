@@ -5,6 +5,7 @@ package managers
 	import events.UnitEvent;
 	import flash.display.BlendMode;
 	import flash.display.Shape;
+	import flash.events.Event;
 	import flash.geom.Point;
 	import flash.media.Sound;
 	import flash.net.URLRequest;
@@ -273,16 +274,15 @@ package managers
 			AssetManager.songEffect.soundTransform = AssetManager.transEffect;
 			
 			// 产生特效
+			// TODO: 封装成类
 			var explosion:Effect = new Effect(new SnowballExplosionAnimation(explosion, snowball.attackRange));
 			explosion.unitTransform.setByUnitTransform(snowball.unitTransform);
 			explosion.unitTransform.radius = snowball.attackRange;
-			world.addUnit(explosion);
-			
-			// TODO: 在 Animation 里提供接口
-			setTimeout(function ():void 
+			explosion.addEventListener(Event.COMPLETE, function ():void 
 			{
 				explosion.removeFromWorld();
-			}, 250);
+			})
+			world.addUnit(explosion);
 			
 			// 爆炸范围遮挡
 			var shadowShape:Shape = new Shape();
@@ -338,8 +338,10 @@ package managers
 		 */
 		private function inExplosion(unitUt:UnitTransform, explosionUt:UnitTransform, shadows:Vector.<Vector.<UnitTransform>>):Boolean 
 		{
+			var unitRadiusOnExplosion:Number = unitUt.getRadiusOn(explosionUt.centerZ);
+			if (isNaN(unitRadiusOnExplosion)) unitRadiusOnExplosion = 0.0;
 			return explosionUt.determineCross(unitUt)
-				&& getDistanceXoY(unitUt, explosionUt) <= explosionUt.radius
+				&& getDistanceXoY(unitUt, explosionUt) <= explosionUt.radius + unitRadiusOnExplosion
 				&& !inShadows(unitUt, shadows);
 		}
 		

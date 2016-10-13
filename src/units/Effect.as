@@ -2,6 +2,9 @@ package units
 {
 	import animations.Animation;
 	import flash.events.Event;
+	
+	[event(Event.COMPLETE)]
+	
 	/**
 	 * ...
 	 * @author Weng-x
@@ -11,6 +14,7 @@ package units
 		public function Effect(animation:Animation)
 		{
 			this.animation = animation;
+			animation.addEventListener(Event.COMPLETE, onAnimationComplete);
 		}
 		
 		override protected function init(e:Event):void 
@@ -23,10 +27,7 @@ package units
 		}
 		
 		private var _animation:Animation;
-		public function get animation():Animation 
-		{
-			return _animation;
-		}
+		public function get animation():Animation { return _animation; }
 		
 		public function set animation(value:Animation):void 
 		{
@@ -44,6 +45,11 @@ package units
 		{
 			world.effects.splice(world.effects.indexOf(this), 1);
 			super.removeFromWorldUnits();
+		}
+		
+		private function onAnimationComplete(e:Event):void 
+		{
+			dispatchEvent(new Event(Event.COMPLETE));
 		}
 	}
 }
