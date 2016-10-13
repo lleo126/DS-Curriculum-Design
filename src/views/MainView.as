@@ -11,7 +11,6 @@ package views
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.net.URLRequest;
-	import flash.system.fscommand;
 	import models.Player;
 
 	/**

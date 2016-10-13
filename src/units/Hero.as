@@ -119,7 +119,7 @@ package units
 		public function get sp():Number { return _sp; }
 		public function set sp(value:Number):void 
 		{
-			_sp = Math.min(value, MAX_SP);
+			_sp = Math.min(Math.max(0.0, value), MAX_SP);
 			owner.spBar.value = _sp;
 		}
 		

@@ -1,6 +1,7 @@
 package units 
 {
 	import assets.AssetManager;
+	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.TimerEvent;
 	import flash.geom.Point;
@@ -143,24 +144,30 @@ package units
 					option = options[type] as GenerationOption;
 					if (world[type + 's'].length == option.maxUnit) return;
 					
+					// TODD: 封装单位生成效果
 					var unit:Unit = randomUnit(option.xml);
-					dropUnit(unit);
-					
-					// TODD: 单位生成效果
-					var scale:Number = unit.scaleX;
-					unit.scaleX = unit.scaleY = 0.0;
-					var ot:int = getTimer();
-					var tid:int = setInterval(function ():void 
+					unit.visible = false;
+					unit.addEventListener(Event.ADDED_TO_STAGE, function ():void 
 					{
-						var t:int = getTimer() - ot;
-						if (1000.0 < t)
+						removeEventListener(Event.ADDED_TO_STAGE, arguments.callee);
+						
+						var scale:Number = unit.scaleX;
+						unit.scaleX = unit.scaleY = 0.0;
+						unit.visible = true;
+						var ot:int = getTimer();
+						var tid:int = setInterval(function ():void 
 						{
-							unit.scaleX = unit.scaleY = scale;
-							clearInterval(tid);
-							return;
-						}
-						unit.scaleX = unit.scaleY = scale * t / 1000.0;
-					}, 30);
+							var t:int = getTimer() - ot;
+							if (1000.0 < t)
+							{
+								unit.scaleX = unit.scaleY = scale;
+								clearInterval(tid);
+								return;
+							}
+							unit.scaleX = unit.scaleY = scale * t / 1000.0;
+						}, 30);
+					})
+					dropUnit(unit);
 				}
 			}
 		}
