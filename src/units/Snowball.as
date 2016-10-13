@@ -14,7 +14,7 @@ package units
 	public class Snowball extends Unit 
 	{
 		/** 质量，与蓄力后雪球的投掷距离成反比 */
-		public static const MASS:Number = 50.0;
+		public static const MASS:Number = 30.0;
 		private static const MAX_SPEED:Number = 1.0;
 		public static const ATTACK_RANGE_RATIO:Number = 5.0;
 		private static const DAMAGE_SNOW_RATIO:Number = 0.2;

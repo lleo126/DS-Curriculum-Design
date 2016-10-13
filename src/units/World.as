@@ -31,7 +31,7 @@ package units
 	 */
 	public class World extends Sprite
 	{
-		public static const GRAVITY:Number = 0.2;
+		public static const GRAVITY:Number = 0.3;
 		public static const CHALLENGE_SCALE:Number = 3.0;
 		public static const SNOW_COLOR:uint = 0x0055EEFF;
 		public static const ALPHA_SNOW_RATIO:Number = 0.00005;

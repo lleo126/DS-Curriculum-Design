@@ -104,7 +104,6 @@ package units
 		public function get maxSpeed():Number { return _maxSpeed; }
 		public function set maxSpeed(value:Number):void 
 		{
-			trace(_maxSpeed);
 			_maxSpeed = value;
 		}
 		/**

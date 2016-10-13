@@ -160,6 +160,8 @@ package units
 		 */
 		public function lift():void 
 		{
+			if (lifted) return;
+			
 			liftSnowball = snowball.clone();
 			if (liftSnowball.bonus <= sp)
 			{
@@ -193,8 +195,9 @@ package units
 			
 			liftSnowball.unitTransform.setByUnitTransform(_unitTransform);
 			liftSnowball.unitTransform.z = unitTransform.top;
-			liftSnowball.unitTransform.speed = liftSnowball.maxSpeed;
+			liftSnowball.unitTransform.speed = liftSnowball.maxSpeed; //  *= ap / Snowball.MASS * 0.5
 			liftSnowball.unitTransform.vz = ap / Snowball.MASS;
+			// TODO: 设置雪球不同重量
 			world.addUnit(liftSnowball);
 			liftSnowball.scaleX = 1.0 / liftSnowball.parent.scaleX;
 			liftSnowball.scaleY = 1.0 / liftSnowball.parent.scaleY;
