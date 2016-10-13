@@ -151,7 +151,6 @@ package views
 		
 		override protected function placeElements():void 
 		{
-			
 			addChild(_world);
 			addChild(ui);
 			//=========暂停界面=======
@@ -253,11 +252,6 @@ package views
 			role2_score.defaultTextFormat	= format;
 			colon.defaultTextFormat			= format;
 			
-			score.text		= 'SCORE';
-			role1_score.text= '0';
-			colon.text		= ':';
-			role2_score.text= '0';
-			
 			colon.x = stage.stageWidth * 0.5;
 			
 			score.x = colon.x - 260;
@@ -322,6 +316,12 @@ package views
 		override protected function activate(ev:Event):void 
 		{
 			super.activate(ev);
+			
+			score.text			= 'SCORE';
+			role1_score.text	= '0';
+			colon.text			= ':';
+			role2_score.text	= '0';
+			
 			world.start(type, players);
 			_dateTime.reset();
 			_dateTime.start();

@@ -295,7 +295,7 @@ package units
 			
 			unit.x = _x;
 			unit.y = _y;
-			unit.body.y = - z;
+			unit.body.y = -z;
 		}
 		
 		/**

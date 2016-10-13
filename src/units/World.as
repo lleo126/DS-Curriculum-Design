@@ -16,6 +16,7 @@ package units
 	import flash.geom.Rectangle;
 	import flash.utils.getTimer;
 	import managers.CollisionManager;
+	import models.GenerationOption;
 	import models.Player;
 	import models.PlayerStatus;
 	import models.Setting;
@@ -35,16 +36,18 @@ package units
 		public static const SNOW_COLOR:uint = 0x0055EEFF;
 		public static const ALPHA_SNOW_RATIO:Number = 0.00005;
 		
+		public static const MAX_MONSTER:int			= 10;
+		public static const MAX_ITEM:int			= 30;
+		public static const MAX_OBSTACLE:int		= 20;
+		public static const DELAY_MONSTER:Number	= 10000.0;
+		public static const DELAY_ITEM:Number		= 4000.0;
+		public static const DELAY_OBSTACLE:Number	= 7000.0;
+		
 		public function World()
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
 			addEventListener(Event.ENTER_FRAME, update);
 			if (Main.DEBUG) addEventListener(MouseEvent.CLICK, onClick); // for test;
-			
-			heroGenerator		= new UnitGenerator(this);
-			monsterGenerator	= new UnitGenerator(this, AssetManager.MONSTER_XML.data);
-			obstacleGenerator	= new UnitGenerator(this, AssetManager.OBSTACLE_XML.data);
-			itemGenerator		= new UnitGenerator(this, AssetManager.ITEM_XML.data);
 		}
 		
 		private function init(ev:Event):void
@@ -81,24 +84,9 @@ package units
 		private var snowfallData:BitmapData;
 		
 		/**
-		 * 玩家生成器
+		 * 单位生成器，各种单位都是它生成
 		 */
-		private var heroGenerator:UnitGenerator;
-		
-		/**
-		 * 怪物生成器
-		 */
-		private var monsterGenerator:UnitGenerator;
-		
-		/**
-		 * 障碍物生成器
-		 */
-		private var obstacleGenerator:UnitGenerator;
-		
-		/**
-		 * 道具生成器
-		 */
-		private var itemGenerator:UnitGenerator;
+		private var unitGenerator:UnitGenerator;
 		
 		/**
 		 * 表示是否暂停游戏，true 为不暂停，false 为暂停
@@ -188,6 +176,13 @@ package units
 		public function start(type:String, players:Vector.<Player>):void
 		{
 			resumed = true;
+			unitGenerator = new UnitGenerator(this, 
+			{
+				//'monster':	new GenerationOption(AssetManager.MONSTER_XML.data, MAX_MONSTER, DELAY_MONSTER),
+				'item':		new GenerationOption(AssetManager.ITEM_XML.data, MAX_ITEM, DELAY_ITEM),
+				'obstacle':	new GenerationOption(AssetManager.OBSTACLE_XML.data, MAX_OBSTACLE, DELAY_OBSTACLE)
+			});
+			
 			
 			lastTime = getTimer();
 			
@@ -219,28 +214,7 @@ package units
 			_collisionManager = new CollisionManager(_heroes, _snowballs, _monsters, _obstacles, _items);
 			_collisionManager.world = this;
 			
-			generateUnits();
-		}
-		
-		/**
-		 * 生成世界里的所有单位
-		 */
-		private function generateUnits():void 
-		{
-			var i:int;
-			for (i = 0; i < _players.length; ++i)
-			{
-				heroGenerator.dropUnit(_players[i].hero);
-			}
-			
-			for (i = 0; i < 20; i++)
-			{
-				var item:Unit = itemGenerator.randomUnit();
-				itemGenerator.dropUnit(item);
-				
-				var obstacle:Unit = obstacleGenerator.randomUnit();
-				obstacleGenerator.dropUnit(obstacle);
-			}
+			unitGenerator.start();
 		}
 		
 		/**
