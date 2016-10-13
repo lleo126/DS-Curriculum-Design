@@ -10,6 +10,7 @@ package views
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
+	import models.Clock;
 	import models.Player;
 	
 	/**
@@ -74,6 +75,10 @@ package views
 		//模式区分 单人双人区分
 		public var players:Vector.<Player>;
 		public var type:String;
+		
+		//时间
+		private var dateTime:Clock;
+		private var timeTxt:TextField;
 		
 		public function ScoreView()
 		{
@@ -140,10 +145,18 @@ package views
 			
 			bmp = new AssetManager.RETURN_GAME_IMG();
 			buttonReturn = new SimpleButton(bmp, bmp, bmp, bmp);
+			
+			//时间
+			dateTime = new Clock();
+			dateTime.width = 200;
+			dateTime.height = 200;
+			format.size = 50;
+			dateTime.defaultTextFormat = format;
 		}
 		
 		override protected function placeElements():void
 		{
+			
 			//分数类显示
 			
 			background.x = (stage.stageWidth - background.width) * 0.5;
@@ -186,6 +199,11 @@ package views
 				fail.y = SHOW_Y;
 				win.x = WIN_X;
 				win.y = SHOW_Y;
+				if (players[0].score < players[1].score) 
+				{
+					fail.x = WIN_X;
+					win.x = FAIL_X;
+				}
 				scorePlayerShow1.y = BATTLE_SCORE_Y;
 				scorePlayerShow1.x = BATTLE_SCORE_X1;
 				scorePlayerShow2.y = BATTLE_SCORE_Y;
@@ -207,6 +225,13 @@ package views
 			addChild(buttonGroup);
 			buttonGroup.addChild(buttonBack);
 			buttonGroup.addChild(buttonReturn);
+			
+			//时间显示
+			dateTime.time = players[0].endTime;
+			dateTime.x = 380;
+			dateTime.y = 150;
+			
+			addChild(dateTime);
 		}
 		
 		private function buttonClick(e:MouseEvent):void
