@@ -143,7 +143,7 @@ package models
 			if (_hero.status != UnitStatus.MOVING) return;
 			if (!down || _hero.accerelating) return;
 			
-			trace( "down : " + down );
+			//trace( "down : " + down );
 			_hero.accerelating = true;
 			setTimeout(function ():void 
 			{

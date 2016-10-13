@@ -67,6 +67,7 @@ package managers
 		 * Dictionary.<Unit, UnitTransform> 保存着每个 Unit 碰撞的位置
 		 */
 		private var bounce:Dictionary = new Dictionary();
+		private var logger:LoggerManager;
 		
 		//==========
 		// 方法
@@ -79,6 +80,7 @@ package managers
 		 */
 		public function detect(ut1:UnitTransform, ut2:UnitTransform, deltaTime:int = 0):UnitTransform
 		{
+			LoggerManager.BINARY_SEARCH.input(ut1, ut2, deltaTime);
 			if (!deltaTime) return detectStill(ut1, ut2) ? ut1 : null;
 			
 			// 把当前帧切分为每一次移动都不会穿过物体的小帧
@@ -117,9 +119,11 @@ package managers
 							lo = mi;
 						}
 					} while (1.0 < UnitTransform.getDistance(lo, hi))
+					LoggerManager.BINARY_SEARCH.output(lo);
 					return lo;
 				}
 			}
+			LoggerManager.BINARY_SEARCH.output(null);
 			return null;
 		}
 		
