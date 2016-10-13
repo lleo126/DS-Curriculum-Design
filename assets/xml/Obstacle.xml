@@ -13,7 +13,6 @@
 		</unitTransform>
 		<radius>56</radius>
 	</obstacle>
-	
 	<obstacle>
 		<img>TREE3_IMG</img>
 		<name>tree3</name>

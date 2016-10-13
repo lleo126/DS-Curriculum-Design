@@ -47,7 +47,9 @@ package views
 		private var baffle1:Bitmap;
 		private var baffle2:Bitmap;
 		
-		private var dateTime:Clock;
+		private var _dateTime:Clock;
+		
+		public function get dateTime():Clock { return _dateTime; }
 		
 		private var statusHP1:Bitmap;
 		private var statusSP1:Bitmap;
@@ -103,7 +105,7 @@ package views
 		//==========
 		override protected function init(ev:Event = null):void 
 		{	
-			dateTime = new Clock();
+			_dateTime = new Clock();
 			
 			ui = new Sprite();
 
@@ -239,7 +241,7 @@ package views
 			var format:TextFormat = new TextFormat();
 			format.size 				= FORMAT_SIZE;
 			
-			dateTime.defaultTextFormat = format;
+			_dateTime.defaultTextFormat = format;
 			
 			groupScore.y = SCORE_Y;
 			
@@ -259,7 +261,7 @@ package views
 			colon.x = stage.stageWidth * 0.5;
 			
 			score.x = colon.x - 260;
-			dateTime.x = score.x - 120;
+			_dateTime.x = score.x - 120;
 			scoreBaffle.x = score.x - 140;// score.x / 1.5;
 			scoreBaffle.y = -10;
 			scoreBaffle.width  =  (role2_score.x - score.x) * 1.5;
@@ -269,7 +271,7 @@ package views
 			role2_score.x = colon.x + 60;
 			
 			ui.addChild(groupScore);
-			groupScore.addChild(dateTime);
+			groupScore.addChild(_dateTime);
 			groupScore.addChild(scoreBaffle);
 			groupScore.addChild(score);
 			groupScore.addChild(role1_score);
@@ -286,14 +288,14 @@ package views
 			if (!pressESCYet && e.keyCode == Keyboard.ESCAPE)
 			{
 				pressESCYet = true;
-				dateTime.stop();
+				_dateTime.stop();
 				ui.addChild(_stop);
 				_world.resume(false);
 			}
 			else if (pressESCYet && e.keyCode == Keyboard.ESCAPE)
 			{
 				pressESCYet = false;
-				dateTime.start();
+				_dateTime.start();
 				ui.removeChild(_stop);
 				_world.resume(true);
 			}
@@ -304,7 +306,7 @@ package views
 			if (e.target == returnGame)
 			{	
 				pressESCYet = false;
-				dateTime.start();
+				_dateTime.start();
 				ui.removeChild(_stop);
 				stage.focus = null;
 				_world.resume(true);
@@ -321,8 +323,8 @@ package views
 		{
 			super.activate(ev);
 			world.start(type, players);
-			dateTime.reset();
-			dateTime.start();
+			_dateTime.reset();
+			_dateTime.start();
 		}
 		
 		override protected function inactivate(ev:Event):void 

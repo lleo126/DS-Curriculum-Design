@@ -21,30 +21,30 @@ package units
 		 * 一个为发出射线的点，一个为椭球的球心
 		 * 以发出射线的点所在水平面截椭球，降三维为二维
 		 * 然后从这点发出两条切线，切刚才截出的圆为两点，求这两点与发出射线的点连线于圆的切线组成的梯形
-		 * @param	pointUnitTransform	发出射线的点
-		 * @param	circleUnitTransform	球心
+		 * @param	pointUt		发出射线的点
+		 * @param	circleUt	球心
 		 * @return	若在水平面上有四个切点，则数组有四个元素表示切点；否则为空数组
 		 */
-		public static function getSupportUnitTransforms(pointUnitTransform:UnitTransform, circleUnitTransform:UnitTransform):Vector.<UnitTransform> 
+		public static function getSupportUnitTransforms(pointUt:UnitTransform, circleUt:UnitTransform):Vector.<UnitTransform> 
 		{
-			var res:Vector.<UnitTransform>;
-				
 			// 截出的圆的圆心坐标
-			var p_x:Number = circleUnitTransform._x;
-			var p_y:Number = circleUnitTransform._y;
-			var dz:Number = Math.abs(pointUnitTransform.centerZ - circleUnitTransform.centerZ);
-			if (circleUnitTransform.radiusZ <= dz) return res; // 水平面截不到圆
-			
-			res = new <UnitTransform>[];
+			var p_x:Number = circleUt._x;
+			var p_y:Number = circleUt._y;
+			//var dz:Number = Math.abs(pointUt.centerZ - circleUt.centerZ);
+			//if (circleUt.radiusZ <= dz) return res; // 水平面截不到圆
 			
 			// 截出的圆的半径
-			var r:Number = circleUnitTransform.radius / circleUnitTransform.radiusZ * Math.sqrt((circleUnitTransform.radiusZ + dz) * (circleUnitTransform.radiusZ - dz));
+			//var r:Number = circleUt.radius / circleUt.radiusZ * Math.sqrt((circleUt.radiusZ + dz) * (circleUt.radiusZ - dz));
+			var r:Number = circleUt.getRadiusOn(pointUt.centerZ);
+			if (isNaN(r)) return null;
+		
+			var res:Vector.<UnitTransform> = new <UnitTransform>[];	
 		
 			// 圆外该点的座标
-			var sp_x:Number = pointUnitTransform.x,
-				sp_y:Number = pointUnitTransform.y,
-				sp_cz:Number = pointUnitTransform.centerZ,
-				sp_r:Number = pointUnitTransform.radius * Snowball.ATTACK_RANGE_RATIO;
+			var sp_x:Number = pointUt.x,
+				sp_y:Number = pointUt.y,
+				sp_cz:Number = pointUt.centerZ,
+				sp_r:Number = pointUt.radius * Snowball.ATTACK_RANGE_RATIO; // TODO: 传进来时半径先变大
 				
 			// 截出圆的圆心与圆外该点的中点设为圆心
 			var p2_x:Number = (p_x + sp_x) / 2,
@@ -130,7 +130,7 @@ package units
 		 */
 		public static function getDistance(ut1:UnitTransform, ut2:UnitTransform):Number
 		{
-			return Math.sqrt((ut1.x - ut2.x) * (ut1.x - ut2.x) + (ut1.y - ut2.y) * (ut1.y - ut2.y) + (ut1.centerZ - ut2.z) * (ut1.centerZ - ut2.centerZ));
+			return Math.sqrt((ut1.x - ut2.x) * (ut1.x - ut2.x) + (ut1.y - ut2.y) * (ut1.y - ut2.y) + (ut1.centerZ - ut2.centerZ) * (ut1.centerZ - ut2.centerZ));
 		}
 		
 		public static function area2(p:UnitTransform, q:UnitTransform, r:UnitTransform):Number
@@ -331,6 +331,19 @@ package units
 			res._y = _y + dy * t;
 			res._z = centerZ + dz * t;
 			return res;
+		}
+		
+		/**
+		 * 获取该 UnitTransform 在给定水平面上截出的半径
+		 * @param	zLevel	水平面 Z 轴坐标
+		 * @return	截出的半径，若截不出则返回 NaN
+		 */
+		public function getRadiusOn(zLevel:Number):Number
+		{
+			var dz:Number = Math.abs(zLevel - centerZ);
+			if (radiusZ <= dz) return NaN; // 水平面截不到圆
+			
+			return radius / radiusZ * Math.sqrt((radiusZ + dz) * (radiusZ - dz));
 		}
 		
 		/**

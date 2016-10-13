@@ -36,14 +36,15 @@ package units
 			_body.pivotY = _body.height;
 		}
 		
+		/**
+		 * 道具的技能
+		 */
+		private var _skill:Skill;
+		
 		//==========
 		// 属性
 		//==========
-		private var _skill:Skill;
-		public function get skill():Skill
-		{
-			return _skill;
-		}
+		public function get skill():Skill{ return _skill; }
 		
 		//==========
 		// 方法

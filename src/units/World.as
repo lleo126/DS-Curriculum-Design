@@ -4,12 +4,15 @@ package units
 	import animations.HeroMoveAnimation;
 	import animations.SnowballExplosionAnimation;
 	import assets.AssetManager;
+	import avmplus.getQualifiedClassName;
 	import events.UnitEvent;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.utils.getTimer;
 	import managers.CollisionManager;
@@ -36,6 +39,7 @@ package units
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
 			addEventListener(Event.ENTER_FRAME, update);
+			if (Main.DEBUG) addEventListener(MouseEvent.CLICK, onClick); // for test;
 			
 			heroGenerator		= new UnitGenerator(this);
 			monsterGenerator	= new UnitGenerator(this, AssetManager.MONSTER_XML.data);
@@ -229,7 +233,7 @@ package units
 				heroGenerator.dropUnit(_players[i].hero);
 			}
 			
-			for (i = 0; i < 10; i++)
+			for (i = 0; i < 20; i++)
 			{
 				var item:Unit = itemGenerator.randomUnit();
 				itemGenerator.dropUnit(item);
@@ -472,6 +476,7 @@ package units
 			{
 				_players[0].status = _players[0].hero.status == UnitStatus.DEAD ? PlayerStatus.LOST : PlayerStatus.WON;
 				_players[1].status = _players[1].hero.status == UnitStatus.DEAD ? PlayerStatus.LOST : PlayerStatus.WON;
+				_players[0].endTime = _players[1].endTime = View.PLAY_VIEW.dateTime.time;
 			}
 			dispatchEvent(new Event(Event.COMPLETE));
 		}
@@ -490,6 +495,36 @@ package units
 				if (!(e.keyCode in Setting.current.hotkeys[i])) continue;
 				
 				players[i]['on' + Setting.current.hotkeys[i][e.keyCode]](e.keyCode, e.type == KeyboardEvent.KEY_DOWN);
+			}
+		}
+		
+		// for test
+		/**
+		 * 检测点击小区域内的障碍物跟玩家 1 的碰撞
+		 * @param	e
+		 */
+		private function onClick(e:MouseEvent):void 
+		{
+			var mouseUt:UnitTransform = new UnitTransform();
+			mouseUt.x = e.stageX;
+			mouseUt.y = e.stageY;
+			mouseUt.z = 0;
+			for (var i:int = 0; i < _obstacles.length; i++) 
+			{
+				var distance:Number = UnitTransform.getDistance(mouseUt, _obstacles[i].unitTransform);
+				if (100.0 < distance) continue;
+				trace( "distance : " + distance );
+				trace( "i : " + i );
+				
+				var pos:UnitTransform = _collisionManager.detect(_heroes[0].unitTransform, _obstacles[i].unitTransform, _deltaTime);
+				if (pos)
+				{
+					trace(pos);
+				}
+				else 
+				{
+					trace(null);
+				}
 			}
 		}
 	}
