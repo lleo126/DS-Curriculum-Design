@@ -1,8 +1,12 @@
 package units 
 {
+	import assets.AssetManager;
 	import flash.events.EventDispatcher;
+	import flash.events.TimerEvent;
 	import flash.geom.Point;
+	import flash.utils.Timer;
 	import flash.utils.getDefinitionByName;
+	import models.GenerationOption;
 	
 	/**
 	 * 单位随机生成器
@@ -13,10 +17,14 @@ package units
 		public static const CONSTRAIN_HERO_HERO:Number = 300.0;
 		public static const CONSTRAIN_HERO_MONSTER:Number = 100.0;
 		
-		public function UnitGenerator(world:World, xml:XML = null) 
+		private static const MONSTER:String		= 'monster';
+		private static const ITEM:String		= 'item';
+		private static const OBSTACLE:String	= 'obstacle';
+		
+		public function UnitGenerator(world:World, options:Object) 
 		{
 			this.world = world;
-			this.xml = xml;
+			this.options = options;
 		}
 		
 		//==========
@@ -29,13 +37,24 @@ package units
 		private var world:World;
 		
 		/**
-		 * 单位的数据 xml
+		 * 各种单位的数据 xml, Object.<String, GenerationOption>
 		 */
-		private var xml:XML;
+		private var options:Object;
+		
+		/**
+		 * 计时用计时器 Object.<String, Timer>
+		 */
+		private var timers:Object = { };
 		
 		//==========
 		// 方法
 		//==========
+		
+		public function start():void 
+		{
+			generateUnits();
+			setTimers();
+		}
 		
 		/**
 		 * 向世界投掷单位，确保满足限制条件
@@ -49,6 +68,81 @@ package units
 				unit.unitTransform.setByPoint(p);
 			} while (!checkConstrains(unit));
 			world.addUnit(unit);
+		}
+		
+		/**
+		 * 销毁计时器，不再生成单位
+		 */
+		public function dispose():void 
+		{
+			
+		}
+		
+		/**
+		 * 随机选取一个单位
+		 * @return
+		 */
+		public function randomUnit(xml:XML):Unit 
+		{
+			var UnitClass:Class = getDefinitionByName(xml.@klass.toString()) as Class;
+			var children:XMLList = xml.children();
+			var unitXML:XML = children[Math.floor(Math.random() * children.length())];
+			var unit:Unit = new UnitClass();
+			unit.setByXML(unitXML);
+			return unit;
+		}
+		
+		/**
+		 * 随机生成一个点
+		 * @return
+		 */
+		public function randomPoint():Point
+		{
+			//TODO: 根据 world 的大小生成 Point
+			return new Point(Main.current.stage.stageWidth * Math.random(), Main.current.stage.stageHeight * Math.random());
+		}
+		
+		/**
+		 * 生成世界里的单位
+		 */
+		private function generateUnits():void 
+		{
+			var i:int;
+			for (i = 0; i < world.players.length; ++i) 
+			{
+				dropUnit(world.players[i].hero);
+			}
+			for (i = 0; i < 10; ++i)
+			{
+				dropUnit(randomUnit((options[ITEM] as GenerationOption).xml));
+				dropUnit(randomUnit((options[OBSTACLE] as GenerationOption).xml));
+			}
+		}
+		
+		/**
+		 * 设置各种计时器
+		 */
+		private function setTimers():void 
+		{
+			var option:GenerationOption;
+			for (var type:String in options)
+			{
+				option = options[type] as GenerationOption;
+				var timer:Timer = timers[type] = new Timer(option.delay);
+				timer.addEventListener(TimerEvent.TIMER, getOnTimer(type));
+				timer.start();
+			}
+			
+			function getOnTimer(type:String):Function 
+			{
+				return function (e:TimerEvent):void 
+				{
+					option = options[type] as GenerationOption;
+					if ((world[type + 's'] as Vector).length == option.maxUnit) return;
+					
+					dropUnit(randomUnit(option.xml));
+				}
+			}
 		}
 		
 		/**
@@ -94,30 +188,6 @@ package units
 			}
 			
 			return true;
-		}
-		
-		/**
-		 * 随机选取一个单位
-		 * @return
-		 */
-		public function randomUnit():Unit 
-		{
-			var UnitClass:Class = getDefinitionByName(xml.@klass.toString()) as Class;
-			var children:XMLList = xml.children();
-			var unitXML:XML = children[Math.floor(Math.random() * children.length())];
-			var unit:Unit = new UnitClass();
-			unit.setByXML(unitXML);
-			return unit;
-		}
-		
-		/**
-		 * 随机生成一个点
-		 * @return
-		 */
-		public function randomPoint():Point
-		{
-			//TODO: 根据 world 的大小生成 Point
-			return new Point(Main.current.stage.stageWidth * Math.random(), Main.current.stage.stageHeight * Math.random());
 		}
 	}
 }

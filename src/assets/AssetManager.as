@@ -148,11 +148,14 @@ package assets
 		[Embed(source = "../../assets/xml/Item.xml", mimetype="application/octet-stream")]
 		public static const ITEM_XML:Class;
 		
-		[Embed(source = "../../assets/Score/Background.png")]
+		[Embed(source = "../../assets/Score/Background2.png")]
 		public static const BACKGROUND_SCORE:Class;
 		
 		[Embed(source = "../../assets/Score/Button_Back.png")]
 		public static const BACK_BUTTON_SCORE:Class;
+		
+		[Embed(source = "../../assets/Score/Score.png")]
+		public static const SCORE_TITLE:Class;
 
 		//========游戏基本单位图片==/
 		[Embed(source = "../../assets/photos/carambola.png")]

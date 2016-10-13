@@ -1,6 +1,5 @@
 package units 
 {
-	import asunit.errors.UnimplementedFeatureError;
 	import flash.geom.Point;
 	/**
 	 * 单位的位置、速度和碰撞信息，与单位绑定
@@ -295,7 +294,7 @@ package units
 			
 			unit.x = _x;
 			unit.y = _y;
-			unit.body.y = - z;
+			unit.body.y = -z;
 		}
 		
 		/**
