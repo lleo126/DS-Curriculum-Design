@@ -103,14 +103,14 @@
 		<img>SPICYSTRIPS_IMG</img>
 		<name>spicy strips</name>
 		<bonus>20</bonus>
-		<pivotX>60</pivotX>
-		<pivotY>50</pivotY>
-		<width>67.5</width>
-		<height>32.5</height>
+		<pivotX>25</pivotX>
+		<pivotY>58</pivotY>
+		<width>43</width>
+		<height>50</height>
 		<unitTransform>
-			<altitude>135</altitude>
+			<altitude>58</altitude>
 		</unitTransform>
-		<radius>30</radius>
+		<radius>25</radius>
 		<skill klass="units.skills.SpeedUp">
 			<speedUp>0.05</speedUp>
 		</skill>
@@ -124,7 +124,7 @@
 		<width>67.5</width>
 		<height>32.5</height>
 		<unitTransform>
-			<altitude>135</altitude>
+			<altitude>60</altitude>
 		</unitTransform>
 		<radius>30</radius>
 		<skill klass="units.skills.SpeedUp">

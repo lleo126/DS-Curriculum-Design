@@ -61,10 +61,10 @@ package assets
 		[Embed(source="../../assets/setting/Role_Two.png")]
 		public static const ROLE_TWO_IMG:Class;
 		
-		[Embed(source="../../assets/setting/Raise.png")]
+		[Embed(source="../../assets/setting/Throw.png")]
 		public static const RAISE_IMG:Class;
 		
-		[Embed(source="../../assets/setting/Throw.png")]
+		[Embed(source="../../assets/setting/Dart.png")]
 		public static const THROW_IMG:Class;
 		
 		[Embed(source="../../assets/setting/SmallBall.png")]

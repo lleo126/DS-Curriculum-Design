@@ -17,9 +17,9 @@ package units.skills
 		
 		override public function apply(unit:Unit):void 
 		{
-			if (0.5 < unit.maxSpeed + speedUp &&  unit.maxSpeed + speedUp < 2)
-			{
-				unit.maxSpeed += speedUp;
+			if (0.1 < unit.maxSpeed + speedUp && unit.maxSpeed + speedUp < 0.5)
+			{				
+				unit.maxSpeed =  unit.maxSpeed + speedUp;
 			}
 		}
 	}

@@ -16,7 +16,7 @@ package
 	 */
 	public class Main extends ViewStack
 	{
-		public static const DEBUG:Boolean = true;
+		public static const DEBUG:Boolean = false;
 		static public var current:Main;
 		
 		public function Main() 

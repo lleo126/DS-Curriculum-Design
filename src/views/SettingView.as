@@ -312,11 +312,11 @@ package views
 			switch(e.target)
 			{	//玩家1
 				case labelRaise1:
-					keyInfo = 'Lift';
+					keyInfo = 'Throw';
 					tempLable = labelRaise1;
 					break;
 				case labelThrow1:
-					keyInfo = 'Throw';
+					keyInfo = 'Accelerate';
 					tempLable = labelThrow1;
 					break;
 				case labelSmallBall1:
@@ -333,11 +333,11 @@ package views
 					break;
 				//玩家2	
 				case labelRaise2:
-					keyInfo = 'Lift';
+					keyInfo = 'Throw';
 					tempLable = labelRaise2;
 					break;
 				case labelThrow2:
-					keyInfo = 'Throw';
+					keyInfo = 'Accelerate';
 					tempLable = labelThrow2;
 					break;
 				case labelSmallBall2:

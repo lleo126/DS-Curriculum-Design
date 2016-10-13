@@ -10,7 +10,7 @@ package views
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
-	import models.Clock;
+	import controls.Clock;
 	import models.Player;
 	import models.PlayerStatus;
 	
