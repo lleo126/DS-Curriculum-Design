@@ -212,6 +212,7 @@ package units
 		{
 			super.addToWorldUnits(world);
 			world.heroes.push(this);
+			// TODO(翔宇): 在界面里重置 XX 条
 			hp = _hp;
 			sp = _sp;
 			ap = _ap;

@@ -483,5 +483,20 @@ package units
 				return func(uts[i], uts[0], this) == res;
 			}
 		}
+		
+		public function toString():String
+		{
+			return 'UnitTransform: {' +
+				_x.toString() + ', ' +
+				_y.toString() + ', ' +
+				_z.toString() + ', ' +
+				speed.toString() + ', ' +
+				vx.toString() + ', ' +
+				vy.toString() + ', ' +
+				vz.toString() + ', ' +
+				radius.toString() + ', ' +
+				altitude.toString() + ', ' +
+				_orientation.toString() + '}';
+		}
 	}
 }
