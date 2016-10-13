@@ -222,7 +222,7 @@ package units
 		private function onDeath(e:UnitEvent):void 
 		{
 			var attacker:Unit = e.data as Unit;
-			if (attacker.owner) attacker.owner.score += _bonus;
+			if (attacker.owner && attacker.owner != owner) attacker.owner.score += _bonus;
 			// TODO: 死亡特效
 			removeFromWorld();
 		}
