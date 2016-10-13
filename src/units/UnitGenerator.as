@@ -124,9 +124,10 @@ package units
 		 */
 		private function setTimers():void 
 		{
+			var option:GenerationOption;
 			for (var type:String in options)
 			{
-				var option:GenerationOption = options[type] as GenerationOption;
+				option = options[type] as GenerationOption;
 				var timer:Timer = timers[type] = new Timer(option.delay);
 				timer.addEventListener(TimerEvent.TIMER, getOnTimer(type));
 				timer.start();
@@ -136,7 +137,10 @@ package units
 			{
 				return function (e:TimerEvent):void 
 				{
-					dropUnit(randomUnit((options[type] as GenerationOption).xml));
+					option = options[type] as GenerationOption;
+					if ((world[type + 's'] as Vector).length == option.maxUnit) return;
+					
+					dropUnit(randomUnit(option.xml));
 				}
 			}
 		}

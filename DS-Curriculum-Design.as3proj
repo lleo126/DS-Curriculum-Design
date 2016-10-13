@@ -10,13 +10,12 @@
     <movie height="768" />
     <movie version="18" />
     <movie minorVersion="0" />
-    <movie platform="Flash Player" />
+    <movie platform="AIR" />
     <movie background="#FFFFFF" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src" />
-    <class path="lib\ASUnit" />
   </classpaths>
   <!-- Build options -->
   <build>
@@ -69,7 +68,7 @@
   </intrinsics>
   <!-- Assets to embed into the output SWF -->
   <library>
-    <asset path="assets\Button_About_Up.png" />
+    <!-- example: <asset path="..." id="..." update="..." glyphs="..." mode="..." place="..." sharepoint="..." /> -->
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
@@ -86,8 +85,8 @@
   <!-- Other project options -->
   <options>
     <option showHiddenPaths="False" />
-    <option testMovie="ExternalPlayer" />
-    <option testMovieCommand="" />
+    <option testMovie="Custom" />
+    <option testMovieCommand="bat\RunApp.bat" />
   </options>
   <!-- Plugin storage -->
   <storage />
