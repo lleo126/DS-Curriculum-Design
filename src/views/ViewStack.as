@@ -37,10 +37,7 @@ package views
 		* @see View
 		* @example 切换视图至设置视图：view = View.SETTING_VIEW;
 		*/
-		public function get view():DisplayObject
-		{
-			return _view;
-		}
+		public function get view():DisplayObject { return _view; }
 		public function set view(value:DisplayObject):void 
 		{
 			removeChild(_view);
