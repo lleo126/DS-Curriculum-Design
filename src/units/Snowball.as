@@ -50,6 +50,7 @@ package units
 			/** 根据圆锥体积公式 V = s * h / 3   ->   h = 1.5 * V / (PI * r) */
 			var deltaSnow:Number = 1.5 * bonus / (Math.PI * attackRange) / World.ALPHA_SNOW_RATIO;
 			world.addSnow(deltaSnow, unitTransform, attackRange);
+			trace( "deltaSnow : " + deltaSnow );
 			super.removeFromWorld();
 		}
 		

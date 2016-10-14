@@ -344,6 +344,11 @@ package units
 				effect.update(_deltaTime);
 			}
 			
+			for (i = 0; i < _snowflakes.length; ++i) 
+			{
+				_snowflakes[i].update(_deltaTime);
+			}
+			
 			//testUnit.update(_deltaTime);
 			//testUnitBall.update(_deltaTime);
 			zSort();
@@ -360,7 +365,7 @@ package units
 		{
 			var snowSum:Number = 0.0, diameter:int = 2.0 * radius,
 				originX:int = radius, originY:int = radius,
-				startX:int = unitTransform.x - radius, startY:int = unitTransform.y - radius,
+				startX:int = unitTransform.x - radius, startY:int = unitTransform.y - unitTransform.z - radius,
 				area:Rectangle = new Rectangle(startX, startY, diameter, diameter),
 				offsetX:int = 0, offsetY:int = 0;
 				

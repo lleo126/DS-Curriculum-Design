@@ -18,6 +18,7 @@ package managers
 	import units.Monster;
 	import units.Obstacle;
 	import units.Snowball;
+	import units.Snowflake;
 	import units.Unit;
 	import units.UnitTransform;
 	import units.World;
@@ -169,12 +170,6 @@ package managers
 				{
 					pos = detect(heroes[i].unitTransform, items[j].unitTransform, deltaTime);
 					if (pos) updateBounce(heroes[i], items[j], pos);
-					//if (pos)
-					//{
-						//heroes[i].dispatchEvent(new UnitEvent(UnitEvent.COLLIDED, items[j]));
-						//items[j].dispatchEvent(new UnitEvent(UnitEvent.COLLIDED, heroes[i]));
-						//items[j].removeFromWorld();
-					//}
 				}
 			}
 			
@@ -202,6 +197,16 @@ package managers
 				if (snowballs[i].unitTransform.z < 0.0) 
 				{
 					snowballExplode(snowballs[i]);
+				}
+			}
+			
+			var snowflakes:Vector.<Snowflake> = world.snowflakes;
+			for (i = 0; i < snowflakes.length; ++i)
+			{
+				var snowflake:Snowflake = snowflakes[i];
+				if (snowflake.unitTransform.z < 0.0)
+				{
+					snowflake.melt();
 				}
 			}
 			
@@ -251,6 +256,12 @@ package managers
 					snowballExplode(snowballs[i]);
 				}
 				else snowballs[i].unitTransform.advance(deltaTime);
+			}
+			
+			var snowflakes:Vector.<Snowflake> = world.snowflakes;
+			for (i = 0; i < snowflakes.length; ++i)
+			{
+				snowflakes[i].unitTransform.advance(deltaTime);
 			}
 			
 			// 为所有发生碰撞的单位发送事件
