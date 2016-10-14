@@ -66,15 +66,19 @@ package views
 			
 			
 			var bmp:Bitmap = new AssetManager.BUTTON_CHALLENGE_IMG();
+			bmp.smoothing = true;
 			buttonChallenge = new SimpleButton(bmp, bmp, bmp, bmp);
 			
 			bmp = new AssetManager.BUTTON_BATTLE_IMG();
+			bmp.smoothing = true;
 			buttonBattle = new SimpleButton(bmp, bmp, bmp, bmp);
 			
 			bmp = new AssetManager.BUTTON_SETTING_IMG();
+			bmp.smoothing = true;
 			buttonSetting = new SimpleButton(bmp, bmp, bmp, bmp);
 			
 			bmp = new AssetManager.BUTTON_EXIT_IMG();
+			bmp.smoothing = true;
 			buttonExit = new SimpleButton(bmp, bmp, bmp, bmp);
 			
 			bmp = new AssetManager.BUTTON_ABOUT_IMG();

@@ -31,7 +31,7 @@ package units
 	 */
 	public class World extends Sprite
 	{
-		public static const GRAVITY:Number = 0.3;
+		public static const GRAVITY:Number = 0.35;
 		public static const CHALLENGE_SCALE:Number = 3.0;
 		public static const SNOW_COLOR:uint = 0x00E6FFFF;
 		public static const ALPHA_SNOW_RATIO:Number = 0.00005;
@@ -95,7 +95,7 @@ package units
 		/**
 		 * 表示是否暂停游戏，true 为不暂停，false 为暂停
 		 */
-		private var resumed:Boolean = true;
+		private var resumed:Boolean = false;
 		
 		/**
 		 * 雪量遮罩

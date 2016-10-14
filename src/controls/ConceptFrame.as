@@ -44,6 +44,7 @@ package controls
 			
 
 			aboutImage = new AssetManager.CONCEPT_FRAME_ABOUT_IMG();
+			aboutImage.smoothing = true;
 			
 			super(conceptImage);
 		}
