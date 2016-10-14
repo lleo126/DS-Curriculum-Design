@@ -134,10 +134,6 @@ package assets
 		
 		[Embed(source = "../../assets/Play/Baffle.png")]
 		public static const BAFFLE:Class;
-
-		//==========================/
-		
-		//===========成绩界面=======/
 		
 		[Embed(source = "../../assets/xml/Monster.xml", mimetype="application/octet-stream")]
 		public static const MONSTER_XML:Class;
@@ -147,6 +143,13 @@ package assets
 		
 		[Embed(source = "../../assets/xml/Item.xml", mimetype="application/octet-stream")]
 		public static const ITEM_XML:Class;
+		
+		[Embed(source="../../assets/xml/Snowflake.xml", mimetype="application/octet-stream")]
+		public static const SNOWFLAKE_XML:Class;
+
+		//==========================/
+		
+		//===========成绩界面=======/
 		
 		[Embed(source = "../../assets/Score/Background2.png")]
 		public static const BACKGROUND_SCORE:Class;
@@ -244,6 +247,9 @@ package assets
 		
 		[Embed(source = "../../assets/photos/bicycle2.png")]
 		public static const BICYCLE2_IMG:Class;
+		
+		[Embed(source="../../assets/photos/ice.png")]
+		public static const SNOWFLAKE1_IMG:Class;
 		//==========================/
 		
 		//========动画图片==========/

@@ -42,6 +42,7 @@ package units
 		public static const DELAY_MONSTER:Number	= 10000.0;
 		public static const DELAY_ITEM:Number		= 7000.0;
 		public static const DELAY_OBSTACLE:Number	= 12000.0;
+		public static const DELAY_SNOWFLAKE:Number	= 200.0;
 		
 		public function World()
 		{
@@ -120,7 +121,7 @@ package units
 		private var _obstacles:Vector.<Obstacle>	= new <Obstacle>[];
 		private var _items:Vector.<Item>			= new <Item>[];
 		private var _effects:Vector.<Effect>		= new <Effect>[];
-		private var _snow:Vector.<Snow>				= new <Snow>[];
+		private var _snowflakes:Vector.<Snowflake>	= new <Snowflake>[];
 		private var _deltaTime:int;
 		
 		//==========
@@ -168,6 +169,11 @@ package units
 		public function get effects():Vector.<Effect> { return _effects; }
 		
 		/**
+		 * 雪花
+		 */
+		public function get snowflakes():Vector.<Snowflake> { return _snowflakes; }
+		
+		/**
 		 * 自上一帧以来的经过时间，以毫秒为单位
 		 */
 		public function get deltaTime():int { return _deltaTime; }
@@ -188,8 +194,9 @@ package units
 			unitGenerator = new UnitGenerator(this, 
 			{
 				//'monster':	new GenerationOption(AssetManager.MONSTER_XML.data, MAX_MONSTER, DELAY_MONSTER),
-				'item':		new GenerationOption(AssetManager.ITEM_XML.data, MAX_ITEM, DELAY_ITEM),
-				'obstacle':	new GenerationOption(AssetManager.OBSTACLE_XML.data, MAX_OBSTACLE, DELAY_OBSTACLE)
+				'item':			new GenerationOption(AssetManager.ITEM_XML.data, MAX_ITEM, DELAY_ITEM),
+				'obstacle':		new GenerationOption(AssetManager.OBSTACLE_XML.data, MAX_OBSTACLE, DELAY_OBSTACLE),
+				'snowflake':	new GenerationOption(AssetManager.SNOWFLAKE_XML.data, -1, DELAY_SNOWFLAKE, true)
 			});
 			
 			

@@ -138,7 +138,7 @@ package units
 			for (var type:String in options)
 			{
 				option = options[type] as GenerationOption;
-				var timer:Timer = timers[type] = new Timer(option.delay);
+				var timer:Timer = timers[type] = new Timer(option.delay * (option.randomDelay ? Math.random() : 1.0));
 				timer.addEventListener(TimerEvent.TIMER, getOnTimer(type));
 				timer.start();
 			}
@@ -147,6 +147,8 @@ package units
 			{
 				return function (e:TimerEvent):void 
 				{
+					//var timer:Timer = e.currentTarget as Timer;
+					//timer.delay
 					option = options[type] as GenerationOption;
 					if (world[type + 's'].length == option.maxUnit) return;
 					

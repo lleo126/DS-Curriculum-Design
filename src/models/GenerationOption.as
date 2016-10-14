@@ -6,11 +6,12 @@ package models
 	 */
 	public class GenerationOption 
 	{
-		public function GenerationOption(xml:XML = null, maxUnit:int = 0, delay:Number = NaN) 
+		public function GenerationOption(xml:XML = null, maxUnit:int = 0, delay:Number = NaN, randomDelay:Boolean = true) 
 		{
 			this.xml = xml;
 			this.maxUnit = maxUnit;
 			this.delay = delay;
+			this.randomDelay = randomDelay;
 		}
 
 		/**
@@ -27,5 +28,10 @@ package models
 		 * 最多生成多少个单位
 		 */
 		public var maxUnit:int;
+		
+		/**
+		 * 随机间隔
+		 */
+		public var randomDelay:Boolean;
 	}
 }
