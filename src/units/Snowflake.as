@@ -11,14 +11,14 @@ package units
 	 */
 	public class Snowflake extends Unit 
 	{
-		private static const MAX_SPEED:Number = 0.5;
+		private static const MAX_SPEED:Number = 0.3;
 		private static const MASS:Number = 1.0;
 		/**
 		 * 雪花落下来的高度
 		 */
 		private static const Z:Number = 600.0;
 		private static const DELTA_SNOW:Number = 100.0;
-		private static const MELT_RANGE_RATIO:Number = 2.0;
+		private static const MELT_RANGE_RATIO:Number = 4.0;
 		private static const DELAY:Number = 0.0;
 		/**
 		 * 风的速度，雪花会被风吹飞
@@ -43,10 +43,8 @@ package units
 		
 		public function Snowflake() 
 		{
-			_body = new SpriteEx(new AssetManager.SNOWFLAKE1_IMG()); // TODO: 替换成雪花图片
 			_mass = MASS;
 			_maxSpeed = MAX_SPEED;
-			_unitTransform.z = Z;
 			_unitTransform.vz = -mass * World.GRAVITY;
 			_unitTransform.radius = 30.0;
 		}
@@ -55,6 +53,7 @@ package units
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
+			_unitTransform.z = Z;
 			addChild(_body);
 			_body.center();
 			update(0);
