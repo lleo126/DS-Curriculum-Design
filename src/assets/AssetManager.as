@@ -159,6 +159,9 @@ package assets
 		
 		[Embed(source = "../../assets/Score/Score.png")]
 		public static const SCORE_TITLE:Class;
+		
+		[Embed(source="../../assets/score/Return_Game.png")]
+		public static const RETURN_GAME_IMG_SCORE:Class;
 
 		//========游戏基本单位图片==/
 		[Embed(source="../../assets/Play/Grass.png")]

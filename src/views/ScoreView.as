@@ -22,7 +22,7 @@ package views
 	{
 		static public const BUTTON_BACK_X:Number = 60;
 		static public const BUTTON_BACK_Y:Number = 660;
-		static public const BUTTON_RETURN_X:Number = 445;
+		static public const BUTTON_RETURN_X:Number = 315;
 		static public const BUTTON_RETURN_Y:Number = 560;
 		static public const BLACKBOARD_WIDTH:Number = 900;
 		static public const BLACKBOARD_HEIGHT:Number = 400;
@@ -153,7 +153,7 @@ package views
 			var bmp:Bitmap = new AssetManager.BACK_BUTTON_SCORE();
 			buttonBack = new SimpleButton(bmp, bmp, bmp, bmp);
 			
-			bmp = new AssetManager.RETURN_GAME_IMG();
+			bmp = new AssetManager.RETURN_GAME_IMG_SCORE();
 			buttonReturn = new SimpleButton(bmp, bmp, bmp, bmp);
 			
 			//时间

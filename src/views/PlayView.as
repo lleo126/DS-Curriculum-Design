@@ -176,10 +176,10 @@ package views
 			stopBackground.width = 550;
 			stopBackground.height = 400;
 			
-			returnGame.x	= menuImg.x + 95;
-			returnGame.y	= stopBackground.y + 100;
+			returnGame.x	= menuImg.x -30;
+			returnGame.y	= stopBackground.y + 80;
 			buttonBack.x	= menuImg.x + 80;
-			buttonBack.y	= returnGame.y + 100;
+			buttonBack.y	= returnGame.y + 150;
 			buttonBack.width = 135;
 			buttonBack.height = 60;
 			//=========状态栏=========
