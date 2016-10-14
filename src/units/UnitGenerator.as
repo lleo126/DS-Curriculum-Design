@@ -178,10 +178,7 @@ package units
 							}, 30);
 						})
 					}
-					else 
-					{
-						dropUnit(unit);
-					}
+					dropUnit(unit);
 				}
 			}
 		}
