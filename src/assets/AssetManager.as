@@ -158,6 +158,9 @@ package assets
 		public static const SCORE_TITLE:Class;
 
 		//========游戏基本单位图片==/
+		[Embed(source="../../assets/Play/Grass.png")]
+		public static const GRASS_IMG:Class;
+		
 		[Embed(source = "../../assets/photos/carambola.png")]
 		public static const CARAMBOLA_IMG:Class;
 		
@@ -259,6 +262,7 @@ package assets
 		
 		[Embed(source = "../../assets/Animation/VillagerAttack2.png")]
 		public static const HERO_ATTACK_TWO:Class;
+		
 		//==========================/
 		
 		

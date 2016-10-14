@@ -33,7 +33,7 @@ package units
 	{
 		public static const GRAVITY:Number = 0.3;
 		public static const CHALLENGE_SCALE:Number = 3.0;
-		public static const SNOW_COLOR:uint = 0x0055EEFF;
+		public static const SNOW_COLOR:uint = 0x00E6FFFF;
 		public static const ALPHA_SNOW_RATIO:Number = 0.00005;
 		
 		public static const MAX_MONSTER:int			= 10;
@@ -59,8 +59,11 @@ package units
 			
 			snowfallData = new BitmapData(stage.stageWidth, stage.stageHeight, true, SNOW_COLOR);
 			snowfall = new Bitmap(snowfallData);
+			snowfall.alpha = 0.8;
 			
-			addChild(snowfall);
+			backgroundGroup.addChild(new AssetManager.GRASS_IMG());
+			backgroundGroup.addChild(snowfall);
+			addChild(backgroundGroup);
 			addChild(unitGroup);
 		}
 		
@@ -94,9 +97,14 @@ package units
 		private var resumed:Boolean = true;
 		
 		/**
-		 * 第一层，雪量层
+		 * 雪量遮罩
 		 */
 		private var snowfall:Bitmap;
+		
+		/**
+		 * 第一层，背景层
+		 */
+		private var backgroundGroup:Sprite = new Sprite();
 		
 		/**
 		 * 第二层，单位层
@@ -112,6 +120,7 @@ package units
 		private var _obstacles:Vector.<Obstacle>	= new <Obstacle>[];
 		private var _items:Vector.<Item>			= new <Item>[];
 		private var _effects:Vector.<Effect>		= new <Effect>[];
+		private var _snow:Vector.<Snow>				= new <Snow>[];
 		private var _deltaTime:int;
 		
 		//==========
@@ -293,7 +302,6 @@ package units
 			if (Main.current.view != View.PLAY_VIEW || !resumed) return;
 			
 			updateTime();
-			applyGravity();
 			collisionManager.detectAll(_deltaTime);
 			collisionManager.update(_deltaTime);
 			
@@ -366,7 +374,7 @@ package units
 				||	nextY < 0 || snowfallData.height	<= nextY
 				||	radius < distance) continue;
 					
-				var deltaAlpha:int = deltaSnow * (distance - radius) / radius,
+				var deltaAlpha:int = deltaSnow * (radius - distance) / radius,
 					alpha:uint = vector[i] >>> 24,
 					nextAlpha:uint = alpha + deltaAlpha;
 				// 判断整数上下溢，计算改变的雪量值
@@ -380,7 +388,7 @@ package units
 				}
 				
 				vector[i] = (nextAlpha << 24) | SNOW_COLOR;
-				snowSum += (alpha - nextAlpha) * ALPHA_SNOW_RATIO;
+				snowSum += (nextAlpha - alpha) * ALPHA_SNOW_RATIO;
 			}
 			snowfallData.setVector(area, vector);
 			snowfallData.unlock();
@@ -396,17 +404,6 @@ package units
 			var newTime:int = getTimer();
 			_deltaTime = newTime - lastTime;
 			lastTime = newTime;
-		}
-		
-		/**
-		 * 给雪球们减 vz 速度
-		 */
-		private function applyGravity():void
-		{
-			for (var i:int = 0; i < _snowballs.length; i++)
-			{
-				_snowballs[i].unitTransform.vz -= GRAVITY;
-			}
 		}
 		
 		/**

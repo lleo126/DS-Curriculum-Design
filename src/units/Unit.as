@@ -77,6 +77,7 @@ package units
 		protected var _maxHP:Number;
 		protected var _status:String = UnitStatus.STANDING;
 		protected var _bonus:int;
+		protected var _mass:Number;
 		
 		//==========
 		// 属性
@@ -154,6 +155,11 @@ package units
 		 */
 		public function get damage():Number { return _damage; }
 		
+		/**
+		 * 质量，下落速度与质量成正比
+		 */
+		public function get mass():Number { return _mass; }
+		
 		//==========
 		// 方法
 		//==========
@@ -198,13 +204,13 @@ package units
 			{
 				// TODO: 封装被攻击特效
 				var c:ColorTransform = transform.colorTransform;
-				c.redMultiplier = 1.5;
+				c.blueMultiplier = 1.8;
 				transform.colorTransform = c;
 				setTimeout(function ():void 
 				{
-					c.redMultiplier = 1.0;
+					c.blueMultiplier = 1.0;
 				transform.colorTransform = c;
-				}, 100);
+				}, 200);
 			}
 		}
 		

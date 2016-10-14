@@ -45,11 +45,6 @@ package units
 		// 方法
 		//==========
 		
-		public function clone():Snowball
-		{
-			return new Snowball(_unitTransform.radius, bonus);
-		}
-		
 		override public function removeFromWorld():void 
 		{
 			/** 根据圆锥体积公式 V = s * h / 3   ->   h = 1.5 * V / (PI * r) */
@@ -68,6 +63,17 @@ package units
 		{
 			world.snowballs.splice(world.snowballs.indexOf(this), 1);
 			super.removeFromWorldUnits();
+		}
+		
+		override public function update(deltaTime:int):void 
+		{
+			super.update(deltaTime);
+			unitTransform.vz -= World.GRAVITY;
+		}
+		
+		public function clone():Snowball
+		{
+			return new Snowball(_unitTransform.radius, bonus);
 		}
 		
 		private function onCollided(e:UnitEvent):void 
