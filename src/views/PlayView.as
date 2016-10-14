@@ -112,9 +112,8 @@ package views
 		override protected function init(ev:Event = null):void 
 		{	
 			giude = new AssetManager.GIUDE_IMG();
-			giudeTime = new Timer(8000, 1);
+			giudeTime = new Timer(5000, 1);
 			giudeTime.addEventListener(TimerEvent.TIMER, onTimer);
-			
 			_dateTime = new Clock();
 			
 			ui = new Sprite();

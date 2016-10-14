@@ -208,7 +208,7 @@ package units
 		override public function update(deltaTime:int):void 
 		{
 			super.update(deltaTime);
-			if (_status == UnitStatus.LIFTING) ap += deltaTime * AP_TIME_RATIO;
+			if (lifted) ap += deltaTime * AP_TIME_RATIO;
 		}
 		
 		override internal function addToWorldUnits(world:World):void 
