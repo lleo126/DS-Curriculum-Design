@@ -154,28 +154,34 @@ package units
 					
 					// TODD: 封装单位生成效果
 					var unit:Unit = randomUnit(option.xml);
-					unit.visible = false;
-					unit.addEventListener(Event.ADDED_TO_STAGE, function ():void 
+					if (!(unit is Snowflake))
 					{
-						removeEventListener(Event.ADDED_TO_STAGE, arguments.callee);
-						
-						var scale:Number = unit.scaleX;
-						unit.scaleX = unit.scaleY = 0.0;
-						unit.visible = true;
-						var ot:int = getTimer();
-						var tid:int = setInterval(function ():void 
+						unit.visible = false;
+						unit.addEventListener(Event.ADDED_TO_STAGE, function ():void 
 						{
-							var t:int = getTimer() - ot;
-							if (1000.0 < t)
+							removeEventListener(Event.ADDED_TO_STAGE, arguments.callee);
+							
+							var scale:Number = unit.scaleX;
+							unit.scaleX = unit.scaleY = 0.0;
+							unit.visible = true;
+							var ot:int = getTimer();
+							var tid:int = setInterval(function ():void 
 							{
-								unit.scaleX = unit.scaleY = scale;
-								clearInterval(tid);
-								return;
-							}
-							unit.scaleX = unit.scaleY = scale * t / 1000.0;
-						}, 30);
-					})
-					dropUnit(unit);
+								var t:int = getTimer() - ot;
+								if (500.0 < t)
+								{
+									unit.scaleX = unit.scaleY = scale;
+									clearInterval(tid);
+									return;
+								}
+								unit.scaleX = unit.scaleY = scale * t / 500.0;
+							}, 30);
+						})
+					}
+					else 
+					{
+						dropUnit(unit);
+					}
 				}
 			}
 		}
