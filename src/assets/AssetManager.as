@@ -248,8 +248,14 @@ package assets
 		[Embed(source = "../../assets/photos/bicycle2.png")]
 		public static const BICYCLE2_IMG:Class;
 		
-		[Embed(source="../../assets/photos/ice.png")]
+		[Embed(source="../../assets/photos/SNOWFLAKE1.png")]
 		public static const SNOWFLAKE1_IMG:Class;
+		
+		[Embed(source="../../assets/photos/SNOWFLAKE2.png")]
+		public static const SNOWFLAKE2_IMG:Class;
+		
+		[Embed(source="../../assets/photos/SNOWFLAKE3.png")]
+		public static const SNOWFLAKE3_IMG:Class;
 		//==========================/
 		
 		//========动画图片==========/

@@ -2,5 +2,37 @@
 	<snowflake>
 		<img>SNOWFLAKE1_IMG</img>
 		<name>snowflake1</name>
+		<pivotX>64</pivotX>
+		<pivotY>118</pivotY>
+		<width>20</width>
+		<height>20</height>
+		<unitTransform>
+			<altitude>118</altitude>
+		</unitTransform>
+		<radius>64</radius>
+	</snowflake>
+	<snowflake>
+		<img>SNOWFLAKE2_IMG</img>
+		<name>snowflake2</name>
+		<pivotX>63</pivotX>
+		<pivotY>118</pivotY>
+		<width>20</width>
+		<height>20</height>
+		<unitTransform>
+			<altitude>118</altitude>
+		</unitTransform>
+		<radius>63</radius>
+	</snowflake>
+	<snowflake>
+		<img>SNOWFLAKE3_IMG</img>
+		<name>snowflake3</name>
+		<pivotX>62</pivotX>
+		<pivotY>116</pivotY>
+		<width>20</width>
+		<height>20</height>
+		<unitTransform>
+			<altitude>116</altitude>
+		</unitTransform>
+		<radius>62</radius>
 	</snowflake>
 </snowflakes>
