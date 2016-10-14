@@ -93,6 +93,9 @@ package assets
 		//==========================/
 		
 		/********对战界面图片*******/
+		[Embed(source = "../../assets/play/Guide.png")]
+		public static const GIUDE_IMG:Class;
+		
 		[Embed(source = "../../assets/play/HP.png")]
 		public static const HP_IMG:Class;
 		

@@ -10,10 +10,12 @@ package views
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.events.TimerEvent;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.ui.Keyboard;
 	import controls.Clock;
+	import flash.utils.Timer;
 	import models.Player;
 	import units.World;
 	/**
@@ -32,6 +34,9 @@ package views
 		private static const FORMAT_SIZE:Number			= 30;
 		private static const SCORE_X:Number				= 220;
 		private static const SCORE_Y:Number				= 10;
+		
+		public var giude:Bitmap;
+		public var giudeTime:Timer;
 		
 		public var statusBarHP1:HPBar;
 		public var statusBarSP1:SPBar;
@@ -98,6 +103,7 @@ package views
 		//==========
 		
 		private var _world:World = new World();
+		private var showGiudeYet:Boolean = false;
 		public function get world():World { return _world; }
 		
 		//==========
@@ -105,6 +111,10 @@ package views
 		//==========
 		override protected function init(ev:Event = null):void 
 		{	
+			giude = new AssetManager.GIUDE_IMG();
+			giudeTime = new Timer(8000, 1);
+			giudeTime.addEventListener(TimerEvent.TIMER, onTimer);
+			
 			_dateTime = new Clock();
 			
 			ui = new Sprite();
@@ -151,6 +161,8 @@ package views
 		
 		override protected function placeElements():void 
 		{
+			
+			//=======================
 			addChild(_world);
 			addChild(ui);
 			//=========暂停界面=======
@@ -256,7 +268,7 @@ package views
 			
 			score.x = colon.x - 260;
 			_dateTime.x = score.x - 120;
-			scoreBaffle.x = score.x - 140;// score.x / 1.5;
+			scoreBaffle.x = (stage.stageWidth  - scoreBaffle.width)  * 0.5;//score.x - 140;
 			scoreBaffle.y = SCORE_Y - 12;
 			scoreBaffle.width  =  (role2_score.x - score.x) * 1.5;
 			scoreBaffle.height =  (score.height) * 10;
@@ -271,8 +283,23 @@ package views
 			groupScore.addChild(role1_score);
 			groupScore.addChild(colon);
 			groupScore.addChild(role2_score);
+			//=======引导图界面=======
+			giude.smoothing = true;
+			giude.scaleX = 0.7;
+			giude.scaleY = 0.7;
 			
-			//=============================
+			giude.x = (stage.stageWidth  - giude.width)  * 0.5;
+			giude.y = (stage.stageHeight - giude.height) * 0.25;
+			addChild(giude);
+			giudeTime.start();
+			//========================
+		}
+		
+		private function onTimer(e:TimerEvent):void 
+		{
+			removeChild(giude);
+			world.start(type, players);
+			showGiudeYet = true;
 		}
 		
 		private function keyDown(e:KeyboardEvent):void
@@ -325,8 +352,8 @@ package views
 			colon.selectable	= false;
 			role2_score.text	= '0';
 			role2_score.selectable = false;
-			
-			world.start(type, players);
+			if(showGiudeYet == true)
+				world.start(type, players);
 			_dateTime.reset();
 			_dateTime.start();
 		}
