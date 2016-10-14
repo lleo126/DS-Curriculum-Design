@@ -243,7 +243,14 @@ package views
 			labelSmallBall1.text	= "U";
 			labelMiddleBall1.text	= "I";
 			labelBigBall1.text 		= "O";
+			
+			labelRaise1.selectable		= false;
+			labelThrow1.selectable		= false;
+			labelSmallBall1.selectable	= false;
+			labelMiddleBall1.selectable	= false;
+			labelBigBall1.selectable	= false;
 
+			
 			buttonGroupLableOne.x = GROUP_LABLE_ONE_X;
 			buttonGroupLableOne.y = GROUP_LABLE_ONE_Y;
 			
@@ -269,6 +276,11 @@ package views
 			labelSmallBall2.text	= "小键盘4";
 			labelMiddleBall2.text	= "小键盘5";
 			labelBigBall2.text 		= "小键盘6";
+			labelRaise2.selectable		= false;
+			labelThrow2.selectable		= false;
+			labelSmallBall2.selectable	= false;
+			labelMiddleBall2.selectable	= false;
+			labelBigBall2.selectable	= false;
 
 			buttonGroupLableTwo.x = GROUP_LABLE_TWO_X;
 			buttonGroupLableTwo.y = GROUP_LABLE_TWO_Y;

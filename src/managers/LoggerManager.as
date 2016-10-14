@@ -18,7 +18,6 @@ package managers
 		public function LoggerManager(filePath:String) 
 		{
 			this.filePath = filePath;
-			
 			inputStream = new FileStream();
 			inputStream.open(new File(File.applicationDirectory.resolvePath(inputFilePath).nativePath), FileMode.WRITE);
 			outputStream = new FileStream();
