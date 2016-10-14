@@ -118,7 +118,7 @@ package managers
 						{
 							lo = mi;
 						}
-					} while (1.0 < UnitTransform.getDistance(lo, hi))
+					} while (0.5 < UnitTransform.getDistance(lo, hi))
 					LoggerManager.BINARY_SEARCH.output(lo);
 					return lo;
 				}
