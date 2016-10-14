@@ -1,6 +1,7 @@
 package units 
 {
 	import assets.AssetManager;
+	import flash.events.Event;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
@@ -49,7 +50,23 @@ package units
 		
 		override public function setByXML(xml:XML):void 
 		{
+			name = xml.name.text().toString();
 			
+			var ImageClass:Class = AssetManager[xml.img[0].text().toString()];
+			_body = new SpriteEx(new ImageClass());
+			_body.pivotX = parseFloat(xml.pivotX.text().toString());
+			_body.pivotY = parseFloat(xml.pivotY.text().toString());
+			
+			var scale:Number = parseFloat(xml.width.text().toString()) / _body.width;
+			_unitTransform.radius = parseFloat(xml.radius.text().toString()) * scale;
+			_unitTransform.altitude = parseFloat(xml.unitTransform.altitude.text().toString()) * scale;
+			
+			addEventListener(Event.ADDED_TO_STAGE, function ():void 
+			{
+				removeEventListener(Event.ADDED_TO_STAGE, arguments.callee);
+				
+				scaleX = scaleY = scale;
+			});
 		}
 	}
 }
