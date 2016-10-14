@@ -23,8 +23,9 @@ package units
 		/**
 		 * 风的速度，雪花会被风吹飞
 		 */
-		private static var SPEED:Number = MAX_SPEED * 0.5;
-		private static var ORIENTATION:Number = 360.0 * Math.random();
+		private static var SPEED:Number = 0;
+		//private static var ORIENTATION:Number = 360.0 * Math.random();
+		private static var ORIENTATION:Number = 0;
 		
 		
 		init();
@@ -38,7 +39,7 @@ package units
 		public static function update(e:TimerEvent = null):void 
 		{
 			SPEED += (Math.random() < 0.5 ? 1.0 : -1.0) * MAX_SPEED * 0.05 * Math.random();
-			ORIENTATION += (Math.random() < 0.5 ? 1.0 : -1.0) * 10.0 * Math.random();
+			//ORIENTATION += (Math.random() < 0.5 ? 1.0 : -1.0) * 10.0 * Math.random();
 		}
 		
 		public function Snowflake() 
