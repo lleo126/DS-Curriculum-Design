@@ -32,6 +32,8 @@ package managers
 	 */
 	public class CollisionManager 
 	{
+		public static const BOUNDARY:Unit = new Unit();
+		
 		public function CollisionManager
 		(
 			heros:Vector.<Hero>,
@@ -129,6 +131,43 @@ package managers
 		}
 		
 		/**
+		 * 检测所给 ut 是否碰撞到边界
+		 * @param	ut
+		 * @return	若没有碰撞到，返回 null，否则返回碰撞的位置
+		 */
+		public function detectBoundary(ut:UnitTransform, deltaTime:int):UnitTransform
+		{
+			var stageWidth:int = Main.current.stage.stageWidth;
+			var stageHeight:int = Main.current.stage.stageHeight;
+			var pos:UnitTransform = ut.clone();
+			pos.advance(deltaTime);
+			var detected:Boolean = false;
+			
+			if (pos.x - pos.radius < 0.0)
+			{
+				pos.x = pos.radius;
+				detected = true;
+			}
+			if (stageWidth < pos.x + pos.radius)
+			{
+				pos.x = stageWidth - pos.radius;
+				detected = true;
+			}
+			if (pos.y - pos.radius < 0.0)
+			{
+				pos.y = pos.radius;
+				detected = true;
+			}
+			if (stageHeight < pos.y + pos.radius)
+			{
+				pos.y = stageHeight - pos.radius;
+				detected = true;
+			}
+			
+			return detected ? pos : null;
+		}
+		
+		/**
 		 * 检测两个静止单位之间有无碰撞
 		 * @param	ut1
 		 * @param	ut2
@@ -154,6 +193,9 @@ package managers
 				pos:UnitTransform;
 			for (i = 0; i < heroes.length; ++i)
 			{
+				pos = detectBoundary(heroes[i].unitTransform, deltaTime);
+				if (pos) updateBounce(heroes[i], BOUNDARY, pos);
+				
 				for (j = 0; j < monsters.length; ++j) 
 				{
 					pos = detect(heroes[i].unitTransform, monsters[j].unitTransform, deltaTime);
