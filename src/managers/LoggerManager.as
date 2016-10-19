@@ -2,7 +2,6 @@ package managers
 {
 	import flash.desktop.NativeApplication;
 	import flash.events.Event;
-	import flash.events.EventDispatcher;
 	import flash.filesystem.File;
 	import flash.filesystem.FileMode;
 	import flash.filesystem.FileStream;
@@ -62,6 +61,8 @@ package managers
 		
 		private function onApplicationExit(e:Event):void 
 		{
+			NativeApplication.nativeApplication.removeEventListener(Event.EXITING, onApplicationExit);
+			
 			inputStream.close();
 			outputStream.close();
 		}
