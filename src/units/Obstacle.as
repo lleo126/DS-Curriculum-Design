@@ -3,6 +3,9 @@ package units
 	import assets.AssetManager;
 	import events.UnitEvent;
 	import flash.events.Event;
+	import flash.utils.clearInterval;
+	import flash.utils.getTimer;
+	import flash.utils.setInterval;
 	import models.Collision;
 	
 	/**
