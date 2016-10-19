@@ -215,7 +215,7 @@ package managers
 				}
 			}
 			
-			for (i = 0; i < snowballs.length; ++i)
+			for (i = snowballs.length - 1; 0 <= i; --i)
 			{
 				for (j = 0; j < heroes.length; ++j)
 				{
@@ -223,7 +223,7 @@ package managers
 					if (pos) updateBounce(snowballs[i], heroes[j], pos);
 				}
 				
-				for (j = i + 1; j < snowballs.length; ++j)
+				for (j = i - 1; 0 <= j; --j)
 				{
 					pos = detect(snowballs[i].unitTransform, snowballs[j].unitTransform, deltaTime);
 					if (pos) updateBounce(snowballs[i], snowballs[j], pos);
@@ -243,7 +243,7 @@ package managers
 			}
 			
 			var snowflakes:Vector.<Snowflake> = world.snowflakes;
-			for (i = 0; i < snowflakes.length; ++i)
+			for (i = snowflakes.length - 1; 0 <= i; --i)
 			{
 				var snowflake:Snowflake = snowflakes[i];
 				if (snowflake.unitTransform.z < 0.0)

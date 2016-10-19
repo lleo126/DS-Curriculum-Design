@@ -89,6 +89,13 @@ package units
 			});
 		}
 		
+		override public function dispose():void 
+		{
+			//trace( "Snowflake.dispose" );
+			super.dispose();
+			(UnitGenerator.UNIT_FACTORIES['units.Snowflake'] as Factory).returnInstance(this);
+		}
+		
 		override internal function addToWorldUnits(world:World):void 
 		{
 			super.addToWorldUnits(world);
@@ -97,6 +104,8 @@ package units
 		
 		override internal function removeFromWorldUnits():void 
 		{
+			if (!world) return;
+			
 			world.snowflakes.splice(world.snowflakes.indexOf(this), 1);
 			super.removeFromWorldUnits();
 		}
@@ -104,7 +113,7 @@ package units
 		public function melt():void 
 		{
 			world.addSnow(DELTA_SNOW, _unitTransform, _unitTransform.radius * MELT_RANGE_RATIO);
-			removeFromWorld();
+			dispose();
 		}
 	}
 }

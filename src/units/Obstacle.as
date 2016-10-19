@@ -45,7 +45,29 @@ package units
 				removeEventListener(Event.ADDED_TO_STAGE, arguments.callee);
 				
 				scaleY = scaleX = scale;
+				
+				// 临时
+							scaleX = scaleY = 0.0;
+							visible = true;
+							var ot:int = getTimer();
+							var tid:int = setInterval(function ():void 
+							{
+								var t:int = getTimer() - ot;
+								if (500.0 < t)
+								{
+									scaleX = scaleY = scale;
+									clearInterval(tid);
+									return;
+								}
+								scaleX = scaleY = scale * t / 500.0;
+							}, 30);
 			});
+		}
+		
+		override public function dispose():void 
+		{
+			super.dispose();
+			(UnitGenerator.UNIT_FACTORIES['units.Obstacle'] as Factory).returnInstance(this);
 		}
 		
 		override internal function addToWorldUnits(world:World):void 
@@ -56,6 +78,8 @@ package units
 		
 		override internal function removeFromWorldUnits():void 
 		{
+			if (!world) return;
+			
 			world.obstacles.splice(world.obstacles.indexOf(this), 1);
 			super.removeFromWorldUnits();
 		}

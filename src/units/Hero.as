@@ -223,6 +223,8 @@ package units
 		
 		override internal function removeFromWorldUnits():void 
 		{
+			if (!world) return;
+			
 			world.heroes.splice(world.heroes.indexOf(this), 1);
 			super.removeFromWorldUnits();
 		}

@@ -3,7 +3,10 @@ package units
 	import assets.AssetManager;
 	import events.UnitEvent;
 	import flash.events.Event;
+	import flash.utils.clearInterval;
 	import flash.utils.getDefinitionByName;
+	import flash.utils.getTimer;
+	import flash.utils.setInterval;
 	import models.Collision;
 	import units.skills.AddHP;
 	import units.skills.AddSnow;
@@ -61,6 +64,8 @@ package units
 			_bonus = parseFloat(xml.bonus.text().toString());
 			
 			var scale:Number = parseFloat(xml.width.text().toString()) / _body.width;
+			//trace( "name : " + name );
+			//trace( "scale : " + scale );
 			_unitTransform.radius = parseFloat(xml.radius.text().toString()) * scale;
 			_unitTransform.altitude = parseFloat(xml.unitTransform.altitude.text().toString()) * scale;
 			
@@ -69,6 +74,22 @@ package units
 				removeEventListener(Event.ADDED_TO_STAGE, arguments.callee);
 				
 				scaleX = scaleY = scale;
+				
+				// 临时
+							scaleX = scaleY = 0.0;
+							visible = true;
+							var ot:int = getTimer();
+							var tid:int = setInterval(function ():void 
+							{
+								var t:int = getTimer() - ot;
+								if (500.0 < t)
+								{
+									scaleX = scaleY = scale;
+									clearInterval(tid);
+									return;
+								}
+								scaleX = scaleY = scale * t / 500.0;
+							}, 30);
 			});
 			
 			var skillXML:XML = xml.skill[0];
@@ -81,6 +102,15 @@ package units
 			{
 				_skill[param.localName().toString()] = parseFloat(param.text().toString());
 			}
+			
+			//if (!hasEventListener(Event.ADDED_TO_STAGE)) addEventListener(Event.ADDED_TO_STAGE, init);
+		}
+		
+		override public function dispose():void 
+		{
+			super.dispose();
+			_skill = null;
+			(UnitGenerator.UNIT_FACTORIES['units.Item'] as Factory).returnInstance(this);
 		}
 		
 		override internal function addToWorldUnits(world:World):void 
@@ -91,6 +121,8 @@ package units
 		
 		override internal function removeFromWorldUnits():void 
 		{
+			if (!world) return;
+			
 			world.items.splice(world.items.indexOf(this), 1);
 			super.removeFromWorldUnits();
 		}

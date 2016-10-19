@@ -11,12 +11,15 @@ package managers
 	 */
 	public class LoggerManager 
 	{
+		private static const ENABLED:Boolean = false;
 		public static const BINARY_SEARCH:LoggerManager = new LoggerManager('binary-search');
 		public static const CIRCULAR_QUEUE:LoggerManager = new LoggerManager('circular-queue');
 		
 		public function LoggerManager(filePath:String) 
 		{
 			this.filePath = filePath;
+			
+			if (!ENABLED) return;
 			
 			inputStream = new FileStream();
 			inputStream.open(new File(File.applicationDirectory.resolvePath(inputFilePath).nativePath), FileMode.WRITE);
@@ -43,6 +46,8 @@ package managers
 		
 		public function input(...data):void 
 		{
+			if (!ENABLED) return;
+			
 			for (var i:int = 0; i < data.length; i++) 
 			{
 				var line:String = data[i] == null ? 'null' : data[i].toString();
@@ -52,6 +57,8 @@ package managers
 		
 		public function output(...data):void 
 		{
+			if (!ENABLED) return;
+			
 			for (var i:int = 0; i < data.length; i++) 
 			{
 				var line:String = data[i] == null ? 'null' : data[i].toString();
