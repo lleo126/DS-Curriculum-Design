@@ -148,22 +148,22 @@ package views
 
 		}
 		
-		private function onClick(e:MouseEvent):void 
+		private function onClick(e:MouseEvent):void //监听鼠标点击事件
 		{
-			switch (e.target) 
+			switch (e.target) //根据点击事件来确定跳转页面
 			{
-				case buttonChallenge:
+				case buttonChallenge: //挑战界面
 					Main.current.view = View.CHALLENGE_VIEW;
 					break;
-				case buttonBattle:
+				case buttonBattle: //对战界面
 					View.PLAY_VIEW.players = new <Player>[new Player(), new Player()];
 					View.PLAY_VIEW.type = PlayView.BATTLE;
 					Main.current.view = View.PLAY_VIEW;
 					break;
-				case buttonSetting:
+				case buttonSetting://设置界面
 					Main.current.view = View.SETTING_VIEW;
 					break;
-				case buttonExit:
+				case buttonExit://退出游戏
 					NativeApplication.nativeApplication.exit();
 					break;
 				default:

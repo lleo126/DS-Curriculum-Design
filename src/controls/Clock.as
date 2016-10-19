@@ -28,6 +28,7 @@ package controls
 		
 		public function Clock()
 		{
+			selectable	= false;
 			_currentTime = new Date(0, 0, 1, 0, 0, 0, 0);
 			timer.addEventListener(TimerEvent.TIMER, onTimer);
 			update();

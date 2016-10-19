@@ -430,6 +430,11 @@ package units
 				children[i] = unitGroup.getChildAt(i) as Unit; //存储显示实例对象
 			}
 			
+			for( i= 0;i<unitGroup.numChildren;i++)
+			{
+				trace(children[i].unitTransform.y);
+			}
+			
 			//插入排序
 			for (i = 1; i < children.length; ++i ) {
 				var j:int = i;
@@ -440,6 +445,11 @@ package units
 					j--;
 				}
 				children[j] = target;
+			}
+			trace('排序后');
+			for( i= 0;i<unitGroup.numChildren;i++)
+			{
+				trace(children[i].unitTransform.y);
 			}
 			
 			for(i = 0;i<children.length;i++)
