@@ -70,7 +70,7 @@ package units
 		override public function dispose():void 
 		{
 			super.dispose();
-			(UnitGenerator.UNIT_FACTORIES['units.Obstacle'] as Factory).returnInstance(this);
+			(UnitGenerator.UNIT_FACTORIES['units.Obstacle'] as Pool).returnInstance(this);
 		}
 		
 		override internal function addToWorldUnits(world:World):void 

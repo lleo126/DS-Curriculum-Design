@@ -83,7 +83,6 @@ package managers
 		 */
 		public function detect(ut1:UnitTransform, ut2:UnitTransform, deltaTime:int = 0):UnitTransform
 		{
-			LoggerManager.BINARY_SEARCH.input(ut1, ut2, deltaTime);
 			if (!deltaTime) return detectStill(ut1, ut2) ? ut1 : null;
 			
 			// 把当前帧切分为每一次移动都不会穿过物体的小帧
@@ -105,6 +104,7 @@ package managers
 				ut2p.advance(time);
 				if (detectStill(ut1p, ut2p)) // 当检测到两物体发生碰撞
 				{
+					LoggerManager.BINARY_SEARCH.input(ut1p.x, ut1p.y, ut1p.z, ut2p.x, ut2p.y, ut2p.z);
 					var lo:UnitTransform = out1p, // 不变性：lo 未碰撞
 						hi:UnitTransform = ut1p, // hi 必碰撞
 						mi:UnitTransform = lo.clone();
@@ -122,11 +122,10 @@ package managers
 							lo = mi;
 						}
 					} while (0.5 < UnitTransform.getDistance(lo, hi))
-					LoggerManager.BINARY_SEARCH.output(lo);
+					LoggerManager.BINARY_SEARCH.output(lo.x, lo.y, lo.z);
 					return lo;
 				}
 			}
-			LoggerManager.BINARY_SEARCH.output(null);
 			return null;
 		}
 		
@@ -213,6 +212,12 @@ package managers
 					pos = detect(heroes[i].unitTransform, items[j].unitTransform, deltaTime);
 					if (pos) updateBounce(heroes[i], items[j], pos);
 				}
+			}
+			
+			LoggerManager.DEPTH_FIRST_SEARCH.input(snowballs.length);
+			for (i = 0; i < snowballs.length; ++i)
+			{
+				LoggerManager.DEPTH_FIRST_SEARCH.input(snowballs[i].unitTransform);
 			}
 			
 			for (i = snowballs.length - 1; 0 <= i; --i)
@@ -375,6 +380,7 @@ package managers
 				obstacles[i].attacked(snowball, snowball.damage * (snowball.attackRange - getDistanceXoY(explosion.unitTransform, obstacles[i].unitTransform)) / snowball.attackRange);
 			}
 			
+			LoggerManager.DEPTH_FIRST_SEARCH.output(snowballs.indexOf(snowball));
 			snowball.removeFromWorld();
 			
 			// 如果雪球在……，则引爆

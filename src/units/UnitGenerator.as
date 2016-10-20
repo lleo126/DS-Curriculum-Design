@@ -22,10 +22,10 @@ package units
 		public static const CONSTRAIN_HERO_MONSTER:Number = 100.0;
 		public static const UNIT_FACTORIES:Object =
 		{
-			'units.Monster':	new Factory(new Monster()),
-			'units.Item':		new Factory(new Item()),
-			'units.Obstacle':	new Factory(new Obstacle()),
-			'units.Snowflake':	new Factory(new Snowflake())
+			'units.Monster':	new Pool(new Monster()),
+			'units.Item':		new Pool(new Item()),
+			'units.Obstacle':	new Pool(new Obstacle()),
+			'units.Snowflake':	new Pool(new Snowflake())
 		};
 		
 		private static const MONSTER:String		= 'monster';
@@ -102,8 +102,6 @@ package units
 		public function randomUnit(xml:XML):Unit 
 		{
 			var klass:String = xml.@klass.toString();
-			//var UnitClass:Class = getDefinitionByName(xml.@klass.toString()) as Class;
-			//var unit:Unit = new UnitClass();
 			var unit:Unit = UNIT_FACTORIES[klass].getInstance();
 			var children:XMLList = xml.children();
 			var unitXML:XML = children[Math.floor(Math.random() * children.length())];

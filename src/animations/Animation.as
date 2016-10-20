@@ -7,6 +7,8 @@ package animations
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import interfaces.IUpdate;
+	import managers.Logger;
+	import managers.LoggerManager;
 	import units.Unit;
 	
 	[event(Event.COMPLETE)]
@@ -26,6 +28,7 @@ package animations
 		
 		protected var imgNow:Bitmap;
 		protected var WIDTH:Number;
+		private var logger:Logger = LoggerManager.CIRCULAR_QUEUE.newLogger();
 		
 		public function Animation(unit:Unit = null) 
 		{
@@ -98,6 +101,8 @@ package animations
 		//时间间隔判断，决定是否调到下一张图下标
 		protected function enterFrame(deltaTime:int):void 
 		{
+			logger.input(deltaTime);
+			
 			//当前的时间加上传入间隔时间
 			timeNow += deltaTime;
 		
@@ -113,6 +118,8 @@ package animations
 				}
 				timeNum = timeNow / _delay;
 			}
+			
+			logger.output(timeNum);
 		}
 		
 		//加载图片的功能

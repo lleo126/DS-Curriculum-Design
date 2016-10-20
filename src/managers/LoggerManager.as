@@ -11,9 +11,12 @@ package managers
 	 */
 	public class LoggerManager 
 	{
-		private static const ENABLED:Boolean = false;
+		private static const ENABLED:Boolean = true;
+		public static const INSERTION_SORT:LoggerManager = new LoggerManager('insertion-sort');
 		public static const BINARY_SEARCH:LoggerManager = new LoggerManager('binary-search');
 		public static const CIRCULAR_QUEUE:LoggerManager = new LoggerManager('circular-queue');
+		public static const MATRIX:LoggerManager = new LoggerManager('matrix');
+		public static const DEPTH_FIRST_SEARCH:LoggerManager = new LoggerManager('depth-first-search');
 		
 		public function LoggerManager(filePath:String) 
 		{
@@ -46,24 +49,26 @@ package managers
 		
 		public function input(...data):void 
 		{
-			if (!ENABLED) return;
-			
-			for (var i:int = 0; i < data.length; i++) 
-			{
-				var line:String = data[i] == null ? 'null' : data[i].toString();
-				inputStream.writeUTFBytes(line + '\n');
-			}
+			write.apply(this, [inputStream].concat(data));
 		}
 		
 		public function output(...data):void 
+		{
+			write.apply(this, [outputStream].concat(data));
+		}
+		
+		private function write(stream:FileStream, ...data):void 
 		{
 			if (!ENABLED) return;
 			
 			for (var i:int = 0; i < data.length; i++) 
 			{
-				var line:String = data[i] == null ? 'null' : data[i].toString();
-				outputStream.writeUTFBytes(line + '\n');
+				if (i) stream.writeUTFBytes(' ')
+				
+				var text:String = data[i] == null ? 'null' : data[i].toString();
+				stream.writeUTFBytes(text);
 			}
+			stream.writeUTFBytes('\n');
 		}
 		
 		private function onApplicationExit(e:Event):void 

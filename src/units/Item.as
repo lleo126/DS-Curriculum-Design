@@ -64,8 +64,6 @@ package units
 			_bonus = parseFloat(xml.bonus.text().toString());
 			
 			var scale:Number = parseFloat(xml.width.text().toString()) / _body.width;
-			//trace( "name : " + name );
-			//trace( "scale : " + scale );
 			_unitTransform.radius = parseFloat(xml.radius.text().toString()) * scale;
 			_unitTransform.altitude = parseFloat(xml.unitTransform.altitude.text().toString()) * scale;
 			
@@ -102,15 +100,13 @@ package units
 			{
 				_skill[param.localName().toString()] = parseFloat(param.text().toString());
 			}
-			
-			//if (!hasEventListener(Event.ADDED_TO_STAGE)) addEventListener(Event.ADDED_TO_STAGE, init);
 		}
 		
 		override public function dispose():void 
 		{
 			super.dispose();
 			_skill = null;
-			(UnitGenerator.UNIT_FACTORIES['units.Item'] as Factory).returnInstance(this);
+			(UnitGenerator.UNIT_FACTORIES['units.Item'] as Pool).returnInstance(this);
 		}
 		
 		override internal function addToWorldUnits(world:World):void 

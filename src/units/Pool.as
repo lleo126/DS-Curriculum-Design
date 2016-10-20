@@ -3,12 +3,12 @@ package units
 	import avmplus.getQualifiedClassName;
 	import flash.utils.getDefinitionByName;
 	/**
-	 * 工厂类
+	 * 对象池
 	 * @author 彩月葵☆彡
 	 */
-	public class Factory 
+	public class Pool 
 	{
-		public function Factory(instance:*) 
+		public function Pool(instance:*) 
 		{
 			klass = getDefinitionByName(getQualifiedClassName(instance)) as Class;
 			returnInstance(instance);

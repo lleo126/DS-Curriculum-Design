@@ -93,7 +93,7 @@ package units
 		{
 			//trace( "Snowflake.dispose" );
 			super.dispose();
-			(UnitGenerator.UNIT_FACTORIES['units.Snowflake'] as Factory).returnInstance(this);
+			(UnitGenerator.UNIT_FACTORIES['units.Snowflake'] as Pool).returnInstance(this);
 		}
 		
 		override internal function addToWorldUnits(world:World):void 
