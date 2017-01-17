@@ -7,6 +7,8 @@ package animations
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import interfaces.IUpdate;
+	import managers.Logger;
+	import managers.LoggerManager;
 	import units.Unit;
 	
 	[event(Event.COMPLETE)]
@@ -26,6 +28,7 @@ package animations
 		
 		protected var imgNow:Bitmap;
 		protected var WIDTH:Number;
+		private var logger:Logger = LoggerManager.CIRCULAR_QUEUE.newLogger();
 		
 		public function Animation(unit:Unit = null) 
 		{
@@ -95,13 +98,19 @@ package animations
 			
 		}
 		
+		//时间间隔判断，决定是否调到下一张图下标
 		protected function enterFrame(deltaTime:int):void 
 		{
+			logger.input(deltaTime);
+			
+			//当前的时间加上传入间隔时间
 			timeNow += deltaTime;
 		
 			// TODO: 还是停留在同一帧就不用渲染
+			// 如果大于下一帧的图片的起始时间，下标加一
 			if (timeNow >= (timeNum + 1) * _delay)
 			{
+				//如果超过最大下标，返回第一个下标
 				if (timeNow >= timeMax)
 				{
 					timeNow = timeNow - timeMax;
@@ -109,13 +118,18 @@ package animations
 				}
 				timeNum = timeNow / _delay;
 			}
+			
+			logger.output(timeNum);
 		}
 		
+		//加载图片的功能
 		private function renderImg():void 
 		{
+			//图片填充
 			imgNow.bitmapData.lock();
 			imgNow.bitmapData.fillRect(selfRect, 0xFFFFFF);
 			imgNow.bitmapData.copyPixels(_img.bitmapData, clipRect, origin, null, null, true);
+			//根据enterFrame方法决定的图的下标决定下一次加载的图片的X坐标
 			clipRect.x = timeNum * WIDTH;
 			imgNow.bitmapData.unlock();
 			imgNow.smoothing = true;

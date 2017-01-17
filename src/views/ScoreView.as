@@ -1,6 +1,7 @@
 package views
 {
 	import assets.AssetManager;
+	import controls.Stamp;
 	import flash.display.Bitmap;
 	import flash.display.Shader;
 	import flash.display.Shape;
@@ -36,8 +37,8 @@ package views
 		static public const CHALLENGE_TWO_SHOW1_X:Number = 60;
 		static public const CHALLENGE_TWO_SHOW2_X:Number = 500;
 		static public const CHALLENGE_ONE_SHOW1_X:Number = 200;
-		static public const FAIL_X:Number = 400;
-		static public const WIN_X:Number = -40;
+		static public const FAIL_X:Number = 660.0;
+		static public const WIN_X:Number = 210.0;
 		static public const BATTLE_SCORE_X1:Number = 30;
 		static public const BATTLE_SCORE_X2:Number = 470;
 		static public const BATTLE_SCORE_Y:Number = 360;
@@ -57,6 +58,7 @@ package views
 		static public const SCORE_X:Number = 360;
 		static public const SCORE_WIDTH:Number = 300;
 		static public const SCORE_HEIGHT:Number	= 170;
+		public static const STATUS_WIDTH:Number = 160.0;
 		
 		//按钮组定义
 		private var buttonGroup:Sprite;
@@ -68,8 +70,8 @@ package views
 		private var background:Bitmap;
 		private var scorePlayerShow1:TextField;
 		private var scorePlayerShow2:TextField;
-		private var win:TextField;
-		private var fail:TextField;
+		//private var win:TextField;
+		//private var fail:TextField;
 		private var scorePlayer1:Number;
 		private var scorePlayer2:Number;
 		private var format:TextFormat = new TextFormat();
@@ -89,6 +91,8 @@ package views
 		
 		//标题
 		private var score:Bitmap;
+		private var win:Stamp;
+		private var fail:Stamp;
 		
 		public function ScoreView()
 		{
@@ -114,16 +118,18 @@ package views
 			scorePlayerShow2.width = SHOW_WIDTH;
 			
 			format.size = FORMAT_BATTLE_WORLD_SIZE;
-			win = new TextField();
-			win.defaultTextFormat = format;
-			win.text = '胜!';
-			win.textColor = 0xFF0000;
-			fail = new TextField();
-			fail.defaultTextFormat = format;
-			fail.text = '败!';
-			fail.textColor = 0xADD8E6;
-			win.width = SHOW_WIDTH;
-			fail.width = SHOW_WIDTH;
+			win = new Stamp(new AssetManager.WON_IMG());
+			win.beginWidth = STATUS_WIDTH * 2.0;
+			win.beginHeight = win.beginWidth * win.height / win.width;
+			win.endWidth = STATUS_WIDTH;
+			win.endHeight = win.endWidth * win.height / win.width;
+			fail = new Stamp(new AssetManager.LOST_IMG());
+			fail.beginWidth = STATUS_WIDTH * 2.0;
+			fail.beginHeight = fail.beginWidth * fail.height / fail.width;
+			fail.endWidth = STATUS_WIDTH;
+			fail.endHeight = fail.endWidth * fail.height / fail.width;
+			//win.width = SHOW_WIDTH;
+			//fail.width = SHOW_WIDTH;
 			
 			line1 = new Shape();
 			line2 = new Shape();
@@ -170,9 +176,7 @@ package views
 		
 		override protected function placeElements():void
 		{
-			
 			//分数类显示
-			
 			background.x = (stage.stageWidth - background.width) * 0.5;
 			addChild(background);
 			addChild(scoreGroup);
@@ -288,7 +292,8 @@ package views
 			super.activate(ev);
 			
 			placeElements();
+			win.play(700.0);
+			fail.play(700.0);
 		}
 	}
-
 }

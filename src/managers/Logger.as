@@ -15,16 +15,16 @@ package managers
 		private var id:Number;
 		private var manager:LoggerManager;
 		
-		private function get prefix():String { return id == -1 ? '' : '#' + id.toString() + ': '; }
+		private function get prefix():String { return id == -1 ? '' : '#' + id.toString(); }
 		
 		public function input(...data):void 
 		{
-			manager.input([prefix].concat(data));
+			manager.input.apply(this, [prefix].concat(data));
 		}
 		
 		public function output(...data):void 
 		{
-			manager.output([prefix].concat(data));
+			manager.output.apply(this, [prefix].concat(data));
 		}
 	}
 }

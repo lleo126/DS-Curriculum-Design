@@ -48,11 +48,16 @@ package animations
 			selfRect = new Rectangle(0, 0, imgNow.bitmapData.width, imgNow.bitmapData.height)
 		}
 		
+		//查找是否是下一行的图片
 		public function findRow():void
 		{
+			//初始化为0
 			rowNow = 0;
+			//按顺序查找正确的下标
 			while (rowNow< _row && angleBegin + rowNow*angle < unit.unitTransform.orientation) rowNow++;
+			//如果超过最大下标，则返回第一个下标
 			rowNow = rowNow == _row?0:rowNow;
+			//最终决定最后的行数
 			clipRect.y = rowNow * HEIGHT;
 		}
 		

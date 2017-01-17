@@ -35,8 +35,8 @@ package views
 		private static const SCORE_X:Number				= 220;
 		private static const SCORE_Y:Number				= 10;
 		
-		public var giude:Bitmap;
-		public var giudeTime:Timer;
+		public var guide:Bitmap;
+		public var guideTimer:Timer;
 		
 		public var statusBarHP1:HPBar;
 		public var statusBarSP1:SPBar;
@@ -111,9 +111,9 @@ package views
 		//==========
 		override protected function init(ev:Event = null):void 
 		{	
-			giude = new AssetManager.GIUDE_IMG();
-			giudeTime = new Timer(5000, 1);
-			giudeTime.addEventListener(TimerEvent.TIMER, onTimer);
+			guide = new AssetManager.GIUDE_IMG();
+			guideTimer = new Timer(Main.DEBUG ? 0 : 5000, 1);
+			guideTimer.addEventListener(TimerEvent.TIMER, onTimer);
 			_dateTime = new Clock();
 			
 			ui = new Sprite();
@@ -283,20 +283,20 @@ package views
 			groupScore.addChild(colon);
 			groupScore.addChild(role2_score);
 			//=======引导图界面=======
-			giude.smoothing = true;
-			giude.scaleX = 0.7;
-			giude.scaleY = 0.7;
+			guide.smoothing = true;
+			guide.scaleX = 0.7;
+			guide.scaleY = 0.7;
 			
-			giude.x = (stage.stageWidth  - giude.width)  * 0.5;
-			giude.y = (stage.stageHeight - giude.height) * 0.25;
-			addChild(giude);
-			giudeTime.start();
+			guide.x = (stage.stageWidth  - guide.width)  * 0.5;
+			guide.y = (stage.stageHeight - guide.height) * 0.25;
+			addChild(guide);
+			guideTimer.start();
 			//========================
 		}
 		
-		private function onTimer(e:TimerEvent):void 
+		private function onTimer(e:TimerEvent = null):void 
 		{
-			removeChild(giude);
+			removeChild(guide);
 			world.start(type, players);
 			showGiudeYet = true;
 		}

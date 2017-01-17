@@ -62,6 +62,8 @@ package units
 		
 		override internal function removeFromWorldUnits():void 
 		{
+			if (!world) return;
+			
 			world.snowballs.splice(world.snowballs.indexOf(this), 1);
 			super.removeFromWorldUnits();
 		}

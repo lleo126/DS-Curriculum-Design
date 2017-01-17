@@ -19,6 +19,13 @@ package units
 	{
 		public static const CONSTRAIN_HERO_HERO:Number = 300.0;
 		public static const CONSTRAIN_HERO_MONSTER:Number = 100.0;
+		public static const UNIT_FACTORIES:Object =
+		{
+			'units.Monster':	new Pool(new Monster()),
+			'units.Item':		new Pool(new Item()),
+			'units.Obstacle':	new Pool(new Obstacle()),
+			'units.Snowflake':	new Pool(new Snowflake())
+		};
 		
 		private static const MONSTER:String		= 'monster';
 		private static const ITEM:String		= 'item';
@@ -93,10 +100,10 @@ package units
 		 */
 		public function randomUnit(xml:XML):Unit 
 		{
-			var UnitClass:Class = getDefinitionByName(xml.@klass.toString()) as Class;
+			var klass:String = xml.@klass.toString();
+			var unit:Unit = UNIT_FACTORIES[klass].getInstance();
 			var children:XMLList = xml.children();
 			var unitXML:XML = children[Math.floor(Math.random() * children.length())];
-			var unit:Unit = new UnitClass();
 			unit.setByXML(unitXML);
 			return unit;
 		}
@@ -146,37 +153,35 @@ package units
 			{
 				return function (e:TimerEvent):void 
 				{
-					//var timer:Timer = e.currentTarget as Timer;
-					//timer.delay
 					option = options[type] as GenerationOption;
 					if (world[type + 's'].length == option.maxUnit) return;
 					
 					// TODD: 封装单位生成效果
 					var unit:Unit = randomUnit(option.xml);
-					if (!(unit is Snowflake))
-					{
-						unit.visible = false;
-						unit.addEventListener(Event.ADDED_TO_STAGE, function ():void 
-						{
-							removeEventListener(Event.ADDED_TO_STAGE, arguments.callee);
-							
-							var scale:Number = unit.scaleX;
-							unit.scaleX = unit.scaleY = 0.0;
-							unit.visible = true;
-							var ot:int = getTimer();
-							var tid:int = setInterval(function ():void 
-							{
-								var t:int = getTimer() - ot;
-								if (500.0 < t)
-								{
-									unit.scaleX = unit.scaleY = scale;
-									clearInterval(tid);
-									return;
-								}
-								unit.scaleX = unit.scaleY = scale * t / 500.0;
-							}, 30);
-						})
-					}
+					//if (!(unit is Snowflake))
+					//{
+						//unit.visible = false;
+						//unit.addEventListener(Event.ADDED_TO_STAGE, function ():void 
+						//{
+							//removeEventListener(Event.ADDED_TO_STAGE, arguments.callee);
+							//
+							//var scale:Number = unit.scaleX;
+							//unit.scaleX = unit.scaleY = 0.0;
+							//unit.visible = true;
+							//var ot:int = getTimer();
+							//var tid:int = setInterval(function ():void 
+							//{
+								//var t:int = getTimer() - ot;
+								//if (500.0 < t)
+								//{
+									//unit.scaleX = unit.scaleY = scale;
+									//clearInterval(tid);
+									//return;
+								//}
+								//unit.scaleX = unit.scaleY = scale * t / 500.0;
+							//}, 30);
+						//})
+					//}
 					dropUnit(unit);
 				}
 			}

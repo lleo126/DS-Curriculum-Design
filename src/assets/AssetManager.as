@@ -165,6 +165,12 @@ package assets
 		
 		[Embed(source="../../assets/score/Return_Game.png")]
 		public static const RETURN_GAME_IMG_SCORE:Class;
+		
+		[Embed(source = "../../assets/Score/Won.png")]
+		public static const WON_IMG:Class;
+		
+		[Embed(source = "../../assets/Score/Lost.png")]
+		public static const LOST_IMG:Class;
 
 		//========游戏基本单位图片==/
 		[Embed(source="../../assets/Play/Grass.png")]

@@ -22,7 +22,7 @@ package units
 		public function Unit() 
 		{
 			_unitTransform = new UnitTransform(this);
-			dropShadow = new DropShadow(this);
+			//dropShadow = new DropShadow(this);
 			addEventListener(Event.ADDED_TO_STAGE, init);
 			addEventListener(UnitEvent.DEATH, onDeath);
 		}
@@ -35,6 +35,7 @@ package units
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
+			dropShadow = new DropShadow(this);
 			addChild(dropShadow);
 			addChild(body);
 			update(0);
@@ -172,13 +173,23 @@ package units
 				graphics.lineStyle(3, 0x4186F4);
 				graphics.drawEllipse(-unitTransform.radius / scaleX, -unitTransform.top / scaleX, 2.0 * unitTransform.radius / scaleX, unitTransform.altitude / scaleX);
 			}
-			dropShadow.update(deltaTime);
+			if (dropShadow) dropShadow.update(deltaTime);
 			body.update(deltaTime);
 		}
 		
 		public function dispose():void 
 		{
 			removeFromWorld();
+			removeFromWorldUnits();
+			owner = null;
+			if (_body.parent == this) removeChild(_body);
+			_body = null;
+			if (dropShadow && dropShadow.parent == this) removeChild(dropShadow);
+			_unitTransform = null;
+			_unitTransform = new UnitTransform(this);
+			_status = UnitStatus.STANDING;
+			scaleX = scaleY = 1.0;
+			addEventListener(Event.ADDED_TO_STAGE, init);
 		}
 		
 		/**
@@ -191,6 +202,8 @@ package units
 		
 		public function removeFromWorld():void 
 		{
+			if (!world) return;
+			
 			world.removeUnit(this);
 		}
 		

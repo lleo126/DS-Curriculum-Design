@@ -3,7 +3,10 @@ package units
 	import assets.AssetManager;
 	import events.UnitEvent;
 	import flash.events.Event;
+	import flash.utils.clearInterval;
 	import flash.utils.getDefinitionByName;
+	import flash.utils.getTimer;
+	import flash.utils.setInterval;
 	import models.Collision;
 	import units.skills.AddHP;
 	import units.skills.AddSnow;
@@ -69,6 +72,22 @@ package units
 				removeEventListener(Event.ADDED_TO_STAGE, arguments.callee);
 				
 				scaleX = scaleY = scale;
+				
+				// 临时
+							scaleX = scaleY = 0.0;
+							visible = true;
+							var ot:int = getTimer();
+							var tid:int = setInterval(function ():void 
+							{
+								var t:int = getTimer() - ot;
+								if (500.0 < t)
+								{
+									scaleX = scaleY = scale;
+									clearInterval(tid);
+									return;
+								}
+								scaleX = scaleY = scale * t / 500.0;
+							}, 30);
 			});
 			
 			var skillXML:XML = xml.skill[0];
@@ -83,6 +102,13 @@ package units
 			}
 		}
 		
+		override public function dispose():void 
+		{
+			super.dispose();
+			_skill = null;
+			(UnitGenerator.UNIT_FACTORIES['units.Item'] as Pool).returnInstance(this);
+		}
+		
 		override internal function addToWorldUnits(world:World):void 
 		{
 			super.addToWorldUnits(world);
@@ -91,6 +117,8 @@ package units
 		
 		override internal function removeFromWorldUnits():void 
 		{
+			if (!world) return;
+			
 			world.items.splice(world.items.indexOf(this), 1);
 			super.removeFromWorldUnits();
 		}

@@ -16,6 +16,7 @@ package units
 	import flash.geom.Rectangle;
 	import flash.utils.getTimer;
 	import managers.CollisionManager;
+	import managers.LoggerManager;
 	import models.GenerationOption;
 	import models.Player;
 	import models.PlayerStatus;
@@ -363,12 +364,14 @@ package units
 		 */
 		public function addSnow(deltaSnow:Number, unitTransform:UnitTransform, radius:Number):Number 
 		{
+			LoggerManager.MATRIX.input(deltaSnow, unitTransform.x, unitTransform.y, unitTransform.z, radius);
+			
 			var snowSum:Number = 0.0, diameter:int = 2.0 * radius,
 				originX:int = radius, originY:int = radius,
 				startX:int = unitTransform.x - radius, startY:int = unitTransform.y - radius,
 				area:Rectangle = new Rectangle(startX, startY, diameter, diameter),
 				offsetX:int = 0, offsetY:int = 0;
-				
+			
 			// 修正边角情况
 			if (area.left < 0) offsetX -= area.left;
 			if (stage.stageWidth <= area.right) diameter += stage.stageWidth - area.right; 
@@ -380,12 +383,12 @@ package units
 			{
 				var nextY:int = (i + offsetX * (nextY + 1)) / diameter + offsetY,
 					nextX:int = (i + offsetX * (nextY + 1)) % diameter;
-					
+				
 				var distance:Number = Math.sqrt((originX - nextX) * (originX - nextX) + (originY - nextY) * (originY - nextY));
 				if (nextX < 0 || snowfallData.width		<= nextX
 				||	nextY < 0 || snowfallData.height	<= nextY
 				||	radius < distance) continue;
-					
+				
 				var deltaAlpha:int = deltaSnow * (radius - distance) / radius,
 					alpha:uint = vector[i] >>> 24,
 					nextAlpha:uint = alpha + deltaAlpha;
@@ -405,6 +408,7 @@ package units
 			snowfallData.setVector(area, vector);
 			snowfallData.unlock();
 			
+			LoggerManager.MATRIX.output(snowSum);
 			return snowSum;
 		}
 		
@@ -424,24 +428,45 @@ package units
 		private function zSort():void
 		{
 			var i:int;
+			var childrenID:Vector.<int> = new Vector.<int>(unitGroup.numChildren, true);
+			for( i= 0;i<childrenID.length;i++)
+			{
+				childrenID[i] = i;
+			}
+			
 			var children:Vector.<Unit> = new Vector.<Unit>(unitGroup.numChildren, true);
 			for( i= 0;i<unitGroup.numChildren;i++)
 			{
 				children[i] = unitGroup.getChildAt(i) as Unit; //存储显示实例对象
 			}
 			
+			LoggerManager.INSERTION_SORT.input(unitGroup.numChildren);
+			for( i= 0;i<unitGroup.numChildren;i++)
+			{
+				LoggerManager.INSERTION_SORT.input(children[i].unitTransform.x, children[i].unitTransform.y, children[i].unitTransform.z);
+			}
+			
 			//插入排序
 			for (i = 1; i < children.length; ++i ) {
 				var j:int = i;
 				var target:Unit = children[i];
+				var targetID:int = childrenID[i];
 				while (j > 0 && target.unitTransform.y <= children[j - 1].unitTransform.y) {
 					if (target.unitTransform.y == children[j - 1].unitTransform.y &&
 						target.unitTransform.z > children[j - 1].unitTransform.z) break;
 					children[j] = children[j - 1];
+					childrenID[j] = childrenID[j - 1];
 					j--;
 				}
 				children[j] = target;
+				childrenID[j] = targetID;
 			}
+			
+			for( i= 0;i<childrenID.length;i++)
+			{
+				LoggerManager.INSERTION_SORT.output(childrenID[i]);
+			}
+			LoggerManager.INSERTION_SORT.output('');
 			
 			for(i = 0;i<children.length;i++)
 			{
