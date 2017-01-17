@@ -2,6 +2,7 @@ package views
 {
 	import assets.AssetManager;
 	import controls.APBar;
+	import controls.Clock;
 	import controls.HPBar;
 	import controls.SPBar;
 	import flash.display.Bitmap;
@@ -14,7 +15,6 @@ package views
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.ui.Keyboard;
-	import controls.Clock;
 	import flash.utils.Timer;
 	import models.Player;
 	import units.World;

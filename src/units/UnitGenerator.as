@@ -1,6 +1,5 @@
 package units 
 {
-	import assets.AssetManager;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.TimerEvent;

@@ -1,9 +1,7 @@
 package units 
 {
 	import assets.AssetManager;
-	import events.UnitEvent;
 	import flash.events.Event;
-	import models.Collision;
 	
 	/**
 	 * 障碍物

@@ -435,7 +435,8 @@ package units
 				var j:int = i;
 				var target:Unit = children[i];
 				while (j > 0 && target.unitTransform.y <= children[j - 1].unitTransform.y) {
-					if (target.unitTransform.y == children[j - 1].unitTransform.y && target.unitTransform.z > children[j - 1].unitTransform.z) break;
+					if (target.unitTransform.y == children[j - 1].unitTransform.y &&
+						target.unitTransform.z > children[j - 1].unitTransform.z) break;
 					children[j] = children[j - 1];
 					j--;
 				}
